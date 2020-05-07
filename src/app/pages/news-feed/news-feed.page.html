@@ -1,0 +1,33 @@
+<ion-header [translucent]="true" style="background-color:#128C7E">
+  <ion-toolbar color="#128C7E">
+    <ion-grid class="header-grid" style="background-color:#128C7E">
+      <ion-row class="ion-align-items-baseline">
+        <ion-col class="ion-justify-content-start">
+          <ion-buttons class="ion-justify-content-start"> 
+            <ion-button class="ion-justify-content-start circle-pic">
+              <img class="img-center circle-pic" src="../../assets/defaultuser.png">
+            </ion-button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col class="ion-justify-self-bottom"> 
+          <img height="60px" width="120px" src="../../assets/whiteLogo.png">
+        </ion-col>
+        <ion-col class="ion-justify-content-end">
+          <ion-buttons class="ion-justify-content-end"> 
+            <ion-button class="ion-justify-content-end">  
+              <img class="img-center" src="../../assets/UI/search-outline.svg">
+            </ion-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="false" color="light">
+  <post [items]="items"></post>
+</ion-content>
+  <ion-fab class="map-filter" vertical="bottom">
+    <ion-button class="center-any-object" fill="clear">
+      <img src="../../assets/UI/FilterClosed.svg">
+    </ion-button>
+  </ion-fab>

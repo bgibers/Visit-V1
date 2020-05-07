@@ -13,7 +13,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+              import('../pages/news-feed/news-feed.module').then(m => m.NewsFeedPageModule)
           }
         ]
       },
@@ -23,30 +23,20 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
-          }
-        ]
-      },
-      {
-        path: 'tab3',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+              import('../pages/notifications-page/notifications.module').then(m => m.NotificationsPageModule)
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tab-bar/tab1',
+        redirectTo: '/tabs/tab1',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tab-bar/tab1',
+    redirectTo: '/tabs/tab1',
     pathMatch: 'full'
   }
 ];

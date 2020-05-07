@@ -1,0 +1,16 @@
+ion-content ion-toolbar {
+  --background: translucent;
+}
+
+.user-pic{
+  width:40px;
+  height:40px;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.comments-grid {
+  --ion-grid-columns: 3;
+  --ion-grid-column-padding:1px;
+  --ion-grid-padding:1px;
+  }
