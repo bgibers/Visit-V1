@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { SearchPage } from '../modals/search/search.page';
+import { MapFilterPage } from '../modals/map-filter/map-filter.page';
 
 
 @Component({
@@ -24,7 +27,7 @@ export class NewsFeedPage implements OnInit {
     'knight-rider',
     'mirth-mobile'
   ];
-  constructor() {
+  constructor(public modalController: ModalController) {
   }
 
   ngOnInit() {
@@ -44,6 +47,15 @@ export class NewsFeedPage implements OnInit {
     }
   }
 
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: SearchPage,
+      showBackdrop: true,
+      cssClass: 'search-modal'
+    });
+    return await modal.present();
+  }
+
  getImgSrc() {
     const src = 'https://dummyimage.com/600x400/${Math.round( Math.random() * 99999)}/fff.png';
     this.rotateImg++;
@@ -55,6 +67,13 @@ export class NewsFeedPage implements OnInit {
     } else {
       return undefined;
     }
+  }
+  async presentMapFilter() {
+    const modal = await this.modalController.create({
+      component: MapFilterPage,
+      showBackdrop: true
+    });
+    return await modal.present();
   }
 }
 

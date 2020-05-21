@@ -37,13 +37,21 @@ ion-toolbar{
 }
 
 .map-filter{
-  display: flex;
-  width: 100%;
-  flex-direction: row;
   justify-content: center;
-  width: 153!important;
-  height: 75!important;
+  width: 100%;
 }
+
+.map-filter-fab{
+  justify-content: center;
+  width: 100%;
+}
+
+// .button:hover {
+//   background-color: #2EE59D;
+//   box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+//   color: #fff;
+//   transform: translateY(-7px);
+// }
 
 .btn {
   border: none;

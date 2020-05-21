@@ -1,6 +1,6 @@
 <ion-header [translucent]="true" style="background-color:#128C7E">
   <ion-toolbar color="#128C7E">
-    <ion-grid class="header-grid" style="background-color:#128C7E">
+    <ion-grid class="header-grid">
       <ion-row class="ion-align-items-baseline">
         <ion-col class="ion-justify-content-start">
           <ion-buttons class="ion-justify-content-start"> 
@@ -14,8 +14,8 @@
         </ion-col>
         <ion-col class="ion-justify-content-end">
           <ion-buttons class="ion-justify-content-end"> 
-            <ion-button class="ion-justify-content-end">  
-              <img class="img-center" src="../../assets/UI/search-outline.svg">
+            <ion-button class="ion-justify-content-end" (click)="presentModal()">  
+              <img class="img-center" src="../../assets/UI/search-outline.svg" >
             </ion-button>
           </ion-buttons>
         </ion-col>
@@ -23,11 +23,11 @@
     </ion-grid>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="false" color="light">
+<ion-content [fullscreen]="false" color="light" [scrollEvents]="true">
   <post [items]="items"></post>
 </ion-content>
-  <ion-fab class="map-filter" vertical="bottom">
-    <ion-button class="center-any-object" fill="clear">
-      <img src="../../assets/UI/FilterClosed.svg">
-    </ion-button>
-  </ion-fab>
+<ion-fab class="map-filter-fab" vertical="bottom">
+  <ion-button class="map-filter" fill="clear" (click)="presentMapFilter()">
+    <img src="../../assets/UI/FilterClosed.svg">
+  </ion-button>
+</ion-fab>

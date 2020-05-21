@@ -1,0 +1,38 @@
+<ion-toolbar>
+  <ion-buttons slot="end">
+    <ion-button large (click)="dismiss()" slot="end">
+      <ion-icon class="close-icon" name="close"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-searchbar spellcheck="true"></ion-searchbar>
+<ion-content>
+  <ion-virtual-scroll [items]="people">
+    <ion-card (click)="dismiss()" *virtualItem="let item; let itemBounds = bounds;">
+      <ion-grid class="search-grid">
+        <ion-row>
+          <ion-col class="ion-align-self-center">
+            <ion-row class="ion-align-items-center">
+              <ion-col>
+                <img src="../../../assets/stockPhoto.png" class="user-pic img-center">
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col size="1.5" class="ion-align-self-center"> 
+            <ion-row>
+              <ion-col>
+                <ion-text color="dark">{{item.name}}</ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-text>{{item.location}}</ion-text>
+              </ion-col>
+            </ion-row>          
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </ion-virtual-scroll>
+</ion-content>

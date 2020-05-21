@@ -1,6 +1,6 @@
-ion-content ion-toolbar {
-  --background: translucent;
-}
+// ion-content ion-toolbar {
+//   --background: translucent;
+// }
 
 .user-pic{
   width:40px;
@@ -9,8 +9,16 @@ ion-content ion-toolbar {
   border-radius: 50%;
 }
 
+// .notifications-list {
+//   background: rgba(18, 140, 126) !important; 
+// }
 .comments-grid {
   --ion-grid-columns: 3;
   --ion-grid-column-padding:1px;
   --ion-grid-padding:1px;
   }
+
+ion-card {
+  margin-bottom: 0px !important;
+  margin-top: 4px !important;
+}

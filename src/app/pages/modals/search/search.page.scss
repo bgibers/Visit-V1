@@ -1,0 +1,41 @@
+ion-content{
+    --background: transparent;
+}
+
+ion-toolbar{
+    --background: transparent;
+}
+
+ion-searchbar{
+    --background: #128C7E;
+    --color: white;
+    --icon-color: white;
+}
+
+.close-icon {
+    font-size: 30px; 
+    color: white;
+}
+
+ion-header{
+    border-radius: 25px;
+}
+
+.search-grid {
+    --ion-grid-columns: 2;
+    --ion-grid-column-padding:1px;
+    --ion-grid-padding:1.5px;
+}
+
+ion-card {
+    background: rgba(255, 255, 255, 0.9);
+    margin-bottom: 5px !important;
+    margin-top: 4px !important;
+}
+
+.user-pic{
+    width:45px;
+    height:45px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+  }

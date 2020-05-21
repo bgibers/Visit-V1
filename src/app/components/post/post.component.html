@@ -1,5 +1,8 @@
 <ion-virtual-scroll [items]="items" approxItemHeight="500">
-  <ion-card *virtualItem="let item; let itemBounds = bounds;">
+  <ion-card *virtualItem="let post; let itemBounds = bounds;"  [ngClass]="{
+    'post-image-container': post.imgSrc,
+    'post-container': !post.imgSrc
+  }">
     <card-flip #card>
       <div class ="card-flip-front" *ngIf="!card.flipped">
         <ion-grid class="three-col-grid">
@@ -30,13 +33,13 @@
           <ion-grid>
             <ion-row class="ion-align-items-baseline">
               <ion-col>
-                {{ item.content }}
+                {{ post.content }}
               </ion-col>
             </ion-row>
-            <ion-row *ngIf="item.imgSrc">
+            <ion-row *ngIf="post.imgSrc">
               <ion-col>
                 <div>
-                  <img [src]="item.imgSrc" height="300" [alt]="item.name" class="rcorners">
+                  <img [src]="post.imgSrc" height="300" [alt]="post.name" class="rcorners">
                 </div>
               </ion-col>
             </ion-row>
@@ -71,10 +74,14 @@
       </div>
       <div class ="card-flip-back" *ngIf="card.flipped">
         <ion-card-content>
-          <ion-list>
-            <ion-item>
-              <ion-grid>
-                <!-- <ion-row *ngFor="let item of notifications"> -->
+          <ion-buttons>
+            <ion-button class="btn" flip-card (click)="card.flip()">
+              Back to post
+            </ion-button>
+          </ion-buttons>
+            <ion-virtual-scroll [items]="notifications">
+            <ion-item  *virtualItem="let comment; let itemBounds = bounds;" class="comment">
+              <ion-grid class="comments-grid">
                 <ion-row>
                   <ion-col class="ion-align-self-center">
                     <ion-row class="ion-align-items-center">
@@ -83,27 +90,22 @@
                       </ion-col>
                     </ion-row>
                   </ion-col>
-                  <ion-col size="2.5">
+                  <ion-col size="2.2">
                     <ion-row>
                       <ion-col>
-                        <p><strong>Brendan Giberson</strong> that looks dope</p>
+                        <p><strong>{{comment.name}}</strong> {{comment.verbage}} {{comment.isComment == true ? "\"" + comment.comment + "\"": ""}}</p>
                       </ion-col>
                     </ion-row>
                     <ion-row>
                       <ion-col>
-                        <ion-text color="medium">10 mins ago</ion-text>
+                        <ion-text color="medium">{{comment.time}}</ion-text>
                       </ion-col>
                     </ion-row>          
                   </ion-col>
                 </ion-row>
               </ion-grid>
             </ion-item>
-          </ion-list>
-          <ion-buttons>
-            <ion-button class="btn" flip-card (click)="card.flip()">
-              Back to post
-            </ion-button>
-          </ion-buttons>
+          </ion-virtual-scroll>
         </ion-card-content>
       </div>
     </card-flip>
