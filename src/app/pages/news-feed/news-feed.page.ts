@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SearchPage } from '../modals/search/search.page';
 import { MapFilterPage } from '../modals/map-filter/map-filter.page';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class NewsFeedPage implements OnInit {
     'knight-rider',
     'mirth-mobile'
   ];
-  constructor(public modalController: ModalController) {
+  constructor(public modalController: ModalController,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -68,6 +70,11 @@ export class NewsFeedPage implements OnInit {
       return undefined;
     }
   }
+
+  openProfile() {
+    this.router.navigateByUrl('profile', { replaceUrl: false });
+  }
+
   async presentMapFilter() {
     const modal = await this.modalController.create({
       component: MapFilterPage,

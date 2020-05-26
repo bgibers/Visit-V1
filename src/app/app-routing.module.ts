@@ -4,7 +4,28 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tab-bar/tabs.module').then(m => m.TabsPageModule)
+    redirectTo: '/tab1',
+    pathMatch: 'full'
+  },
+  {
+    path: 'tab1',
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/news-feed/news-feed.module').then(m => m.NewsFeedPageModule)
+      }
+    ]
+  },
+  {
+    path: 'tab2',
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/notifications-page/notifications.module').then(m => m.NotificationsPageModule)
+      }
+    ]
   },
   {
     path: 'search',
@@ -13,10 +34,6 @@ const routes: Routes = [
   {
     path: 'add',
     loadChildren: () => import('./pages/modals/add/add.module').then( m => m.AddPageModule)
-  },
-  {
-    path: 'filter',
-    loadChildren: () => import('./pages/filter/filter.module').then( m => m.FilterPageModule)
   },
   {
     path: 'map-filter',
