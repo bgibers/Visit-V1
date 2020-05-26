@@ -71,7 +71,8 @@ export class NewsFeedPage implements OnInit {
   async presentMapFilter() {
     const modal = await this.modalController.create({
       component: MapFilterPage,
-      showBackdrop: true
+      showBackdrop: true,
+      cssClass: 'filter-modal'
     });
     return await modal.present();
   }

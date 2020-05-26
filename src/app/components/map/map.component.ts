@@ -15,10 +15,10 @@ export class MapComponent implements OnInit {
 
   constructor( private zone: NgZone) { }
 
-  async ngOnInit() {
+   ngOnInit() {
     console.log('onInit');
     this.map = new Map(this.zone);
-    await this.map.createMap('map', this.selectionMode);
+    this.map.createMap('map', this.selectionMode);
   }
 
   async ionViewWillEnter() {

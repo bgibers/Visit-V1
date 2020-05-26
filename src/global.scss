@@ -46,7 +46,19 @@
 
 .add-modal { 
     // background: rgba(0, 0, 0, 0.5) !important; 
-    padding-top: 120% !important;
+    padding-top: 140% !important;
+    .modal-wrapper {
+         border-radius: 20px; 
+         background: transparent;
+    } 
+    .modal-shadow {
+        height: 0;
+    }
+}
+
+.filter-modal { 
+    // background: rgba(0, 0, 0, 0.5) !important; 
+    padding-top: 100% !important;
     .modal-wrapper {
          border-radius: 20px; 
          background: transparent;
