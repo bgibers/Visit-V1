@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Input } from '@angular/core';
+import { Component, OnInit, NgZone, Input, OnDestroy } from '@angular/core';
 import { Map } from '../../objects/map';
 import { MapSelectionMode } from '../../objects/enums/map-selection-mode';
 
@@ -7,7 +7,7 @@ import { MapSelectionMode } from '../../objects/enums/map-selection-mode';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
   @Input() selectionMode: MapSelectionMode = MapSelectionMode.NONE;
   @Input() customStyle: {};
 
@@ -25,7 +25,7 @@ export class MapComponent implements OnInit {
     console.log('Enter');
   }
 
-  ionViewWillLeave() {
+  ngOnDestroy() {
     this.map.destroyMap();
   }
 
