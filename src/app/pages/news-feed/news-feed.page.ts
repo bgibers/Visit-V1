@@ -72,7 +72,7 @@ export class NewsFeedPage implements OnInit {
   }
 
   openProfile() {
-    this.router.navigateByUrl('profile', { replaceUrl: false });
+    this.router.navigateByUrl('/user-profile', { replaceUrl: false });
   }
 
   async presentMapFilter() {

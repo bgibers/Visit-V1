@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'map-filter',
     loadChildren: () => import('./pages/modals/map-filter/map-filter.module').then( m => m.MapFilterPageModule)
+  },
+  {
+    path: 'user-profile',
+    loadChildren: () => import('./pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
   }
 ];
 @NgModule({
