@@ -1,5 +1,8 @@
 {
   "name": "Visit.",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SearchPage } from '../modals/search/search.page';
 import { MapFilterPage } from '../modals/map-filter/map-filter.page';
-import { Router } from '@angular/router';
-
+import { Router, NavigationExtras } from '@angular/router';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'news-feed',
@@ -15,6 +15,8 @@ export class NewsFeedPage implements OnInit {
 
  lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
  rotateImg = 0;
+
+  modal = undefined;
 
   images = [
     'bandit',
@@ -29,6 +31,7 @@ export class NewsFeedPage implements OnInit {
     'mirth-mobile'
   ];
   constructor(public modalController: ModalController,
+              private modalService: ModalService,
               private router: Router) {
   }
 
@@ -72,16 +75,27 @@ export class NewsFeedPage implements OnInit {
   }
 
   openProfile() {
-    this.router.navigateByUrl('/user-profile', { replaceUrl: false });
+    const navigationExtras: NavigationExtras = {
+      replaceUrl: true,
+      state: {
+        userName: 'tester'
+      }
+    };
+    this.router.navigateByUrl('/user-profile', navigationExtras);
   }
 
   async presentMapFilter() {
-    const modal = await this.modalController.create({
+    this.modal = await this.modalController.create({
       component: MapFilterPage,
       showBackdrop: true,
       cssClass: 'filter-modal'
     });
-    return await modal.present();
+
+    // TODO Change this modalService to be some sort of map store instead.
+    // Pass the map ID(filter, profile etc) to the component. In component see where
+    // we are trying to open from. If exists, then grab
+    // this.modalService.add(this.modal);
+    return await this.modal.present();
   }
 }
 

@@ -11,6 +11,13 @@
   display: inline-block;
 }
 
+.circle-pic{
+  width:60px;
+  height:60px;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
 .comments-grid {
   --ion-grid-columns: 3;
 }

@@ -1,19 +1,109 @@
 <ion-header style="background-color:#128C7E" class="ion-no-border">
   <ion-toolbar color="#128C7E" class="ion-no-border">
-    <ion-buttons slot="start" style="--background:transparent">
-      <ion-back-button defaultHref="/tab1"></ion-back-button>
-    </ion-buttons>
+    <ion-grid class="header-grid">
+      <ion-row class="ion-align-items-baseline">
+        <ion-col class="ion-justify-content-start">
+          <ion-buttons>
+            <ion-back-button defaultHref="/tab1"></ion-back-button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col class="ion-justify-self-center"> 
+          <h1 style="text-align: center;">{{username}}</h1>
+        </ion-col>
+        <ion-col class="ion-justify-content-end">
+          <ion-buttons class="ion-justify-content-end"> 
+            <ion-button class="ion-justify-content-end" (click)="presentModal()">  
+              <img class="img-center" src="../../../assets/UI/search-outline.svg" >
+            </ion-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
-<ion-content [scrollY]="false">
+<ion-content [scrollY]="true">
   <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-      <ion-card-title>Card Title</ion-card-title>
-    </ion-card-header>
-  
     <ion-card-content>
-      Keep close to Nature's heart... and break clear away, once in awhile,
-      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+      <ion-grid class="three-col-grid">
+        <ion-row>
+          <ion-col>
+            <ion-avatar>
+              <img src="../../assets/defaultuser.png">
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-row>
+                <h2>Tester</h2>
+            </ion-row>
+            <ion-row>
+              <h3>Co founder</h3>
+            </ion-row>
+            <ion-row class="header-text">
+              <ion-col size=".5"><img src="../../../assets/UI/cake_icon.svg"></ion-col>
+              <ion-col><ion-text color="medium"> Springfield, MA</ion-text></ion-col>
+            </ion-row>
+            <ion-row class="header-text">
+              <ion-col size=".5"><img src="../../../assets/UI/location_pin_icon.svg"></ion-col>
+              <ion-col><ion-text color="medium"> Charleston, SC</ion-text></ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col size=".5">
+            <ion-button class="edit-button">
+              <ion-icon name="settings-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row class="profile-info-row">
+          <ion-col class="ion-align-self-end">
+            <ion-row class="profile-info">
+              <ion-text>Following</ion-text>
+            </ion-row>
+            <ion-row >
+              <ion-text>500</ion-text>
+            </ion-row>
+          </ion-col>
+          <ion-col class="ion-align-self-end">
+            <ion-row class="profile-info">
+              <ion-text>Followers</ion-text>
+            </ion-row>
+            <ion-row >
+              <ion-text>500</ion-text>
+            </ion-row>
+          </ion-col>     
+          <ion-col class="ion-align-self-end visited-col" >
+            <ion-row class="profile-info">
+              <ion-text>Places Visited</ion-text>
+            </ion-row>
+            <ion-row >
+              <ion-text>500</ion-text>
+            </ion-row>
+          </ion-col>
+          <ion-col class="ion-align-self-end to-visit-col">
+            <ion-row class="profile-info">
+              <ion-text>Future Visits</ion-text>
+            </ion-row>
+            <ion-row >
+              <ion-text>500</ion-text>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-align-self-center" size=".5"><img src="../../../assets/UI/globe_icon.svg"></ion-col>
+          <ion-col class="ion-align-self-center ion-justify-content-start" size="1.7"><b>World Visited</b></ion-col>
+          <ion-col>
+            <circle-progress percent="40" size="1"></circle-progress>
+          </ion-col>			
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
-  </ion-card></ion-content>
+  </ion-card>
+  <div class="map-search-container">
+    <ion-searchbar spellcheck="true"></ion-searchbar>
+  </div>
+  <div id="user-map" class="chartdiv" onload="onLoad()"></div>
+</ion-content>
+<ion-fab vertical="bottom" class="map-filter-fab">
+  <ion-button fill="clear" (click)="presentMapFilter()" class="map-filter">
+      <img src="../../../assets/UI/floating_map_button.svg">
+  </ion-button>
+</ion-fab>

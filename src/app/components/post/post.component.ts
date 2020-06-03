@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'post',
@@ -7,7 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PostComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { 
+    // this.route.queryParams.subscribe(params => {
+    //   if (this.router.getCurrentNavigation().extras.state) {
+    //     this.displayNewUser = true;
+    //     this.username = this.router.getCurrentNavigation().extras.state.newUser;
+    //   }
+    // });
+  }
   @Input() items: any[] = [];
 
   username = 'Bgibers';
@@ -33,5 +41,15 @@ export class PostComponent implements OnInit {
         time: '10 mins ago'
       });
       }
+    }
+
+    openProfile() {
+      const navigationExtras: NavigationExtras = {
+        replaceUrl: false,
+        state: {
+          userName: 'tester'
+        }
+      };
+      this.router.navigateByUrl('/user-profile', navigationExtras);
     }
 }

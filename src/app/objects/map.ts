@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy, Injectable } from '@angular/core';
 
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4maps from '@amcharts/amcharts4/maps';
@@ -9,7 +9,8 @@ import am4geodata_canadaLow from '@amcharts/amcharts4-geodata/canadaLow';
 import am4geodata_russiaLow from '@amcharts/amcharts4-geodata/russiaLow';
 import { MapSelectionMode } from './enums/map-selection-mode';
 
-export class Map {
+@Injectable()
+export class Map implements OnInit {
   private chart: am4maps.MapChart;
   private polygonArr: Array<am4maps.MapPolygon>;
   public selectedArr: Array<{
@@ -28,6 +29,11 @@ export class Map {
     this.polygonArr = new Array<am4maps.MapPolygon>();
     this.selectedArr = new Array();
     this.seriesArr = new Array<am4maps.MapPolygonSeries>();
+  }
+
+  ngOnInit() {
+    this.createMap('map', MapSelectionMode.NONE);
+    this.selectionMode = MapSelectionMode.NONE;
   }
 
   get selectedId() {
@@ -203,6 +209,7 @@ export class Map {
 
   destroyMap() {
     this.zone.runOutsideAngular(() => {
+      am4core.disposeAllCharts()
       if (this.chart) {
         this.chart.dispose();
       }

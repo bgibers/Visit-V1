@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddPageModule } from './pages/modals/add/add.module';
 import { MapFilterPageModule } from './pages/modals/map-filter/map-filter.module';
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

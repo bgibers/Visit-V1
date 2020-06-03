@@ -1,6 +1,7 @@
 <ion-content [scrollY]="false">
-  <map></map>
-  <ion-grid>
+    <ion-searchbar spellcheck="true"></ion-searchbar>
+    <div id="filter-map" class="chartdiv" onload="onLoad()"></div>
+    <ion-grid>
     <ion-row>
       <ion-col>
         <ion-button color="medium" expand="block">Reset</ion-button>

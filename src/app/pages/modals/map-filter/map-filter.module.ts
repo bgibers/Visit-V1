@@ -7,18 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { MapFilterPageRoutingModule } from './map-filter-routing.module';
 
 import { MapFilterPage } from './map-filter.page';
-import { MapComponent} from '../../../components/map/map.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MapFilterPageRoutingModule
+    MapFilterPageRoutingModule,
+    SharedModule
   ],
   declarations: [
-    MapFilterPage,
-    MapComponent
+    MapFilterPage
   ]
 })
 export class MapFilterPageModule {}
