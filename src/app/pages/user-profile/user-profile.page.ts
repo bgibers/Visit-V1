@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Map } from '../../objects/map';
 import { MapSelectionMode } from '../../objects/enums/map-selection-mode';
+import { ModalController } from '@ionic/angular';
+import { SearchPage } from '../modals/search/search.page';
+import { UserTimelinePage } from '../user-timeline/user-timeline.page';
 
 @Component({
   selector: 'user-profile',
@@ -15,6 +18,7 @@ export class UserProfilePage implements OnInit, OnDestroy {
   public selectionMode: MapSelectionMode = MapSelectionMode.NONE;
 
   constructor(
+      public modalController: ModalController,
       private zone: NgZone,
       private route: ActivatedRoute,
       private router: Router) {
@@ -33,6 +37,24 @@ export class UserProfilePage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.map.destroyMap();
+  }
+
+  async presentSearchModal() {
+    const modal = await this.modalController.create({
+      component: SearchPage,
+      showBackdrop: true,
+      cssClass: 'search-modal'
+    });
+    return await modal.present();
+  }
+
+  async presentUserTimeline() {
+    const modal = await this.modalController.create({
+      component: UserTimelinePage,
+      showBackdrop: true,
+      cssClass: 'user-profile'
+    });
+    return await modal.present();
   }
 
 

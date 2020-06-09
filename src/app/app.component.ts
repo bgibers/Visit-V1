@@ -26,7 +26,7 @@ export class AppComponent {
     });
   }
 
-  async presentModal() {
+  async presentSearchModal() {
     const modal = await this.modalController.create({
       component: AddPage,
       showBackdrop: true,

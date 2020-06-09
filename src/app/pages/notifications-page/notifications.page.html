@@ -3,15 +3,15 @@
     <ion-card *ngFor="let item of notifications">
       <ion-grid class="comments-grid">
         <ion-row>
-          <ion-col class="ion-align-self-center">
-            <ion-row class="ion-align-items-center">
+          <ion-col>
+            <ion-row>
               <ion-col>
                 <img src="../../../assets/stockPhoto.png" class="user-pic img-center">
               </ion-col>
             </ion-row>
-            <ion-row class="ion-align-items-center">
+            <ion-row>
               <ion-col>
-                <img [src]="item.icon" class="img-center">
+                <img [src]="item.icon">
               </ion-col>
             </ion-row>
           </ion-col>

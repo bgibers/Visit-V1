@@ -12,6 +12,9 @@
 // .notifications-list {
 //   background: rgba(18, 140, 126) !important; 
 // }
+ion-content {
+  --padding-top: 10%;
+}
 .comments-grid {
   --ion-grid-columns: 3;
   --ion-grid-column-padding:1px;

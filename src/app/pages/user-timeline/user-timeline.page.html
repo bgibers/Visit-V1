@@ -1,0 +1,23 @@
+<ion-header style="background-color:#128C7E" class="ion-no-border">
+  <ion-toolbar color="#128C7E" class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-button slot="start" large (click)="dismiss()">
+        <ion-icon class="close-icon" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end"> 
+      <ion-button slot="end" (click)="presentSearchModal()">  
+        <img class="img-center" src="../../../assets/UI/search-outline.svg" >
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="false" color="light">
+  <post [items]="items"></post>
+</ion-content>
+<ion-fab class="map-filter-fab" vertical="bottom">
+  <ion-button fill="clear" (click)="presentMapFilter()">
+    <img src="../../assets/UI/FilterClosed.svg">
+  </ion-button>
+</ion-fab>

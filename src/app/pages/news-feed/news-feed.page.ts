@@ -16,8 +16,6 @@ export class NewsFeedPage implements OnInit {
  lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
  rotateImg = 0;
 
-  modal = undefined;
-
   images = [
     'bandit',
     'batmobile',
@@ -52,9 +50,12 @@ export class NewsFeedPage implements OnInit {
     }
   }
 
-  async presentModal() {
+  async presentSearchModal() {
     const modal = await this.modalController.create({
       component: SearchPage,
+      componentProps: {
+
+      },
       showBackdrop: true,
       cssClass: 'search-modal'
     });
@@ -76,7 +77,7 @@ export class NewsFeedPage implements OnInit {
 
   openProfile() {
     const navigationExtras: NavigationExtras = {
-      replaceUrl: true,
+      replaceUrl: false,
       state: {
         userName: 'tester'
       }
@@ -85,7 +86,7 @@ export class NewsFeedPage implements OnInit {
   }
 
   async presentMapFilter() {
-    this.modal = await this.modalController.create({
+    const modal = await this.modalController.create({
       component: MapFilterPage,
       showBackdrop: true,
       cssClass: 'filter-modal'
@@ -95,7 +96,7 @@ export class NewsFeedPage implements OnInit {
     // Pass the map ID(filter, profile etc) to the component. In component see where
     // we are trying to open from. If exists, then grab
     // this.modalService.add(this.modal);
-    return await this.modal.present();
+    return await modal.present();
   }
 }
 

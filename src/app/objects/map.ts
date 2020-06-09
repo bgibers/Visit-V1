@@ -5,8 +5,8 @@ import * as am4maps from '@amcharts/amcharts4/maps';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import worldLow from '@amcharts/amcharts4-geodata/worldLow';
 import am4geodata_usaLow from '@amcharts/amcharts4-geodata/usaLow';
-import am4geodata_canadaLow from '@amcharts/amcharts4-geodata/canadaLow';
-import am4geodata_russiaLow from '@amcharts/amcharts4-geodata/russiaLow';
+// import am4geodata_canadaLow from '@amcharts/amcharts4-geodata/canadaLow';
+// import am4geodata_russiaLow from '@amcharts/amcharts4-geodata/russiaLow';
 import { MapSelectionMode } from './enums/map-selection-mode';
 
 @Injectable()
@@ -53,11 +53,12 @@ export class Map implements OnInit {
   }
 
   async createMap(divName: string, selectionMode: MapSelectionMode) {
+    am4core.disposeAllCharts();
     this.zone.runOutsideAngular(() => {
       let worldSeries: am4maps.MapPolygonSeries;
       let usaSeries: am4maps.MapPolygonSeries;
-      let canadaSeries: am4maps.MapPolygonSeries;
-      let russiaSeries: am4maps.MapPolygonSeries;
+      // let canadaSeries: am4maps.MapPolygonSeries;
+      // let russiaSeries: am4maps.MapPolygonSeries;
       let chart: am4maps.MapChart;
 
       am4core.ready(() => {
@@ -102,17 +103,17 @@ export class Map implements OnInit {
         this.seriesArr.push(usaSeries);
         this.polygonArr.push(usaSeries.mapPolygons.template);
 
-        // Series for Canada map
-        canadaSeries = chart.series.push(new am4maps.MapPolygonSeries());
-        canadaSeries.geodata = am4geodata_canadaLow;
-        this.seriesArr.push(canadaSeries);
-        this.polygonArr.push(canadaSeries.mapPolygons.template);
+        // // Series for Canada map
+        // canadaSeries = chart.series.push(new am4maps.MapPolygonSeries());
+        // canadaSeries.geodata = am4geodata_canadaLow;
+        // this.seriesArr.push(canadaSeries);
+        // this.polygonArr.push(canadaSeries.mapPolygons.template);
 
-        // Series for Russia map
-        russiaSeries = chart.series.push(new am4maps.MapPolygonSeries());
-        russiaSeries.geodata = am4geodata_russiaLow;
-        this.seriesArr.push(russiaSeries);
-        this.polygonArr.push(russiaSeries.mapPolygons.template);
+        // // Series for Russia map
+        // russiaSeries = chart.series.push(new am4maps.MapPolygonSeries());
+        // russiaSeries.geodata = am4geodata_russiaLow;
+        // this.seriesArr.push(russiaSeries);
+        // this.polygonArr.push(russiaSeries.mapPolygons.template);
       });
 
       this.setupTemplates();
@@ -209,7 +210,6 @@ export class Map implements OnInit {
 
   destroyMap() {
     this.zone.runOutsideAngular(() => {
-      am4core.disposeAllCharts()
       if (this.chart) {
         this.chart.dispose();
       }

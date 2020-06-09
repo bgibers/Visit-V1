@@ -4,19 +4,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NewsFeedPage } from './news-feed.page';
-import { PostComponent} from '../../components/post/post.component';
-import { CardFlipComponent } from '../../components/card-flip/card-flip.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
+    SharedModule,
     RouterModule.forChild([{ path: '', component: NewsFeedPage }])
   ],
   declarations: [
-    NewsFeedPage,
-    PostComponent,
-    CardFlipComponent
+    NewsFeedPage
   ]
 })
 export class NewsFeedPageModule {}
