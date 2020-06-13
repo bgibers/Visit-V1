@@ -4,17 +4,21 @@ import { Platform, ModalController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AddPage } from './pages/modals/add/add.page';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  page: string;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public modalController: ModalController
+    public modalController: ModalController,
+    public router: Router
   ) {
     this.initializeApp();
   }
@@ -26,7 +30,13 @@ export class AppComponent {
     });
   }
 
-  async presentSearchModal() {
+  get showFooter() {
+    if (this.router.url === '/sign-in') { return false; }
+    if (this.router.url === '/register') { return false; }
+    return true;
+  }
+
+  async presentAddModal() {
     const modal = await this.modalController.create({
       component: AddPage,
       showBackdrop: true,

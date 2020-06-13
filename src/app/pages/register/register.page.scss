@@ -1,0 +1,81 @@
+ion-content {
+    --background: #fff url("../../../assets/backgroundLogin.png");
+    h1 {
+        padding-left: 5%;
+        padding-top: 10%;
+        font-size: 40px;
+        font-weight: bold;
+        color:white;
+    }
+}
+
+ion-toolbar{
+    --background: transparent;
+}
+
+ion-header{
+    --background: transparent;
+}
+
+.close-icon {
+    font-size: 30px; 
+    color: white;
+}
+
+.roundedInput {
+    --border-radius: 10px;
+    --border-width: 1px;
+    --highlight-height: 0;
+    --background: #f8f9fa;
+     padding-top:10px;
+     padding-block: 10%;
+}
+
+.nameRow {
+    .roundedInput {
+        padding-block: 0%;
+    }
+    padding-block: 10%;
+}
+
+.roundedInput.ion-invalid.item-has-focus {
+
+  --border-color: var(--ion-color-danger-shade);
+}
+
+.roundedInput.ion-valid.item-has-focus {
+  --border-color: var(--ion-color-success-shade);
+}
+
+.roundedInput.ion-invalid.ion-dirty {
+  --border-color: var(--ion-color-danger-shade);
+}
+
+.roundedInput.ion-valid.ion-dirty {
+  --border-color: var(--ion-color-success-shade);
+}
+
+.submit-button{
+  --background: #fff;
+  --background-activated: #fff;
+  --ripple-color: #fff;
+  --background-focused: #fff;
+  --color-focused: #fff;
+  color: #128C7E;
+
+  --vertical-align: middle;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.back-to-login {
+    padding-left: 5%;
+    color: white;
+    a {
+        color: white;
+    }
+}
+
+.button-div{
+  padding-top: 10%;
+}

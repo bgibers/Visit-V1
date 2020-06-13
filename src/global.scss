@@ -67,3 +67,43 @@
         height: 0;
     }
 }
+
+.error-message
+{
+  color: red;
+  font-size: 14px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.facebook-button{
+    --background: #3b5998;
+    --background-activated: #3b5998;
+    --ripple-color: #3b5998;
+    --background-focused: #3b5998;
+    --color-focused: #3b5998;
+    color: #fff;
+  
+    --vertical-align: middle;
+    padding-left: 5%;
+    padding-right: 5%;
+    ion-icon {
+      padding-right: 5%;
+    }
+  }
+  
+  .apple-button{
+    --background: #000;
+    --background-activated: ##000;
+    --ripple-color: ##000;
+    --background-focused: ##000;
+    --color-focused: ##000;
+    color: #fff;
+  
+    --vertical-align: middle;
+    padding-left: 5%;
+    padding-right: 5%;
+    ion-icon {
+      padding-right: 5%;
+    }
+  }

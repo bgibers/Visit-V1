@@ -74,7 +74,7 @@ export class Map implements OnInit {
         chart.tapToActivate = true;
         chart.seriesContainer.events.disableType('doublehit');
         chart.chartContainer.background.events.disableType('doublehit');
-
+        chart.showOnInit = true;
         // Home button
         const homeButton = new am4core.Button();
         homeButton.events.on('hit', () => {

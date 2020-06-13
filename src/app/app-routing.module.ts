@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/tab1',
+    redirectTo: '/sign-in',
     pathMatch: 'full'
   },
   {
@@ -46,6 +46,14 @@ const routes: Routes = [
   {
     path: 'user-timeline',
     loadChildren: () => import('./pages/user-timeline/user-timeline.module').then( m => m.UserTimelinePageModule)
+  },
+  {
+    path: 'sign-in',
+    loadChildren: () => import('./pages/sign-in/sign-in.module').then( m => m.SignInPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   }
 ];
 @NgModule({
