@@ -5,8 +5,10 @@ h1 {
 }
 
 ion-content {
-    --background: #fff url("../../../assets/backgroundLogin.png");
-    h1 {
+  --background: #fff url("../../../assets/backgroundLogin.png")  no-repeat center/cover fixed;
+  background: #fff url("../../../assets/backgroundLogin.png");
+  background-size: cover;
+  h1 {
         padding-left: 5%;
         padding-top: 20%;
     }
