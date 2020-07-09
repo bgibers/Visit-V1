@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { AddPageModule } from './pages/modals/add/add.module';
 import { MapFilterPageModule } from './pages/modals/map-filter/map-filter.module';
 import { UserTimelinePageModule } from './pages/user-timeline/user-timeline.module';
+import { Camera } from '@ionic-native/camera/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -20,6 +22,7 @@ import { UserTimelinePageModule } from './pages/user-timeline/user-timeline.modu
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

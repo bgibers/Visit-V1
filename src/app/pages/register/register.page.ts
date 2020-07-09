@@ -78,10 +78,10 @@ export class RegisterPage implements OnInit {
     const navigationExtras: NavigationExtras = {
       replaceUrl: false,
       state: {
-        userName: 'tester'
+       //userData: this.registerForm
       }
     };
-    this.router.navigateByUrl('/tab1', navigationExtras);
+    this.router.navigateByUrl('/post-register-about', navigationExtras);
   }
 
 }

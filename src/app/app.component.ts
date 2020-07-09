@@ -33,6 +33,7 @@ export class AppComponent {
   get showFooter() {
     if (this.router.url === '/sign-in') { return false; }
     if (this.router.url === '/register') { return false; }
+    if (this.router.url === '/post-register-about') { return false; }
     return true;
   }
 
