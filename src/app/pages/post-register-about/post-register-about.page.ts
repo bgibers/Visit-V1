@@ -29,6 +29,7 @@ export class PostRegisterAboutPage implements OnInit {
 
   minDate = moment().subtract(100, 'y').format();
   maxDate = moment().subtract(16, 'y').format();
+  userImage = '../../../assets/UI/profilePicUpload.svg'
   aboutForm: FormGroup;
   firstName: string;
   validationMessages = {
@@ -98,6 +99,8 @@ export class PostRegisterAboutPage implements OnInit {
 
     this.camera.getPicture(this.optionsGallery).then((imageData) => {
       const base64Image = 'data:image/jpeg;base64,' + imageData;
+      // Update the stock photo
+      this.userImage = base64Image;
       }, (err) => {
       // Handle error
       console.log(err);
