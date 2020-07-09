@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="73.904" height="73.904" viewBox="0 0 73.904 73.904">
+  <defs>
+    <clipPath id="clip-path">
+      <circle id="Mask" cx="35.832" cy="35.832" r="35.832" fill="#6266f9"/>
+    </clipPath>
+  </defs>
+  <g id="Group_57545" data-name="Group 57545" transform="translate(-21 -195)">
+    <g id="ic_avatar" transform="translate(22 196)">
+      <g id="Combined_Shape" data-name="Combined Shape">
+        <path id="Mask-2" data-name="Mask" d="M35.952,0A35.952,35.952,0,1,1,0,35.952,35.952,35.952,0,0,1,35.952,0Z" fill="#128c7e" stroke="#fff" stroke-width="2"/>
+        <g id="Combined_Shape-2" data-name="Combined Shape" transform="translate(0.12 0.12)" clip-path="url(#clip-path)">
+          <path id="Combined_Shape-3" data-name="Combined Shape" d="M16.7,25.255a13.856,13.856,0,1,1,15.738,0,24.567,24.567,0,1,1-15.738,0Z" transform="translate(11.265 14.261)" fill="#1d1e2c" opacity="0.19"/>
+        </g>
+      </g>
+      <g id="ic_camera" transform="translate(24.717 27.713)">
+        <g id="ic" transform="translate(0 0)">
+          <path id="Shape" d="M21.347,3H16.7L14.231,0H8.239L5.767,3H1.124A1.124,1.124,0,0,0,0,4.12V15.355a1.123,1.123,0,0,0,1.124,1.124H21.347a1.123,1.123,0,0,0,1.124-1.124V4.12A1.124,1.124,0,0,0,21.347,3Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+          <circle id="Oval" cx="5.243" cy="5.243" r="5.243" stroke-width="2" transform="translate(5.992 3.745)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none"/>
+          <circle id="Oval-2" data-name="Oval" cx="0.375" cy="0.375" r="0.375" transform="translate(19.1 5.618)" stroke-width="2" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none"/>
+          <circle id="Oval-3" data-name="Oval" cx="2.247" cy="2.247" r="2.247" transform="translate(8.988 6.741)" stroke-width="2" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

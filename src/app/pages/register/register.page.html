@@ -9,26 +9,26 @@
         <ion-col>
           <ion-item class="roundedInput">
             <ion-input placeholder="First Name*" type="text" formControlName="firstName" required></ion-input>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validationMessages.firstName">
+                <div class="error-message" *ngIf="registerForm.get('firstName').hasError(validation.type) && (registerForm.get('firstName').dirty || registerForm.get('firstName').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
           </ion-item>
-          <div class="validation-errors">
-            <ng-container *ngFor="let validation of validationMessages.firstName">
-              <div class="error-message" *ngIf="registerForm.get('firstName').hasError(validation.type) && (registerForm.get('firstName').dirty || registerForm.get('firstName').touched)">
-                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
-              </div>
-            </ng-container>
-          </div>
         </ion-col>
         <ion-col>
           <ion-item class="roundedInput">
             <ion-input placeholder="Last Name*" type="text" formControlName="lastName" required></ion-input>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validationMessages.lastName">
+                <div class="error-message" *ngIf="registerForm.get('lastName').hasError(validation.type) && (registerForm.get('lastName').dirty || registerForm.get('lastName').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
           </ion-item>
-          <div class="validation-errors">
-            <ng-container *ngFor="let validation of validationMessages.lastName">
-              <div class="error-message" *ngIf="registerForm.get('lastName').hasError(validation.type) && (registerForm.get('lastName').dirty || registerForm.get('lastName').touched)">
-                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
-              </div>
-            </ng-container>
-          </div>
         </ion-col>
       </ion-row>
       <ion-row>

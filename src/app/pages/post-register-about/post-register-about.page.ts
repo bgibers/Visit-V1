@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import * as moment from 'moment';
@@ -27,8 +27,10 @@ export class PostRegisterAboutPage implements OnInit {
     mediaType: this.camera.MediaType.PICTURE
   };
 
+  minDate = moment().subtract(100, 'y').format();
+  maxDate = moment().subtract(16, 'y').format();
   aboutForm: FormGroup;
-  userData: FormGroup;
+  firstName: string;
   validationMessages = {
     birthday: [
       { type: 'required', message: 'Birthday is required.' },
@@ -38,7 +40,7 @@ export class PostRegisterAboutPage implements OnInit {
       { type: 'required', message: 'Birthplace is required.' }
     ],
     residence: [
-      { type: 'required', message: 'Current residence is required.' }
+      { type: 'required', message: 'Residence is required.' }
     ],
     education: [
       { type: 'required', message: 'Please select a valid option' }
@@ -49,24 +51,30 @@ export class PostRegisterAboutPage implements OnInit {
   };
   constructor(
     public router: Router,
+    public formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private camera: Camera
   ) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        //this.userData = this.router.getCurrentNavigation().extras.state.userData;
+        this.firstName = this.router.getCurrentNavigation().extras.state.firstName;
       }
     });
   }
 
   ngOnInit() {
-    const birthday = new FormControl('', Validators.compose([
-      Validators.required,
-    ]));
+    const birthday = new FormControl(new Date(), Validators.required);
     const birthPlace = new FormControl('', Validators.required);
     const residence = new FormControl('', Validators.required);
     const education = new FormControl('', Validators.required);
     const title = new FormControl('', Validators.required);
+    this.aboutForm = new FormGroup({
+      birthday,
+      birthPlace,
+      residence,
+      education,
+      title
+    });
    }
 
   onSubmit(values) {
