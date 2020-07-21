@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Plugins, CameraResultType } from '@capacitor/core';
+
+const { Camera } = Plugins;
 import * as moment from 'moment';
 
 @Component({
@@ -10,23 +12,6 @@ import * as moment from 'moment';
   styleUrls: ['./post-register-about.page.scss'],
 })
 export class PostRegisterAboutPage implements OnInit {
-  private optionsCamera: CameraOptions = {
-    quality: 100,
-    targetWidth: 600,
-    sourceType: this.camera.PictureSourceType.CAMERA,
-    destinationType: this.camera.DestinationType.DATA_URL,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
-  };
-
-  private optionsGallery: CameraOptions = {
-    quality: 100,
-    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-    destinationType: this.camera.DestinationType.DATA_URL,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
-  };
-
   minDate = moment().subtract(100, 'y').format();
   maxDate = moment().subtract(16, 'y').format();
   userImage = '../../../assets/UI/profilePicUpload.svg'
@@ -53,8 +38,7 @@ export class PostRegisterAboutPage implements OnInit {
   constructor(
     public router: Router,
     public formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private camera: Camera
+    private route: ActivatedRoute
   ) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -86,24 +70,21 @@ export class PostRegisterAboutPage implements OnInit {
         userName: 'tester'
       }
     };
-    this.router.navigateByUrl('/tab1', navigationExtras);
+    this.router.navigateByUrl('/post-register-locations', navigationExtras);
   }
 
-  getUserImage() {
-    // this.camera.getPicture(this.optionsCamera).then((imageData) => {
-    //   let base64Image = 'data:image/jpeg;base64,' + imageData;
-    //  }, (err) => {
-    //   // Handle error
-    //   console.log(err);
-    //  });
-
-    this.camera.getPicture(this.optionsGallery).then((imageData) => {
-      const base64Image = 'data:image/jpeg;base64,' + imageData;
-      // Update the stock photo
-      this.userImage = base64Image;
-      }, (err) => {
-      // Handle error
-      console.log(err);
-      });
+  async getUserImage() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
+    // image.webPath will contain a path that can be set as an image src.
+    // You can access the original file using image.path, which can be
+    // passed to the Filesystem API to read the raw data of the image,
+    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+    const imageUrl = image.webPath;
+    // Can be set to the src of an image now
+    this.userImage = imageUrl;
   }
 }

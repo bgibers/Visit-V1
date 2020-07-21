@@ -34,6 +34,7 @@ export class AppComponent {
     if (this.router.url === '/sign-in') { return false; }
     if (this.router.url === '/register') { return false; }
     if (this.router.url === '/post-register-about') { return false; }
+    if (this.router.url === '/post-register-locations') { return false; }
     return true;
   }
 

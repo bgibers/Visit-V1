@@ -132,7 +132,7 @@ export class Map implements OnInit {
         const activeState = polygonTemplate.states.create('active');
 
         const visited = polygonTemplate.states.create('visited');
-        visited.properties.fill = am4core.color('#E94F37');
+        visited.properties.fill = am4core.color('#128C7E');
 
         const toVisit = polygonTemplate.states.create('toVisit');
         toVisit.properties.fill = am4core.color('#0000FF');
@@ -159,11 +159,14 @@ export class Map implements OnInit {
   setSelectionMode(selectionMode: MapSelectionMode) {
       if (selectionMode !== MapSelectionMode.NONE) {
         this.polygonArr.forEach(polygonTemplate => {
+            polygonTemplate.events.off('doublehit');
             polygonTemplate.events.on('doublehit', ev => {
                 const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
-                selectionMode === MapSelectionMode.TO_VISIT ?
-                this.changeVisitStatus(data.id, 'toVisit') :
-                this.changeVisitStatus(data.id, 'visited');
+                if (selectionMode === MapSelectionMode.TO_VISIT) {
+                  this.changeVisitStatus(data.id, 'toVisit');
+                } else {
+                  this.changeVisitStatus(data.id, 'visited');
+                }
             });
         });
       }
