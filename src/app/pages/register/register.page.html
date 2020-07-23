@@ -80,6 +80,9 @@
           </div>
         </ion-col>
       </ion-row>
+      <ion-row color="primary" justify-content-center *ngIf="displayError">
+        <ion-text color="danger">{{error}}</ion-text>
+      </ion-row>
     </ion-grid>
     <div class="button-div">
       <ion-button class="submit-button" expand="block" type="submit" [disabled]="!registerForm.valid">Register</ion-button>
