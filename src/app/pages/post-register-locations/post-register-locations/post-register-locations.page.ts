@@ -28,12 +28,15 @@ export class PostRegisterLocationsPage implements OnInit {
   }
 
   switchMode() {
+    this.map.zoomHome();
     if (this.selectionMode === MapSelectionMode.VISITED) {
       this.map.setSelectionMode(MapSelectionMode.TO_VISIT);
       this.displayVisitedText = false;
+      this.selectionMode = MapSelectionMode.TO_VISIT;
     } else {
       this.map.setSelectionMode(MapSelectionMode.VISITED);
       this.displayVisitedText = true;
+      this.selectionMode = MapSelectionMode.VISITED;
     }
   }
 

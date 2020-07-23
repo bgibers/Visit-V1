@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { UserService } from '../client/api/user.service';
+import { UserService } from '../clients/api/user.service';
  
  
 @Injectable()
@@ -10,6 +10,7 @@ export class AuthGuard implements CanActivate {
         ) {}
 
     canActivate(): boolean {
-      return this.authenticationService.isLoggedIn();
+    //   return this.authenticationService.isLoggedIn();
+    return true;
     }
 }

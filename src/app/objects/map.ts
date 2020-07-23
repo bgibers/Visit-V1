@@ -157,14 +157,17 @@ export class Map implements OnInit {
   }
 
   setSelectionMode(selectionMode: MapSelectionMode) {
-      if (selectionMode !== MapSelectionMode.NONE) {
+      this.selectionMode = selectionMode;
+      if (this.selectionMode !== MapSelectionMode.NONE) {
         this.polygonArr.forEach(polygonTemplate => {
             polygonTemplate.events.off('doublehit');
             polygonTemplate.events.on('doublehit', ev => {
                 const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
-                if (selectionMode === MapSelectionMode.TO_VISIT) {
+                if (this.selectionMode === MapSelectionMode.TO_VISIT) {
+                  console.log('To Visit')
                   this.changeVisitStatus(data.id, 'toVisit');
                 } else {
+                  console.log('Visit')
                   this.changeVisitStatus(data.id, 'visited');
                 }
             });
@@ -181,6 +184,10 @@ export class Map implements OnInit {
           break;
       }
     }
+  }
+
+  zoomHome() {
+    this.chart.goHome();
   }
 
   async changeVisitStatus(locationId: string , status: string) {
