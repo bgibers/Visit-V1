@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
+import { AccountsService, LoginApiRequest } from 'src/app/backend/clients';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'sign-in',
@@ -11,7 +13,8 @@ export class SignInPage implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private accountService: AccountsService
   ) { }
   passwordType = 'password';
   loginForm: FormGroup;
@@ -34,7 +37,7 @@ export class SignInPage implements OnInit {
   ngOnInit() {
     const email = new FormControl('', Validators.compose([
       Validators.required,
-      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
+      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$') // todo allow uppercase
     ]));
     const password = new FormControl('', Validators.compose([
       Validators.required
@@ -46,18 +49,24 @@ export class SignInPage implements OnInit {
   }
 
   onSubmit(values) {
-    console.log(values)
-    const navigationExtras: NavigationExtras = {
-      replaceUrl: false,
-      state: {
-        userName: 'tester'
-      }
-    };
-    this.router.navigateByUrl('/tab1', navigationExtras);
+    const loginModel = {
+      userName: this.loginForm.controls.email.value,
+      password: this.loginForm.controls.password.value
+    } as LoginApiRequest;
+
+    this.accountService.accountsLogin(loginModel).pipe(take(1)).subscribe(token => {
+      console.log('Token value ' + token.id)
+      const navigationExtras: NavigationExtras = {
+        replaceUrl: false,
+        state: {
+          userName: 'tester'
+        }
+      };
+      this.router.navigateByUrl('/tab1', navigationExtras);
+    });
   }
 
-  openRegister(values) {
-    console.log("hello")
+  openRegister() {
     const navigationExtras: NavigationExtras = {
       replaceUrl: false,
       state: {

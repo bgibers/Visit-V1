@@ -10,33 +10,41 @@
  * Do not edit the class manually.
  */
 /* tslint:disable:no-unused-variable member-ordering */
-
+// tslint:disable: max-line-length
 // tslint:disable: import-spacing
 import { Inject, Injectable, Optional }                      from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams,
          HttpResponse, HttpEvent }                           from '@angular/common/http';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
-import { Observable }                                        from 'rxjs';
-
+import { Observable, BehaviorSubject }                                        from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { JwtToken } from '../model/jwtToken';
 import { LoginApiRequest } from '../model/loginApiRequest';
 import { RegisterRequest } from '../model/registerRequest';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
+import { COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import { MarkLocationsRequest } from '../model/markLocationsRequest';
+import { BASE_PATH } from 'src/environments/environment';
+import { Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
+export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
 export class AccountsService {
 
-    protected basePath = 'https://localhost:5001';
-    public defaultHeaders = new HttpHeaders();
+    protected basePath = BASE_PATH;
+    public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, '');
     public configuration = new Configuration();
+    public authSubject = new BehaviorSubject(false);
 
     constructor(protected httpClient: HttpClient,
                 @Optional()@Inject(BASE_PATH) basePath: string,
-                @Optional() configuration: Configuration) {
+                @Optional() configuration: Configuration,
+                private platform: Platform,
+                private storage: Storage ) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -44,6 +52,58 @@ export class AccountsService {
             this.configuration = configuration;
             this.basePath = basePath || configuration.basePath || this.basePath;
         }
+
+        this.platform.ready().then(() => {
+            this.ifLoggedIn();
+          });
+    }
+
+    public setAuthSubject() {
+        this.authSubject.next(true);
+    }
+
+    public async logout() {
+        await this.storage.remove('ACCESS_TOKEN');
+        await this.storage.remove('USER_ID');
+        await this.storage.remove('USER');
+        await this.storage.remove('EXPIRES_IN');
+        this.authSubject.next(false);
+    }
+
+    public isLoggedIn() {
+        return this.authSubject.value;
+    }
+
+    public async getUserToken(): Promise<JwtToken> {
+        if (this.isLoggedIn) {
+            const token: JwtToken = {
+                authToken: await this.storage.get('ACCESS_TOKEN'),
+                id: await this.storage.get('USER_ID'),
+                expiresIn: await this.storage.get('EXPIRES_IN')
+            } as JwtToken;
+
+            return token;
+        }
+    }
+
+    // public async getLoggedInUser(): Promise<LoggedInUser> {
+    //     if (this.isLoggedIn) {
+    //         const user: LoggedInUser = await this.storage.get('USER') as LoggedInUser;
+    //         return user;
+    //     }
+    // }
+
+    ifLoggedIn() {
+        this.storage.get('USER').then((response) => {
+          if (response) {
+            this.authSubject.next(true);
+            console.log(response);
+          }
+        });
+      }
+
+    public async getToken(): Promise<string> {
+        return await this.storage.get('ACCESS_TOKEN');
     }
 
     /**
@@ -59,7 +119,6 @@ export class AccountsService {
         }
         return false;
     }
-
 
     /**
      *
@@ -86,6 +145,68 @@ export class AccountsService {
             'text/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json-patch+json',
+            'application/json',
+            'text/json',
+            'application/_*+json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<JwtToken>(`${this.basePath}/account/login`,
+            requestApi,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers,
+                observe,
+                reportProgress
+            }
+        ).pipe(
+            tap(async res => {
+                if (res.authToken) {
+                    await this.storage.set('ACCESS_TOKEN', res.authToken);
+                    await this.storage.set('USER_ID', res.id);
+                    await this.storage.set('EXPIRES_IN', res.expiresIn);
+                    this.authSubject.next(true);
+                }
+            })
+        );
+    }
+    /**
+     *
+     *
+     * @param body
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public accountRegisterPost(body?: RegisterRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken>;
+    public accountRegisterPost(body?: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
+    public accountRegisterPost(body?: RegisterRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
+    public accountRegisterPost(body?: RegisterRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
+            headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
@@ -98,38 +219,51 @@ export class AccountsService {
             'application/_*+json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
+        if (httpContentTypeSelected !== undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<JwtToken>(`${this.basePath}/account/login`,
-            requestApi,
+        return this.httpClient.request<JwtToken>('post', `${this.basePath}/account/register`,
             {
+                body,
                 withCredentials: this.configuration.withCredentials,
                 headers,
                 observe,
                 reportProgress
             }
+        ).pipe(
+            tap(async res => {
+                if (res.authToken) {
+                    await this.storage.set('ACCESS_TOKEN', res.authToken);
+                    await this.storage.set('USER_ID', res.id);
+                    await this.storage.set('EXPIRES_IN', res.expiresIn);
+                    // if (!postRegister) {
+                    //     this.authSubject.next(true);
+                    // }
+                }
+            })
         );
     }
 
     /**
      *
      *
-     * @param request
+     * @param body
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public accountsRegister(request: RegisterRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken>;
-    public accountsRegister(request: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
-    public accountsRegister(request: RegisterRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
-    public accountsRegister(request: RegisterRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public accountUpdateLocationsPost(body?: MarkLocationsRequest, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public accountUpdateLocationsPost(body?: MarkLocationsRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public accountUpdateLocationsPost(body?: MarkLocationsRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public accountUpdateLocationsPost(body?: MarkLocationsRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (request === null || request === undefined) {
-            throw new Error('Required parameter request was null or undefined when calling accountsRegister.');
-        }
 
         let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
+            headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
+        }
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
@@ -154,9 +288,74 @@ export class AccountsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<JwtToken>(`${this.basePath}/account/register`,
-            request,
+        return this.httpClient.request<boolean>('post', `${this.basePath}/account/update/locations`,
             {
+                body,
+                withCredentials: this.configuration.withCredentials,
+                headers,
+                observe,
+                reportProgress
+            }
+        );
+    }
+
+    /**
+     *
+     *
+     * @param image
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public accountUpdateProfileImagePostForm(image?: Blob, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public accountUpdateProfileImagePostForm(image?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public accountUpdateProfileImagePostForm(image?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public accountUpdateProfileImagePostForm(image?: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
+            headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'multipart/form-data'
+        ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void; };
+        let useForm = false;
+        const convertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (image !== undefined) {
+            formParams = formParams.append('image',  image as any) as any || formParams;
+        }
+
+        return this.httpClient.request<boolean>('post', `${this.basePath}/account/update/profile_image`,
+            {
+                body: convertFormParamsToString ? formParams.toString() : formParams,
                 withCredentials: this.configuration.withCredentials,
                 headers,
                 observe,

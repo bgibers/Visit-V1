@@ -58,6 +58,10 @@ export class UserTimelinePage implements OnInit {
     }
   }
 
+  presentMapFilter() {
+    
+  }
+
   async presentSearchModal() {
     const modal = await this.modalController.create({
       component: SearchPage,

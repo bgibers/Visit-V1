@@ -40,8 +40,7 @@ export class PostRegisterLocationsPage implements OnInit {
     }
   }
 
-  onSubmit(values) {
-    console.log(values);
+  onSubmit() {
     const navigationExtras: NavigationExtras = {
       replaceUrl: false,
       state: {
