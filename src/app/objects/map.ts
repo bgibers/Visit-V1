@@ -135,7 +135,7 @@ export class Map implements OnInit {
         visited.properties.fill = am4core.color('#128C7E');
 
         const toVisit = polygonTemplate.states.create('toVisit');
-        toVisit.properties.fill = am4core.color('#0000FF');
+        toVisit.properties.fill = am4core.color('#F05E23');
 
         const defaultState = polygonTemplate.states.create('default');
         defaultState.properties.fill = am4core.color('#d9d9d9');

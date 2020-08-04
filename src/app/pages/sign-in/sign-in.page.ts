@@ -54,15 +54,21 @@ export class SignInPage implements OnInit {
       password: this.loginForm.controls.password.value
     } as LoginApiRequest;
 
-    this.accountService.accountsLogin(loginModel).pipe(take(1)).subscribe(token => {
-      console.log('Token value ' + token.id)
-      const navigationExtras: NavigationExtras = {
-        replaceUrl: false,
-        state: {
-          userName: 'tester'
-        }
-      };
-      this.router.navigateByUrl('/tab1', navigationExtras);
+    // todo check if username and token are valid if not throw error
+    this.accountService.accountsLogin(loginModel).pipe(take(1)).subscribe(value => {
+
+      if (value !== null) {
+        const navigationExtras: NavigationExtras = {
+          replaceUrl: false,
+          state: {
+            userName: 'tester'
+          }
+        };
+        this.router.navigateByUrl('/tab1', navigationExtras);
+      } else {
+        console.log('Invalid username/password')
+      }
+
     });
   }
 

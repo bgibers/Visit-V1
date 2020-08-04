@@ -2,6 +2,9 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Map } from '../../../objects/map';
 import { MapSelectionMode } from 'src/app/objects/enums/map-selection-mode';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
+import { JwtToken, AccountsService } from 'src/app/backend/clients';
+import { MarkLocationsRequest } from 'src/app/backend/clients/model/markLocationsRequest';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'post-register-locations',
@@ -16,11 +19,21 @@ export class PostRegisterLocationsPage implements OnInit {
   but first let\'s show your friends (and yourself) where you've been!`;
   public subtitleTextToVisit = `Mark down every and any place you find interesting and want to checkout someday, let's make it happen!`;
   public displayVisitedText = true;
+  public token: JwtToken;
+  public locationRequest: MarkLocationsRequest = {};
   private map: Map;
+
   constructor(public router: Router,
+              private accountService: AccountsService,
               private zone: NgZone,
               private route: ActivatedRoute
-              ) { }
+  ) {
+    this.route.queryParams.subscribe(() => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.token = this.router.getCurrentNavigation().extras.state.token;
+      }
+    });
+}
 
   ngOnInit() {
     this.map = new Map(this.zone);
@@ -40,14 +53,23 @@ export class PostRegisterLocationsPage implements OnInit {
     }
   }
 
+  mapLocationsToRequest() {
+    this.map.selectedArr.forEach(location => {
+      this.locationRequest.locations[location.locationId] = location.status;
+    });
+  }
+
   onSubmit() {
-    const navigationExtras: NavigationExtras = {
-      replaceUrl: false,
-      state: {
-        userName: 'tester'
-      }
-    };
-    this.router.navigateByUrl('/tab1', navigationExtras);
+    this.mapLocationsToRequest();
+    this.accountService.accountUpdateLocationsPost(this.locationRequest).pipe(take(1)).subscribe(res => {
+      const navigationExtras: NavigationExtras = {
+        replaceUrl: false,
+        state: {
+          userName: 'tester'
+        }
+      };
+      this.router.navigateByUrl('/tab1', navigationExtras);
+    });
   }
 
 }

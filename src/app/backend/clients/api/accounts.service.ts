@@ -171,27 +171,36 @@ export class AccountsService {
             }
         ).pipe(
             tap(async res => {
-                if (res.authToken) {
+                console.log(res);
+                if (res.authToken !== null) {
                     await this.storage.set('ACCESS_TOKEN', res.authToken);
                     await this.storage.set('USER_ID', res.id);
                     await this.storage.set('EXPIRES_IN', res.expiresIn);
                     this.authSubject.next(true);
+                } else {
+
                 }
             })
         );
     }
-    /**
+
+     /**
      *
      *
-     * @param body
+     * @param email
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public accountRegisterPost(body?: RegisterRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken>;
-    public accountRegisterPost(body?: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
-    public accountRegisterPost(body?: RegisterRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
-    public accountRegisterPost(body?: RegisterRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public accountEmailTakenGet(email?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public accountEmailTakenGet(email?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public accountEmailTakenGet(email?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public accountEmailTakenGet(email?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (email !== undefined && email !== null) {
+            queryParameters = queryParameters.set('email',  email as string);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -207,25 +216,121 @@ export class AccountsService {
             'text/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
+        if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            'application/json-patch+json',
-            'application/json',
-            'text/json',
-            'application/_*+json'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
+
+        return this.httpClient.request<boolean>('get', `${this.basePath}/account/email_taken`,
+        {
+            params: queryParameters,
+            withCredentials: this.configuration.withCredentials,
+            headers,
+            observe,
+            reportProgress
+        }
+        );
+    }
+
+ /**
+     *
+     *
+     * @param email
+     * @param password
+     * @param firstname
+     * @param lastname
+     * @param birthday
+     * @param title
+     * @param education
+     * @param avi
+     * @param facebookId
+     * @param birthLocation
+     * @param residenceLocation
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public accountRegisterPostForm(registerRequest: RegisterRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken>;
+    public accountRegisterPostForm(registerRequest: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
+    public accountRegisterPostForm(registerRequest: RegisterRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
+    public accountRegisterPostForm(registerRequest: RegisterRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
+            headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'multipart/form-data'
+        ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void; };
+        let useForm = false;
+        const convertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (registerRequest.email !== undefined) {
+            formParams = formParams.append('Email',  registerRequest.email as any) as any || formParams;
+        }
+        if (registerRequest.password !== undefined) {
+            formParams = formParams.append('Password',  registerRequest.password as any) as any || formParams;
+        }
+        if (registerRequest.firstname !== undefined) {
+            formParams = formParams.append('Firstname',  registerRequest.firstname as any) as any || formParams;
+        }
+        if (registerRequest.lastname !== undefined) {
+            formParams = formParams.append('Lastname',  registerRequest.lastname as any) as any || formParams;
+        }
+        if (registerRequest.birthday !== undefined) {
+            formParams = formParams.append('Birthday',  registerRequest.birthday as any) as any || formParams;
+        }
+        if (registerRequest.title !== undefined) {
+            formParams = formParams.append('Title',  registerRequest.title as any) as any || formParams;
+        }
+        if (registerRequest.education !== undefined) {
+            formParams = formParams.append('Education',  registerRequest.education as any) as any || formParams;
+        }
+        if (registerRequest.avi !== undefined) {
+            formParams = formParams.append('Avi',  registerRequest.avi as any) as any || formParams;
+        }
+        if (registerRequest.facebookId !== undefined) {
+            formParams = formParams.append('FacebookId',  registerRequest.facebookId as any) as any || formParams;
+        }
+        if (registerRequest.birthLocation !== undefined) {
+            formParams = formParams.append('BirthLocation',  registerRequest.birthLocation as any) as any || formParams;
+        }
+        if (registerRequest.residenceLocation !== undefined) {
+            formParams = formParams.append('ResidenceLocation',  registerRequest.residenceLocation as any) as any || formParams;
         }
 
         return this.httpClient.request<JwtToken>('post', `${this.basePath}/account/register`,
             {
-                body,
+                body: convertFormParamsToString ? formParams.toString() : formParams,
                 withCredentials: this.configuration.withCredentials,
                 headers,
                 observe,

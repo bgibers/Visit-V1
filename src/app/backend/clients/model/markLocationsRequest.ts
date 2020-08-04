@@ -10,6 +10,6 @@
  * Do not edit the class manually.
  */
 
-export interface MarkLocationsRequest { 
+export interface MarkLocationsRequest {
     locations?: { [key: string]: string; };
 }

@@ -3,7 +3,7 @@
   <p class="back-to-login">
     Already have an account? <a [routerLink]="['/sign-in']" routerLinkActive="router-link-active" >Login instead</a>
   </p>
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">  
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">  
     <ion-grid>
       <ion-row>
         <ion-col>

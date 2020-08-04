@@ -22,7 +22,7 @@ export class UserProfilePage implements OnInit, OnDestroy {
       private zone: NgZone,
       private route: ActivatedRoute,
       private router: Router) {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.username = this.router.getCurrentNavigation().extras.state.userName;
       }

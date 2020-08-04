@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PasswordValidator } from 'src/app/objects/validators/password.validator';
+import { AccountsService } from 'src/app/backend/clients';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'register',
@@ -40,7 +42,8 @@ export class RegisterPage implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    public router: Router
+    public router: Router,
+    private accountService: AccountsService
   ) { }
 
 
@@ -73,15 +76,24 @@ export class RegisterPage implements OnInit {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
   }
 
-  onSubmit(values) {
-    console.log(values)
-    const navigationExtras: NavigationExtras = {
-      replaceUrl: false,
-      state: {
-       firstName: this.registerForm.controls.firstName.value
+  onSubmit() {
+    this.accountService.accountEmailTakenGet(this.registerForm.controls.email.value).pipe(take(1)).subscribe(res => {
+      if (res === true) {
+        const navigationExtras: NavigationExtras = {
+          replaceUrl: false,
+          state: {
+           firstName: this.registerForm.controls.firstName.value,
+           lastName: this.registerForm.controls.lastName.value,
+           email: this.registerForm.controls.email.value,
+           password: this.matchingPasswordsGroup.controls.password.value
+          }
+        };
+        this.router.navigateByUrl('/post-register-about', navigationExtras);
+      } else {
+        // print error that email is taken
       }
-    };
-    this.router.navigateByUrl('/post-register-about', navigationExtras);
+    });
+
   }
 
 }
