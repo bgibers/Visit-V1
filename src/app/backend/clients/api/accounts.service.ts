@@ -252,10 +252,10 @@ export class AccountsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public accountRegisterPostForm(registerRequest: RegisterRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken>;
-    public accountRegisterPostForm(registerRequest: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
-    public accountRegisterPostForm(registerRequest: RegisterRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
-    public accountRegisterPostForm(registerRequest: RegisterRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public accountRegisterPostForm(body?: RegisterRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken>;
+    public accountRegisterPostForm(body?: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
+    public accountRegisterPostForm(body?: RegisterRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
+    public accountRegisterPostForm(body?: RegisterRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -280,57 +280,9 @@ export class AccountsService {
             'multipart/form-data'
         ];
 
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): void; };
-        let useForm = false;
-        const convertFormParamsToString = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (registerRequest.email !== undefined) {
-            formParams = formParams.append('Email',  registerRequest.email as any) as any || formParams;
-        }
-        if (registerRequest.password !== undefined) {
-            formParams = formParams.append('Password',  registerRequest.password as any) as any || formParams;
-        }
-        if (registerRequest.firstname !== undefined) {
-            formParams = formParams.append('Firstname',  registerRequest.firstname as any) as any || formParams;
-        }
-        if (registerRequest.lastname !== undefined) {
-            formParams = formParams.append('Lastname',  registerRequest.lastname as any) as any || formParams;
-        }
-        if (registerRequest.birthday !== undefined) {
-            formParams = formParams.append('Birthday',  registerRequest.birthday as any) as any || formParams;
-        }
-        if (registerRequest.title !== undefined) {
-            formParams = formParams.append('Title',  registerRequest.title as any) as any || formParams;
-        }
-        if (registerRequest.education !== undefined) {
-            formParams = formParams.append('Education',  registerRequest.education as any) as any || formParams;
-        }
-        if (registerRequest.avi !== undefined) {
-            formParams = formParams.append('Avi',  registerRequest.avi as any) as any || formParams;
-        }
-        if (registerRequest.facebookId !== undefined) {
-            formParams = formParams.append('FacebookId',  registerRequest.facebookId as any) as any || formParams;
-        }
-        if (registerRequest.birthLocation !== undefined) {
-            formParams = formParams.append('BirthLocation',  registerRequest.birthLocation as any) as any || formParams;
-        }
-        if (registerRequest.residenceLocation !== undefined) {
-            formParams = formParams.append('ResidenceLocation',  registerRequest.residenceLocation as any) as any || formParams;
-        }
-
         return this.httpClient.request<JwtToken>('post', `${this.basePath}/account/register`,
             {
-                body: convertFormParamsToString ? formParams.toString() : formParams,
+                body,
                 withCredentials: this.configuration.withCredentials,
                 headers,
                 observe,

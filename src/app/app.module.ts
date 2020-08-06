@@ -12,11 +12,13 @@ import { AddPageModule } from './pages/modals/add/add.module';
 import { MapFilterPageModule } from './pages/modals/map-filter/map-filter.module';
 import { UserTimelinePageModule } from './pages/user-timeline/user-timeline.module';
 import { Camera } from '@ionic-native/camera/ngx';
+import { File } from '@ionic-native/file/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpConfigInterceptor } from './backend/models/httpConfigInterceptor';
 import { AuthGuard } from './backend/services/AuthGuard.service';
 import { AccountsService } from './backend/clients';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -29,6 +31,7 @@ import { AccountsService } from './backend/clients';
     SplashScreen,
     AccountsService,
     Camera,
+    File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

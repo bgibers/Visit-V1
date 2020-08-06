@@ -77,15 +77,16 @@ export class RegisterPage implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.matchingPasswordsGroup.controls.password.value)
     this.accountService.accountEmailTakenGet(this.registerForm.controls.email.value).pipe(take(1)).subscribe(res => {
-      if (res === true) {
+      if (res === false) {
         const navigationExtras: NavigationExtras = {
           replaceUrl: false,
           state: {
-           firstName: this.registerForm.controls.firstName.value,
-           lastName: this.registerForm.controls.lastName.value,
-           email: this.registerForm.controls.email.value,
-           password: this.matchingPasswordsGroup.controls.password.value
+            firstName: this.registerForm.controls.firstName.value,
+            lastName: this.registerForm.controls.lastName.value,
+            email: this.registerForm.controls.email.value,
+            password: this.matchingPasswordsGroup.controls.password.value
           }
         };
         this.router.navigateByUrl('/post-register-about', navigationExtras);

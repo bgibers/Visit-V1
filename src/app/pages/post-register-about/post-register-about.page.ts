@@ -75,8 +75,6 @@ export class PostRegisterAboutPage implements OnInit {
    }
 
   onSubmit() {
-    let avi = new Blob();
-    this.makeFileIntoBlob(this.userImage).then(img => avi = img);
     const registerRequest = {
       firstname: this.firstName,
       lastname: this.lastName,
@@ -87,7 +85,7 @@ export class PostRegisterAboutPage implements OnInit {
       residenceLocation: this.aboutForm.controls.residence.value,
       title: this.aboutForm.controls.title.value,
       education: this.aboutForm.controls.education.value,
-      avi
+      avi: this.dataURLtoBlob(this.userImage)
     } as RegisterRequest;
 
     this.accountService.accountRegisterPostForm(registerRequest).pipe(take(1)).subscribe(res => {
@@ -101,49 +99,26 @@ export class PostRegisterAboutPage implements OnInit {
     });
   }
 
-      // FILE STUFF
-    makeFileIntoBlob(imagePath): Promise<Blob> {
-        // INSTALL PLUGIN - cordova plugin add cordova-plugin-file
-        return new Promise((resolve, reject) => {
-          let fileName: string;
-          this.file
-            .resolveLocalFilesystemUrl(imagePath)
-            .then(fileEntry => {
-              const { name, nativeURL } = fileEntry;
-
-              // get the path..
-              const path = nativeURL.substring(0, nativeURL.lastIndexOf('/'));
-
-              fileName = name;
-
-              // we are provided the name, so now read the file into a buffer
-              return this.file.readAsArrayBuffer(path, name);
-            })
-            .then(buffer => {
-              // get the buffer and make a blob to be saved
-              const imgBlob: Blob = new Blob([buffer], {
-                type: 'image/jpeg'
-              });
-
-              resolve(
-                imgBlob
-              );
-            })
-            .catch(e => reject(e));
-        });
-      }
+  dataURLtoBlob(dataurl) {
+    let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {type: mime});
+}
 
   async getUserImage() {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
-      resultType: CameraResultType.Uri
+      resultType: CameraResultType.DataUrl
     });
     // image.webPath will contain a path that can be set as an image src.
     // You can access the original file using image.path, which can be
     // passed to the Filesystem API to read the raw data of the image,
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    const imageUrl = image.path;
+    const imageUrl = image.dataUrl;
     // Can be set to the src of an image now
     this.userImage = imageUrl;
   }
