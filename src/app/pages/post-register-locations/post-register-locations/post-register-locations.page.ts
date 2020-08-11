@@ -20,8 +20,12 @@ export class PostRegisterLocationsPage implements OnInit {
   public subtitleTextToVisit = `Mark down every and any place you find interesting and want to checkout someday, let's make it happen!`;
   public displayVisitedText = true;
   public token: JwtToken;
-  public locationRequest: MarkLocationsRequest = {};
+  public locationRequest = {
+    locations:  {}
+  } as MarkLocationsRequest;
   private map: Map;
+  hasError = false;
+  error = '';
 
   constructor(public router: Router,
               private accountService: AccountsService,
@@ -69,6 +73,9 @@ export class PostRegisterLocationsPage implements OnInit {
         }
       };
       this.router.navigateByUrl('/tab1', navigationExtras);
+    }, error => {
+      this.hasError = true;
+      this.error = 'An unexpected error has occurred.';
     });
   }
 

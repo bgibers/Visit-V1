@@ -39,6 +39,7 @@ export class AccountsService {
     public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, '');
     public configuration = new Configuration();
     public authSubject = new BehaviorSubject(false);
+    public token: BehaviorSubject<JwtToken> = new BehaviorSubject({});
 
     constructor(protected httpClient: HttpClient,
                 @Optional()@Inject(BASE_PATH) basePath: string,
@@ -74,12 +75,12 @@ export class AccountsService {
         return this.authSubject.value;
     }
 
-    public async getUserToken(): Promise<JwtToken> {
+    public async getUserTokenFromStorage(): Promise<JwtToken> {
         if (this.isLoggedIn) {
             const token: JwtToken = {
-                authToken: await this.storage.get('ACCESS_TOKEN'),
+                auth_token: await this.storage.get('ACCESS_TOKEN'),
                 id: await this.storage.get('USER_ID'),
-                expiresIn: await this.storage.get('EXPIRES_IN')
+                expires_in: await this.storage.get('EXPIRES_IN')
             } as JwtToken;
 
             return token;
@@ -97,13 +98,12 @@ export class AccountsService {
         this.storage.get('USER').then((response) => {
           if (response) {
             this.authSubject.next(true);
-            console.log(response);
           }
         });
       }
 
-    public async getToken(): Promise<string> {
-        return await this.storage.get('ACCESS_TOKEN');
+    public getToken() {
+        return this.token;
     }
 
     /**
@@ -127,10 +127,10 @@ export class AccountsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public accountsLogin(requestApi: LoginApiRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken>;
-    public accountsLogin(requestApi: LoginApiRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
-    public accountsLogin(requestApi: LoginApiRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
-    public accountsLogin(requestApi: LoginApiRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public accountsLogin(requestApi: LoginApiRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken> {
+    // public accountsLogin(requestApi: LoginApiRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
+    // public accountsLogin(requestApi: LoginApiRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
+    // public accountsLogin(requestApi: LoginApiRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (requestApi === null || requestApi === undefined) {
             throw new Error('Required parameter requestApi was null or undefined when calling accountsLogin.');
@@ -170,12 +170,11 @@ export class AccountsService {
                 reportProgress
             }
         ).pipe(
-            tap(async res => {
-                console.log(res);
-                if (res.authToken !== null) {
-                    await this.storage.set('ACCESS_TOKEN', res.authToken);
+            tap(async ( res: JwtToken ) => {
+                if (res.auth_token !== null) {
+                    await this.storage.set('ACCESS_TOKEN', res.auth_token);
                     await this.storage.set('USER_ID', res.id);
-                    await this.storage.set('EXPIRES_IN', res.expiresIn);
+                    await this.storage.set('EXPIRES_IN', res.expires_in);
                     this.authSubject.next(true);
                 } else {
 
@@ -204,10 +203,7 @@ export class AccountsService {
 
         let headers = this.defaultHeaders;
 
-        // authentication (Bearer) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
-            headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
-        }
+
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
@@ -252,17 +248,14 @@ export class AccountsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public accountRegisterPostForm(body?: RegisterRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken>;
-    public accountRegisterPostForm(body?: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
-    public accountRegisterPostForm(body?: RegisterRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
-    public accountRegisterPostForm(body?: RegisterRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public accountRegisterPostForm(body?: RegisterRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken> {
+    // public accountRegisterPostForm(body?: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
+    // public accountRegisterPostForm(body?: RegisterRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
+    // public accountRegisterPostForm(body?: RegisterRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        // authentication (Bearer) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
-            headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
-        }
+
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
@@ -289,11 +282,13 @@ export class AccountsService {
                 reportProgress
             }
         ).pipe(
-            tap(async res => {
-                if (res.authToken) {
-                    await this.storage.set('ACCESS_TOKEN', res.authToken);
+            tap(async ( res: JwtToken ) => {
+                if (res.auth_token) {
+                    this.token.next(res);
+                    await this.storage.set('ACCESS_TOKEN', res.auth_token);
                     await this.storage.set('USER_ID', res.id);
-                    await this.storage.set('EXPIRES_IN', res.expiresIn);
+                    await this.storage.set('EXPIRES_IN', res.expires_in);
+                    this.authSubject.next(true);
                     // if (!postRegister) {
                     //     this.authSubject.next(true);
                     // }
@@ -317,10 +312,7 @@ export class AccountsService {
 
         let headers = this.defaultHeaders;
 
-        // authentication (Bearer) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
-            headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
-        }
+
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
@@ -371,10 +363,7 @@ export class AccountsService {
 
         let headers = this.defaultHeaders;
 
-        // authentication (Bearer) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
-            headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
-        }
+
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [

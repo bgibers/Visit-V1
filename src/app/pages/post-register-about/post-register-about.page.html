@@ -79,6 +79,11 @@
               </ng-container>
             </div>
           </ion-item>
+          <div class="validation-errors">
+            <div class="error-message" *ngIf="hasError">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ error }}
+            </div>
+        </div>
         </ion-col>
       </ion-row>
     </ion-grid>

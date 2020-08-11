@@ -12,6 +12,6 @@
 
 export interface JwtToken { 
     id?: string;
-    authToken?: string;
-    expiresIn?: string;
+    auth_token?: string;
+    expires_in?: string;
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { Plugins, CameraResultType } from '@capacitor/core';
-import { File } from '@ionic-native/file/ngx';
 
 const { Camera } = Plugins;
 import * as moment from 'moment';
@@ -23,6 +22,8 @@ export class PostRegisterAboutPage implements OnInit {
   lastName: string;
   email: string;
   password: string;
+  hasError = false;
+  error = '';
 
   validationMessages = {
     birthday: [
@@ -46,8 +47,7 @@ export class PostRegisterAboutPage implements OnInit {
     public router: Router,
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private accountService: AccountsService,
-    private file: File
+    private accountService: AccountsService
   ) {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -85,7 +85,7 @@ export class PostRegisterAboutPage implements OnInit {
       residenceLocation: this.aboutForm.controls.residence.value,
       title: this.aboutForm.controls.title.value,
       education: this.aboutForm.controls.education.value,
-      avi: this.dataURLtoBlob(this.userImage)
+      // avi: this.dataURLtoBlob(this.userImage)
     } as RegisterRequest;
 
     this.accountService.accountRegisterPostForm(registerRequest).pipe(take(1)).subscribe(res => {
@@ -96,12 +96,18 @@ export class PostRegisterAboutPage implements OnInit {
         }
       };
       this.router.navigateByUrl('/post-register-locations', navigationExtras);
+    }, error => {
+      this.hasError = true;
+      this.error = 'Unable to register user. Please try again.';
     });
   }
 
   dataURLtoBlob(dataurl) {
-    let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    const arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+
     while (n--) {
         u8arr[n] = bstr.charCodeAt(n);
     }

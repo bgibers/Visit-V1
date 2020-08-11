@@ -30,7 +30,6 @@ export class UserProfilePage implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    console.log('onInit');
     this.map = new Map(this.zone);
     await this.map.createMap('user-map', this.selectionMode);
   }

@@ -14,22 +14,24 @@ import { map, catchError, switchMap } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { BASE_PATH } from '../../../environments/environment';
-
+import { AccountsService} from '../clients/api/accounts.service';
 
 const TOKEN_KEY = 'ACCESS_TOKEN';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
 
-    constructor(private alertController: AlertController, private storage: Storage) {}
+    constructor(private alertController: AlertController,
+                private accountService: AccountsService,
+                private storage: Storage) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        return from(this.storage.get(TOKEN_KEY))
+        return from(this.accountService.getToken())
             .pipe(
                 switchMap(token => {
-                    if (token) {
-                        request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
+                    if (token.auth_token) {
+                        request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token.auth_token) });
                     }
 
                     if (!request.headers.has('Content-Type')) {
@@ -48,7 +50,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                             const status =  error.status;
                             const reason = error;
 
-                            //this.presentAlert(status, reason);
+                            // this.presentAlert(status, reason);
                             return throwError(error);
                         })
                     );

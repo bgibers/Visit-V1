@@ -13,7 +13,6 @@ export class MapFilterPage implements OnInit, OnDestroy {
   constructor(private zone: NgZone) { }
 
   ngOnInit() {
-    console.log('onInit');
     this.map = new Map(this.zone);
     this.map.createMap('filter-map', this.selectionMode);
   }

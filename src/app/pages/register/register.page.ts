@@ -13,7 +13,8 @@ import { take } from 'rxjs/operators';
 export class RegisterPage implements OnInit {
   matchingPasswordsGroup: FormGroup;
   passwordType = 'password';
-
+  hasError = false;
+  error = '';
   registerForm: FormGroup;
 
   validationMessages = {
@@ -30,7 +31,7 @@ export class RegisterPage implements OnInit {
     password: [
       { type: 'required', message: 'Password is required.' },
       { type: 'minlength', message: 'Password must be at least 5 characters long.' },
-      { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number.' }
+      { type: 'pattern', message: 'Your password must contain an uppercase, lowercase, number, and character.' }
     ],
     confirmPassword: [
       { type: 'required', message: 'Confirm password is required.' }
@@ -50,13 +51,13 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
     const email = new FormControl('', Validators.compose([
       Validators.required,
-      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
+      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')
     ]));
     this.matchingPasswordsGroup = new FormGroup({
       password: new FormControl('', Validators.compose([
         Validators.minLength(5),
         Validators.required,
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+        Validators.pattern('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,25}$')
       ])),
       confirmPassword: new FormControl('', Validators.required)
     }, (formGroup: FormGroup) => {
@@ -77,7 +78,6 @@ export class RegisterPage implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.matchingPasswordsGroup.controls.password.value)
     this.accountService.accountEmailTakenGet(this.registerForm.controls.email.value).pipe(take(1)).subscribe(res => {
       if (res === false) {
         const navigationExtras: NavigationExtras = {
@@ -91,8 +91,12 @@ export class RegisterPage implements OnInit {
         };
         this.router.navigateByUrl('/post-register-about', navigationExtras);
       } else {
-        // print error that email is taken
+        this.hasError = true;
+        this.error = 'An account with this email is already registered.';
       }
+    }, error => {
+      this.hasError = true;
+      this.error = 'An unexpected error has occurred.';
     });
 
   }
