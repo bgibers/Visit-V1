@@ -9,7 +9,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Location } from './location';
 import { Post } from './post';
 import { UserLocation } from './userLocation';
 
@@ -22,8 +21,10 @@ export interface UserResponse {
     birthday?: Date;
     avi?: string;
     facebookId?: number;
-    birthLocation?: Location;
-    residenceLocation?: Location;
+    birthLocation?: string;
+    residenceLocation?: string;
+    title?: string;
+    education?: string;
     posts?: Array<Post>;
     followingCount?: number;
     followerCount?: number;

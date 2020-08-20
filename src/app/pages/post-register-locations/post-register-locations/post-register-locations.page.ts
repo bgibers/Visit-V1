@@ -39,9 +39,9 @@ export class PostRegisterLocationsPage implements OnInit {
     });
 }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.map = new Map(this.zone);
-    this.map.createMap('register-map', this.selectionMode);
+    await this.map.createMap('register-map', this.selectionMode);
   }
 
   switchMode() {

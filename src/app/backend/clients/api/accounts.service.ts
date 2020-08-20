@@ -23,7 +23,6 @@ import { JwtToken } from '../model/jwtToken';
 import { LoginApiRequest } from '../model/loginApiRequest';
 import { RegisterRequest } from '../model/registerRequest';
 
-import { COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import { MarkLocationsRequest } from '../model/markLocationsRequest';
 import { BASE_PATH } from 'src/environments/environment';
@@ -172,6 +171,7 @@ export class AccountsService {
         ).pipe(
             tap(async ( res: JwtToken ) => {
                 if (res.auth_token !== null) {
+                    this.token.next(res);
                     await this.storage.set('ACCESS_TOKEN', res.auth_token);
                     await this.storage.set('USER_ID', res.id);
                     await this.storage.set('EXPIRES_IN', res.expires_in);

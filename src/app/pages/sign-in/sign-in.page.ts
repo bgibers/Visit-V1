@@ -61,7 +61,7 @@ export class SignInPage implements OnInit {
         const navigationExtras: NavigationExtras = {
           replaceUrl: false,
           state: {
-            userName: 'tester'
+            userId: value.id
           }
         };
         this.router.navigateByUrl('/tab1', navigationExtras);

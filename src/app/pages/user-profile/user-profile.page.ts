@@ -5,6 +5,11 @@ import { MapSelectionMode } from '../../objects/enums/map-selection-mode';
 import { ModalController } from '@ionic/angular';
 import { SearchPage } from '../modals/search/search.page';
 import { UserTimelinePage } from '../user-timeline/user-timeline.page';
+import { UserService } from '../../backend/clients/api/user.service';
+import { AccountsService } from '../../backend/clients/api/accounts.service';
+import { UserResponse } from '../../backend/clients/model/userResponse';
+import { take, map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'user-profile',
@@ -13,12 +18,15 @@ import { UserTimelinePage } from '../user-timeline/user-timeline.page';
 })
 export class UserProfilePage implements OnInit, OnDestroy {
 
-  username: string;
-  private map: Map;
+  public username: string;
   public selectionMode: MapSelectionMode = MapSelectionMode.NONE;
+  public user: BehaviorSubject<UserResponse> = new BehaviorSubject({});
+  private map: Map;
 
   constructor(
       public modalController: ModalController,
+      private userService: UserService,
+      private accountService: AccountsService,
       private zone: NgZone,
       private route: ActivatedRoute,
       private router: Router) {
@@ -30,6 +38,16 @@ export class UserProfilePage implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    // todo if userId is passed in, then don't call self
+    const token = this.accountService.getToken();
+    this.userService.userGetIdGet(token.value.id).pipe(take(1)).subscribe(user => {
+      this.user.next(user);
+      // todo make the initializer accept an array
+      user.userLocations.forEach(location => {
+      this.map.changeVisitStatus(location.fkLocation.locationCode, location.status);
+    });
+  });
+
     this.map = new Map(this.zone);
     await this.map.createMap('user-map', this.selectionMode);
   }

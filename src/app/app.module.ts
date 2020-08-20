@@ -17,7 +17,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpConfigInterceptor } from './backend/models/httpConfigInterceptor';
 import { AuthGuard } from './backend/services/AuthGuard.service';
-import { AccountsService } from './backend/clients';
+import { AccountsService, UserService } from './backend/clients';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +30,7 @@ import { AccountsService } from './backend/clients';
     StatusBar,
     SplashScreen,
     AccountsService,
+    UserService,
     Camera,
     File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

@@ -24,7 +24,7 @@ export class PostRegisterAboutPage implements OnInit {
   password: string;
   hasError = false;
   error = '';
-
+  
   validationMessages = {
     birthday: [
       { type: 'required', message: 'Birthday is required.' },
@@ -84,8 +84,7 @@ export class PostRegisterAboutPage implements OnInit {
       birthLocation: this.aboutForm.controls.birthPlace.value,
       residenceLocation: this.aboutForm.controls.residence.value,
       title: this.aboutForm.controls.title.value,
-      education: this.aboutForm.controls.education.value,
-      // avi: this.dataURLtoBlob(this.userImage)
+      education: this.aboutForm.controls.education.value
     } as RegisterRequest;
 
     this.accountService.accountRegisterPostForm(registerRequest).pipe(take(1)).subscribe(res => {
@@ -95,10 +94,12 @@ export class PostRegisterAboutPage implements OnInit {
           token: res
         }
       };
-      this.router.navigateByUrl('/post-register-locations', navigationExtras);
+      // this.accountService.accountUpdateProfileImagePostForm(this.dataURLtoBlob(this.userImage)).pipe(take(1)).subscribe(res => {
+        this.router.navigateByUrl('/post-register-locations', navigationExtras);
+      // });
     }, error => {
       this.hasError = true;
-      this.error = 'Unable to register user. Please try again.';
+      this.error = 'Unable to register user. Please try again';
     });
   }
 
