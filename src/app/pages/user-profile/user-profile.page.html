@@ -8,7 +8,7 @@
           </ion-buttons>
         </ion-col>
         <ion-col class="ion-justify-self-center"> 
-          <h1 style="text-align: center;">{{user.username}}</h1>
+          <h1 style="text-align: center;">{{user.value.username}}</h1>
         </ion-col>
         <ion-col class="ion-justify-content-end">
           <ion-buttons class="ion-justify-content-end"> 
@@ -28,23 +28,23 @@
         <ion-row>
           <ion-col>
             <ion-avatar>
-              <img [src]="user.avi">
+              <img [src]="user.value.avi">
             </ion-avatar>
           </ion-col>
           <ion-col>
             <ion-row>
-                <h2>{{user.education}}</h2>
+                <h2>{{user.value.education}}</h2>
             </ion-row>
             <ion-row>
-              <h3>{{user.education}}</h3>
+              <h3>{{user.value.education}}</h3>
             </ion-row>
             <ion-row class="header-text">
               <ion-col size=".5"><img src="../../../assets/UI/cake_icon.svg"></ion-col>
-              <ion-col><ion-text color="medium"> {{this.user.birthLocation}}</ion-text></ion-col>
+              <ion-col><ion-text color="medium"> {{user.value.birthLocation}}</ion-text></ion-col>
             </ion-row>
             <ion-row class="header-text">
               <ion-col size=".5"><img src="../../../assets/UI/location_pin_icon.svg"></ion-col>
-              <ion-col><ion-text color="medium"> {{this.user.residenceLocation}}</ion-text></ion-col>
+              <ion-col><ion-text color="medium"> {{user.value.residenceLocation}}</ion-text></ion-col>
             </ion-row>
           </ion-col>
           <ion-col size=".5">
@@ -59,7 +59,7 @@
               <ion-text>Following</ion-text>
             </ion-row>
             <ion-row >
-              <ion-text>{{this.user.followingCount}}</ion-text>
+              <ion-text>{{user.value.followingCount}}</ion-text>
             </ion-row>
           </ion-col>
           <ion-col class="ion-align-self-end">
@@ -67,7 +67,7 @@
               <ion-text>Followers</ion-text>
             </ion-row>
             <ion-row >
-              <ion-text>{{this.user.followerCount}}</ion-text>
+              <ion-text>{{user.value.followerCount}}</ion-text>
             </ion-row>
           </ion-col>     
           <ion-col class="ion-align-self-end visited-col" >

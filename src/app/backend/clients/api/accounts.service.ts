@@ -333,7 +333,7 @@ export class AccountsService {
             'application/_*+json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
+        if (httpContentTypeSelected !== undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
@@ -348,22 +348,20 @@ export class AccountsService {
         );
     }
 
-    /**
+ /**
      *
      *
-     * @param image
+     * @param body
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public accountUpdateProfileImagePostForm(image?: Blob, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public accountUpdateProfileImagePostForm(image?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public accountUpdateProfileImagePostForm(image?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public accountUpdateProfileImagePostForm(image?: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public accountUpdateProfileImagePost(blob?: Blob, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public accountUpdateProfileImagePost(blob?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public accountUpdateProfileImagePost(blob?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public accountUpdateProfileImagePost(blob?: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let headers = this.defaultHeaders;
-
-
 
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
@@ -378,30 +376,20 @@ export class AccountsService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            'multipart/form-data'
+            'application/json-patch+json',
+            'application/json',
+            'text/json',
+            'application/_*+json'
         ];
+        headers = headers.set('Content-Type', null);
 
-        const canConsumeForm = this.canConsumeForm(consumes);
+        const body = new FormData();
+        body.append('image', blob);
 
-        let formParams: { append(param: string, value: any): void; };
-        let useForm = false;
-        const convertFormParamsToString = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (image !== undefined) {
-            formParams = formParams.append('image',  image as any) as any || formParams;
-        }
 
         return this.httpClient.request<boolean>('post', `${this.basePath}/account/update/profile_image`,
             {
-                body: convertFormParamsToString ? formParams.toString() : formParams,
+                body,
                 withCredentials: this.configuration.withCredentials,
                 headers,
                 observe,
@@ -411,3 +399,14 @@ export class AccountsService {
     }
 
 }
+class Guid {
+    static newGuid() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        // tslint:disable-next-line: no-bitwise
+        const r = Math.random() * 16 | 0,
+          // tslint:disable-next-line: no-bitwise
+          v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+  }

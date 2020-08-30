@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
+import { Component, OnInit, NgZone, AfterViewInit } from '@angular/core';
 import { Map } from '../../../objects/map';
 import { MapSelectionMode } from '../../../objects/enums/map-selection-mode';
 
@@ -7,18 +7,15 @@ import { MapSelectionMode } from '../../../objects/enums/map-selection-mode';
   templateUrl: './map-filter.page.html',
   styleUrls: ['./map-filter.page.scss'],
 })
-export class MapFilterPage implements OnInit, OnDestroy {
+export class MapFilterPage implements AfterViewInit {
   private map: Map;
   public selectionMode: MapSelectionMode = MapSelectionMode.NONE;
-  constructor(private zone: NgZone) { }
-
-  ngOnInit() {
-    this.map = new Map(this.zone);
-    this.map.createMap('filter-map', this.selectionMode);
+  constructor(private zone: NgZone) {
+    this.map = Map.getInstance(this.zone);
   }
 
-  ngOnDestroy() {
-    this.map.destroyMap();
+  ngAfterViewInit() {
+    this.map.addMapToDiv(this.selectionMode, 'filter-map');
   }
 
 }

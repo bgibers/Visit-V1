@@ -8,9 +8,9 @@ import am4geodata_usaLow from '@amcharts/amcharts4-geodata/usaLow';
 // import am4geodata_canadaLow from '@amcharts/amcharts4-geodata/canadaLow';
 // import am4geodata_russiaLow from '@amcharts/amcharts4-geodata/russiaLow';
 import { MapSelectionMode } from './enums/map-selection-mode';
+export class Map {
+  private static instance: Map;
 
-@Injectable()
-export class Map implements OnInit {
   private chart: am4maps.MapChart;
   private polygonArr: Array<am4maps.MapPolygon>;
   public selectedArr: Array<{
@@ -24,16 +24,21 @@ export class Map implements OnInit {
   private name: string;
   private id: any;
 
-  constructor(private zone: NgZone) {
+  private constructor(private zone: NgZone) {
     this.selectedArea = new am4maps.MapPolygon();
     this.polygonArr = new Array<am4maps.MapPolygon>();
     this.selectedArr = new Array();
     this.seriesArr = new Array<am4maps.MapPolygonSeries>();
+    this.createMap(MapSelectionMode.NONE);
+    this.selectionMode = MapSelectionMode.NONE;
   }
 
-  ngOnInit() {
-    this.createMap('map', MapSelectionMode.NONE);
-    this.selectionMode = MapSelectionMode.NONE;
+  static getInstance(zone: NgZone): Map {
+    if (!Map.instance) {
+      Map.instance = new Map(zone);
+    }
+
+    return Map.instance;
   }
 
   get selectedId() {
@@ -52,7 +57,7 @@ export class Map implements OnInit {
       this.name = name;
   }
 
-  async createMap(divName: string, selectionMode: MapSelectionMode) {
+  async createMap(selectionMode: MapSelectionMode) {
     am4core.disposeAllCharts();
     this.zone.runOutsideAngular(() => {
       let worldSeries: am4maps.MapPolygonSeries;
@@ -63,9 +68,10 @@ export class Map implements OnInit {
 
       am4core.ready(() => {
         am4core.useTheme(am4themes_animated);
+        am4core.options.autoDispose = true;
 
         // Create map instance
-        chart = am4core.create(divName, am4maps.MapChart);
+        chart = am4core.create(undefined, am4maps.MapChart);
         chart.geodata = worldLow;
         chart.projection = new am4maps.projections.Miller();
         chart.zoomControl = new am4maps.ZoomControl();
@@ -120,6 +126,12 @@ export class Map implements OnInit {
       this.setSelectionMode(selectionMode);
       this.chart = chart;
     });
+  }
+
+  addMapToDiv(selectionMode: MapSelectionMode, divName: string) {
+    this.selectionMode = selectionMode;
+    this.setSelectionMode(this.selectionMode);
+    this.chart.moveHtmlContainer(divName);
   }
 
   setupTemplates() {

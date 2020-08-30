@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 
 import { Platform, ModalController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AddPage } from './pages/modals/add/add.page';
 import { Router } from '@angular/router';
+import { Map } from './objects/map';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -18,9 +19,11 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public modalController: ModalController,
-    public router: Router
+    public router: Router,
+    public zone: NgZone
   ) {
     this.initializeApp();
+    Map.getInstance(zone);
   }
 
   initializeApp() {

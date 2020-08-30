@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, AfterViewInit } from '@angular/core';
 import { Map } from '../../../objects/map';
 import { MapSelectionMode } from 'src/app/objects/enums/map-selection-mode';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
   templateUrl: './post-register-locations.page.html',
   styleUrls: ['./post-register-locations.page.scss'],
 })
-export class PostRegisterLocationsPage implements OnInit {
+export class PostRegisterLocationsPage implements AfterViewInit {
   public selectionMode: MapSelectionMode = MapSelectionMode.VISITED;
   public titleTextVisited = 'Where have you visited?';
   public titleTextToVisit = 'Bucketlist';
@@ -37,11 +37,11 @@ export class PostRegisterLocationsPage implements OnInit {
         this.token = this.router.getCurrentNavigation().extras.state.token;
       }
     });
+    this.map = Map.getInstance(this.zone);
 }
 
-  async ngOnInit() {
-    this.map = new Map(this.zone);
-    await this.map.createMap('register-map', this.selectionMode);
+  async ngAfterViewInit() {
+    this.map.addMapToDiv(this.selectionMode , 'register-map');
   }
 
   switchMode() {

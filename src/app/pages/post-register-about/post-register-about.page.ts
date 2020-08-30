@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { Plugins, CameraResultType } from '@capacitor/core';
+import { Plugins, CameraResultType, CameraPhoto } from '@capacitor/core';
 
 const { Camera } = Plugins;
 import * as moment from 'moment';
@@ -24,7 +24,9 @@ export class PostRegisterAboutPage implements OnInit {
   password: string;
   hasError = false;
   error = '';
-  
+  image: CameraPhoto;
+  blob: Blob;
+
   validationMessages = {
     birthday: [
       { type: 'required', message: 'Birthday is required.' },
@@ -87,14 +89,20 @@ export class PostRegisterAboutPage implements OnInit {
       education: this.aboutForm.controls.education.value
     } as RegisterRequest;
 
-    this.accountService.accountRegisterPostForm(registerRequest).pipe(take(1)).subscribe(res => {
+    this.accountService.accountRegisterPostForm(registerRequest).pipe(take(1)).subscribe(async res => {
       const navigationExtras: NavigationExtras = {
         replaceUrl: false,
         state: {
           token: res
         }
       };
-      this.accountService.accountUpdateProfileImagePostForm(this.dataURLtoBlob(this.userImage)).pipe(take(1)).subscribe(res => {
+      console.log(this.blob);
+
+      this.accountService.accountUpdateProfileImagePost(this.blob).pipe(take(1)).subscribe(res => {
+        this.router.navigateByUrl('/post-register-locations', navigationExtras);
+      }, err => {
+        this.router.navigateByUrl('/post-register-locations', navigationExtras);
+      }, () => {
         this.router.navigateByUrl('/post-register-locations', navigationExtras);
       });
     }, error => {
@@ -103,20 +111,19 @@ export class PostRegisterAboutPage implements OnInit {
     });
   }
 
-  dataURLtoBlob(dataurl) {
-    const arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
+  b64toBlob(dataURI) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
 
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
+    for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
     }
-    return new Blob([u8arr], {type: mime});
+    this.blob = new Blob([ab], { type: 'image/jpeg' });
 }
 
   async getUserImage() {
-    const image = await Camera.getPhoto({
+    this.image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
       resultType: CameraResultType.DataUrl
@@ -125,8 +132,9 @@ export class PostRegisterAboutPage implements OnInit {
     // You can access the original file using image.path, which can be
     // passed to the Filesystem API to read the raw data of the image,
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    const imageUrl = image.dataUrl;
+    const imageUrl = this.image.dataUrl;
     // Can be set to the src of an image now
     this.userImage = imageUrl;
+    this.b64toBlob(this.image.dataUrl);
   }
 }

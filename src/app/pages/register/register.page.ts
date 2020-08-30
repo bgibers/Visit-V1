@@ -55,7 +55,7 @@ export class RegisterPage implements OnInit {
     ]));
     this.matchingPasswordsGroup = new FormGroup({
       password: new FormControl('', Validators.compose([
-        Validators.minLength(5),
+        Validators.minLength(7),
         Validators.required,
         Validators.pattern('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,25}$')
       ])),

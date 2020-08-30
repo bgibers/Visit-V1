@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, AfterViewInit, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Map } from '../../objects/map';
 import { MapSelectionMode } from '../../objects/enums/map-selection-mode';
@@ -16,7 +16,7 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './user-profile.page.html',
   styleUrls: ['./user-profile.page.scss'],
 })
-export class UserProfilePage implements OnInit, OnDestroy {
+export class UserProfilePage implements OnInit, AfterViewInit {
 
   public username: string;
   public selectionMode: MapSelectionMode = MapSelectionMode.NONE;
@@ -35,6 +35,7 @@ export class UserProfilePage implements OnInit, OnDestroy {
         this.username = this.router.getCurrentNavigation().extras.state.userName;
       }
     });
+    this.map = Map.getInstance(this.zone);
   }
 
   async ngOnInit() {
@@ -42,18 +43,19 @@ export class UserProfilePage implements OnInit, OnDestroy {
     const token = this.accountService.getToken();
     this.userService.userGetIdGet(token.value.id).pipe(take(1)).subscribe(user => {
       this.user.next(user);
+      if (this.user.value.avi === '') {
+        this.user.value.avi = '../../../assets/defaultuser.png';
+      }
+
       // todo make the initializer accept an array
       user.userLocations.forEach(location => {
-      this.map.changeVisitStatus(location.fkLocation.locationCode, location.status);
+        this.map.changeVisitStatus(location.fkLocation.locationCode, location.status);
+      });
     });
-  });
-
-    this.map = new Map(this.zone);
-    await this.map.createMap('user-map', this.selectionMode);
   }
 
-  ngOnDestroy() {
-    this.map.destroyMap();
+  ngAfterViewInit() {
+    this.map.addMapToDiv(this.selectionMode, 'user-map');
   }
 
   async presentSearchModal() {
