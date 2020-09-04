@@ -381,7 +381,6 @@ export class AccountsService {
             'text/json',
             'application/_*+json'
         ];
-        headers = headers.set('Content-Type', null);
 
         const body = new FormData();
         body.append('image', blob);
