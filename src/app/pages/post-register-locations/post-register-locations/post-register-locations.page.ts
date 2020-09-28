@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
   templateUrl: './post-register-locations.page.html',
   styleUrls: ['./post-register-locations.page.scss'],
 })
-export class PostRegisterLocationsPage implements AfterViewInit {
+export class PostRegisterLocationsPage {
   public selectionMode: MapSelectionMode = MapSelectionMode.VISITED;
   public titleTextVisited = 'Where have you visited?';
   public titleTextToVisit = 'Bucketlist';
@@ -40,7 +40,7 @@ export class PostRegisterLocationsPage implements AfterViewInit {
     this.map = Map.getInstance(this.zone);
 }
 
-  async ngAfterViewInit() {
+  ionViewWillEnter() {
     this.map.addMapToDiv(this.selectionMode , 'register-map');
   }
 

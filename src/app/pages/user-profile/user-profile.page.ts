@@ -16,9 +16,9 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './user-profile.page.html',
   styleUrls: ['./user-profile.page.scss'],
 })
-export class UserProfilePage implements OnInit, AfterViewInit {
+export class UserProfilePage implements AfterViewInit {
 
-  public username: string;
+  public userId = undefined;
   public selectionMode: MapSelectionMode = MapSelectionMode.NONE;
   public user: BehaviorSubject<UserResponse> = new BehaviorSubject({});
   private map: Map;
@@ -32,18 +32,22 @@ export class UserProfilePage implements OnInit, AfterViewInit {
       private router: Router) {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.username = this.router.getCurrentNavigation().extras.state.userName;
+        this.userId = this.router.getCurrentNavigation().extras.state.userId;
+        console.log(this.router.getCurrentNavigation().extras.state.userId)
       }
     });
     this.map = Map.getInstance(this.zone);
   }
 
-  async ngOnInit() {
-    // todo if userId is passed in, then don't call self
-    const token = this.accountService.getToken();
-    this.userService.userGetIdGet(token.value.id).pipe(take(1)).subscribe(user => {
+  ionViewWillEnter() {
+    console.log(this.userId)
+    if (this.userId === undefined) {
+      const token = this.accountService.getToken().value;
+      this.userId = token.id;
+    } 
+    this.userService.userGetIdGet(this.userId).pipe(take(1)).subscribe(user => {
       this.user.next(user);
-      if (this.user.value.avi === '') {
+      if (this.user.value.avi === undefined) {
         this.user.value.avi = '../../../assets/defaultuser.png';
       }
 

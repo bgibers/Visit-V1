@@ -4,6 +4,7 @@ import { SearchPage } from '../modals/search/search.page';
 import { MapFilterPage } from '../modals/map-filter/map-filter.page';
 import { Router, NavigationExtras } from '@angular/router';
 import { ModalService } from '../../services/modal.service';
+import { AccountsService } from '../../backend/clients/api/accounts.service';
 
 @Component({
   selector: 'news-feed',
@@ -30,6 +31,7 @@ export class NewsFeedPage implements OnInit {
   ];
   constructor(public modalController: ModalController,
               private modalService: ModalService,
+              private accountService: AccountsService,
               private router: Router) {
   }
 
@@ -76,10 +78,13 @@ export class NewsFeedPage implements OnInit {
   }
 
   openProfile() {
+    const token = this.accountService.getToken().value;
+
     const navigationExtras: NavigationExtras = {
-      replaceUrl: false,
+      replaceUrl: true,
+      skipLocationChange: true,
       state: {
-        userName: 'tester'
+        userId: token.id
       }
     };
     this.router.navigateByUrl('/user-profile', navigationExtras);

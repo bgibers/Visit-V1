@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { UserService } from 'src/app/backend/clients';
+import { take } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { SlimUserResponse } from 'src/app/backend/clients/model/slimUserResponse';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'search',
@@ -8,17 +13,32 @@ import { ModalController } from '@ionic/angular';
 })
 export class SearchPage implements OnInit {
 
-  constructor(public viewCtrl: ModalController) { }
+  constructor(public viewCtrl: ModalController,
+              public userService: UserService,
+              private router: Router) {}
 
-  people: any[] = [];
+  people: BehaviorSubject<SlimUserResponse[]> = new BehaviorSubject([]);
+  searchQuery = '';
 
   ngOnInit() {
-    for (let i = 0; i < 20; i++) {
-      this.people.push({
-        name: 'Brendan Giberson',
-        location: 'Charleston, SC'
-      });
+  }
+
+  search() {
+    this.userService.userSearchQueryGet(this.searchQuery).pipe(take(1)).subscribe(users => {
+      this.people.next(users);
+    });
+  }
+
+  goToProfile(user: SlimUserResponse) {
+    const navigationExtras: NavigationExtras = {
+      replaceUrl: true,
+      skipLocationChange: true,
+      state: {
+        userId: user.id
       }
+    };
+    this.viewCtrl.dismiss();
+    this.router.navigateByUrl('/user-profile', navigationExtras);
   }
 
   dismiss() {

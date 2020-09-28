@@ -37,7 +37,7 @@ export class SignInPage implements OnInit {
   ngOnInit() {
     const email = new FormControl('', Validators.compose([
       Validators.required,
-      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$') // todo allow uppercase
+      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')
     ]));
     const password = new FormControl('', Validators.compose([
       Validators.required
