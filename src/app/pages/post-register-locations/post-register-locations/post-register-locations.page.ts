@@ -21,27 +21,31 @@ export class PostRegisterLocationsPage {
   public displayVisitedText = true;
   public token: JwtToken;
   public locationRequest = {
-    locations:  {}
+    locations: {},
   } as MarkLocationsRequest;
   private map: Map;
   hasError = false;
   error = '';
 
-  constructor(public router: Router,
-              private accountService: AccountsService,
-              private zone: NgZone,
-              private route: ActivatedRoute
+  constructor(
+    public router: Router,
+    private accountService: AccountsService,
+    private zone: NgZone,
+    private route: ActivatedRoute
   ) {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.token = this.router.getCurrentNavigation().extras.state.token;
       }
     });
-    this.map = Map.getInstance(this.zone);
-}
-
+  }
   ionViewWillEnter() {
-    this.map.addMapToDiv(this.selectionMode , 'register-map');
+    this.map = new Map(this.zone);
+    this.map.addMapToDiv(this.selectionMode, 'register-map');
+  }
+
+  ionViewWillLeave() {
+    this.map.destroyMap();
   }
 
   switchMode() {
@@ -58,25 +62,30 @@ export class PostRegisterLocationsPage {
   }
 
   mapLocationsToRequest() {
-    this.map.selectedArr.forEach(location => {
+    this.map.selectedArr.forEach((location) => {
       this.locationRequest.locations[location.locationId] = location.status;
     });
   }
 
   onSubmit() {
     this.mapLocationsToRequest();
-    this.accountService.accountUpdateLocationsPost(this.locationRequest).pipe(take(1)).subscribe(res => {
-      const navigationExtras: NavigationExtras = {
-        replaceUrl: false,
-        state: {
-          userName: 'tester'
+    this.accountService
+      .accountUpdateLocationsPost(this.locationRequest)
+      .pipe(take(1))
+      .subscribe(
+        (res) => {
+          const navigationExtras: NavigationExtras = {
+            replaceUrl: false,
+            state: {
+              userName: 'tester',
+            },
+          };
+          this.router.navigateByUrl('/tab1', navigationExtras);
+        },
+        (error) => {
+          this.hasError = true;
+          this.error = 'An unexpected error has occurred.';
         }
-      };
-      this.router.navigateByUrl('/tab1', navigationExtras);
-    }, error => {
-      this.hasError = true;
-      this.error = 'An unexpected error has occurred.';
-    });
+      );
   }
-
 }

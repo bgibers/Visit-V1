@@ -1,8 +1,8 @@
-import { Component, OnInit, AfterViewInit, NgZone } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Map } from '../../objects/map';
 import { MapSelectionMode } from '../../objects/enums/map-selection-mode';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 import { SearchPage } from '../modals/search/search.page';
 import { UserTimelinePage } from '../user-timeline/user-timeline.page';
 import { UserService } from '../../backend/clients/api/user.service';
@@ -16,15 +16,17 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './user-profile.page.html',
   styleUrls: ['./user-profile.page.scss'],
 })
-export class UserProfilePage implements AfterViewInit {
+export class UserProfilePage {
 
   public userId = undefined;
   public selectionMode: MapSelectionMode = MapSelectionMode.NONE;
   public user: BehaviorSubject<UserResponse> = new BehaviorSubject({});
+  public canEditProfile = false;
   private map: Map;
 
   constructor(
       public modalController: ModalController,
+      public loadingController: LoadingController,
       private userService: UserService,
       private accountService: AccountsService,
       private zone: NgZone,
@@ -36,17 +38,29 @@ export class UserProfilePage implements AfterViewInit {
         console.log(this.router.getCurrentNavigation().extras.state.userId)
       }
     });
-    this.map = Map.getInstance(this.zone);
   }
 
-  ionViewWillEnter() {
-    console.log(this.userId)
+  async ionViewWillEnter() {
+    const loading = await this.loadingController.create({
+      duration: 2000
+    });
+    await loading.present();
+    this.map = new Map(this.zone);
+    this.map.addMapToDiv(this.selectionMode, 'user-map');
+
     if (this.userId === undefined) {
       const token = this.accountService.getToken().value;
       this.userId = token.id;
-    } 
+    }
+
     this.userService.userGetIdGet(this.userId).pipe(take(1)).subscribe(user => {
+
+      if (this.accountService.getToken().value.id === this.userId) {
+        this.canEditProfile = true;
+      }
+
       this.user.next(user);
+      loading.dismiss();
       if (this.user.value.avi === undefined) {
         this.user.value.avi = '../../../assets/defaultuser.png';
       }
@@ -58,9 +72,11 @@ export class UserProfilePage implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    this.map.addMapToDiv(this.selectionMode, 'user-map');
+  ionViewWillLeave() {
+    this.canEditProfile = false;
+    this.map.destroyMap();
   }
+
 
   async presentSearchModal() {
     const modal = await this.modalController.create({

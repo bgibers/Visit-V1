@@ -7,6 +7,7 @@ const { Camera } = Plugins;
 import * as moment from 'moment';
 import { AccountsService, RegisterRequest } from 'src/app/backend/clients';
 import { take } from 'rxjs/operators';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'post-register-about',
@@ -47,6 +48,7 @@ export class PostRegisterAboutPage implements OnInit {
   };
   constructor(
     public router: Router,
+    public loadingController: LoadingController,
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private accountService: AccountsService
@@ -76,7 +78,11 @@ export class PostRegisterAboutPage implements OnInit {
     });
    }
 
-  onSubmit() {
+  async onSubmit() {
+    const loading = await this.loadingController.create({
+      duration: 2000
+    });
+    await loading.present();
     const registerRequest = {
       firstname: this.firstName,
       lastname: this.lastName,
@@ -100,10 +106,13 @@ export class PostRegisterAboutPage implements OnInit {
 
       this.accountService.accountUpdateProfileImagePost(this.blob).pipe(take(1)).subscribe(res => {
         this.router.navigateByUrl('/post-register-locations', navigationExtras);
+        loading.dismiss();
       }, err => {
         this.router.navigateByUrl('/post-register-locations', navigationExtras);
+        loading.dismiss();
       }, () => {
         this.router.navigateByUrl('/post-register-locations', navigationExtras);
+        loading.dismiss();
       });
     }, error => {
       this.hasError = true;

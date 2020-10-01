@@ -8,6 +8,8 @@ import am4geodata_usaLow from '@amcharts/amcharts4-geodata/usaLow';
 // import am4geodata_canadaLow from '@amcharts/amcharts4-geodata/canadaLow';
 // import am4geodata_russiaLow from '@amcharts/amcharts4-geodata/russiaLow';
 import { MapSelectionMode } from './enums/map-selection-mode';
+
+@Injectable()
 export class Map {
   private static instance: Map;
 
@@ -24,7 +26,7 @@ export class Map {
   private name: string;
   private id: any;
 
-  private constructor(private zone: NgZone) {
+  constructor(private zone: NgZone) {
     this.selectedArea = new am4maps.MapPolygon();
     this.polygonArr = new Array<am4maps.MapPolygon>();
     this.selectedArr = new Array();
@@ -33,13 +35,13 @@ export class Map {
     this.selectionMode = MapSelectionMode.NONE;
   }
 
-  static getInstance(zone: NgZone): Map {
-    if (!Map.instance) {
-      Map.instance = new Map(zone);
-    }
+  // static getInstance(zone: NgZone): Map {
+  //   if (!Map.instance) {
+  //     Map.instance = new Map(zone);
+  //   }
 
-    return Map.instance;
-  }
+  //   return Map.instance;
+  // }
 
   get selectedId() {
     return this.id;

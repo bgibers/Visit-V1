@@ -23,7 +23,7 @@ export class AppComponent {
     public zone: NgZone
   ) {
     this.initializeApp();
-    Map.getInstance(zone);
+    // Map.getInstance(zone);
   }
 
   initializeApp() {
