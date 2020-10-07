@@ -18,7 +18,7 @@ export class MapFilterPage {
     this.map.addMapToDiv(this.selectionMode, 'filter-map');
   }
 
-  ionViewWillLeave() {
+  ionViewDidLeave() {
     this.map.destroyMap();
   }
 }

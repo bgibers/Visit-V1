@@ -74,6 +74,10 @@ const routes: Routes = [
     path: 'post-register-locations',
     loadChildren: () => import('./pages/post-register-locations/post-register-locations/post-register-locations.module')
       .then( m => m.PostRegisterLocationsPageModule)
+  },
+  {
+    path: 'mark-location',
+    loadChildren: () => import('./pages/mark-location/mark-location/mark-location.module').then( m => m.MarkLocationPageModule)
   }
 ];
 @NgModule({

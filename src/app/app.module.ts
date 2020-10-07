@@ -18,12 +18,13 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpConfigInterceptor } from './backend/models/httpConfigInterceptor';
 import { AuthGuard } from './backend/services/AuthGuard.service';
 import { AccountsService, UserService } from './backend/clients';
+import { MarkLocationPageModule } from './pages/mark-location/mark-location/mark-location.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, SearchPageModule, AddPageModule,
-     HttpClientModule, UserTimelinePageModule, MapFilterPageModule
+     HttpClientModule, UserTimelinePageModule, MapFilterPageModule, MarkLocationPageModule
   ],
   providers: [
     AuthGuard,

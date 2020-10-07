@@ -44,7 +44,7 @@ export class PostRegisterLocationsPage {
     this.map.addMapToDiv(this.selectionMode, 'register-map');
   }
 
-  ionViewWillLeave() {
+  ionViewDidLeave() {
     this.map.destroyMap();
   }
 

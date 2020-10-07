@@ -72,7 +72,7 @@ export class UserProfilePage {
     });
   }
 
-  ionViewWillLeave() {
+  ionViewDidLeave() {
     this.canEditProfile = false;
     this.map.destroyMap();
   }
