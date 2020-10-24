@@ -21,6 +21,10 @@ export interface User {
     firstname?: string;
     lastname?: string;
     birthday?: Date;
+    title?: string;
+    education?: string;
+    birthLocation?: string;
+    residenceLocation?: string;
     avi?: string;
     fkBirthLocationId?: number;
     fkResidenceLocationId?: number;

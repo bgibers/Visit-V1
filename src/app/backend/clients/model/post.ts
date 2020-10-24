@@ -22,6 +22,7 @@ export interface Post {
     fkUserId?: string;
     postContentLink?: string;
     postCaption?: string;
+    postTime?: Date;
     reviewRating?: number;
     fkPostType?: PostType;
     fkUser?: User;

@@ -15,9 +15,9 @@ export interface RegisterRequest {
     password?: string;
     firstname?: string;
     lastname?: string;
-    education?: string;
-    title?: string;
     birthday?: Date;
+    title?: string;
+    education?: string;
     facebookId?: number;
     birthLocation?: string;
     residenceLocation?: string;

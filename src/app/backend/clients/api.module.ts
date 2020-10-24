@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { AccountsService } from './api/accounts.service';
 import { BlobStorageService } from './api/blobStorage.service';
+import { DevopsService } from './api/devops.service';
 import { PostService } from './api/post.service';
 import { PostTestDataService } from './api/postTestData.service';
 import { TagService } from './api/tag.service';
@@ -19,6 +20,7 @@ import { UserMessageService } from './api/userMessage.service';
   providers: [
     AccountsService,
     BlobStorageService,
+    DevopsService,
     PostService,
     PostTestDataService,
     TagService,

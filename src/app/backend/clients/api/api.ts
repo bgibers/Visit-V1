@@ -2,6 +2,8 @@ export * from './accounts.service';
 import { AccountsService } from './accounts.service';
 export * from './blobStorage.service';
 import { BlobStorageService } from './blobStorage.service';
+export * from './devops.service';
+import { DevopsService } from './devops.service';
 export * from './post.service';
 import { PostService } from './post.service';
 export * from './postTestData.service';
@@ -14,5 +16,4 @@ export * from './userLocation.service';
 import { UserLocationService } from './userLocation.service';
 export * from './userMessage.service';
 import { UserMessageService } from './userMessage.service';
-// tslint:disable-next-line: max-line-length
-export const APIS = [AccountsService, BlobStorageService, PostService, PostTestDataService, TagService, UserService, UserLocationService, UserMessageService];
+export const APIS = [AccountsService, BlobStorageService, DevopsService, PostService, PostTestDataService, TagService, UserService, UserLocationService, UserMessageService];
