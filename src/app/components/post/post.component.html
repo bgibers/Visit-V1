@@ -3,8 +3,9 @@
     'post-image-container': post.imgSrc,
     'post-container': !post.imgSrc
   }">
-    <card-flip #card>
-      <div class ="card-flip-front" *ngIf="!card.flipped">
+    <!-- <card-flip #card> -->
+      <!-- <div class ="card-flip-front" *ngIf="!card.flipped"> -->
+        <div class ="card-flip-front">
         <ion-grid class="three-col-grid">
           <ion-row>
             <ion-col size=".6">
@@ -66,13 +67,14 @@
             </ion-row>
           </ion-grid>
           <ion-buttons>
-            <ion-button class="btn" flip-card (click)="card.flip()">
+            <!-- <ion-button class="btn" flip-card (click)="card.flip()"> -->
+              <ion-button class="btn">
               View all comments
             </ion-button>
           </ion-buttons>
         </ion-card-content>
       </div>
-      <div class ="card-flip-back" *ngIf="card.flipped">
+      <!-- <div class ="card-flip-back" *ngIf="card.flipped">
         <ion-card-content>
           <ion-buttons>
             <ion-button class="btn" flip-card (click)="card.flip()">
@@ -107,7 +109,7 @@
             </ion-item>
           </ion-virtual-scroll>
         </ion-card-content>
-      </div>
-    </card-flip>
+      </div> -->
+    <!-- </card-flip> -->
   </ion-card>
   </ion-virtual-scroll>
