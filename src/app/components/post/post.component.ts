@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
+import { Post } from 'src/app/backend/clients';
 
 @Component({
   selector: 'post',
@@ -16,7 +17,8 @@ export class PostComponent implements OnInit {
     //   }
     // });
   }
-  @Input() items: any[] = [];
+
+  @Input() posts: Post[] = [];
 
   username = 'Bgibers';
   location = 'Charleston, SC';

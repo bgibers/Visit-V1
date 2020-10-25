@@ -17,7 +17,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpConfigInterceptor } from './backend/models/httpConfigInterceptor';
 import { AuthGuard } from './backend/services/AuthGuard.service';
-import { AccountsService, UserService } from './backend/clients';
+import { AccountsService, UserService, PostService } from './backend/clients';
 import { MarkLocationPageModule } from './pages/mark-location/mark-location/mark-location.module';
 
 @NgModule({
@@ -32,6 +32,7 @@ import { MarkLocationPageModule } from './pages/mark-location/mark-location/mark
     SplashScreen,
     AccountsService,
     UserService,
+    PostService,
     Camera,
     File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

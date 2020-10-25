@@ -1,7 +1,7 @@
-<ion-virtual-scroll [items]="items" approxItemHeight="500">
+<ion-virtual-scroll [items]="posts" approxItemHeight="500">
   <ion-card *virtualItem="let post; let itemBounds = bounds;"  [ngClass]="{
-    'post-image-container': post.imgSrc,
-    'post-container': !post.imgSrc
+    'post-image-container': post.postContentLink,
+    'post-container': !post.postContentLink
   }">
     <!-- <card-flip #card> -->
       <!-- <div class ="card-flip-front" *ngIf="!card.flipped"> -->
@@ -15,7 +15,7 @@
             </ion-col>
             <ion-col>
               <ion-row>
-                  <ion-card-title class="card-title">{{username}}</ion-card-title>
+                  <ion-card-title class="card-title">{{post.fkUser.firstname}} {{post.fkUser.lastname}}</ion-card-title>
               </ion-row>
               <ion-row>
                 <ion-card-subtitle color="medium">{{location}}</ion-card-subtitle>
@@ -34,13 +34,13 @@
           <ion-grid>
             <ion-row class="ion-align-items-baseline">
               <ion-col>
-                {{ post.content }}
+                {{ post.postCaption }}
               </ion-col>
             </ion-row>
-            <ion-row *ngIf="post.imgSrc">
+            <ion-row *ngIf="post.postContentLink">
               <ion-col>
                 <div>
-                  <img [src]="post.imgSrc" height="300" [alt]="post.name" class="rcorners">
+                  <img [src]="post.postContentLink" height="300" [alt]="post.name" class="rcorners">
                 </div>
               </ion-col>
             </ion-row>
