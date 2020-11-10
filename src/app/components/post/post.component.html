@@ -1,7 +1,7 @@
 <ion-virtual-scroll [items]="posts" approxItemHeight="500">
   <ion-card *virtualItem="let post; let itemBounds = bounds;"  [ngClass]="{
     'post-image-container': post.postContentLink,
-    'post-container': !post.postContentLink
+    'post-container': post.postContentLink === undefined
   }">
     <!-- <card-flip #card> -->
       <!-- <div class ="card-flip-front" *ngIf="!card.flipped"> -->
@@ -10,7 +10,7 @@
           <ion-row>
             <ion-col size=".6">
               <ion-avatar>
-                <img src="../../assets/defaultuser.png" (click)="openProfile()">
+                <img [src]="post.fkUser.avi" (click)="openProfile()">
               </ion-avatar>
             </ion-col>
             <ion-col>

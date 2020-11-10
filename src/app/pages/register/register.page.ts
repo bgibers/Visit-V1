@@ -57,7 +57,7 @@ export class RegisterPage implements OnInit {
       password: new FormControl('', Validators.compose([
         Validators.minLength(7),
         Validators.required,
-        Validators.pattern('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,25}$')
+        Validators.pattern('^(?=.*[0-9])(?=.*[!@#$%.^&*?])[a-zA-Z0-9!@#$%.^&*?]{7,25}$')
       ])),
       confirmPassword: new FormControl('', Validators.required)
     }, (formGroup: FormGroup) => {

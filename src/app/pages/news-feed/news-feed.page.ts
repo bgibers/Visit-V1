@@ -3,9 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { SearchPage } from '../modals/search/search.page';
 import { MapFilterPage } from '../modals/map-filter/map-filter.page';
 import { Router, NavigationExtras } from '@angular/router';
-import { ModalService } from '../../services/modal.service';
 import { AccountsService } from '../../backend/clients/api/accounts.service';
-import { PostService, PostPaginatedList, Post } from 'src/app/backend/clients';
+import { PostService, Post } from 'src/app/backend/clients';
 
 @Component({
   selector: 'news-feed',
@@ -18,7 +17,6 @@ export class NewsFeedPage implements OnInit {
   morePages = false;
 
   constructor(public modalController: ModalController,
-              private modalService: ModalService,
               private accountService: AccountsService,
               private postService: PostService,
               private router: Router) {
@@ -29,6 +27,15 @@ export class NewsFeedPage implements OnInit {
       this.morePages = res.hasNextPage;
       this.pageNumber = res.pageIndex;
       this.posts = res.items;
+    });
+  }
+
+  getPosts(event) {
+    this.postService.postsPostsPageGet(1).subscribe(res => {
+      this.morePages = res.hasNextPage;
+      this.pageNumber = res.pageIndex;
+      this.posts = res.items;
+      event.target.complete();
     });
   }
 

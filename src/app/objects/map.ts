@@ -178,10 +178,8 @@ export class Map {
             polygonTemplate.events.on('doublehit', ev => {
                 const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
                 if (this.selectionMode === MapSelectionMode.TO_VISIT) {
-                  console.log('To Visit')
                   this.changeVisitStatus(data.id, 'toVisit');
                 } else {
-                  console.log('Visit')
                   this.changeVisitStatus(data.id, 'visited');
                 }
             });
@@ -229,7 +227,6 @@ export class Map {
           }
         this.selectedArr.push({locationId, status});
     }
-    console.log(this.selectedArr);
   }
 
   destroyMap() {

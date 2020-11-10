@@ -35,6 +35,10 @@
     margin: auto;
 }
 
+.refresher-ios .refresher-pulling-icon, .refresher-ios .refresher-pulling-text, .refresher-ios .refresher-refreshing-icon, .refresher-ios .refresher-refreshing-text { color: var(--ion-text-color,#128C7E); }
+ion-refresher-content {
+  background: white;
+}
 .search-modal { 
     background: rgba(0, 0, 0, 0.5) !important; 
     padding: 5% 10% !important; 

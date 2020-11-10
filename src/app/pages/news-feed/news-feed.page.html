@@ -24,6 +24,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="false" color="light">
+  <ion-refresher slot="fixed" (ionRefresh)="getPosts($event)">
+    <ion-refresher-content
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
   <post [posts]="posts"></post>
 </ion-content>
 <ion-fab class="map-filter-fab" vertical="bottom">
