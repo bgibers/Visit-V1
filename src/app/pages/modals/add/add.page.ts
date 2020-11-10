@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { MapSelectionMode } from 'src/app/objects/enums/map-selection-mode';
 import { ModalController } from '@ionic/angular';
-import { MarkLocationPage } from '../../mark-location/mark-location/mark-location.page';
+import { MarkLocationPage } from '../../mark-location/mark-location.page';
 
 @Component({
   selector: 'add-modal',

@@ -18,7 +18,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpConfigInterceptor } from './backend/models/httpConfigInterceptor';
 import { AuthGuard } from './backend/services/AuthGuard.service';
 import { AccountsService, UserService, PostService } from './backend/clients';
-import { MarkLocationPageModule } from './pages/mark-location/mark-location/mark-location.module';
+import { MarkLocationPageModule } from './pages/mark-location/mark-location.module';
 
 @NgModule({
   declarations: [AppComponent],

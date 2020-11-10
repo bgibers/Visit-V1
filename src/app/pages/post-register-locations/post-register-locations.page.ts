@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone, AfterViewInit } from '@angular/core';
-import { Map } from '../../../objects/map';
+import { Map } from '../../objects/map';
 import { MapSelectionMode } from 'src/app/objects/enums/map-selection-mode';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { JwtToken, AccountsService } from 'src/app/backend/clients';
