@@ -3,6 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { MapSelectionMode } from 'src/app/objects/enums/map-selection-mode';
 import { ModalController } from '@ionic/angular';
 import { MarkLocationPage } from '../../mark-location/mark-location.page';
+import { AddPostPage } from '../../add-post/add-post.page';
 
 @Component({
   selector: 'add-modal',
@@ -31,6 +32,15 @@ export class AddPage {
       component: MarkLocationPage,
       componentProps: {
         selectionMode: MapSelectionMode.VISITED
+      }
+    });
+    return await modal.present();
+  }
+
+  async addNewPost() {
+    const modal = await this.modalCtrl.create({
+      component: AddPostPage,
+      componentProps: {
       }
     });
     return await modal.present();

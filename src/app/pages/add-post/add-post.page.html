@@ -1,9 +1,31 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>add-post</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content no-bounce>
+  <h1>Create Post</h1>
+    <h3>Looking for travel advice? Want to share something interesting about a destination? Let's hear it!</h3>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item class="roundedInput">
+            <ion-textarea rows="10" placeholder="Travel related content*" maxlength="250" autocapitalize="true" required></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item class="roundedInput">
+            <ion-label>Location*</ion-label>
+            <ionic-selectable
+              [(ngModel)]="selectedLocation"
+              [items]="locationOptions"
+              itemValueField="id"
+              itemTextField="name"
+              [canSearch]="true">
+            </ionic-selectable>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="button-div">
+      <ion-button class="submit-button" expand="block" type="submit" [disabled]="!postText && !selectedLocation">Add post</ion-button>
+      <ion-button class="submit-button" expand="block" type="submit" (click)="dismiss()">Cancel</ion-button>
+    </div>
 </ion-content>

@@ -231,23 +231,6 @@ export class AccountsService {
         );
     }
 
- /**
-     *
-     *
-     * @param email
-     * @param password
-     * @param firstname
-     * @param lastname
-     * @param birthday
-     * @param title
-     * @param education
-     * @param avi
-     * @param facebookId
-     * @param birthLocation
-     * @param residenceLocation
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
     public accountRegisterPostForm(body?: RegisterRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken> {
     // public accountRegisterPostForm(body?: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
     // public accountRegisterPostForm(body?: RegisterRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;

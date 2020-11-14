@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { AddPostPageRoutingModule } from './add-post-routing.module';
 
 import { AddPostPage } from './add-post.page';
+import { IonicSelectableModule } from 'ionic-selectable';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AddPostPageRoutingModule
+    AddPostPageRoutingModule,
+    IonicSelectableModule
   ],
   declarations: [AddPostPage]
 })

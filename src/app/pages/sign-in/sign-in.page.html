@@ -2,7 +2,7 @@
   <h1>Welcome</h1>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">  
     <ion-item class="roundedInput">
-      <ion-input placeholder="Email" type="email" formControlName="email" required></ion-input>
+      <ion-input autocapitalize="true" placeholder="Email" type="email" formControlName="email" required></ion-input>
       <div class="validation-errors">
         <ng-container *ngFor="let validation of validationMessages.email">
           <div class="error-message" *ngIf="loginForm.get('email').hasError(validation.type) && (loginForm.get('email').dirty || loginForm.get('email').touched)">
@@ -12,7 +12,7 @@
       </div>
     </ion-item>
     <ion-item class="roundedInput">
-      <ion-input [type]="passwordType" placeholder="Password" formControlName="password" required></ion-input>
+      <ion-input autocapitalize="true" [type]="passwordType" placeholder="Password" formControlName="password" required></ion-input>
       <ion-icon name="eye" item-right (click)="togglePasswordMode()"></ion-icon>    
     </ion-item>
     <div class="button-div">

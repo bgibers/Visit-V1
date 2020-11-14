@@ -28,7 +28,7 @@
         </ion-col>
         <ion-col>
           <ion-item class="roundedInput">
-            <ion-input placeholder="BirthPlace*" type="text" formControlName="birthPlace" required></ion-input>
+            <ion-input autocapitalize="true" placeholder="BirthPlace*" type="text" formControlName="birthPlace" required></ion-input>
             <div class="validation-errors">
               <ng-container *ngFor="let validation of validationMessages.birthPlace">
                 <div class="error-message" *ngIf="aboutForm.get('birthPlace').hasError(validation.type) && (aboutForm.get('birthPlace').dirty || aboutForm.get('birthPlace').touched)">
@@ -42,7 +42,7 @@
       <ion-row>
         <ion-col>
           <ion-item class="roundedInput">
-            <ion-input placeholder="Current Residence*" type="text" formControlName="residence" required></ion-input>
+            <ion-input autocapitalize="true" placeholder="Current Residence*" type="text" formControlName="residence" required></ion-input>
             <div class="validation-errors">
               <ng-container *ngFor="let validation of validationMessages.residence">
                 <div class="error-message" *ngIf="aboutForm.get('residence').hasError(validation.type) && (aboutForm.get('residence').dirty || aboutForm.get('residence').touched)">
@@ -56,7 +56,7 @@
       <ion-row>
         <ion-col>
           <ion-item class="roundedInput">
-            <ion-input placeholder="Education*" type="text" formControlName="education" required></ion-input>
+            <ion-input autocapitalize="true" placeholder="Education*" type="text" formControlName="education" required></ion-input>
             <div class="validation-errors">
               <ng-container *ngFor="let validation of validationMessages.education">
                 <div class="error-message" *ngIf="aboutForm.get('education').hasError(validation.type) && (aboutForm.get('education').dirty || aboutForm.get('education').touched)">
@@ -70,7 +70,7 @@
       <ion-row>
         <ion-col>
           <ion-item class="roundedInput">
-            <ion-input placeholder="Title or Employment*" type="text" formControlName="title" required></ion-input>
+            <ion-input autocapitalize="true" placeholder="Title or Employment*" type="text" formControlName="title" required></ion-input>
             <div class="validation-errors">
               <ng-container *ngFor="let validation of validationMessages.title">
                 <div class="error-message" *ngIf="aboutForm.get('title').hasError(validation.type) && (aboutForm.get('title').dirty || aboutForm.get('title').touched)">

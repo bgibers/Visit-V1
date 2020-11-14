@@ -19,12 +19,15 @@ import { HttpConfigInterceptor } from './backend/models/httpConfigInterceptor';
 import { AuthGuard } from './backend/services/AuthGuard.service';
 import { AccountsService, UserService, PostService } from './backend/clients';
 import { MarkLocationPageModule } from './pages/mark-location/mark-location.module';
+import { IonicSelectableModule } from 'ionic-selectable';
+import { LocationSelector } from './objects/location-json/location.selector';
+import { AddPostPageModule } from './pages/add-post/add-post.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, SearchPageModule, AddPageModule,
-     HttpClientModule, UserTimelinePageModule, MapFilterPageModule, MarkLocationPageModule
+     HttpClientModule, UserTimelinePageModule, MapFilterPageModule, MarkLocationPageModule, AddPostPageModule, IonicSelectableModule
   ],
   providers: [
     AuthGuard,
@@ -33,6 +36,7 @@ import { MarkLocationPageModule } from './pages/mark-location/mark-location.modu
     AccountsService,
     UserService,
     PostService,
+    LocationSelector,
     Camera,
     File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
