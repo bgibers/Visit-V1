@@ -4,6 +4,7 @@ import { MapSelectionMode } from 'src/app/objects/enums/map-selection-mode';
 import { ModalController } from '@ionic/angular';
 import { MarkLocationPage } from '../../mark-location/mark-location.page';
 import { AddPostPage } from '../../add-post/add-post.page';
+import { AddPostImagePage } from '../../add-post-image/add-post-image.page';
 
 @Component({
   selector: 'add-modal',
@@ -46,4 +47,13 @@ export class AddPage {
     return await modal.present();
   }
 
+
+  async addNewImage() {
+    const modal = await this.modalCtrl.create({
+      component: AddPostImagePage,
+      componentProps: {
+      }
+    });
+    return await modal.present();
+  }
 }

@@ -22,12 +22,13 @@ import { MarkLocationPageModule } from './pages/mark-location/mark-location.modu
 import { IonicSelectableModule } from 'ionic-selectable';
 import { LocationSelector } from './objects/location-json/location.selector';
 import { AddPostPageModule } from './pages/add-post/add-post.module';
+import { AddPostImagePageModule } from './pages/add-post-image/add-post-image.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, SearchPageModule, AddPageModule,
-     HttpClientModule, UserTimelinePageModule, MapFilterPageModule, MarkLocationPageModule, AddPostPageModule, IonicSelectableModule
+     HttpClientModule, UserTimelinePageModule, MapFilterPageModule, MarkLocationPageModule, AddPostPageModule, AddPostImagePageModule, IonicSelectableModule
   ],
   providers: [
     AuthGuard,

@@ -37,7 +37,7 @@
 
 .refresher-ios .refresher-pulling-icon, .refresher-ios .refresher-pulling-text, .refresher-ios .refresher-refreshing-icon, .refresher-ios .refresher-refreshing-text { color: var(--ion-text-color,#128C7E); }
 ion-refresher-content {
-  background: white;
+  background: transparent;
 }
 .search-modal { 
     background: rgba(0, 0, 0, 0.5) !important; 

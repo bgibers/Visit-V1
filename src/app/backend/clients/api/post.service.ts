@@ -47,17 +47,17 @@ export class PostService {
     }
 
     /**
-     *
-     *
-     * @param post
+     * @param caption
+     * @param postType
+     * @param locationCode
+     * @param image
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public postsNewPost(post?: CreatePostRequest, blob?: Blob, observe?: 'body', reportProgress?: boolean): Observable<NewPostResponse>;
-    public postsNewPost(post?: CreatePostRequest, blob?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NewPostResponse>>;
-    public postsNewPost(post?: CreatePostRequest, blob?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NewPostResponse>>;
-    public postsNewPost(post?: CreatePostRequest, blob?: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
+    public postsNewPostForm(caption?: string, postType?: string, locationCode?: string, image?: Blob, observe?: 'body', reportProgress?: boolean): Observable<NewPostResponse>;
+    public postsNewPostForm(caption?: string, postType?: string, locationCode?: string, image?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NewPostResponse>>;
+    public postsNewPostForm(caption?: string, postType?: string, locationCode?: string, image?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NewPostResponse>>;
+    public postsNewPostForm(caption?: string, postType?: string, locationCode?: string, image?: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -74,23 +74,30 @@ export class PostService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            'application/json-patch+json',
-            'application/json',
-            'text/json',
-            'application/_*+json'
+            'multipart/form-data'
         ];
 
+        let formParams: { append(param: string, value: any): void; };
+        formParams = new FormData();
 
-        const body = new FormData();
-        body.append('post', JSON.stringify(post));
+        const convertFormParamsToString = false;
 
-        if (blob) {
-            body.append('image', blob);
+        if (caption !== undefined) {
+            formParams = formParams.append('Caption',  caption as any) as any || formParams;
+        }
+        if (postType !== undefined) {
+            formParams = formParams.append('PostType',  postType as any) as any || formParams;
+        }
+        if (locationCode !== undefined) {
+            formParams = formParams.append('LocationCode',  locationCode as any) as any || formParams;
+        }
+        if (image !== undefined) {
+            formParams = formParams.append('Image',  image as any) as any || formParams;
         }
 
         return this.httpClient.request<NewPostResponse>('post', `${this.basePath}/posts/new`,
             {
-                body,
+                body: convertFormParamsToString ? formParams.toString() : formParams,
                 withCredentials: this.configuration.withCredentials,
                 headers,
                 observe,
@@ -98,6 +105,7 @@ export class PostService {
             }
         );
     }
+
     /**
      *
      *

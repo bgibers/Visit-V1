@@ -77,11 +77,18 @@ const routes: Routes = [
   },
   {
     path: 'mark-location',
-    loadChildren: () => import('./pages/mark-location/mark-location.module').then( m => m.MarkLocationPageModule)
+    loadChildren: () => import('./pages/mark-location/mark-location.module').then( m => m.MarkLocationPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'add-post',
-    loadChildren: () => import('./pages/add-post/add-post.module').then( m => m.AddPostPageModule)
+    loadChildren: () => import('./pages/add-post/add-post.module').then( m => m.AddPostPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-post-image',
+    loadChildren: () => import('./pages/add-post-image/add-post-image.module').then( m => m.AddPostImagePageModule),
+    canActivate: [AuthGuard]
   }
 ];
 @NgModule({

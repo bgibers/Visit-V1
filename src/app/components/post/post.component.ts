@@ -9,7 +9,7 @@ import { Post } from 'src/app/backend/clients';
 })
 export class PostComponent implements OnInit {
 
-  constructor(private router: Router) { 
+  constructor(private router: Router) {
     // this.route.queryParams.subscribe(params => {
     //   if (this.router.getCurrentNavigation().extras.state) {
     //     this.displayNewUser = true;
@@ -20,9 +20,7 @@ export class PostComponent implements OnInit {
 
   @Input() posts: Post[] = [];
 
-  username = 'Bgibers';
   location = 'Charleston, SC';
-  content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
   flipped = false;
   notifications: any[] = [];
@@ -32,7 +30,6 @@ export class PostComponent implements OnInit {
   likeVerbage = 'liked your post';
 
   ngOnInit() {
-    this.content = this.content.substring(0, 150);
     for (let i = 0; i < 20; i++) {
       this.notifications.push({
         name: 'Brendan Giberson',
@@ -42,8 +39,17 @@ export class PostComponent implements OnInit {
         comment: 'That looks dope!',
         time: '10 mins ago'
       });
-      }
     }
+  }
+
+  getLocation(post: Post) {
+    let locationName  = '';
+    if (post.postUserLocation[0] != null && post.postUserLocation[0].fkLocation != null) {
+      locationName = post.postUserLocation[0].fkLocation.fkLocation.locationName;
+    }
+
+    return locationName;
+  }
 
     openProfile() {
       const navigationExtras: NavigationExtras = {

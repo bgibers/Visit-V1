@@ -1,20 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { Plugins, CameraResultType, CameraPhoto } from '@capacitor/core';
 import { ModalController } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { take } from 'rxjs/operators';
 import { PostService } from 'src/app/backend/clients';
-import { CreatePostRequest } from 'src/app/backend/clients/model/createPostRequest';
 import { LocationSelector } from 'src/app/objects/location-json/location.selector';
+const { Camera } = Plugins;
 
 @Component({
-  selector: 'app-add-post',
-  templateUrl: './add-post.page.html',
-  styleUrls: ['./add-post.page.scss'],
+  selector: 'app-add-post-image',
+  templateUrl: './add-post-image.page.html',
+  styleUrls: ['./add-post-image.page.scss'],
 })
-export class AddPostPage implements OnInit {
+export class AddPostImagePage implements OnInit {
+
   public selectedLocation: {id: string, name: string} = undefined;
   public postText: string = undefined;
   public locationOptions: {id: string, name: string}[] = [];
+  public userImage = '../../../assets/UI/clickToUpload.jpg';
+  image: CameraPhoto;
+  blob: Blob;
 
   constructor(
     private modalCtrl: ModalController,
@@ -50,7 +55,7 @@ export class AddPostPage implements OnInit {
   }
 
   post() {
-    this.postService.postsNewPostForm(this.postText, 'text', this.selectedLocation.id).pipe(take(1)).subscribe((res) => {
+    this.postService.postsNewPostForm(this.postText, 'image', this.selectedLocation.id, this.blob).pipe(take(1)).subscribe((res) => {
       // todo check res for errors 
       this.dismiss();
     });
@@ -62,5 +67,32 @@ export class AddPostPage implements OnInit {
     this.modalCtrl.dismiss({
       dismissed: true
     });
+  }
+
+  b64toBlob(dataURI) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+
+    for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    this.blob = new Blob([ab], { type: 'image/jpeg' });
+}
+
+  async getUserImage() {
+    this.image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl
+    });
+    // image.webPath will contain a path that can be set as an image src.
+    // You can access the original file using image.path, which can be
+    // passed to the Filesystem API to read the raw data of the image,
+    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+    const imageUrl = this.image.dataUrl;
+    // Can be set to the src of an image now
+    this.userImage = imageUrl;
+    this.b64toBlob(this.image.dataUrl);
   }
 }
