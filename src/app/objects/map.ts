@@ -172,7 +172,16 @@ export class Map {
 
   setSelectionMode(selectionMode: MapSelectionMode) {
       this.selectionMode = selectionMode;
-      if (this.selectionMode !== MapSelectionMode.NONE) {
+      // Allow only one location to be hightlighted at a time
+      if (this.selectionMode === MapSelectionMode.FILTER) {
+        this.polygonArr.forEach(polygonTemplate => {
+          polygonTemplate.events.on('doublehit', ev => {
+              const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
+              this.resetAllLocations();
+              this.changeVisitStatus(data.id, 'visited');
+          });
+      });
+      } else if (this.selectionMode !== MapSelectionMode.NONE) {
         this.polygonArr.forEach(polygonTemplate => {
             polygonTemplate.events.off('doublehit');
             polygonTemplate.events.on('doublehit', ev => {
@@ -200,6 +209,17 @@ export class Map {
 
   zoomHome() {
     this.chart.goHome();
+  }
+
+  resetAllLocations() {
+    this.selectedArr.forEach(location =>{
+      for (const series of this.seriesArr) {
+        const result = series.getPolygonById(location.locationId);
+        if (result !== undefined) {
+          result.setState('default');
+        }
+    }
+    });
   }
 
   async changeVisitStatus(locationId: string , status: string) {

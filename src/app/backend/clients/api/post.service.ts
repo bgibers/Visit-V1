@@ -30,6 +30,7 @@ import { CommentForPost } from '../model/commentForPost';
 import { LikeForPost } from '../model/likeForPost';
 import { PostApiPaginatedList } from '../model/postApiPaginatedList';
 import { CommentApi } from '../model/commentApi';
+import { string } from '@amcharts/amcharts4/core';
 const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 
@@ -294,10 +295,10 @@ export class PostService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public postsPageGet(page: number, observe?: 'body', reportProgress?: boolean): Observable<PostApiPaginatedList>;
-    public postsPageGet(page: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PostApiPaginatedList>>;
-    public postsPageGet(page: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PostApiPaginatedList>>;
-    public postsPageGet(page: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public postsPageGet(page: number, filter: string, observe?: 'body', reportProgress?: boolean): Observable<PostApiPaginatedList>;
+    public postsPageGet(page: number, filter: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PostApiPaginatedList>>;
+    public postsPageGet(page: number, filter: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PostApiPaginatedList>>;
+    public postsPageGet(page: number, filter: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (page === null || page === undefined) {
             throw new Error('Required parameter page was null or undefined when calling postsPageGet.');
@@ -320,7 +321,14 @@ export class PostService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<PostApiPaginatedList>('get', `${this.basePath}/posts/${encodeURIComponent(String(page))}`,
+
+        let uri = `${this.basePath}/posts/${encodeURIComponent(String(page))}`;
+
+        if (filter !== '') {
+            uri = `${this.basePath}/posts/${encodeURIComponent(String(page))}?filter=${encodeURIComponent(String(filter))}`;
+        }
+
+        return this.httpClient.request<PostApiPaginatedList>('get', uri,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers,

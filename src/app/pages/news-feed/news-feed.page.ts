@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { IonInfiniteScroll, IonRefresher, LoadingController, ModalController } from '@ionic/angular';
 import { SearchPage } from '../modals/search/search.page';
 import { MapFilterPage } from '../modals/map-filter/map-filter.page';
 import { Router, NavigationExtras } from '@angular/router';
 import { AccountsService } from '../../backend/clients/api/accounts.service';
 import { PostService } from 'src/app/backend/clients';
 import { PostApi } from 'src/app/backend/clients/model/postApi';
-import { async } from 'rxjs/internal/scheduler/async';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -20,41 +19,48 @@ export class NewsFeedPage implements OnInit {
   posts: PostApi[] = [];
   pageNumber = 1;
   morePages = false;
+  filter = '';
+
   constructor(public modalController: ModalController,
+              private loadingController: LoadingController,
               private accountService: AccountsService,
               private postService: PostService,
               private router: Router) {
   }
 
   ngOnInit() {
-    this.postService.postsPageGet(this.pageNumber).pipe(take(1)).subscribe(res => {
+    this.postService.postsPageGet(this.pageNumber, this.filter).pipe(take(1)).subscribe(res => {
       this.morePages = res.hasNextPage;
       this.pageNumber = res.pageIndex;
       this.posts = res.items;
     });
   }
 
-  getPosts(event) {
+  getPosts(event?: any) {
     if (this.morePages) {
-      this.postService.postsPageGet(this.pageNumber + 1).pipe(take(1)).subscribe(res => {
+      this.postService.postsPageGet(this.pageNumber + 1, this.filter).pipe(take(1)).subscribe(res => {
         this.morePages = res.hasNextPage;
         this.pageNumber = res.pageIndex;
 
         // TODO The posts shouldn't be overwritten here but rather appended... not working though
         this.posts = res.items;
-        event.target.complete();
+        if (event) {
+          event.target.complete();
+        }
       });
     } else {
         this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
       }
   }
 
-  refreshPosts(event) {
-    this.postService.postsPageGet(1).pipe(take(1)).subscribe(res => {
+  refreshPosts(event?: any) {
+    this.postService.postsPageGet(1, this.filter).pipe(take(1)).subscribe(res => {
       this.morePages = res.hasNextPage;
       this.pageNumber = res.pageIndex;
       this.posts = res.items;
-      event.target.complete();
+      if (event) {
+        event.target.complete();
+      }
     });
   }
 
@@ -92,13 +98,20 @@ export class NewsFeedPage implements OnInit {
     const modal = await this.modalController.create({
       component: MapFilterPage,
       showBackdrop: true,
-      cssClass: 'filter-modal'
+      cssClass: 'filter-modal',
+      componentProps: {
+        filter: this.filter
+      }
     });
 
-    // TODO Change this modalService to be some sort of map store instead.
-    // Pass the map ID(filter, profile etc) to the component. In component see where
-    // we are trying to open from. If exists, then grab
-    // this.modalService.add(this.modal);
+    modal.onDidDismiss().then(async (dataReturned) => {
+      if (dataReturned !== null) {
+        this.filter = dataReturned.data;
+        this.refreshPosts();
+        await this.loadingController.dismiss();
+      }
+    });
+
     return await modal.present();
   }
 }
