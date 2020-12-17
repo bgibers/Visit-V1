@@ -23,12 +23,14 @@ import { IonicSelectableModule } from 'ionic-selectable';
 import { LocationSelector } from './objects/location-json/location.selector';
 import { AddPostPageModule } from './pages/add-post/add-post.module';
 import { AddPostImagePageModule } from './pages/add-post-image/add-post-image.module';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, SearchPageModule, AddPageModule,
-     HttpClientModule, UserTimelinePageModule, MapFilterPageModule, MarkLocationPageModule, AddPostPageModule, AddPostImagePageModule, IonicSelectableModule
+     HttpClientModule, UserTimelinePageModule, MapFilterPageModule, MarkLocationPageModule, AddPostPageModule, 
+     AddPostImagePageModule, IonicSelectableModule
   ],
   providers: [
     AuthGuard,

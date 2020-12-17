@@ -16,4 +16,5 @@ export * from './userLocation.service';
 import { UserLocationService } from './userLocation.service';
 export * from './userMessage.service';
 import { UserMessageService } from './userMessage.service';
+// tslint:disable-next-line: max-line-length
 export const APIS = [AccountsService, BlobStorageService, DevopsService, PostService, PostTestDataService, TagService, UserService, UserLocationService, UserMessageService];

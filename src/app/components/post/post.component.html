@@ -10,7 +10,7 @@
           <ion-row>
             <ion-col size=".6">
               <ion-avatar>
-                <img [src]="post.fkUser.avi" (click)="openProfile()">
+                <img [src]="post.fkUser.avi" (click)="openProfile(post)">
               </ion-avatar>
             </ion-col>
             <ion-col>
@@ -18,7 +18,7 @@
                   <ion-card-title class="card-title">{{post.fkUser.firstname}} {{post.fkUser.lastname}}</ion-card-title>
               </ion-row>
               <ion-row>
-                <ion-card-subtitle color="medium">{{getLocation(post)}}</ion-card-subtitle>
+                <ion-card-subtitle color="medium">{{post.location.locationName}}</ion-card-subtitle>
               </ion-row>
             </ion-col>
             <ion-col size=".4">
@@ -47,10 +47,10 @@
             <ion-row>
               <ion-col>
                 <ion-buttons>
-                  <ion-button class="ion-justify-content-center">
-                    <img src="../../assets/UI/heart.svg" >
+                  <ion-button class="ion-justify-content-center" (click)="likePost(post)">
+                    <img [src]="post.likedByCurrentUser == true ? likedIcon : likeIcon" >
                   </ion-button>
-                  153
+                  {{post.likeCount || 0}}
                 </ion-buttons>
               </ion-col>
               <ion-col size="4">
@@ -58,17 +58,17 @@
                   <ion-button class="ion-justify-content-center">
                     <img src="../../assets/UI/comments.svg" >
                   </ion-button>
-                  10
+                  {{post.commentCount || 0}}
                 </ion-buttons>
               </ion-col>
               <ion-col class="align-self-center text-center">
-                  <ion-note>10 mins ago</ion-note>
+                  <ion-note>{{post.postTime | dateAgo}}</ion-note>
               </ion-col>
             </ion-row>
           </ion-grid>
           <ion-buttons>
             <!-- <ion-button class="btn" flip-card (click)="card.flip()"> -->
-              <ion-button class="btn">
+              <ion-button class="btn" (click)="viewComments(post)">
               View all comments
             </ion-button>
           </ion-buttons>

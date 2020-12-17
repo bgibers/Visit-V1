@@ -89,6 +89,10 @@ const routes: Routes = [
     path: 'add-post-image',
     loadChildren: () => import('./pages/add-post-image/add-post-image.module').then( m => m.AddPostImagePageModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'comments',
+    loadChildren: () => import('./pages/comments/comments.module').then( m => m.CommentsPageModule)
   }
 ];
 @NgModule({

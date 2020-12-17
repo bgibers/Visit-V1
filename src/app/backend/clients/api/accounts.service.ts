@@ -94,7 +94,7 @@ export class AccountsService {
     // }
 
     async ifLoggedIn() {
-        await this.storage.get('USER').then((response) => {
+        await this.storage.get('ACCESS_TOKEN').then((response) => {
           if (response) {
             this.authSubject.next(true);
           }

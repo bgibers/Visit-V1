@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { SearchPage } from '../modals/search/search.page';
 import { MapFilterPage } from '../modals/map-filter/map-filter.page';
 import { Router, NavigationExtras } from '@angular/router';
 import { AccountsService } from '../../backend/clients/api/accounts.service';
-import { PostService, Post } from 'src/app/backend/clients';
+import { PostService } from 'src/app/backend/clients';
+import { PostApi } from 'src/app/backend/clients/model/postApi';
+import { async } from 'rxjs/internal/scheduler/async';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'news-feed',
@@ -12,10 +15,11 @@ import { PostService, Post } from 'src/app/backend/clients';
   styleUrls: ['news-feed.page.scss']
 })
 export class NewsFeedPage implements OnInit {
-  posts: Post[] = [];
+  @ViewChild(IonInfiniteScroll,  {static: false}) infiniteScroll: IonInfiniteScroll;
+
+  posts: PostApi[] = [];
   pageNumber = 1;
   morePages = false;
-
   constructor(public modalController: ModalController,
               private accountService: AccountsService,
               private postService: PostService,
@@ -23,7 +27,7 @@ export class NewsFeedPage implements OnInit {
   }
 
   ngOnInit() {
-    this.postService.postsPostsPageGet(1).subscribe(res => {
+    this.postService.postsPageGet(this.pageNumber).pipe(take(1)).subscribe(res => {
       this.morePages = res.hasNextPage;
       this.pageNumber = res.pageIndex;
       this.posts = res.items;
@@ -31,7 +35,22 @@ export class NewsFeedPage implements OnInit {
   }
 
   getPosts(event) {
-    this.postService.postsPostsPageGet(1).subscribe(res => {
+    if (this.morePages) {
+      this.postService.postsPageGet(this.pageNumber + 1).pipe(take(1)).subscribe(res => {
+        this.morePages = res.hasNextPage;
+        this.pageNumber = res.pageIndex;
+
+        // TODO The posts shouldn't be overwritten here but rather appended... not working though
+        this.posts = res.items;
+        event.target.complete();
+      });
+    } else {
+        this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+      }
+  }
+
+  refreshPosts(event) {
+    this.postService.postsPageGet(1).pipe(take(1)).subscribe(res => {
       this.morePages = res.hasNextPage;
       this.pageNumber = res.pageIndex;
       this.posts = res.items;
