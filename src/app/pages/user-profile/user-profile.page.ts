@@ -91,7 +91,10 @@ export class UserProfilePage {
     const modal = await this.modalController.create({
       component: UserTimelinePage,
       showBackdrop: true,
-      cssClass: 'user-profile'
+      cssClass: 'user-profile',
+      componentProps: {
+        userId: this.userId
+      }
     });
     return await modal.present();
   }

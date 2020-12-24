@@ -28,6 +28,7 @@ import { MarkLocationsRequest } from '../model/markLocationsRequest';
 import { BASE_PATH } from 'src/environments/environment';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -43,6 +44,7 @@ export class AccountsService {
     constructor(protected httpClient: HttpClient,
                 @Optional()@Inject(BASE_PATH) basePath: string,
                 @Optional() configuration: Configuration,
+                private router: Router,
                 private platform: Platform,
                 private storage: Storage ) {
         if (basePath) {
@@ -68,6 +70,7 @@ export class AccountsService {
         await this.storage.remove('USER');
         await this.storage.remove('EXPIRES_IN');
         this.authSubject.next(false);
+        this.router.navigate(['sign-in']);
     }
 
     public isLoggedIn() {
@@ -94,8 +97,9 @@ export class AccountsService {
     // }
 
     async ifLoggedIn() {
-        await this.storage.get('ACCESS_TOKEN').then((response) => {
-          if (response) {
+        await this.storage.get('ACCESS_TOKEN').then(async (response) => {
+          if (response !== undefined) {
+            this.token.next(await this.getUserTokenFromStorage());
             this.authSubject.next(true);
           }
         });
@@ -120,8 +124,6 @@ export class AccountsService {
     }
 
     /**
-     *
-     *
      * @param requestApi
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -183,8 +185,6 @@ export class AccountsService {
     }
 
      /**
-     *
-     *
      * @param email
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -280,8 +280,6 @@ export class AccountsService {
     }
 
     /**
-     *
-     *
      * @param body
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -330,9 +328,7 @@ export class AccountsService {
         );
     }
 
- /**
-     *
-     *
+    /**
      * @param body
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.

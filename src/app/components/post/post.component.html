@@ -55,7 +55,7 @@
               </ion-col>
               <ion-col size="4">
                 <ion-buttons>
-                  <ion-button class="ion-justify-content-center">
+                  <ion-button class="ion-justify-content-center" (click)="viewComments(post)">
                     <img src="../../assets/UI/comments.svg" >
                   </ion-button>
                   {{post.commentCount || 0}}

@@ -20,6 +20,7 @@ export class NewsFeedPage implements OnInit {
   pageNumber = 1;
   morePages = false;
   filter = '';
+  selectedUserId = '';
 
   constructor(public modalController: ModalController,
               private loadingController: LoadingController,
@@ -29,16 +30,20 @@ export class NewsFeedPage implements OnInit {
   }
 
   ngOnInit() {
-    this.postService.postsPageGet(this.pageNumber, this.filter).pipe(take(1)).subscribe(res => {
+    this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(take(1)).subscribe(res => {
       this.morePages = res.hasNextPage;
       this.pageNumber = res.pageIndex;
       this.posts = res.items;
+    }, async err => {
+      if (err.status === 401) {
+        await this.accountService.logout();
+      }
     });
   }
 
   getPosts(event?: any) {
     if (this.morePages) {
-      this.postService.postsPageGet(this.pageNumber + 1, this.filter).pipe(take(1)).subscribe(res => {
+      this.postService.postsPageGet(this.pageNumber + 1, this.filter, this.selectedUserId).pipe(take(1)).subscribe(res => {
         this.morePages = res.hasNextPage;
         this.pageNumber = res.pageIndex;
 
@@ -47,21 +52,31 @@ export class NewsFeedPage implements OnInit {
         if (event) {
           event.target.complete();
         }
-      });
+      }, (async err => {
+        console.log(err)
+        if (err.status === 401) {
+          await this.accountService.logout();
+        }
+      }));
     } else {
         this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
       }
   }
 
   refreshPosts(event?: any) {
-    this.postService.postsPageGet(1, this.filter).pipe(take(1)).subscribe(res => {
+    this.postService.postsPageGet(1, this.filter, this.selectedUserId).pipe(take(1)).subscribe(res => {
       this.morePages = res.hasNextPage;
       this.pageNumber = res.pageIndex;
       this.posts = res.items;
       if (event) {
         event.target.complete();
       }
-    });
+    }, (async err => {
+      console.log(err)
+      if (err.status === 401) {
+        await this.accountService.logout();
+      }
+    }));
   }
 
   async presentSearchModal() {
@@ -74,11 +89,6 @@ export class NewsFeedPage implements OnInit {
       cssClass: 'search-modal'
     });
     return await modal.present();
-  }
-
- getImgSrc() {
-    const src = 'https://dummyimage.com/600x400/${Math.round( Math.random() * 99999)}/fff.png';
-    return src;
   }
 
   openProfile() {

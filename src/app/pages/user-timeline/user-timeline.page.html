@@ -14,7 +14,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="false" color="light">
-  <post [posts]="items"></post>
+  <ion-refresher #refresherRef slot="fixed" (ionRefresh)="refreshPosts($event)">
+    <ion-refresher-content
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <post [posts]="posts"></post>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="getPosts($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="circles"
+      loadingText="Getting more posts...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
 <ion-fab class="map-filter-fab" vertical="bottom">
   <ion-button fill="clear" (click)="presentMapFilter()">

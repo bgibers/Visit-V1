@@ -295,11 +295,10 @@ export class PostService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public postsPageGet(page: number, filter: string, observe?: 'body', reportProgress?: boolean): Observable<PostApiPaginatedList>;
-    public postsPageGet(page: number, filter: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PostApiPaginatedList>>;
-    public postsPageGet(page: number, filter: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PostApiPaginatedList>>;
-    public postsPageGet(page: number, filter: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
+    public postsPageGet(page: number, filter: string, userId: string, observe?: 'body', reportProgress?: boolean): Observable<PostApiPaginatedList>;
+    public postsPageGet(page: number, filter: string, userId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PostApiPaginatedList>>;
+    public postsPageGet(page: number, filter: string, userId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PostApiPaginatedList>>;
+    public postsPageGet(page: number, filter: string, userId: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (page === null || page === undefined) {
             throw new Error('Required parameter page was null or undefined when calling postsPageGet.');
         }
@@ -324,8 +323,12 @@ export class PostService {
 
         let uri = `${this.basePath}/posts/${encodeURIComponent(String(page))}`;
 
-        if (filter !== '') {
-            uri = `${this.basePath}/posts/${encodeURIComponent(String(page))}?filter=${encodeURIComponent(String(filter))}`;
+        if (filter !== '' && userId === '') {
+            uri = `${this.basePath}/posts/${encodeURIComponent(String(page))}/filter/${encodeURIComponent(String(filter))}`;
+        } else if (userId !== '' && filter === '') {
+            uri = `${this.basePath}/posts/${encodeURIComponent(String(page))}/user/${encodeURIComponent(String(userId))}`;
+        } else if (userId !== '' && filter !== '') {
+            uri = `${this.basePath}/posts/${encodeURIComponent(String(page))}/${encodeURIComponent(String(filter))}/${encodeURIComponent(String(userId))}`;
         }
 
         return this.httpClient.request<PostApiPaginatedList>('get', uri,

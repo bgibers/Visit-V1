@@ -5,7 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AddPage } from './pages/modals/add/add.page';
 import { Router } from '@angular/router';
-import { Map } from './objects/map';
+
+import { AccountsService } from './backend/clients/api/accounts.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -18,6 +19,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    private userService: AccountsService,
     public modalController: ModalController,
     public router: Router,
     public zone: NgZone
@@ -30,6 +32,15 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.userService.authSubject.subscribe(state => {
+        console.log('Initialize app')
+        if (state) {
+          this.router.navigate(['tab1']);
+        } else {
+          this.router.navigate(['sign-in']);
+        }
+      });
     });
   }
 
