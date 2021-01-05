@@ -179,6 +179,8 @@ export class AccountsService {
                     await this.storage.set('EXPIRES_IN', res.expires_in);
                     await this.storage.set('USER', res);
                     this.authSubject.next(true);
+                } else {
+                    return null;
                 }
             })
         );

@@ -53,8 +53,11 @@ export class UserProfilePage {
       this.userId = token.id;
     }
 
-    this.userService.userGetIdGet(this.userId).pipe(take(1)).subscribe(user => {
+    this.getUser(loading);
+  }
 
+  getUser(loading: HTMLIonLoadingElement) {
+    this.userService.userGetIdGet(this.userId).pipe(take(1)).subscribe(user => {
       if (this.accountService.getToken().value.id === this.userId) {
         this.canEditProfile = true;
       }
@@ -84,6 +87,19 @@ export class UserProfilePage {
       showBackdrop: true,
       cssClass: 'search-modal'
     });
+
+    modal.onDidDismiss().then(async (returned) => {
+      if (returned !== null) {
+        const loading = await this.loadingController.create({
+          duration: 2000
+        });
+        await loading.present();
+        console.log(returned.data)
+        this.userId = returned.data;
+        this.getUser(loading);
+      }
+    });
+
     return await modal.present();
   }
 
@@ -99,6 +115,9 @@ export class UserProfilePage {
     return await modal.present();
   }
 
+  async logout() {
+    await this.accountService.logout();
+  }
 
   // stop() {
   //   if (this.timerHandler) {

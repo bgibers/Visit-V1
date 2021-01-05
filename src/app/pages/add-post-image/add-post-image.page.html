@@ -31,6 +31,11 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    <div class="validation-errors">
+      <div class="error-message" *ngIf="error">
+        <ion-icon name="information-circle-outline"></ion-icon> Unexpected error when creating post
+      </div>
+  </div>
     <div class="button-div">
       <ion-button class="submit-button" expand="block" type="submit" (click)="post()" [disabled]="!postText && selectedLocation !== undefined">Add post</ion-button>
       <ion-button class="submit-button" expand="block" type="submit" (click)="dismiss()">Cancel</ion-button>

@@ -32,16 +32,17 @@ export class SearchPage implements OnInit {
   goToProfile(user: SlimUserResponse) {
     const navigationExtras: NavigationExtras = {
       replaceUrl: true,
-      skipLocationChange: true,
+      skipLocationChange: false,
       state: {
         userId: user.id
       }
     };
-    this.viewCtrl.dismiss();
+    const onClosedData = user.id;
+    this.viewCtrl.dismiss(onClosedData);
     this.router.navigateByUrl('/user-profile', navigationExtras);
   }
 
   dismiss() {
     this.viewCtrl.dismiss();
-    }
+  }
 }

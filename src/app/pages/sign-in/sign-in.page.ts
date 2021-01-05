@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router, NavigationExtras } from '@angular/router';
 import { AccountsService, LoginApiRequest } from 'src/app/backend/clients';
 import { take } from 'rxjs/operators';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'sign-in',
@@ -10,12 +11,6 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./sign-in.page.scss'],
 })
 export class SignInPage implements OnInit {
-
-  constructor(
-    public formBuilder: FormBuilder,
-    private router: Router,
-    private accountService: AccountsService
-  ) { }
   passwordType = 'password';
   loginForm: FormGroup;
 
@@ -29,6 +24,15 @@ export class SignInPage implements OnInit {
       { type: 'required', message: 'Password is required.' }
     ]
   };
+
+  invalidLogin: boolean;
+
+  constructor(
+    public formBuilder: FormBuilder,
+    public loadingController: LoadingController,
+    private router: Router,
+    private accountService: AccountsService
+  ) { }
 
   togglePasswordMode() {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
@@ -48,27 +52,31 @@ export class SignInPage implements OnInit {
     });
   }
 
-  onSubmit(values) {
+  async onSubmit(values) {
     const loginModel = {
       userName: this.loginForm.controls.email.value,
       password: this.loginForm.controls.password.value
     } as LoginApiRequest;
 
-    // todo check if username and token are valid if not throw error
+    const loading = await this.loadingController.create({
+      duration: 2000
+    });
+    await loading.present();
+
     this.accountService.accountsLogin(loginModel).pipe(take(1)).subscribe(value => {
 
-      if (value !== null) {
-        const navigationExtras: NavigationExtras = {
-          replaceUrl: false,
-          state: {
-            userId: value.id
-          }
-        };
-        this.router.navigateByUrl('/tab1', navigationExtras);
-      } else {
-        console.log('Invalid username/password')
+      if (value === null) {
+        this.invalidLogin = true;
+        loading.dismiss();
       }
-
+      const navigationExtras: NavigationExtras = {
+        replaceUrl: false,
+        state: {
+          userId: value.id
+        }
+      };
+      loading.dismiss();
+      this.router.navigateByUrl('/tab1', navigationExtras);
     });
   }
 

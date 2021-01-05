@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType, CameraPhoto } from '@capacitor/core';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { take } from 'rxjs/operators';
 import { PostService } from 'src/app/backend/clients';
@@ -20,8 +20,10 @@ export class AddPostImagePage implements OnInit {
   public userImage = '../../../assets/UI/clickToUpload.jpg';
   image: CameraPhoto;
   blob: Blob;
+  error: boolean;
 
   constructor(
+    public loadingController: LoadingController,
     private modalCtrl: ModalController,
     private selector: LocationSelector,
     private postService: PostService
@@ -54,10 +56,18 @@ export class AddPostImagePage implements OnInit {
     event.component.endSearch();
   }
 
-  post() {
+  async post() {
+    const loading = await this.loadingController.create({
+      duration: 2000
+    });
+    await loading.present();
+
     this.postService.postsNewPostForm(this.postText, 'image', this.selectedLocation.id, this.blob).pipe(take(1)).subscribe((res) => {
-      // todo check res for errors 
+      loading.dismiss();
       this.dismiss();
+    }, (err) => {
+      this.error = true;
+      loading.dismiss();
     });
   }
 

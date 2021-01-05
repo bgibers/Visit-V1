@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { take } from 'rxjs/operators';
 import { PostService } from 'src/app/backend/clients';
@@ -15,8 +15,10 @@ export class AddPostPage implements OnInit {
   public selectedLocation: {id: string, name: string} = undefined;
   public postText: string = undefined;
   public locationOptions: {id: string, name: string}[] = [];
+  error: boolean;
 
   constructor(
+    public loadingController: LoadingController,
     private modalCtrl: ModalController,
     private selector: LocationSelector,
     private postService: PostService
@@ -49,10 +51,18 @@ export class AddPostPage implements OnInit {
     event.component.endSearch();
   }
 
-  post() {
+  async post() {
+    const loading = await this.loadingController.create({
+      duration: 2000
+    });
+    await loading.present();
+
     this.postService.postsNewPostForm(this.postText, 'text', this.selectedLocation.id).pipe(take(1)).subscribe((res) => {
-      // todo check res for errors 
+      loading.dismiss();
       this.dismiss();
+    }, (err) => {
+      this.error = true;
+      loading.dismiss();
     });
   }
 
