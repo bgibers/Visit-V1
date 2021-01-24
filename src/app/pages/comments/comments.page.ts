@@ -43,6 +43,7 @@ export class CommentsPage implements OnInit {
   }
 
   getComments() {
+    // todo fix this. the list is overwriting
     this.postSvc.postsCommentsGetPostIdGet(this.postId).pipe(take(1)).subscribe(res => {
       this.comments = res;
     });
