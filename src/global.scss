@@ -50,10 +50,13 @@ ion-refresher-content {
 
 .add-modal { 
     // background: rgba(0, 0, 0, 0.5) !important; 
-    padding-top: 140% !important;
+    padding-top: 110% !important;
     .modal-wrapper {
-         border-radius: 20px; 
-         background: transparent;
+      border-radius: 20px 20px 0 0;
+      background: transparent;
+      height: 300px;
+      position: absolute;
+      bottom: 0;
     } 
     .modal-shadow {
         height: 0;
@@ -62,9 +65,9 @@ ion-refresher-content {
 
 .filter-modal { 
     // background: rgba(0, 0, 0, 0.5) !important; 
-    padding-top: 100% !important;
+    padding-top: 70% !important;
     .modal-wrapper {
-         border-radius: 20px; 
+      border-radius: 20px 20px 0 0;
          background: transparent;
     } 
     .modal-shadow {

@@ -24,12 +24,13 @@ import { LocationSelector } from './objects/location-json/location.selector';
 import { AddPostPageModule } from './pages/add-post/add-post.module';
 import { AddPostImagePageModule } from './pages/add-post-image/add-post-image.module';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
-import { FCM } from '@ionic-native/fcm/ngx';
+import { UserSettingsPageModule } from './pages/user-settings/user-settings.module';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, SearchPageModule, AddPageModule,
-     HttpClientModule, UserTimelinePageModule, MapFilterPageModule, MarkLocationPageModule, AddPostPageModule, 
+     HttpClientModule, UserTimelinePageModule, MapFilterPageModule, MarkLocationPageModule, AddPostPageModule, UserSettingsPageModule,
      AddPostImagePageModule, IonicSelectableModule
   ],
   providers: [
@@ -42,7 +43,6 @@ import { FCM } from '@ionic-native/fcm/ngx';
     LocationSelector,
     Camera,
     File,
-    FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

@@ -7,6 +7,7 @@ import { AddPage } from './pages/modals/add/add.page';
 import { Router } from '@angular/router';
 
 import { AccountsService } from './backend/clients/api/accounts.service';
+import {ModalService} from './services/modal.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -22,7 +23,8 @@ export class AppComponent {
     private userService: AccountsService,
     public modalController: ModalController,
     public router: Router,
-    public zone: NgZone
+    public zone: NgZone,
+    public myservice: ModalService,
   ) {
     this.initializeApp();
     // Map.getInstance(zone);
@@ -49,6 +51,8 @@ export class AppComponent {
     if (this.router.url === '/register') { return false; }
     if (this.router.url === '/post-register-about') { return false; }
     if (this.router.url === '/post-register-locations') { return false; }
+    if (this.router.url === '/comments') { return false; }
+    if (this.myservice.dis === false) { return false; }
     return true;
   }
 

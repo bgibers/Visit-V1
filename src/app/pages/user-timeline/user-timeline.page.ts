@@ -36,6 +36,7 @@ export class UserTimelinePage implements OnInit {
       this.morePages = res.hasNextPage;
       this.pageNumber = res.pageIndex;
       this.posts = res.items;
+      console.log(res);
     });
   }
 
@@ -50,7 +51,21 @@ export class UserTimelinePage implements OnInit {
         this.pageNumber = res.pageIndex;
 
         // TODO The posts shouldn't be overwritten here but rather appended... not working though
-        this.posts = res.items;
+        if (this.posts.length === 0) {
+          this.posts = [];
+        } else {
+          let oldposts = this.posts;
+          this.posts = [];
+          let oldResLen = oldposts.length;
+            for (let i = 0; i < oldResLen; i++) {
+              this.posts.push(oldposts[i]);
+            }
+        }
+        let resLen = res.items.length;
+      for (let i = 0; i < resLen; i++) {
+        this.posts.push(res.items[i]);
+      }
+        // this.posts = res.items;
         if (event) {
           event.target.complete();
         }

@@ -6,6 +6,7 @@ import { AccountsService, PostService } from 'src/app/backend/clients';
 import { CommentForPost } from 'src/app/backend/clients/model/commentForPost';
 import { CommentApi } from 'src/app/backend/clients/model/commentApi';
 import { SearchPage } from '../modals/search/search.page';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'comments',
@@ -14,7 +15,9 @@ import { SearchPage } from '../modals/search/search.page';
 })
 export class CommentsPage implements OnInit {
 
-  comments: CommentForPost[] = [];
+  comments = [];
+  thisIstheDataForThisComponent: Observable<any>;
+  newComments = [];
   postId = '';
   userId: any;
   public commentText = '';
@@ -30,22 +33,50 @@ export class CommentsPage implements OnInit {
                   }
                 });
               }
-
-
+              myFunc() {
+                return ({count: 1, data: {id: 1}})
+              }
   ngOnInit() {
-    this.getComments();
+    // this.getComments();
     const token = this.accountService.getToken().value;
     this.userId = token.id;
+    // setInterval(_ => {
+    //   // this.thisIstheDataForThisComponent = this.myFunc();
+    //   // this.newComments.push(1);
+    //   console.log(this.newComments);
+    // }, 5000)
   }
-
   ionViewWillEnter() {
     this.getComments();
   }
-
+  // products(): Observable<any>{
+    // let data1 = {id: 1};
+    // return (data1);
+  // }
   getComments() {
     // todo fix this. the list is overwriting
     this.postSvc.postsCommentsGetPostIdGet(this.postId).pipe(take(1)).subscribe(res => {
-      this.comments = res;
+      if (this.comments.length === 0) {
+        this.comments = [];
+      } else {
+        // let oldComments = this.comments;
+        this.comments = [];
+        // this.newComments = [];
+        // console.log(this.comments);
+        // let oldResLen = oldComments.length;
+        //   for (let i = 0; i < oldResLen; i++) {
+        //     console.log(i);
+        //     this.comments.push(oldComments[i]);
+            
+        //     this.newComments.push(oldComments[i]);
+        //   }
+      }
+      let resLen = res.length;
+      for (let i = 0; i < resLen; i++) {
+        console.log(i);
+        this.comments.push(res[i]);
+      }
+      // this.comments = res;
     });
   }
 

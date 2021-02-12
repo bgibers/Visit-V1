@@ -5,7 +5,7 @@ import { AuthGuard } from './backend/services/AuthGuard.service';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/sign-in',
+    redirectTo: 'post-register-about',
     pathMatch: 'full'
   },
   {
@@ -93,7 +93,12 @@ const routes: Routes = [
   {
     path: 'comments',
     loadChildren: () => import('./pages/comments/comments.module').then( m => m.CommentsPageModule)
+  },
+  {
+    path: 'user-settings',
+    loadChildren: () => import('./pages/user-settings/user-settings.module').then( m => m.UserSettingsPageModule)
   }
+
 ];
 @NgModule({
   imports: [

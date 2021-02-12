@@ -10,6 +10,8 @@ import { AccountsService } from '../../backend/clients/api/accounts.service';
 import { UserResponse } from '../../backend/clients/model/userResponse';
 import { take, map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import {ModalService} from '../../services/modal.service';
+import { UserSettingsPage } from '../user-settings/user-settings.page';
 
 @Component({
   selector: 'user-profile',
@@ -22,6 +24,9 @@ export class UserProfilePage {
   public selectionMode: MapSelectionMode = MapSelectionMode.NONE;
   public user: BehaviorSubject<UserResponse> = new BehaviorSubject({});
   public canEditProfile = false;
+  public toVisitCount = 0;
+  public visitedCount = 0;
+  public visitedPercent = 0;
   private map: Map;
 
   constructor(
@@ -31,6 +36,7 @@ export class UserProfilePage {
       private accountService: AccountsService,
       private zone: NgZone,
       private route: ActivatedRoute,
+      public myservice: ModalService,
       private router: Router) {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -40,6 +46,7 @@ export class UserProfilePage {
     });
   }
 
+  // 405 locations. 355 non US
   async ionViewWillEnter() {
     const loading = await this.loadingController.create({
       duration: 2000
@@ -68,16 +75,31 @@ export class UserProfilePage {
         this.user.value.avi = '../../../assets/defaultuser.png';
       }
 
-      // todo make the initializer accept an array
+      const usVisitedCount = 0;
       user.userLocations.forEach(location => {
         this.map.changeVisitStatus(location.fkLocation.locationCode, location.status);
+
+        if (location.status === 'toVisit') {
+          this.toVisitCount++;
+        } else {
+          if(location.fkLocation.locationCountry === 'United State of America') {
+
+          }
+          this.visitedCount++;
+        }
       });
+      var countryCount = this.visitedCount - usVisitedCount;
+      
+      this.visitedPercent = ((countryCount / 405) + (usVisitedCount / 355)) * 100;
     });
   }
 
   ionViewDidLeave() {
     this.canEditProfile = false;
     this.map.destroyMap();
+    this.toVisitCount = 0;
+    this.visitedCount = 0;
+    this.visitedPercent = 0;
   }
 
 
@@ -94,7 +116,7 @@ export class UserProfilePage {
           duration: 2000
         });
         await loading.present();
-        console.log(returned.data)
+        console.log(returned.data);
         this.userId = returned.data;
         this.getUser(loading);
       }
@@ -115,8 +137,21 @@ export class UserProfilePage {
     return await modal.present();
   }
 
-  async logout() {
-    await this.accountService.logout();
+  show(e) {
+    console.log(e);
+    this.myservice.dis = e;
+  }
+
+  async presentUserSettings() {
+    const modal = await this.modalController.create({
+      component: UserSettingsPage,
+      showBackdrop: true,
+      cssClass: 'user-setttings',
+      componentProps: {
+        user: this.user.value
+      }
+    });
+    return await modal.present();
   }
 
   // stop() {

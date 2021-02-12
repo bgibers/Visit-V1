@@ -6,6 +6,7 @@ import { zip } from 'rxjs';
 })
 export class ModalService {
   private modals: any[] = [];
+  public dis: boolean;
   constructor() { }
 
   add(modal: any) {
@@ -25,6 +26,4 @@ export class ModalService {
     const modal: any = this.modals.filter(x => x.id === id)[0];
     modal.close();
   }
-
-
 }

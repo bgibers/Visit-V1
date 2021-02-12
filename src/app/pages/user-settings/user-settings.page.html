@@ -1,0 +1,67 @@
+
+<ion-content no-bounce>
+  <ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="secondary">
+          <ion-button color="dark" (click)="dismiss()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="primary">
+          <ion-button color="dark" (click)="logout()">
+            <ion-icon name="log-out-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <h1>Update profile</h1>
+  <form [formGroup]="aboutForm" (ngSubmit)="onSubmit()">  
+    <ion-grid>
+      <ion-row>
+        <ion-col size="3">
+          <ion-avatar>
+            <img (click)="getUserImage()" [src]="userImage">
+          </ion-avatar>
+        </ion-col>
+        <ion-col>
+         <h3>Change your profile pic</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row class="bottomRow">
+        <ion-col>
+          <ion-item class="roundedInput">
+            <ion-label position="floating">Birthplace</ion-label>
+            <ion-input autocapitalize="true" [placeholder]="user.birthLocation" type="text" formControlName="birthPlace" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="bottomRow">
+        <ion-col>
+          <ion-item class="roundedInput">
+            <ion-label position="floating">Current Residence</ion-label>
+            <ion-input autocapitalize="true" [placeholder]="user.residenceLocation" type="text" formControlName="residence" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="bottomRow"> 
+        <ion-col>
+          <ion-item class="roundedInput">
+            <ion-label position="floating">Education</ion-label>
+            <ion-input autocapitalize="true" [placeholder]="user.education" type="text" formControlName="education" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="bottomRow">
+        <ion-col>
+          <ion-item class="roundedInput">
+            <ion-label position="floating">Title or Employment</ion-label>
+            <ion-input autocapitalize="true" [placeholder]="user.title" type="text" formControlName="title" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="button-div">
+      <ion-button class="submit-button" expand="block" type="submit" >Update</ion-button>
+    </div>
+  </form>
+</ion-content>
