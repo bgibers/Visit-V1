@@ -377,6 +377,71 @@ export class AccountsService {
         );
     }
 
+        /**
+     * 
+     * 
+     * @param firstname 
+     * @param lastname 
+     * @param title 
+     * @param education 
+     * @param birthLocation 
+     * @param residenceLocation 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public accountUpdatePost(firstname?: string, lastname?: string, title?: string, education?: string, birthLocation?: string, residenceLocation?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public accountUpdatePost(firstname?: string, lastname?: string, title?: string, education?: string, birthLocation?: string, residenceLocation?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public accountUpdatePost(firstname?: string, lastname?: string, title?: string, education?: string, birthLocation?: string, residenceLocation?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public accountUpdatePost(firstname?: string, lastname?: string, title?: string, education?: string, birthLocation?: string, residenceLocation?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (firstname !== undefined && firstname !== null) {
+            queryParameters = queryParameters.set('Firstname', <any>firstname);
+        }
+        if (lastname !== undefined && lastname !== null) {
+            queryParameters = queryParameters.set('Lastname', <any>lastname);
+        }
+        if (title !== undefined && title !== null) {
+            queryParameters = queryParameters.set('Title', <any>title);
+        }
+        if (education !== undefined && education !== null) {
+            queryParameters = queryParameters.set('Education', <any>education);
+        }
+        if (birthLocation !== undefined && birthLocation !== null) {
+            queryParameters = queryParameters.set('BirthLocation', <any>birthLocation);
+        }
+        if (residenceLocation !== undefined && residenceLocation !== null) {
+            queryParameters = queryParameters.set('ResidenceLocation', <any>residenceLocation);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/account/update`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
 }
 class Guid {
     static newGuid() {

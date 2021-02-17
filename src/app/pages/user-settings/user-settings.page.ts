@@ -15,16 +15,10 @@ export class UserSettingsPage implements OnInit {
 
   userImage = '../../../assets/UI/profilePicUpload.svg';
   aboutForm: FormGroup;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  hasError = false;
-  error = '';
   image: CameraPhoto;
-  blob: Blob;
+  blob: Blob = undefined;
   user: UserResponse;
-
+ 
   constructor(
     public loadingController: LoadingController,
     private route: ActivatedRoute,
@@ -54,17 +48,22 @@ export class UserSettingsPage implements OnInit {
       duration: 2000
     });
     await loading.present();
-    const registerRequest = {
-      firstname: this.firstName,
-      lastname: this.lastName,
-      email: this.email,
-      password: this.password,
-      birthday: this.aboutForm.controls.birthday.value,
-      birthLocation: this.aboutForm.controls.birthPlace.value,
-      residenceLocation: this.aboutForm.controls.residence.value,
-      title: this.aboutForm.controls.title.value,
-      education: this.aboutForm.controls.education.value
-    } as RegisterRequest;
+
+    var title = this.aboutForm.controls.title.value === '' ? this.user.title : this.aboutForm.controls.title.value;
+    var education = this.aboutForm.controls.education.value === '' ? this.user.education : this.aboutForm.controls.education.value;
+    var birthPlace = this.aboutForm.controls.birthPlace.value === '' ? this.user.birthLocation : this.aboutForm.controls.birthPlace.value;
+    var residence = this.aboutForm.controls.residence.value === '' ? this.user.residenceLocation : this.aboutForm.controls.residence.value;
+
+    // todo create a forkjoin or something here to make these run together
+    this.accountService.accountUpdatePost(this.user.firstname, this.user.lastname, 
+      title, education, birthPlace, residence)
+      .pipe(take(1)).subscribe(async res => {
+        if (this.blob !== undefined) {
+          this.accountService.accountUpdateProfileImagePost(this.blob).pipe(take(1)).subscribe(res => {})
+        }
+        await loading.dismiss();
+        this.dismiss();
+      });
   }
 
   b64toBlob(dataURI) {
