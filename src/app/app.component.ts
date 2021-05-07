@@ -1,6 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 
-import { Platform, ModalController } from '@ionic/angular';
+import { Platform, ModalController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -19,11 +19,8 @@ const fcm = new FCM();
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   page: string;
-  notifications: PushNotification[] = [];
-  topicName = 'super-awesome-topic';
-  remoteToken: string;
 
   constructor(
     private platform: Platform,
@@ -31,6 +28,7 @@ export class AppComponent {
     private statusBar: StatusBar,
     private userService: AccountsService,
     public modalController: ModalController,
+    public alertController: AlertController,
     public router: Router,
     public zone: NgZone,
     public myservice: ModalService,
@@ -39,14 +37,17 @@ export class AppComponent {
     // Map.getInstance(zone);
   }
 
+  ngOnInit() {
+    this.registerPush();
+  }
+
   initializeApp() {
-    this.platform.ready().then(() => {
+    this.platform.ready().then(async () => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.registerForPush();
-      
+
       this.userService.authSubject.subscribe(state => {
-        console.log('Initialize app')
+        console.log('Initialize app');
         if (state) {
           this.router.navigate(['tab1']);
         } else {
@@ -56,74 +57,67 @@ export class AppComponent {
     });
   }
 
-  registerForPush() {
+  private registerPush() {
+
     PushNotifications.requestPermission().then((permission) => {
       if (permission.granted) {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
       } else {
-        // No permission for push granted
+        alert('No permission for push granted');
       }
     });
 
     PushNotifications.addListener(
-        'registration',
-        (token: PushNotificationToken) => {
-          console.log('My token: ' + JSON.stringify(token));
-    });
+      'registration',
+      (token: PushNotificationToken) => {
+        alert('APN token: ' + JSON.stringify(token));
+        fcm.getToken().then((r) => {
+          alert(`FCM Token: ${r.token}`); // ---- showing null.
+        }).catch((err) => {
+          alert(`FCM Token ERROR: ${JSON.stringify(err)}`);
+        });
 
+      }
+    );
 
     PushNotifications.addListener('registrationError', (error: any) => {
-        console.log('Error: ' + JSON.stringify(error));
-    });
-
-
-    PushNotifications.addListener(
-        'pushNotificationReceived',
-        async (notification: PushNotification) => {
-          Modals.alert({
-            title: notification.title,
-            message: notification.body
-          });;
+      alert('Registration Error: ' + JSON.stringify(error));
     });
 
     PushNotifications.addListener(
-        'pushNotificationActionPerformed',
-        async (notification: PushNotificationActionPerformed) => {
-          const data = notification.notification.data;
-          console.log('Action performed: ' + JSON.stringify(notification.notification));
-          if (data.detailsId) {
-            this.router.navigateByUrl(`/home/${data.detailsId}`);
+      'pushNotificationReceived',
+      async (notification: PushNotification) => {
+        console.log(notification.title);
+        this.alert(notification.title, notification.body);
+      }
+    );
+
+    PushNotifications.addListener(
+      'pushNotificationActionPerformed',
+      async (notification: PushNotificationActionPerformed) => {
+        alert('Action performed: ' + JSON.stringify(notification.notification.body));
+      }
+    );
+  }
+
+  async alert(title: string, body: string) {
+    const alert = await this.alertController.create({
+      header: title,
+      message: body,
+      buttons: [
+        {
+          text: 'OKAY',
+          role: 'cancel',
+          handler: () => {
+            alert.dismiss();
           }
+        }
+      ]
     });
-
+    await alert.present();
   }
 
-  subscribeTo() {
-    PushNotifications.register()
-      .then((_) => {
-        fcm
-          .subscribeTo({ topic: this.topicName })
-          .then((r) => alert(`subscribed to topic ${this.topicName}`))
-          .catch((err) => console.log(err));
-      })
-      .catch((err) => alert(JSON.stringify(err)));
-  }
-
-  unsubscribeFrom() {
-    fcm
-      .unsubscribeFrom({ topic: 'test' })
-      .then((r) => alert(`unsubscribed from topic ${this.topicName}`))
-      .catch((err) => console.log(err));
-    if (this.platform.is('android')) fcm.deleteInstance();
-  }
-
-  getToken() {
-    fcm
-      .getToken()
-      .then((r) => alert(`Token ${r.token}`))
-      .catch((err) => console.log(err));
-  }
 
   get showFooter() {
     if (this.router.url === '/sign-in') { return false; }
