@@ -61,7 +61,6 @@ export class AppComponent implements OnInit {
 
     PushNotifications.requestPermission().then((permission) => {
       if (permission.granted) {
-        // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
       } else {
         alert('No permission for push granted');
@@ -71,11 +70,11 @@ export class AppComponent implements OnInit {
     PushNotifications.addListener(
       'registration',
       (token: PushNotificationToken) => {
-        alert('APN token: ' + JSON.stringify(token));
+        console.log('APN token: ' + JSON.stringify(token));
         fcm.getToken().then((r) => {
-          alert(`FCM Token: ${r.token}`); // ---- showing null.
+          console.log(`FCM Token: ${r.token}`); // ---- showing null.
         }).catch((err) => {
-          alert(`FCM Token ERROR: ${JSON.stringify(err)}`);
+          console.log(`FCM Token ERROR: ${JSON.stringify(err)}`);
         });
 
       }
