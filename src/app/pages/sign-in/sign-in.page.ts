@@ -63,17 +63,17 @@ export class SignInPage implements OnInit {
     });
     await loading.present();
 
-    this.accountService.accountsLogin(loginModel).pipe(take(1)).subscribe(value => {
+    await this.accountService.login(loginModel.userName, loginModel.password).then(value => {
 
       if (value === null) {
         this.invalidLogin = true;
         loading.dismiss();
       }
       const navigationExtras: NavigationExtras = {
-        replaceUrl: false,
-        state: {
-          userId: value.id
-        }
+        // replaceUrl: false,
+        // state: {
+        //   userId: value.id
+        // }
       };
       loading.dismiss();
       this.router.navigateByUrl('/tab1', navigationExtras);

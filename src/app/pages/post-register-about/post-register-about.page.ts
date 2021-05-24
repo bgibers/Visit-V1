@@ -102,7 +102,7 @@ export class PostRegisterAboutPage implements OnInit {
           token: res
         }
       };
-      console.log(this.blob);
+      await this.accountService.login(this.email, this.password);
 
       this.accountService.accountUpdateProfileImagePost(this.blob).pipe(take(1)).subscribe(res => {
         this.router.navigateByUrl('/post-register-locations', navigationExtras);

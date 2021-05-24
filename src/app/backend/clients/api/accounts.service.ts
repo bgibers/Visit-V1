@@ -26,7 +26,9 @@ import { RegisterRequest } from '../model/registerRequest';
 import { Configuration }                                     from '../configuration';
 import { MarkLocationsRequest } from '../model/markLocationsRequest';
 import { BASE_PATH } from 'src/environments/environment';
-import { Platform } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
+import { auth } from 'firebase/app';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 
@@ -40,12 +42,13 @@ export class AccountsService {
     public configuration = new Configuration();
     public authSubject = new BehaviorSubject(false);
     public token: BehaviorSubject<JwtToken> = new BehaviorSubject({});
+    public userData: any;
 
     constructor(protected httpClient: HttpClient,
                 @Optional()@Inject(BASE_PATH) basePath: string,
                 @Optional() configuration: Configuration,
                 private router: Router,
-                private platform: Platform,
+                private ngFireAuth: AngularFireAuth,
                 private storage: Storage ) {
         if (basePath) {
             this.basePath = basePath;
@@ -55,13 +58,16 @@ export class AccountsService {
             this.basePath = basePath || configuration.basePath || this.basePath;
         }
 
-        this.platform.ready().then(() => {
-            this.ifLoggedIn();
+        this.ngFireAuth.authState.subscribe(user => {
+            if (user) {
+              this.userData = user;
+              localStorage.setItem('user', JSON.stringify(this.userData));
+              JSON.parse(localStorage.getItem('user'));
+            } else {
+              localStorage.setItem('user', null);
+              JSON.parse(localStorage.getItem('user'));
+            }
           });
-    }
-
-    public setAuthSubject() {
-        this.authSubject.next(true);
     }
 
     public async logout() {
@@ -73,128 +79,60 @@ export class AccountsService {
         this.router.navigate(['sign-in']);
     }
 
-    public isLoggedIn() {
-        return this.authSubject.value;
+    get isLoggedIn(): boolean {
+        const user = JSON.parse(localStorage.getItem('user'));
+        return (user !== null && user.emailVerified !== false) ? true : false;
     }
 
-    public async getUserTokenFromStorage(): Promise<JwtToken> {
-        if (this.isLoggedIn) {
-            const token: JwtToken = {
-                auth_token: await this.storage.get('ACCESS_TOKEN'),
-                id: await this.storage.get('USER_ID'),
-                expires_in: await this.storage.get('EXPIRES_IN')
-            } as JwtToken;
-
-            return token;
-        }
-    }
-
-    // public async getLoggedInUser(): Promise<LoggedInUser> {
-    //     if (this.isLoggedIn) {
-    //         const user: LoggedInUser = await this.storage.get('USER') as LoggedInUser;
-    //         return user;
-    //     }
-    // }
-
-    async ifLoggedIn() {
-        await this.storage.get('ACCESS_TOKEN').then(async (response) => {
-          if (response !== undefined) {
-            this.token.next(await this.getUserTokenFromStorage());
-            this.authSubject.next(true);
-          }
+      // Email verification when new user register
+    SendVerificationMail() {
+        return this.ngFireAuth.auth.currentUser.sendEmailVerification()
+        .then(() => {
+        this.router.navigate(['verify-email']);
         });
+    }
+
+    get isEmailVerified(): boolean {
+        const user = JSON.parse(localStorage.getItem('user'));
+        return (user.emailVerified !== false) ? true : false;
       }
 
-    public getToken() {
-        return this.token;
+    // Recover password
+    PasswordRecover(passwordResetEmail) {
+        return this.ngFireAuth.auth.sendPasswordResetEmail(passwordResetEmail)
+        .then(() => {
+        window.alert('Password reset email has been sent, please check your inbox.');
+        }).catch((error) => {
+        window.alert(error);
+        });
     }
 
-    /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        for (const consume of consumes) {
-            if (form === consume) {
-                return true;
-            }
-        }
-        return false;
+      // Sign in with Gmail
+    GoogleAuth() {
+        return this.AuthLogin(new auth.GoogleAuthProvider());
     }
 
-    /**
-     * @param requestApi
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public accountsLogin(requestApi: LoginApiRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken> {
-    // public accountsLogin(requestApi: LoginApiRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
-    // public accountsLogin(requestApi: LoginApiRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
-    // public accountsLogin(requestApi: LoginApiRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (requestApi === null || requestApi === undefined) {
-            throw new Error('Required parameter requestApi was null or undefined when calling accountsLogin.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json-patch+json',
-            'application/json',
-            'text/json',
-            'application/_*+json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<JwtToken>(`${this.basePath}/account/login`,
-            requestApi,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers,
-                observe,
-                reportProgress
-            }
-        ).pipe(
-            tap(async ( res: JwtToken ) => {
-                if (res.auth_token !== null) {
-                    this.token.next(res);
-                    await this.storage.set('ACCESS_TOKEN', res.auth_token);
-                    await this.storage.set('USER_ID', res.id);
-                    await this.storage.set('EXPIRES_IN', res.expires_in);
-                    await this.storage.set('USER', res);
-                    this.authSubject.next(true);
-                } else {
-                    return null;
-                }
+    // Auth providers
+    AuthLogin(provider) {
+        return this.ngFireAuth.auth.signInWithPopup(provider)
+        .then((result) => {
+        this.ngZone.run(() => {
+            this.router.navigate(['dashboard']);
             })
-        );
+        this.SetUserData(result.user);
+        }).catch((error) => {
+        window.alert(error)
+        })
     }
 
-     /**
-     * @param email
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public accountEmailTakenGet(email?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public accountEmailTakenGet(email?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public accountEmailTakenGet(email?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public accountEmailTakenGet(email?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    // Login in with email/password
+    async login(email, password) {
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(async () => {
+            return await this.ngFireAuth.auth.signInWithEmailAndPassword(email, password);
+        });
+    }
+
+    public accountEmailTakenGet(email?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean> {
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -377,18 +315,6 @@ export class AccountsService {
         );
     }
 
-        /**
-     * 
-     * 
-     * @param firstname 
-     * @param lastname 
-     * @param title 
-     * @param education 
-     * @param birthLocation 
-     * @param residenceLocation 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
     public accountUpdatePost(firstname?: string, lastname?: string, title?: string, education?: string, birthLocation?: string, residenceLocation?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
     public accountUpdatePost(firstname?: string, lastname?: string, title?: string, education?: string, birthLocation?: string, residenceLocation?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
     public accountUpdatePost(firstname?: string, lastname?: string, title?: string, education?: string, birthLocation?: string, residenceLocation?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
@@ -396,34 +322,34 @@ export class AccountsService {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (firstname !== undefined && firstname !== null) {
-            queryParameters = queryParameters.set('Firstname', <any>firstname);
+            queryParameters = queryParameters.set('Firstname',  firstname as any);
         }
         if (lastname !== undefined && lastname !== null) {
-            queryParameters = queryParameters.set('Lastname', <any>lastname);
+            queryParameters = queryParameters.set('Lastname',  lastname as any);
         }
         if (title !== undefined && title !== null) {
-            queryParameters = queryParameters.set('Title', <any>title);
+            queryParameters = queryParameters.set('Title',  title as any);
         }
         if (education !== undefined && education !== null) {
-            queryParameters = queryParameters.set('Education', <any>education);
+            queryParameters = queryParameters.set('Education',  education as any);
         }
         if (birthLocation !== undefined && birthLocation !== null) {
-            queryParameters = queryParameters.set('BirthLocation', <any>birthLocation);
+            queryParameters = queryParameters.set('BirthLocation',  birthLocation as any);
         }
         if (residenceLocation !== undefined && residenceLocation !== null) {
-            queryParameters = queryParameters.set('ResidenceLocation', <any>residenceLocation);
+            queryParameters = queryParameters.set('ResidenceLocation',  residenceLocation as any);
         }
 
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
+        const httpHeaderAccepts: string[] = [
             'text/plain',
             'application/json',
             'text/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
+        if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
@@ -431,26 +357,15 @@ export class AccountsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<boolean>('post',`${this.basePath}/account/update`,
+        return this.httpClient.request<boolean>('post', `${this.basePath}/account/update`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
+                headers,
+                observe,
+                reportProgress
             }
         );
     }
 
 }
-class Guid {
-    static newGuid() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-        // tslint:disable-next-line: no-bitwise
-        const r = Math.random() * 16 | 0,
-          // tslint:disable-next-line: no-bitwise
-          v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
-  }

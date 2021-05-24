@@ -25,13 +25,17 @@ import { AddPostPageModule } from './pages/add-post/add-post.module';
 import { AddPostImagePageModule } from './pages/add-post-image/add-post-image.module';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { UserSettingsPageModule } from './pages/user-settings/user-settings.module';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, SearchPageModule, AddPageModule,
      HttpClientModule, UserTimelinePageModule, MapFilterPageModule, MarkLocationPageModule, AddPostPageModule, UserSettingsPageModule,
-     AddPostImagePageModule, IonicSelectableModule
+     AddPostImagePageModule, IonicSelectableModule,
+     AngularFireModule.initializeApp(environment.firebaseConfig),
+     AngularFireAuthModule,
   ],
   providers: [
     AuthGuard,
