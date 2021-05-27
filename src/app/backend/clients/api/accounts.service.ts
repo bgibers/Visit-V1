@@ -19,8 +19,6 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable, BehaviorSubject }                                        from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { JwtToken } from '../model/jwtToken';
-import { LoginApiRequest } from '../model/loginApiRequest';
 import { RegisterRequest } from '../model/registerRequest';
 
 import { Configuration }                                     from '../configuration';
@@ -28,7 +26,6 @@ import { MarkLocationsRequest } from '../model/markLocationsRequest';
 import { BASE_PATH } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
-import { auth } from 'firebase/app';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 
@@ -41,7 +38,6 @@ export class AccountsService {
     public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, '');
     public configuration = new Configuration();
     public authSubject = new BehaviorSubject(false);
-    public token: BehaviorSubject<JwtToken> = new BehaviorSubject({});
     public userData: any;
 
     constructor(protected httpClient: HttpClient,
@@ -60,8 +56,7 @@ export class AccountsService {
 
         this.ngFireAuth.authState.subscribe(user => {
             if (user) {
-              this.userData = user;
-              localStorage.setItem('user', JSON.stringify(this.userData));
+              localStorage.setItem('user', JSON.stringify(user));
               JSON.parse(localStorage.getItem('user'));
             } else {
               localStorage.setItem('user', null);
@@ -71,12 +66,10 @@ export class AccountsService {
     }
 
     public async logout() {
-        await this.storage.remove('ACCESS_TOKEN');
-        await this.storage.remove('USER_ID');
-        await this.storage.remove('USER');
-        await this.storage.remove('EXPIRES_IN');
-        this.authSubject.next(false);
-        this.router.navigate(['sign-in']);
+        return this.ngFireAuth.signOut().then(() => {
+            localStorage.removeItem('user');
+            this.router.navigate(['sign-in']);
+          })
     }
 
     get isLoggedIn(): boolean {
@@ -86,7 +79,7 @@ export class AccountsService {
 
       // Email verification when new user register
     SendVerificationMail() {
-        return this.ngFireAuth.auth.currentUser.sendEmailVerification()
+        return firebase.auth().currentUser.sendEmailVerification()
         .then(() => {
         this.router.navigate(['verify-email']);
         });
@@ -99,7 +92,7 @@ export class AccountsService {
 
     // Recover password
     PasswordRecover(passwordResetEmail) {
-        return this.ngFireAuth.auth.sendPasswordResetEmail(passwordResetEmail)
+        return firebase.auth().sendPasswordResetEmail(passwordResetEmail)
         .then(() => {
         window.alert('Password reset email has been sent, please check your inbox.');
         }).catch((error) => {
@@ -107,32 +100,48 @@ export class AccountsService {
         });
     }
 
-      // Sign in with Gmail
-    GoogleAuth() {
-        return this.AuthLogin(new auth.GoogleAuthProvider());
+    async getToken() {
+        try {
+            return await firebase.auth().currentUser.getIdToken();
+        } catch {
+            return '';
+        }
     }
 
-    // Auth providers
-    AuthLogin(provider) {
-        return this.ngFireAuth.auth.signInWithPopup(provider)
-        .then((result) => {
-        this.ngZone.run(() => {
-            this.router.navigate(['dashboard']);
-            })
-        this.SetUserData(result.user);
-        }).catch((error) => {
-        window.alert(error)
-        })
+    getUserId() {
+        return firebase.auth().currentUser.uid;
     }
+
+      // Sign in with Gmail
+    // GoogleAuth() {
+    //     return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
+    // }
+
+    // Auth providers
+    // https://www.positronx.io/ionic-firebase-authentication-tutorial-with-examples/
+    // AuthLogin(provider) {
+    //     return this.ngFireAuth.auth.signInWithPopup(provider)
+    //     .then((result) => {
+    //     this.ngZone.run(() => {
+    //         this.router.navigate(['dashboard']);
+    //         })
+    //     this.SetUserData(result.user);
+    //     }).catch((error) => {
+    //     window.alert(error)
+    //     })
+    // }
 
     // Login in with email/password
     async login(email, password) {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(async () => {
-            return await this.ngFireAuth.auth.signInWithEmailAndPassword(email, password);
+            return await firebase.auth().signInWithEmailAndPassword(email, password);
         });
     }
 
-    public accountEmailTakenGet(email?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean> {
+    public accountEmailTakenGet(email?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public accountEmailTakenGet(email?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public accountEmailTakenGet(email?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public accountEmailTakenGet(email?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -170,7 +179,7 @@ export class AccountsService {
         );
     }
 
-    public accountRegisterPostForm(body?: RegisterRequest, observe?: 'body', reportProgress?: boolean): Observable<JwtToken> {
+    public accountRegisterPostForm(body?: RegisterRequest, blob?: Blob, observe?: 'body', reportProgress?: boolean): Observable<string> {
     // public accountRegisterPostForm(body?: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
     // public accountRegisterPostForm(body?: RegisterRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
     // public accountRegisterPostForm(body?: RegisterRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
@@ -195,7 +204,7 @@ export class AccountsService {
             'multipart/form-data'
         ];
 
-        return this.httpClient.request<JwtToken>('post', `${this.basePath}/account/register`,
+        return this.httpClient.request<string>('post', `${this.basePath}/account/register`,
             {
                 body,
                 withCredentials: this.configuration.withCredentials,
@@ -204,17 +213,11 @@ export class AccountsService {
                 reportProgress
             }
         ).pipe(
-            tap(async ( res: JwtToken ) => {
-                if (res.auth_token) {
-                    this.token.next(res);
-                    await this.storage.set('ACCESS_TOKEN', res.auth_token);
-                    await this.storage.set('USER_ID', res.id);
-                    await this.storage.set('EXPIRES_IN', res.expires_in);
-                    this.authSubject.next(true);
-                    // if (!postRegister) {
-                    //     this.authSubject.next(true);
-                    // }
-                }
+            tap(async ( token: string ) => {
+                await firebase.auth().signInWithCustomToken(token)
+                    .then((userCredential) => {
+                        console.log(this.getToken());
+                    });
             })
         );
     }

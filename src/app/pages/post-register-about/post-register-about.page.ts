@@ -6,7 +6,7 @@ import { Plugins, CameraResultType, CameraPhoto } from '@capacitor/core';
 const { Camera } = Plugins;
 import * as moment from 'moment';
 import { AccountsService, RegisterRequest } from 'src/app/backend/clients';
-import { take } from 'rxjs/operators';
+import { mergeMap, take } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
@@ -82,6 +82,7 @@ export class PostRegisterAboutPage implements OnInit {
     const loading = await this.loadingController.create({
       duration: 2000
     });
+
     await loading.present();
     const registerRequest = {
       firstname: this.firstName,
@@ -95,28 +96,22 @@ export class PostRegisterAboutPage implements OnInit {
       education: this.aboutForm.controls.education.value
     } as RegisterRequest;
 
-    this.accountService.accountRegisterPostForm(registerRequest).pipe(take(1)).subscribe(async res => {
-      const navigationExtras: NavigationExtras = {
-        replaceUrl: false,
-        state: {
-          token: res
-        }
-      };
-      await this.accountService.login(this.email, this.password);
-
-      this.accountService.accountUpdateProfileImagePost(this.blob).pipe(take(1)).subscribe(res => {
-        this.router.navigateByUrl('/post-register-locations', navigationExtras);
+    this.accountService.accountRegisterPostForm(registerRequest).pipe(take(1))
+      .subscribe(async res => {
+        this.uploadImage();
         loading.dismiss();
-      }, err => {
-        this.router.navigateByUrl('/post-register-locations', navigationExtras);
-        loading.dismiss();
-      }, () => {
-        this.router.navigateByUrl('/post-register-locations', navigationExtras);
-        loading.dismiss();
-      });
     }, error => {
       this.hasError = true;
       this.error = 'Unable to register user. Please try again';
+    });
+  }
+
+  uploadImage() {
+    const navigationExtras: NavigationExtras = {
+      replaceUrl: false
+    };
+    this.accountService.accountUpdateProfileImagePost(this.blob).pipe(take(1)).subscribe(res => {
+      this.router.navigateByUrl('/post-register-locations', navigationExtras);
     });
   }
 

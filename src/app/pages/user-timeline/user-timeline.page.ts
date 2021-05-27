@@ -99,13 +99,12 @@ export class UserTimelinePage implements OnInit {
   }
 
   openProfile() {
-    const token = this.accountService.getToken().value;
-
+    console.log(this.accountService.getUserId())
     const navigationExtras: NavigationExtras = {
       replaceUrl: true,
       skipLocationChange: true,
       state: {
-        userId: token.id
+        userId: this.accountService.getUserId()
       }
     };
     this.router.navigateByUrl('/user-profile', navigationExtras);

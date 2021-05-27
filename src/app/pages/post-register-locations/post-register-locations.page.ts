@@ -32,13 +32,8 @@ export class PostRegisterLocationsPage {
     private accountService: AccountsService,
     private zone: NgZone,
     private route: ActivatedRoute
-  ) {
-    this.route.queryParams.subscribe(() => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.token = this.router.getCurrentNavigation().extras.state.token;
-      }
-    });
-  }
+  ) {}
+
   ionViewWillEnter() {
     this.map = new Map(this.zone);
     this.map.addMapToDiv(this.selectionMode, 'register-map');

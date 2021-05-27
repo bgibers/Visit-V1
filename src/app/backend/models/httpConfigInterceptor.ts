@@ -12,7 +12,6 @@ import { Observable, throwError, from } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 
 import { AlertController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
 import { BASE_PATH } from '../../../environments/environment';
 import { AccountsService} from '../clients/api/accounts.service';
 
@@ -22,16 +21,16 @@ const TOKEN_KEY = 'ACCESS_TOKEN';
 export class HttpConfigInterceptor implements HttpInterceptor {
 
     constructor(private alertController: AlertController,
-                private accountService: AccountsService,
-                private storage: Storage) {}
+                private accountService: AccountsService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         return from(this.accountService.getToken())
             .pipe(
                 switchMap(token => {
-                    if (token.auth_token) {
-                        request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token.auth_token) });
+                    console.log(token)
+                    if (token !== '') {
+                        request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
                     }
 
                     // if (!request.headers.has('Content-Type')) {

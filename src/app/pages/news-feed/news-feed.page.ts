@@ -111,13 +111,11 @@ export class NewsFeedPage implements OnInit {
   }
 
   openProfile() {
-    const token = this.accountService.getToken().value;
-
     const navigationExtras: NavigationExtras = {
       replaceUrl: true,
       skipLocationChange: true,
       state: {
-        userId: token.id
+        userId: this.accountService.getUserId()
       }
     };
     this.router.navigateByUrl('/user-profile', navigationExtras);

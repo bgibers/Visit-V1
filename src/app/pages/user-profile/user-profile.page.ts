@@ -20,7 +20,7 @@ import { UserSettingsPage } from '../user-settings/user-settings.page';
 })
 export class UserProfilePage {
 
-  public userId = undefined;
+  public userId: string = undefined;
   public selectionMode: MapSelectionMode = MapSelectionMode.NONE;
   public user: BehaviorSubject<UserResponse> = new BehaviorSubject({});
   public canEditProfile = false;
@@ -41,7 +41,6 @@ export class UserProfilePage {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.userId = this.router.getCurrentNavigation().extras.state.userId;
-        console.log(this.router.getCurrentNavigation().extras.state.userId)
       }
     });
   }
@@ -56,16 +55,15 @@ export class UserProfilePage {
     this.map.addMapToDiv(this.selectionMode, 'user-map');
 
     if (this.userId === undefined) {
-      const token = this.accountService.getToken().value;
-      this.userId = token.id;
+      this.userId = this.accountService.getUserId();
     }
 
     this.getUser(loading);
   }
 
   getUser(loading: HTMLIonLoadingElement) {
-    this.userService.userGetIdGet(this.userId).pipe(take(1)).subscribe(user => {
-      if (this.accountService.getToken().value.id === this.userId) {
+    this.userService.userIdGet(this.userId).pipe(take(1)).subscribe(user => {
+      if (this.accountService.getUserId() === this.userId) {
         this.canEditProfile = true;
       }
 

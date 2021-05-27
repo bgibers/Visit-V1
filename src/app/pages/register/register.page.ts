@@ -95,6 +95,7 @@ export class RegisterPage implements OnInit {
         this.error = 'An account with this email is already registered.';
       }
     }, error => {
+      console.log(error)
       this.hasError = true;
       this.error = 'An unexpected error has occurred.';
     });

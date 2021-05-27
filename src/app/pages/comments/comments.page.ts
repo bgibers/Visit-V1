@@ -38,8 +38,7 @@ export class CommentsPage implements OnInit {
               }
   ngOnInit() {
     // this.getComments();
-    const token = this.accountService.getToken().value;
-    this.userId = token.id;
+    this.userId = this.accountService.getUserId();
     // setInterval(_ => {
     //   // this.thisIstheDataForThisComponent = this.myFunc();
     //   // this.newComments.push(1);
@@ -101,13 +100,11 @@ export class CommentsPage implements OnInit {
   }
 
   openProfile() {
-    const token = this.accountService.getToken().value;
-
     const navigationExtras: NavigationExtras = {
       replaceUrl: true,
       skipLocationChange: true,
       state: {
-        userId: token.id
+        userId: this.accountService.getUserId()
       }
     };
     this.router.navigateByUrl('/user-profile', navigationExtras);
