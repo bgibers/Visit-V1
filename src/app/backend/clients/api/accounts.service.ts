@@ -17,8 +17,8 @@ import { HttpClient, HttpHeaders, HttpParams,
          HttpResponse, HttpEvent }                           from '@angular/common/http';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
-import { Observable, BehaviorSubject }                                        from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, from }                                        from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { RegisterRequest } from '../model/registerRequest';
 
 import { Configuration }                                     from '../configuration';
@@ -138,6 +138,10 @@ export class AccountsService {
         });
     }
 
+    public loginWithToken(token) : Observable<any> {
+        return from(firebase.auth().signInWithCustomToken(token));
+    }
+
     public accountEmailTakenGet(email?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
     public accountEmailTakenGet(email?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
     public accountEmailTakenGet(email?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
@@ -212,13 +216,6 @@ export class AccountsService {
                 observe,
                 reportProgress
             }
-        ).pipe(
-            tap(async ( token: string ) => {
-                await firebase.auth().signInWithCustomToken(token)
-                    .then((userCredential) => {
-                        console.log(this.getToken());
-                    });
-            })
         );
     }
 

@@ -98,15 +98,22 @@ export class PostRegisterAboutPage implements OnInit {
 
     this.accountService.accountRegisterPostForm(registerRequest).pipe(take(1))
       .subscribe(async res => {
-        this.uploadImage();
-        loading.dismiss();
+        this.accountService.loginWithToken(res).pipe(take(1))
+          .subscribe(async res => { 
+            this.uploadImage();
+            loading.dismiss();
+          }, error => {
+            loading.dismiss();
+          });
     }, error => {
       this.hasError = true;
       this.error = 'Unable to register user. Please try again';
     });
+    
   }
 
   uploadImage() {
+    console.log(this.accountService.getToken())
     const navigationExtras: NavigationExtras = {
       replaceUrl: false
     };
