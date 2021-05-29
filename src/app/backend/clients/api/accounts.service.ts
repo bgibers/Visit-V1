@@ -56,18 +56,22 @@ export class AccountsService {
 
         this.ngFireAuth.authState.subscribe(user => {
             if (user) {
-              localStorage.setItem('user', JSON.stringify(user));
-              JSON.parse(localStorage.getItem('user'));
-              this.getFcmToken().subscribe(token => {
-                console.log('FCM:' + token)
-                this.accountUpdateFcmDeviceIdPost(token).pipe(take(1)).subscribe();
-              })
-              
+                localStorage.setItem('user', JSON.stringify(user));
+                JSON.parse(localStorage.getItem('user'));
+                this.getFcmToken().subscribe(token => {
+                    console.log('FCM:' + token)
+                    this.accountUpdateFcmDeviceIdPost(token).pipe(take(1)).subscribe(res => {
+                        console.log(res)
+                    }, err => 
+                        console.log(err)
+                    );
+                })
+                
             } else {
-              localStorage.setItem('user', null);
-              JSON.parse(localStorage.getItem('user'));
+                localStorage.setItem('user', null);
+                JSON.parse(localStorage.getItem('user'));
             }
-          });
+        });
     }
 
     public async logout() {

@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register().then(() => 
           from(fcm.getToken().then((r) => {
-            console.log(`FCM Token: ${r.token}`); // ---- showing null.
+            this.userService.setFcmToken(r.token)
           }).catch((err) => {
             console.log(`FCM Token ERROR: ${JSON.stringify(err)}`);
           }))

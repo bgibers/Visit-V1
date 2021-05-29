@@ -654,7 +654,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               // Register with Apple / Google to receive push via APNS/FCM
               _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].register().then(function () {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_10__["from"])(fcm.getToken().then(function (r) {
-                  console.log("FCM Token: ".concat(r.token)); // ---- showing null.
+                  _this3.userService.setFcmToken(r.token);
                 })["catch"](function (err) {
                   console.log("FCM Token ERROR: ".concat(JSON.stringify(err)));
                 }));
@@ -1409,7 +1409,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             _this4.getFcmToken().subscribe(function (token) {
               console.log('FCM:' + token);
 
-              _this4.accountUpdateFcmDeviceIdPost(token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
+              _this4.accountUpdateFcmDeviceIdPost(token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe(function (res) {
+                console.log(res);
+              }, function (err) {
+                return console.log(err);
+              });
             });
           } else {
             localStorage.setItem('user', null);

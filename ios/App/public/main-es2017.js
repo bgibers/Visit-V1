@@ -547,7 +547,7 @@ class AppComponent {
             if (result.receive === 'granted') {
                 // Register with Apple / Google to receive push via APNS/FCM
                 _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].register().then(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_10__["from"])(fcm.getToken().then((r) => {
-                    console.log(`FCM Token: ${r.token}`); // ---- showing null.
+                    this.userService.setFcmToken(r.token);
                 }).catch((err) => {
                     console.log(`FCM Token ERROR: ${JSON.stringify(err)}`);
                 })));
@@ -933,7 +933,9 @@ class AccountsService {
                 JSON.parse(localStorage.getItem('user'));
                 this.getFcmToken().subscribe(token => {
                     console.log('FCM:' + token);
-                    this.accountUpdateFcmDeviceIdPost(token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
+                    this.accountUpdateFcmDeviceIdPost(token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe(res => {
+                        console.log(res);
+                    }, err => console.log(err));
                 });
             }
             else {
