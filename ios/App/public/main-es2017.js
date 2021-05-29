@@ -523,8 +523,9 @@ class AppComponent {
         this.router = router;
         this.zone = zone;
         this.myservice = myservice;
-        this.initializeApp();
-        // Map.getInstance(zone);
+        this.platform.ready().then(() => {
+            this.initializeApp();
+        });
     }
     ngOnInit() {
     }
@@ -542,31 +543,31 @@ class AppComponent {
         });
     }
     registerPush() {
-        Object(rxjs__WEBPACK_IMPORTED_MODULE_10__["from"])(fcm.getToken().then((r) => {
-            console.log(`FCM Token: ${r.token}`); // ---- showing null.
-        }).catch((err) => {
-            console.log(`FCM Token ERROR: ${JSON.stringify(err)}`);
-        }));
-        Object(rxjs__WEBPACK_IMPORTED_MODULE_10__["from"])(_capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].requestPermissions().then((permission) => {
-            if (permission.receive !== "granted") {
-                _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].register();
+        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].requestPermissions().then(result => {
+            if (result.receive === 'granted') {
+                // Register with Apple / Google to receive push via APNS/FCM
+                _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].register().then(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_10__["from"])(fcm.getToken().then((r) => {
+                    console.log(`FCM Token: ${r.token}`); // ---- showing null.
+                }).catch((err) => {
+                    console.log(`FCM Token ERROR: ${JSON.stringify(err)}`);
+                })));
             }
             else {
-                alert('No permission for push granted');
+                console.log('Push notifications not registered');
             }
-        }));
+        });
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('registration', (token) => {
-            console.log('APN token: ' + JSON.stringify(token));
+            alert('Push registration success, token: ' + token.value);
         });
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('registrationError', (error) => {
-            alert('Registration Error: ' + JSON.stringify(error));
+            alert('Error on registration: ' + JSON.stringify(error));
         });
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('pushNotificationReceived', async (notification) => {
             console.log(notification.title);
             this.alert(notification.title, notification.body);
         });
-        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('pushNotificationActionPerformed', async (notification) => {
-            alert('Action performed: ' + JSON.stringify(notification.notification.body));
+        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('pushNotificationActionPerformed', (notification) => {
+            alert('Push action performed: ' + JSON.stringify(notification));
         });
     }
     async alert(title, body) {

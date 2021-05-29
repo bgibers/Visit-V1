@@ -31,8 +31,9 @@ export class AppComponent implements OnInit {
     public zone: NgZone,
     public myservice: ModalService,
   ) {
-    this.initializeApp();
-    // Map.getInstance(zone);
+    this.platform.ready().then(() => {
+      this.initializeApp();
+    });
   }
 
   ngOnInit() {
@@ -53,29 +54,31 @@ export class AppComponent implements OnInit {
   }
 
   private registerPush() {
-      from(fcm.getToken().then((r) => {
-        console.log(`FCM Token: ${r.token}`); // ---- showing null.
-      }).catch((err) => {
-        console.log(`FCM Token ERROR: ${JSON.stringify(err)}`);
-      }));
 
-    from(PushNotifications.requestPermissions().then((permission) => {
-      if (permission.receive !== "granted") {
-        PushNotifications.register();
+    PushNotifications.requestPermissions().then(result => {
+      if (result.receive === 'granted') {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register().then(() => 
+          from(fcm.getToken().then((r) => {
+            console.log(`FCM Token: ${r.token}`); // ---- showing null.
+          }).catch((err) => {
+            console.log(`FCM Token ERROR: ${JSON.stringify(err)}`);
+          }))
+        );
       } else {
-        alert('No permission for push granted');
+        console.log('Push notifications not registered')
       }
-    }));
+    });
 
     PushNotifications.addListener(
       'registration',
       (token: Token) => {
-        console.log('APN token: ' + JSON.stringify(token));
-      }
+        alert('Push registration success, token: ' + token.value);
+      },
     );
 
     PushNotifications.addListener('registrationError', (error: any) => {
-      alert('Registration Error: ' + JSON.stringify(error));
+      alert('Error on registration: ' + JSON.stringify(error));
     });
 
     PushNotifications.addListener(
@@ -88,9 +91,9 @@ export class AppComponent implements OnInit {
 
     PushNotifications.addListener(
       'pushNotificationActionPerformed',
-      async (notification: ActionPerformed) => {
-        alert('Action performed: ' + JSON.stringify(notification.notification.body));
-      }
+      (notification: ActionPerformed) => {
+        alert('Push action performed: ' + JSON.stringify(notification));
+      },
     );
   }
 

@@ -604,6 +604,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var AppComponent = /*#__PURE__*/function () {
       function AppComponent(platform, userService, modalController, alertController, router, zone, myservice) {
+        var _this = this;
+
         _classCallCheck(this, AppComponent);
 
         this.platform = platform;
@@ -613,7 +615,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.router = router;
         this.zone = zone;
         this.myservice = myservice;
-        this.initializeApp(); // Map.getInstance(zone);
+        this.platform.ready().then(function () {
+          _this.initializeApp();
+        });
       }
 
       _createClass(AppComponent, [{
@@ -622,7 +626,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "initializeApp",
         value: function initializeApp() {
-          var _this = this;
+          var _this2 = this;
 
           this.platform.ready().then(function () {
             _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_3__["StatusBar"].setStyle({
@@ -631,39 +635,41 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             _capacitor_splash_screen__WEBPACK_IMPORTED_MODULE_2__["SplashScreen"].hide();
 
-            _this.registerPush();
+            _this2.registerPush();
 
-            if (_this.userService.isLoggedIn) {
-              _this.router.navigate(['tab1']);
+            if (_this2.userService.isLoggedIn) {
+              _this2.router.navigate(['tab1']);
             } else {
-              _this.router.navigate(['sign-in']);
+              _this2.router.navigate(['sign-in']);
             }
           });
         }
       }, {
         key: "registerPush",
         value: function registerPush() {
-          var _this2 = this;
+          var _this3 = this;
 
-          Object(rxjs__WEBPACK_IMPORTED_MODULE_10__["from"])(fcm.getToken().then(function (r) {
-            console.log("FCM Token: ".concat(r.token)); // ---- showing null.
-          })["catch"](function (err) {
-            console.log("FCM Token ERROR: ".concat(JSON.stringify(err)));
-          }));
-          Object(rxjs__WEBPACK_IMPORTED_MODULE_10__["from"])(_capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].requestPermissions().then(function (permission) {
-            if (permission.receive !== "granted") {
-              _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].register();
+          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].requestPermissions().then(function (result) {
+            if (result.receive === 'granted') {
+              // Register with Apple / Google to receive push via APNS/FCM
+              _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].register().then(function () {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_10__["from"])(fcm.getToken().then(function (r) {
+                  console.log("FCM Token: ".concat(r.token)); // ---- showing null.
+                })["catch"](function (err) {
+                  console.log("FCM Token ERROR: ".concat(JSON.stringify(err)));
+                }));
+              });
             } else {
-              alert('No permission for push granted');
+              console.log('Push notifications not registered');
             }
-          }));
+          });
 
           _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('registration', function (token) {
-            console.log('APN token: ' + JSON.stringify(token));
+            alert('Push registration success, token: ' + token.value);
           });
 
           _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('registrationError', function (error) {
-            alert('Registration Error: ' + JSON.stringify(error));
+            alert('Error on registration: ' + JSON.stringify(error));
           });
 
           _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('pushNotificationReceived', /*#__PURE__*/function () {
@@ -674,7 +680,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     case 0:
                       console.log(notification.title);
 
-                      _this2.alert(notification.title, notification.body);
+                      _this3.alert(notification.title, notification.body);
 
                     case 2:
                     case "end":
@@ -689,37 +695,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             };
           }());
 
-          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('pushNotificationActionPerformed', /*#__PURE__*/function () {
-            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(notification) {
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                while (1) {
-                  switch (_context2.prev = _context2.next) {
-                    case 0:
-                      alert('Action performed: ' + JSON.stringify(notification.notification.body));
-
-                    case 1:
-                    case "end":
-                      return _context2.stop();
-                  }
-                }
-              }, _callee2);
-            }));
-
-            return function (_x2) {
-              return _ref2.apply(this, arguments);
-            };
-          }());
+          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('pushNotificationActionPerformed', function (notification) {
+            alert('Push action performed: ' + JSON.stringify(notification));
+          });
         }
       }, {
         key: "alert",
         value: function () {
-          var _alert = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(title, body) {
+          var _alert = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(title, body) {
             var alert;
-            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            return regeneratorRuntime.wrap(function _callee2$(_context2) {
               while (1) {
-                switch (_context3.prev = _context3.next) {
+                switch (_context2.prev = _context2.next) {
                   case 0:
-                    _context3.next = 2;
+                    _context2.next = 2;
                     return this.alertController.create({
                       header: title,
                       message: body,
@@ -733,19 +722,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    alert = _context3.sent;
-                    _context3.next = 5;
+                    alert = _context2.sent;
+                    _context2.next = 5;
                     return alert.present();
 
                   case 5:
                   case "end":
-                    return _context3.stop();
+                    return _context2.stop();
                 }
               }
-            }, _callee3, this);
+            }, _callee2, this);
           }));
 
-          function alert(_x3, _x4) {
+          function alert(_x2, _x3) {
             return _alert.apply(this, arguments);
           }
 
@@ -754,13 +743,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "presentAddModal",
         value: function () {
-          var _presentAddModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+          var _presentAddModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
             var modal;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context3.prev = _context3.next) {
                   case 0:
-                    _context4.next = 2;
+                    _context3.next = 2;
                     return this.modalController.create({
                       component: _pages_modals_add_add_page__WEBPACK_IMPORTED_MODULE_4__["AddPage"],
                       showBackdrop: true,
@@ -770,19 +759,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    modal = _context4.sent;
-                    _context4.next = 5;
+                    modal = _context3.sent;
+                    _context3.next = 5;
                     return modal.present();
 
                   case 5:
-                    return _context4.abrupt("return", _context4.sent);
+                    return _context3.abrupt("return", _context3.sent);
 
                   case 6:
                   case "end":
-                    return _context4.stop();
+                    return _context3.stop();
                 }
               }
-            }, _callee4, this);
+            }, _callee3, this);
           }));
 
           function presentAddModal() {
@@ -1390,7 +1379,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var AccountsService = /*#__PURE__*/function () {
       function AccountsService(httpClient, basePath, configuration, router, storage, ngFireAuth) {
-        var _this3 = this;
+        var _this4 = this;
 
         _classCallCheck(this, AccountsService);
 
@@ -1417,10 +1406,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             localStorage.setItem('user', JSON.stringify(user));
             JSON.parse(localStorage.getItem('user'));
 
-            _this3.getFcmToken().subscribe(function (token) {
+            _this4.getFcmToken().subscribe(function (token) {
               console.log('FCM:' + token);
 
-              _this3.accountUpdateFcmDeviceIdPost(token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
+              _this4.accountUpdateFcmDeviceIdPost(token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
             });
           } else {
             localStorage.setItem('user', null);
@@ -1432,25 +1421,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(AccountsService, [{
         key: "logout",
         value: function () {
-          var _logout = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-            var _this4 = this;
+          var _logout = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            var _this5 = this;
 
-            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context5.prev = _context5.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
-                    return _context5.abrupt("return", this.ngFireAuth.signOut().then(function () {
+                    return _context4.abrupt("return", this.ngFireAuth.signOut().then(function () {
                       localStorage.removeItem('user');
 
-                      _this4.router.navigate(['sign-in']);
+                      _this5.router.navigate(['sign-in']);
                     }));
 
                   case 1:
                   case "end":
-                    return _context5.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee5, this);
+            }, _callee4, this);
           }));
 
           function logout() {
@@ -1463,10 +1452,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "SendVerificationMail",
         // Email verification when new user register
         value: function SendVerificationMail() {
-          var _this5 = this;
+          var _this6 = this;
 
           return firebase_app__WEBPACK_IMPORTED_MODULE_8__["default"].auth().currentUser.sendEmailVerification().then(function () {
-            _this5.router.navigate(['verify-email']);
+            _this6.router.navigate(['verify-email']);
           });
         }
       }, {
@@ -1482,29 +1471,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getToken",
         value: function () {
-          var _getToken = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          var _getToken = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context5.prev = _context5.next) {
                   case 0:
-                    _context6.prev = 0;
-                    _context6.next = 3;
+                    _context5.prev = 0;
+                    _context5.next = 3;
                     return firebase_app__WEBPACK_IMPORTED_MODULE_8__["default"].auth().currentUser.getIdToken();
 
                   case 3:
-                    return _context6.abrupt("return", _context6.sent);
+                    return _context5.abrupt("return", _context5.sent);
 
                   case 6:
-                    _context6.prev = 6;
-                    _context6.t0 = _context6["catch"](0);
-                    return _context6.abrupt("return", '');
+                    _context5.prev = 6;
+                    _context5.t0 = _context5["catch"](0);
+                    return _context5.abrupt("return", '');
 
                   case 9:
                   case "end":
-                    return _context6.stop();
+                    return _context5.stop();
                 }
               }
-            }, _callee6, null, [[0, 6]]);
+            }, _callee5, null, [[0, 6]]);
           }));
 
           function getToken() {
@@ -1539,45 +1528,45 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "login",
         value: function () {
-          var _login = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(email, password) {
-            var _this6 = this;
+          var _login = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(email, password) {
+            var _this7 = this;
 
-            return regeneratorRuntime.wrap(function _callee8$(_context8) {
+            return regeneratorRuntime.wrap(function _callee7$(_context7) {
               while (1) {
-                switch (_context8.prev = _context8.next) {
+                switch (_context7.prev = _context7.next) {
                   case 0:
-                    firebase_app__WEBPACK_IMPORTED_MODULE_8__["default"].auth().setPersistence(firebase_app__WEBPACK_IMPORTED_MODULE_8__["default"].auth.Auth.Persistence.LOCAL).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-                      return regeneratorRuntime.wrap(function _callee7$(_context7) {
+                    firebase_app__WEBPACK_IMPORTED_MODULE_8__["default"].auth().setPersistence(firebase_app__WEBPACK_IMPORTED_MODULE_8__["default"].auth.Auth.Persistence.LOCAL).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+                      return regeneratorRuntime.wrap(function _callee6$(_context6) {
                         while (1) {
-                          switch (_context7.prev = _context7.next) {
+                          switch (_context6.prev = _context6.next) {
                             case 0:
-                              _context7.next = 2;
+                              _context6.next = 2;
                               return firebase_app__WEBPACK_IMPORTED_MODULE_8__["default"].auth().signInWithEmailAndPassword(email, password).then(function () {
-                                return _this6.getFcmToken().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe(function (token) {
-                                  return _this6.accountUpdateFcmDeviceIdPost(token);
+                                return _this7.getFcmToken().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe(function (token) {
+                                  return _this7.accountUpdateFcmDeviceIdPost(token);
                                 });
                               });
 
                             case 2:
-                              return _context7.abrupt("return", _context7.sent);
+                              return _context6.abrupt("return", _context6.sent);
 
                             case 3:
                             case "end":
-                              return _context7.stop();
+                              return _context6.stop();
                           }
                         }
-                      }, _callee7);
+                      }, _callee6);
                     })));
 
                   case 1:
                   case "end":
-                    return _context8.stop();
+                    return _context7.stop();
                 }
               }
-            }, _callee8);
+            }, _callee7);
           }));
 
-          function login(_x5, _x6) {
+          function login(_x4, _x5) {
             return _login.apply(this, arguments);
           }
 
@@ -1586,11 +1575,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "loginWithToken",
         value: function loginWithToken(token) {
-          var _this7 = this;
+          var _this8 = this;
 
           return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(firebase_app__WEBPACK_IMPORTED_MODULE_8__["default"].auth().signInWithCustomToken(token).then(function () {
-            return _this7.getFcmToken().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe(function (token) {
-              return _this7.accountUpdateFcmDeviceIdPost(token);
+            return _this8.getFcmToken().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe(function (token) {
+              return _this8.accountUpdateFcmDeviceIdPost(token);
             });
           }));
         }
@@ -4203,14 +4192,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(Configuration, [{
         key: "selectHeaderContentType",
         value: function selectHeaderContentType(contentTypes) {
-          var _this8 = this;
+          var _this9 = this;
 
           if (contentTypes.length == 0) {
             return undefined;
           }
 
           var type = contentTypes.find(function (x) {
-            return _this8.isJsonMime(x);
+            return _this9.isJsonMime(x);
           });
 
           if (type === undefined) {
@@ -4230,14 +4219,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "selectHeaderAccept",
         value: function selectHeaderAccept(accepts) {
-          var _this9 = this;
+          var _this10 = this;
 
           if (accepts.length == 0) {
             return undefined;
           }
 
           var type = accepts.find(function (x) {
-            return _this9.isJsonMime(x);
+            return _this10.isJsonMime(x);
           });
 
           if (type === undefined) {
@@ -5561,13 +5550,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "presentAlert",
         value: function () {
-          var _presentAlert = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(status, reason) {
+          var _presentAlert = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(status, reason) {
             var alert;
-            return regeneratorRuntime.wrap(function _callee9$(_context9) {
+            return regeneratorRuntime.wrap(function _callee8$(_context8) {
               while (1) {
-                switch (_context9.prev = _context9.next) {
+                switch (_context8.prev = _context8.next) {
                   case 0:
-                    _context9.next = 2;
+                    _context8.next = 2;
                     return this.alertController.create({
                       header: status + ' Error',
                       subHeader: 'Subtitle',
@@ -5576,19 +5565,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    alert = _context9.sent;
-                    _context9.next = 5;
+                    alert = _context8.sent;
+                    _context8.next = 5;
                     return alert.present();
 
                   case 5:
                   case "end":
-                    return _context9.stop();
+                    return _context8.stop();
                 }
               }
-            }, _callee9, this);
+            }, _callee8, this);
           }));
 
-          function presentAlert(_x7, _x8) {
+          function presentAlert(_x6, _x7) {
             return _presentAlert.apply(this, arguments);
           }
 
@@ -5672,7 +5661,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(AuthGuard, [{
         key: "canActivate",
         value: function canActivate(route) {
-          var _this10 = this;
+          var _this11 = this;
 
           return new Promise(function (resolve, reject) {
             firebase_app__WEBPACK_IMPORTED_MODULE_2__["default"].auth().onAuthStateChanged(function (user) {
@@ -5683,7 +5672,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 // No user is signed in.
                 resolve(false);
 
-                _this10.router.navigate(['sign-in']);
+                _this11.router.navigate(['sign-in']);
               }
             });
           });
@@ -6542,12 +6531,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(Map, [{
         key: "createMap",
         value: function () {
-          var _createMap = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(selectionMode) {
-            var _this11 = this;
+          var _createMap = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(selectionMode) {
+            var _this12 = this;
 
-            return regeneratorRuntime.wrap(function _callee10$(_context10) {
+            return regeneratorRuntime.wrap(function _callee9$(_context9) {
               while (1) {
-                switch (_context10.prev = _context10.next) {
+                switch (_context9.prev = _context9.next) {
                   case 0:
                     _amcharts_amcharts4_core__WEBPACK_IMPORTED_MODULE_1__["disposeAllCharts"]();
 
@@ -6590,17 +6579,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         worldSeries.exclude = ['AQ'];
                         worldSeries.useGeodata = true;
 
-                        _this11.seriesArr.push(worldSeries);
+                        _this12.seriesArr.push(worldSeries);
 
-                        _this11.polygonArr.push(worldSeries.mapPolygons.template); // Series for United States map
+                        _this12.polygonArr.push(worldSeries.mapPolygons.template); // Series for United States map
 
 
                         usaSeries = chart.series.push(new _amcharts_amcharts4_maps__WEBPACK_IMPORTED_MODULE_2__["MapPolygonSeries"]());
                         usaSeries.geodata = _amcharts_amcharts4_geodata_usaLow__WEBPACK_IMPORTED_MODULE_5__["default"];
 
-                        _this11.seriesArr.push(usaSeries);
+                        _this12.seriesArr.push(usaSeries);
 
-                        _this11.polygonArr.push(usaSeries.mapPolygons.template); // // Series for Canada map
+                        _this12.polygonArr.push(usaSeries.mapPolygons.template); // // Series for Canada map
                         // canadaSeries = chart.series.push(new am4maps.MapPolygonSeries());
                         // canadaSeries.geodata = am4geodata_canadaLow;
                         // this.seriesArr.push(canadaSeries);
@@ -6613,22 +6602,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                       });
 
-                      _this11.setupTemplates();
+                      _this12.setupTemplates();
 
-                      _this11.setSelectionMode(selectionMode);
+                      _this12.setSelectionMode(selectionMode);
 
-                      _this11.chart = chart;
+                      _this12.chart = chart;
                     });
 
                   case 2:
                   case "end":
-                    return _context10.stop();
+                    return _context9.stop();
                 }
               }
-            }, _callee10, this);
+            }, _callee9, this);
           }));
 
-          function createMap(_x9) {
+          function createMap(_x8) {
             return _createMap.apply(this, arguments);
           }
 
@@ -6644,7 +6633,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setupTemplates",
         value: function setupTemplates() {
-          var _this12 = this;
+          var _this13 = this;
 
           this.polygonArr.forEach(function (polygonTemplate) {
             polygonTemplate.tooltipText = '{name}';
@@ -6660,13 +6649,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             defaultState.properties.fill = _amcharts_amcharts4_core__WEBPACK_IMPORTED_MODULE_1__["color"]('#d9d9d9');
             polygonTemplate.events.on('hit', function (ev) {
               var data = ev.target.dataItem.dataContext;
-              _this12.selectedArea = data; // this.selectedName = data.name;
+              _this13.selectedArea = data; // this.selectedName = data.name;
 
-              _this12.selectedId = data.id;
+              _this13.selectedId = data.id;
 
-              if (_this12.lastSelected !== ev.target) {
+              if (_this13.lastSelected !== ev.target) {
                 ev.target.series.chart.zoomToMapObject(ev.target);
-                _this12.lastSelected = ev.target;
+                _this13.lastSelected = ev.target;
               }
             });
           });
@@ -6674,7 +6663,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setSelectionMode",
         value: function setSelectionMode(selectionMode) {
-          var _this13 = this;
+          var _this14 = this;
 
           this.selectionMode = selectionMode; // Allow only one location to be hightlighted at a time
 
@@ -6683,9 +6672,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               polygonTemplate.events.on('doublehit', function (ev) {
                 var data = ev.target.dataItem.dataContext;
 
-                _this13.resetAllLocations();
+                _this14.resetAllLocations();
 
-                _this13.changeVisitStatus(data.id, 'visited');
+                _this14.changeVisitStatus(data.id, 'visited');
               });
             });
           } else if (this.selectionMode !== _enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_6__["MapSelectionMode"].NONE) {
@@ -6694,10 +6683,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               polygonTemplate.events.on('doublehit', function (ev) {
                 var data = ev.target.dataItem.dataContext;
 
-                if (_this13.selectionMode === _enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_6__["MapSelectionMode"].TO_VISIT) {
-                  _this13.changeVisitStatus(data.id, 'toVisit');
+                if (_this14.selectionMode === _enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_6__["MapSelectionMode"].TO_VISIT) {
+                  _this14.changeVisitStatus(data.id, 'toVisit');
                 } else {
-                  _this13.changeVisitStatus(data.id, 'visited');
+                  _this14.changeVisitStatus(data.id, 'visited');
                 }
               });
             });
@@ -6733,10 +6722,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "resetAllLocations",
         value: function resetAllLocations() {
-          var _this14 = this;
+          var _this15 = this;
 
           this.selectedArr.forEach(function (location) {
-            var _iterator9 = _createForOfIteratorHelper(_this14.seriesArr),
+            var _iterator9 = _createForOfIteratorHelper(_this15.seriesArr),
                 _step9;
 
             try {
@@ -6758,21 +6747,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "changeVisitStatus",
         value: function () {
-          var _changeVisitStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(locationId, status) {
+          var _changeVisitStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(locationId, status) {
             var _iterator10, _step10, series, result, locationInArray, index;
 
-            return regeneratorRuntime.wrap(function _callee11$(_context11) {
+            return regeneratorRuntime.wrap(function _callee10$(_context10) {
               while (1) {
-                switch (_context11.prev = _context11.next) {
+                switch (_context10.prev = _context10.next) {
                   case 0:
                     _iterator10 = _createForOfIteratorHelper(this.seriesArr);
-                    _context11.prev = 1;
+                    _context10.prev = 1;
 
                     _iterator10.s();
 
                   case 3:
                     if ((_step10 = _iterator10.n()).done) {
-                      _context11.next = 11;
+                      _context10.next = 11;
                       break;
                     }
 
@@ -6780,33 +6769,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     result = series.getPolygonById(locationId);
 
                     if (!(result !== undefined)) {
-                      _context11.next = 9;
+                      _context10.next = 9;
                       break;
                     }
 
                     this.selectedArea = result;
-                    return _context11.abrupt("break", 11);
+                    return _context10.abrupt("break", 11);
 
                   case 9:
-                    _context11.next = 3;
+                    _context10.next = 3;
                     break;
 
                   case 11:
-                    _context11.next = 16;
+                    _context10.next = 16;
                     break;
 
                   case 13:
-                    _context11.prev = 13;
-                    _context11.t0 = _context11["catch"](1);
+                    _context10.prev = 13;
+                    _context10.t0 = _context10["catch"](1);
 
-                    _iterator10.e(_context11.t0);
+                    _iterator10.e(_context10.t0);
 
                   case 16:
-                    _context11.prev = 16;
+                    _context10.prev = 16;
 
                     _iterator10.f();
 
-                    return _context11.finish(16);
+                    return _context10.finish(16);
 
                   case 19:
                     locationInArray = this.selectedArr.find(function (d) {
@@ -6835,13 +6824,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 21:
                   case "end":
-                    return _context11.stop();
+                    return _context10.stop();
                 }
               }
-            }, _callee11, this, [[1, 13, 16, 19]]);
+            }, _callee10, this, [[1, 13, 16, 19]]);
           }));
 
-          function changeVisitStatus(_x10, _x11) {
+          function changeVisitStatus(_x9, _x10) {
             return _changeVisitStatus.apply(this, arguments);
           }
 
@@ -6850,11 +6839,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "destroyMap",
         value: function destroyMap() {
-          var _this15 = this;
+          var _this16 = this;
 
           this.zone.runOutsideAngular(function () {
-            if (_this15.chart) {
-              _this15.chart.dispose();
+            if (_this16.chart) {
+              _this16.chart.dispose();
             }
           });
         }
@@ -7209,40 +7198,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "post",
         value: function () {
-          var _post = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
-            var _this16 = this;
+          var _post = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+            var _this17 = this;
 
             var loading;
-            return regeneratorRuntime.wrap(function _callee12$(_context12) {
+            return regeneratorRuntime.wrap(function _callee11$(_context11) {
               while (1) {
-                switch (_context12.prev = _context12.next) {
+                switch (_context11.prev = _context11.next) {
                   case 0:
-                    _context12.next = 2;
+                    _context11.next = 2;
                     return this.loadingController.create({
                       duration: 2000
                     });
 
                   case 2:
-                    loading = _context12.sent;
-                    _context12.next = 5;
+                    loading = _context11.sent;
+                    _context11.next = 5;
                     return loading.present();
 
                   case 5:
                     this.postService.postsNewPostForm(this.postText, 'image', this.selectedLocation.id, this.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (res) {
                       loading.dismiss();
 
-                      _this16.dismiss();
+                      _this17.dismiss();
                     }, function (err) {
-                      _this16.error = true;
+                      _this17.error = true;
                       loading.dismiss();
                     });
 
                   case 6:
                   case "end":
-                    return _context12.stop();
+                    return _context11.stop();
                 }
               }
-            }, _callee12, this);
+            }, _callee11, this);
           }));
 
           function post() {
@@ -7278,13 +7267,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getUserImage",
         value: function () {
-          var _getUserImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+          var _getUserImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
             var imageUrl;
-            return regeneratorRuntime.wrap(function _callee13$(_context13) {
+            return regeneratorRuntime.wrap(function _callee12$(_context12) {
               while (1) {
-                switch (_context13.prev = _context13.next) {
+                switch (_context12.prev = _context12.next) {
                   case 0:
-                    _context13.next = 2;
+                    _context12.next = 2;
                     return _capacitor_camera__WEBPACK_IMPORTED_MODULE_1__["Camera"].getPhoto({
                       quality: 90,
                       allowEditing: true,
@@ -7292,7 +7281,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    this.image = _context13.sent;
+                    this.image = _context12.sent;
                     // image.webPath will contain a path that can be set as an image src.
                     // You can access the original file using image.path, which can be
                     // passed to the Filesystem API to read the raw data of the image,
@@ -7304,10 +7293,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 6:
                   case "end":
-                    return _context13.stop();
+                    return _context12.stop();
                 }
               }
-            }, _callee13, this);
+            }, _callee12, this);
           }));
 
           function getUserImage() {
@@ -7801,40 +7790,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "post",
         value: function () {
-          var _post2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
-            var _this17 = this;
+          var _post2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+            var _this18 = this;
 
             var loading;
-            return regeneratorRuntime.wrap(function _callee14$(_context14) {
+            return regeneratorRuntime.wrap(function _callee13$(_context13) {
               while (1) {
-                switch (_context14.prev = _context14.next) {
+                switch (_context13.prev = _context13.next) {
                   case 0:
-                    _context14.next = 2;
+                    _context13.next = 2;
                     return this.loadingController.create({
                       duration: 2000
                     });
 
                   case 2:
-                    loading = _context14.sent;
-                    _context14.next = 5;
+                    loading = _context13.sent;
+                    _context13.next = 5;
                     return loading.present();
 
                   case 5:
                     this.postService.postsNewPostForm(this.postText, 'text', this.selectedLocation.id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1)).subscribe(function (res) {
                       loading.dismiss();
 
-                      _this17.dismiss();
+                      _this18.dismiss();
                     }, function (err) {
-                      _this17.error = true;
+                      _this18.error = true;
                       loading.dismiss();
                     });
 
                   case 6:
                   case "end":
-                    return _context14.stop();
+                    return _context13.stop();
                 }
               }
-            }, _callee14, this);
+            }, _callee13, this);
           }));
 
           function post() {
@@ -8275,10 +8264,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "mapLocationsToRequest",
         value: function mapLocationsToRequest() {
-          var _this18 = this;
+          var _this19 = this;
 
           this.map.selectedArr.forEach(function (location) {
-            _this18.locationRequest.locations[location.locationId] = location.status;
+            _this19.locationRequest.locations[location.locationId] = location.status;
           });
         }
       }, {
@@ -8293,11 +8282,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this19 = this;
+          var _this20 = this;
 
           this.mapLocationsToRequest();
           this.accountService.accountUpdateLocationsPost(this.locationRequest).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function (res) {
-            _this19.dismiss();
+            _this20.dismiss();
           });
         }
       }]);
@@ -8644,7 +8633,46 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(AddPage, [{
         key: "markLocationsToVisit",
         value: function () {
-          var _markLocationsToVisit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
+          var _markLocationsToVisit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
+            var modal;
+            return regeneratorRuntime.wrap(function _callee14$(_context14) {
+              while (1) {
+                switch (_context14.prev = _context14.next) {
+                  case 0:
+                    _context14.next = 2;
+                    return this.modalCtrl.create({
+                      component: _mark_location_mark_location_page__WEBPACK_IMPORTED_MODULE_4__["MarkLocationPage"],
+                      componentProps: {
+                        selectionMode: src_app_objects_enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_2__["MapSelectionMode"].TO_VISIT
+                      }
+                    });
+
+                  case 2:
+                    modal = _context14.sent;
+                    _context14.next = 5;
+                    return modal.present();
+
+                  case 5:
+                    return _context14.abrupt("return", _context14.sent);
+
+                  case 6:
+                  case "end":
+                    return _context14.stop();
+                }
+              }
+            }, _callee14, this);
+          }));
+
+          function markLocationsToVisit() {
+            return _markLocationsToVisit.apply(this, arguments);
+          }
+
+          return markLocationsToVisit;
+        }()
+      }, {
+        key: "markVisitedLocations",
+        value: function () {
+          var _markVisitedLocations = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
             var modal;
             return regeneratorRuntime.wrap(function _callee15$(_context15) {
               while (1) {
@@ -8654,7 +8682,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     return this.modalCtrl.create({
                       component: _mark_location_mark_location_page__WEBPACK_IMPORTED_MODULE_4__["MarkLocationPage"],
                       componentProps: {
-                        selectionMode: src_app_objects_enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_2__["MapSelectionMode"].TO_VISIT
+                        selectionMode: src_app_objects_enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_2__["MapSelectionMode"].VISITED
                       }
                     });
 
@@ -8674,16 +8702,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }, _callee15, this);
           }));
 
-          function markLocationsToVisit() {
-            return _markLocationsToVisit.apply(this, arguments);
+          function markVisitedLocations() {
+            return _markVisitedLocations.apply(this, arguments);
           }
 
-          return markLocationsToVisit;
+          return markVisitedLocations;
         }()
       }, {
-        key: "markVisitedLocations",
+        key: "addNewPost",
         value: function () {
-          var _markVisitedLocations = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+          var _addNewPost = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
             var modal;
             return regeneratorRuntime.wrap(function _callee16$(_context16) {
               while (1) {
@@ -8691,10 +8719,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 0:
                     _context16.next = 2;
                     return this.modalCtrl.create({
-                      component: _mark_location_mark_location_page__WEBPACK_IMPORTED_MODULE_4__["MarkLocationPage"],
-                      componentProps: {
-                        selectionMode: src_app_objects_enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_2__["MapSelectionMode"].VISITED
-                      }
+                      component: _add_post_add_post_page__WEBPACK_IMPORTED_MODULE_5__["AddPostPage"],
+                      componentProps: {}
                     });
 
                   case 2:
@@ -8713,16 +8739,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }, _callee16, this);
           }));
 
-          function markVisitedLocations() {
-            return _markVisitedLocations.apply(this, arguments);
+          function addNewPost() {
+            return _addNewPost.apply(this, arguments);
           }
 
-          return markVisitedLocations;
+          return addNewPost;
         }()
       }, {
-        key: "addNewPost",
+        key: "addNewImage",
         value: function () {
-          var _addNewPost = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
+          var _addNewImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
             var modal;
             return regeneratorRuntime.wrap(function _callee17$(_context17) {
               while (1) {
@@ -8730,7 +8756,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 0:
                     _context17.next = 2;
                     return this.modalCtrl.create({
-                      component: _add_post_add_post_page__WEBPACK_IMPORTED_MODULE_5__["AddPostPage"],
+                      component: _add_post_image_add_post_image_page__WEBPACK_IMPORTED_MODULE_6__["AddPostImagePage"],
                       componentProps: {}
                     });
 
@@ -8748,43 +8774,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }
               }
             }, _callee17, this);
-          }));
-
-          function addNewPost() {
-            return _addNewPost.apply(this, arguments);
-          }
-
-          return addNewPost;
-        }()
-      }, {
-        key: "addNewImage",
-        value: function () {
-          var _addNewImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
-            var modal;
-            return regeneratorRuntime.wrap(function _callee18$(_context18) {
-              while (1) {
-                switch (_context18.prev = _context18.next) {
-                  case 0:
-                    _context18.next = 2;
-                    return this.modalCtrl.create({
-                      component: _add_post_image_add_post_image_page__WEBPACK_IMPORTED_MODULE_6__["AddPostImagePage"],
-                      componentProps: {}
-                    });
-
-                  case 2:
-                    modal = _context18.sent;
-                    _context18.next = 5;
-                    return modal.present();
-
-                  case 5:
-                    return _context18.abrupt("return", _context18.sent);
-
-                  case 6:
-                  case "end":
-                    return _context18.stop();
-                }
-              }
-            }, _callee18, this);
           }));
 
           function addNewImage() {
@@ -9240,21 +9229,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "restFilter",
         value: function () {
-          var _restFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
-            return regeneratorRuntime.wrap(function _callee19$(_context19) {
+          var _restFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
+            return regeneratorRuntime.wrap(function _callee18$(_context18) {
               while (1) {
-                switch (_context19.prev = _context19.next) {
+                switch (_context18.prev = _context18.next) {
                   case 0:
                     this.filter = '';
-                    _context19.next = 3;
+                    _context18.next = 3;
                     return this.closeModal();
 
                   case 3:
                   case "end":
-                    return _context19.stop();
+                    return _context18.stop();
                 }
               }
-            }, _callee19, this);
+            }, _callee18, this);
           }));
 
           function restFilter() {
@@ -9266,24 +9255,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "filterSubmit",
         value: function () {
-          var _filterSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
-            return regeneratorRuntime.wrap(function _callee20$(_context20) {
+          var _filterSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
+            return regeneratorRuntime.wrap(function _callee19$(_context19) {
               while (1) {
-                switch (_context20.prev = _context20.next) {
+                switch (_context19.prev = _context19.next) {
                   case 0:
                     if (this.map.selectedArr.length > 0) {
                       this.filter = this.map.selectedArr[0].locationId;
                     }
 
-                    _context20.next = 3;
+                    _context19.next = 3;
                     return this.closeModal();
 
                   case 3:
                   case "end":
-                    return _context20.stop();
+                    return _context19.stop();
                 }
               }
-            }, _callee20, this);
+            }, _callee19, this);
           }));
 
           function filterSubmit() {
@@ -9295,33 +9284,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "closeModal",
         value: function () {
-          var _closeModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
+          var _closeModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
             var loading, onClosedData;
-            return regeneratorRuntime.wrap(function _callee21$(_context21) {
+            return regeneratorRuntime.wrap(function _callee20$(_context20) {
               while (1) {
-                switch (_context21.prev = _context21.next) {
+                switch (_context20.prev = _context20.next) {
                   case 0:
-                    _context21.next = 2;
+                    _context20.next = 2;
                     return this.loadingController.create({
                       duration: 2000
                     });
 
                   case 2:
-                    loading = _context21.sent;
-                    _context21.next = 5;
+                    loading = _context20.sent;
+                    _context20.next = 5;
                     return loading.present();
 
                   case 5:
                     onClosedData = this.filter;
-                    _context21.next = 8;
+                    _context20.next = 8;
                     return this.modalController.dismiss(onClosedData);
 
                   case 8:
                   case "end":
-                    return _context21.stop();
+                    return _context20.stop();
                 }
               }
-            }, _callee21, this);
+            }, _callee20, this);
           }));
 
           function closeModal() {
@@ -9771,10 +9760,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "search",
         value: function search() {
-          var _this20 = this;
+          var _this21 = this;
 
           this.userService.userSearchQueryGet(this.searchQuery).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (users) {
-            _this20.people.next(users);
+            _this21.people.next(users);
           });
         }
       }, {
@@ -10157,22 +10146,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function () {
-          var _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
-            var _this21 = this;
+          var _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
+            var _this22 = this;
 
             var loading, title, education, birthPlace, residence;
-            return regeneratorRuntime.wrap(function _callee23$(_context23) {
+            return regeneratorRuntime.wrap(function _callee22$(_context22) {
               while (1) {
-                switch (_context23.prev = _context23.next) {
+                switch (_context22.prev = _context22.next) {
                   case 0:
-                    _context23.next = 2;
+                    _context22.next = 2;
                     return this.loadingController.create({
                       duration: 2000
                     });
 
                   case 2:
-                    loading = _context23.sent;
-                    _context23.next = 5;
+                    loading = _context22.sent;
+                    _context22.next = 5;
                     return loading.present();
 
                   case 5:
@@ -10182,40 +10171,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     residence = this.aboutForm.controls.residence.value === '' ? this.user.residenceLocation : this.aboutForm.controls.residence.value; // todo create a forkjoin or something here to make these run together
 
                     this.accountService.accountUpdatePost(this.user.firstname, this.user.lastname, title, education, birthPlace, residence).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe( /*#__PURE__*/function () {
-                      var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22(res) {
-                        return regeneratorRuntime.wrap(function _callee22$(_context22) {
+                      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee21(res) {
+                        return regeneratorRuntime.wrap(function _callee21$(_context21) {
                           while (1) {
-                            switch (_context22.prev = _context22.next) {
+                            switch (_context21.prev = _context21.next) {
                               case 0:
-                                if (_this21.blob !== undefined) {
-                                  _this21.accountService.accountUpdateProfileImagePost(_this21.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function (res) {});
+                                if (_this22.blob !== undefined) {
+                                  _this22.accountService.accountUpdateProfileImagePost(_this22.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function (res) {});
                                 }
 
-                                _context22.next = 3;
+                                _context21.next = 3;
                                 return loading.dismiss();
 
                               case 3:
-                                _this21.dismiss();
+                                _this22.dismiss();
 
                               case 4:
                               case "end":
-                                return _context22.stop();
+                                return _context21.stop();
                             }
                           }
-                        }, _callee22);
+                        }, _callee21);
                       }));
 
-                      return function (_x12) {
-                        return _ref4.apply(this, arguments);
+                      return function (_x11) {
+                        return _ref3.apply(this, arguments);
                       };
                     }());
 
                   case 10:
                   case "end":
-                    return _context23.stop();
+                    return _context22.stop();
                 }
               }
-            }, _callee23, this);
+            }, _callee22, this);
           }));
 
           function onSubmit() {
@@ -10242,13 +10231,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getUserImage",
         value: function () {
-          var _getUserImage2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+          var _getUserImage2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
             var imageUrl;
-            return regeneratorRuntime.wrap(function _callee24$(_context24) {
+            return regeneratorRuntime.wrap(function _callee23$(_context23) {
               while (1) {
-                switch (_context24.prev = _context24.next) {
+                switch (_context23.prev = _context23.next) {
                   case 0:
-                    _context24.next = 2;
+                    _context23.next = 2;
                     return _capacitor_camera__WEBPACK_IMPORTED_MODULE_3__["Camera"].getPhoto({
                       quality: 90,
                       allowEditing: true,
@@ -10256,7 +10245,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    this.image = _context24.sent;
+                    this.image = _context23.sent;
                     // image.webPath will contain a path that can be set as an image src.
                     // You can access the original file using image.path, which can be
                     // passed to the Filesystem API to read the raw data of the image,
@@ -10268,10 +10257,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 6:
                   case "end":
-                    return _context24.stop();
+                    return _context23.stop();
                 }
               }
-            }, _callee24, this);
+            }, _callee23, this);
           }));
 
           function getUserImage() {
@@ -10288,12 +10277,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "logout",
         value: function () {
-          var _logout2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
-            return regeneratorRuntime.wrap(function _callee25$(_context25) {
+          var _logout2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+            return regeneratorRuntime.wrap(function _callee24$(_context24) {
               while (1) {
-                switch (_context25.prev = _context25.next) {
+                switch (_context24.prev = _context24.next) {
                   case 0:
-                    _context25.next = 2;
+                    _context24.next = 2;
                     return this.accountService.logout();
 
                   case 2:
@@ -10301,10 +10290,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 3:
                   case "end":
-                    return _context25.stop();
+                    return _context24.stop();
                 }
               }
-            }, _callee25, this);
+            }, _callee24, this);
           }));
 
           function logout() {
@@ -10837,13 +10826,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(UserTimelinePage, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this22 = this;
+          var _this23 = this;
 
           this.selectedUserId = this.navParams.data.userId;
           this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(function (res) {
-            _this22.morePages = res.hasNextPage;
-            _this22.pageNumber = res.pageIndex;
-            _this22.posts = res.items;
+            _this23.morePages = res.hasNextPage;
+            _this23.pageNumber = res.pageIndex;
+            _this23.posts = res.items;
           });
         }
       }, {
@@ -10854,29 +10843,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getPosts",
         value: function getPosts(event) {
-          var _this23 = this;
+          var _this24 = this;
 
           if (this.morePages) {
             this.postService.postsPageGet(this.pageNumber + 1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(function (res) {
-              _this23.morePages = res.hasNextPage;
-              _this23.pageNumber = res.pageIndex; // TODO The posts shouldn't be overwritten here but rather appended... not working though
+              _this24.morePages = res.hasNextPage;
+              _this24.pageNumber = res.pageIndex; // TODO The posts shouldn't be overwritten here but rather appended... not working though
 
-              if (_this23.posts.length === 0) {
-                _this23.posts = [];
+              if (_this24.posts.length === 0) {
+                _this24.posts = [];
               } else {
-                var oldposts = _this23.posts;
-                _this23.posts = [];
+                var oldposts = _this24.posts;
+                _this24.posts = [];
                 var oldResLen = oldposts.length;
 
                 for (var i = 0; i < oldResLen; i++) {
-                  _this23.posts.push(oldposts[i]);
+                  _this24.posts.push(oldposts[i]);
                 }
               }
 
               var resLen = res.items.length;
 
               for (var _i = 0; _i < resLen; _i++) {
-                _this23.posts.push(res.items[_i]);
+                _this24.posts.push(res.items[_i]);
               } // this.posts = res.items;
 
 
@@ -10891,12 +10880,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "refreshPosts",
         value: function refreshPosts(event) {
-          var _this24 = this;
+          var _this25 = this;
 
           this.postService.postsPageGet(1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(function (res) {
-            _this24.morePages = res.hasNextPage;
-            _this24.pageNumber = res.pageIndex;
-            _this24.posts = res.items;
+            _this25.morePages = res.hasNextPage;
+            _this25.pageNumber = res.pageIndex;
+            _this25.posts = res.items;
 
             if (event) {
               event.target.complete();
@@ -10906,13 +10895,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "presentSearchModal",
         value: function () {
-          var _presentSearchModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
+          var _presentSearchModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
             var modal;
-            return regeneratorRuntime.wrap(function _callee26$(_context26) {
+            return regeneratorRuntime.wrap(function _callee25$(_context25) {
               while (1) {
-                switch (_context26.prev = _context26.next) {
+                switch (_context25.prev = _context25.next) {
                   case 0:
-                    _context26.next = 2;
+                    _context25.next = 2;
                     return this.modalController.create({
                       component: _modals_search_search_page__WEBPACK_IMPORTED_MODULE_2__["SearchPage"],
                       componentProps: {},
@@ -10921,19 +10910,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    modal = _context26.sent;
-                    _context26.next = 5;
+                    modal = _context25.sent;
+                    _context25.next = 5;
                     return modal.present();
 
                   case 5:
-                    return _context26.abrupt("return", _context26.sent);
+                    return _context25.abrupt("return", _context25.sent);
 
                   case 6:
                   case "end":
-                    return _context26.stop();
+                    return _context25.stop();
                 }
               }
-            }, _callee26, this);
+            }, _callee25, this);
           }));
 
           function presentSearchModal() {
@@ -10957,15 +10946,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "presentMapFilter",
         value: function () {
-          var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
-            var _this25 = this;
+          var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
+            var _this26 = this;
 
             var modal;
-            return regeneratorRuntime.wrap(function _callee28$(_context28) {
+            return regeneratorRuntime.wrap(function _callee27$(_context27) {
               while (1) {
-                switch (_context28.prev = _context28.next) {
+                switch (_context27.prev = _context27.next) {
                   case 0:
-                    _context28.next = 2;
+                    _context27.next = 2;
                     return this.modalController.create({
                       component: _modals_map_filter_map_filter_page__WEBPACK_IMPORTED_MODULE_3__["MapFilterPage"],
                       showBackdrop: true,
@@ -10976,49 +10965,49 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    modal = _context28.sent;
+                    modal = _context27.sent;
                     modal.onDidDismiss().then( /*#__PURE__*/function () {
-                      var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee27(dataReturned) {
-                        return regeneratorRuntime.wrap(function _callee27$(_context27) {
+                      var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee26(dataReturned) {
+                        return regeneratorRuntime.wrap(function _callee26$(_context26) {
                           while (1) {
-                            switch (_context27.prev = _context27.next) {
+                            switch (_context26.prev = _context26.next) {
                               case 0:
                                 if (!(dataReturned !== null)) {
-                                  _context27.next = 5;
+                                  _context26.next = 5;
                                   break;
                                 }
 
-                                _this25.filter = dataReturned.data;
+                                _this26.filter = dataReturned.data;
 
-                                _this25.refreshPosts();
+                                _this26.refreshPosts();
 
-                                _context27.next = 5;
-                                return _this25.loadingController.dismiss();
+                                _context26.next = 5;
+                                return _this26.loadingController.dismiss();
 
                               case 5:
                               case "end":
-                                return _context27.stop();
+                                return _context26.stop();
                             }
                           }
-                        }, _callee27);
+                        }, _callee26);
                       }));
 
-                      return function (_x13) {
-                        return _ref5.apply(this, arguments);
+                      return function (_x12) {
+                        return _ref4.apply(this, arguments);
                       };
                     }());
-                    _context28.next = 6;
+                    _context27.next = 6;
                     return modal.present();
 
                   case 6:
-                    return _context28.abrupt("return", _context28.sent);
+                    return _context27.abrupt("return", _context27.sent);
 
                   case 7:
                   case "end":
-                    return _context28.stop();
+                    return _context27.stop();
                 }
               }
-            }, _callee28, this);
+            }, _callee27, this);
           }));
 
           function presentMapFilter() {
