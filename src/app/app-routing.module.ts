@@ -92,11 +92,13 @@ const routes: Routes = [
   },
   {
     path: 'comments',
-    loadChildren: () => import('./pages/comments/comments.module').then( m => m.CommentsPageModule)
+    loadChildren: () => import('./pages/comments/comments.module').then( m => m.CommentsPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'user-settings',
-    loadChildren: () => import('./pages/user-settings/user-settings.module').then( m => m.UserSettingsPageModule)
+    loadChildren: () => import('./pages/user-settings/user-settings.module').then( m => m.UserSettingsPageModule),
+    canActivate: [AuthGuard]
   }
 
 ];

@@ -18,7 +18,7 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable, BehaviorSubject, from }                                        from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 import { RegisterRequest } from '../model/registerRequest';
 
 import { Configuration }                                     from '../configuration';
@@ -44,8 +44,8 @@ export class AccountsService {
                 @Optional()@Inject(BASE_PATH) basePath: string,
                 @Optional() configuration: Configuration,
                 private router: Router,
-                private ngFireAuth: AngularFireAuth,
-                private storage: Storage ) {
+                private storage: Storage,
+                private ngFireAuth: AngularFireAuth) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -58,6 +58,11 @@ export class AccountsService {
             if (user) {
               localStorage.setItem('user', JSON.stringify(user));
               JSON.parse(localStorage.getItem('user'));
+              this.getFcmToken().subscribe(token => {
+                console.log('FCM:' + token)
+                this.accountUpdateFcmDeviceIdPost(token).pipe(take(1)).subscribe();
+              })
+              
             } else {
               localStorage.setItem('user', null);
               JSON.parse(localStorage.getItem('user'));
@@ -134,12 +139,24 @@ export class AccountsService {
     // Login in with email/password
     async login(email, password) {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(async () => {
-            return await firebase.auth().signInWithEmailAndPassword(email, password);
+            return await firebase.auth().signInWithEmailAndPassword(email, password).then(() =>
+                this.getFcmToken().pipe(take(1)).subscribe(token => this.accountUpdateFcmDeviceIdPost(token))
+            );
         });
     }
 
     public loginWithToken(token) : Observable<any> {
-        return from(firebase.auth().signInWithCustomToken(token));
+        return from(firebase.auth().signInWithCustomToken(token).then(() =>
+            this.getFcmToken().pipe(take(1)).subscribe(token => this.accountUpdateFcmDeviceIdPost(token))
+        ));
+    }
+
+    public getFcmToken() {
+        return from(this.storage.get('fcm'));
+    }
+
+    public setFcmToken(token) {
+        return from(this.storage.set('fcm', token));
     }
 
     public accountEmailTakenGet(email?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
@@ -180,6 +197,47 @@ export class AccountsService {
             observe,
             reportProgress
         }
+        );
+    }
+
+    public accountUpdateFcmDeviceIdPost(deviceId: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public accountUpdateFcmDeviceIdPost(deviceId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public accountUpdateFcmDeviceIdPost(deviceId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public accountUpdateFcmDeviceIdPost(deviceId: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (deviceId === null || deviceId === undefined) {
+            throw new Error('Required parameter deviceId was null or undefined when calling accountUpdateFcmDeviceIdPost.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/account/update/fcm/${encodeURIComponent(String(deviceId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
         );
     }
 

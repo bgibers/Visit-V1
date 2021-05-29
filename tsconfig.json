@@ -20,6 +20,9 @@
       "dom"
     ]
   },
+  "types": [
+    "firebase"
+  ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true

@@ -36,7 +36,6 @@ export class UserTimelinePage implements OnInit {
       this.morePages = res.hasNextPage;
       this.pageNumber = res.pageIndex;
       this.posts = res.items;
-      console.log(res);
     });
   }
 
@@ -99,7 +98,6 @@ export class UserTimelinePage implements OnInit {
   }
 
   openProfile() {
-    console.log(this.accountService.getUserId())
     const navigationExtras: NavigationExtras = {
       replaceUrl: true,
       skipLocationChange: true,

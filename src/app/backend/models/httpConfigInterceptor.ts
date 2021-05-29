@@ -28,7 +28,6 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         return from(this.accountService.getToken())
             .pipe(
                 switchMap(token => {
-                    console.log(token)
                     if (token !== '') {
                         request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
                     }
@@ -45,7 +44,6 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                             return event;
                         }),
                         catchError((error: HttpErrorResponse) => {
-                            console.log(BASE_PATH);
                             const status =  error.status;
                             const reason = error;
 

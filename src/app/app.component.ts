@@ -38,22 +38,19 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.registerPush();
   }
 
   initializeApp() {
-    this.platform.ready().then(async () => {
+    this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.registerPush();
 
-      this.userService.authSubject.subscribe(state => {
-        console.log('Initialize app');
-        if (state) {
+      if(this.userService.isLoggedIn) { 
           this.router.navigate(['tab1']);
-        } else {
+      } else {
           this.router.navigate(['sign-in']);
-        }
-      });
+      }
     });
   }
 

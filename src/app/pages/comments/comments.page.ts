@@ -37,28 +37,18 @@ export class CommentsPage implements OnInit {
                 return ({count: 1, data: {id: 1}})
               }
   ngOnInit() {
-    // this.getComments();
     this.userId = this.accountService.getUserId();
-    // setInterval(_ => {
-    //   // this.thisIstheDataForThisComponent = this.myFunc();
-    //   // this.newComments.push(1);
-    //   console.log(this.newComments);
-    // }, 5000)
   }
   ionViewWillEnter() {
     this.getComments();
   }
-  // products(): Observable<any>{
-    // let data1 = {id: 1};
-    // return (data1);
-  // }
+  
   getComments() {
     // todo fix this. the list is overwriting
     this.postSvc.postsCommentsGetPostIdGet(this.postId).pipe(take(1)).subscribe(res => {
       if (this.comments.length === 0) {
         this.comments = [];
       } else {
-        // let oldComments = this.comments;
         this.comments = [];
         // this.newComments = [];
         // console.log(this.comments);
