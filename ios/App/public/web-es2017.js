@@ -179,6 +179,30 @@ const Camera = new CameraWeb();
 
 //# sourceMappingURL=web.js.map
 
+/***/ }),
+
+/***/ "./node_modules/@capacitor/splash-screen/dist/esm/web.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@capacitor/splash-screen/dist/esm/web.js ***!
+  \***************************************************************/
+/*! exports provided: SplashScreenWeb */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SplashScreenWeb", function() { return SplashScreenWeb; });
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @capacitor/core */ "./node_modules/@capacitor/core/dist/index.js");
+
+class SplashScreenWeb extends _capacitor_core__WEBPACK_IMPORTED_MODULE_0__["WebPlugin"] {
+    async show(_options) {
+        return undefined;
+    }
+    async hide(_options) {
+        return undefined;
+    }
+}
+//# sourceMappingURL=web.js.map
+
 /***/ })
 
 }]);

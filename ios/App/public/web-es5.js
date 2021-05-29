@@ -397,6 +397,100 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
     var Camera = new CameraWeb(); //# sourceMappingURL=web.js.map
 
     /***/
+  },
+
+  /***/
+  "./node_modules/@capacitor/splash-screen/dist/esm/web.js":
+  /*!***************************************************************!*\
+    !*** ./node_modules/@capacitor/splash-screen/dist/esm/web.js ***!
+    \***************************************************************/
+
+  /*! exports provided: SplashScreenWeb */
+
+  /***/
+  function node_modulesCapacitorSplashScreenDistEsmWebJs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "SplashScreenWeb", function () {
+      return SplashScreenWeb;
+    });
+    /* harmony import */
+
+
+    var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @capacitor/core */
+    "./node_modules/@capacitor/core/dist/index.js");
+
+    var SplashScreenWeb = /*#__PURE__*/function (_capacitor_core__WEBP2) {
+      _inherits(SplashScreenWeb, _capacitor_core__WEBP2);
+
+      var _super2 = _createSuper(SplashScreenWeb);
+
+      function SplashScreenWeb() {
+        _classCallCheck(this, SplashScreenWeb);
+
+        return _super2.apply(this, arguments);
+      }
+
+      _createClass(SplashScreenWeb, [{
+        key: "show",
+        value: function () {
+          var _show = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_options) {
+            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+              while (1) {
+                switch (_context6.prev = _context6.next) {
+                  case 0:
+                    return _context6.abrupt("return", undefined);
+
+                  case 1:
+                  case "end":
+                    return _context6.stop();
+                }
+              }
+            }, _callee6);
+          }));
+
+          function show(_x5) {
+            return _show.apply(this, arguments);
+          }
+
+          return show;
+        }()
+      }, {
+        key: "hide",
+        value: function () {
+          var _hide = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_options) {
+            return regeneratorRuntime.wrap(function _callee7$(_context7) {
+              while (1) {
+                switch (_context7.prev = _context7.next) {
+                  case 0:
+                    return _context7.abrupt("return", undefined);
+
+                  case 1:
+                  case "end":
+                    return _context7.stop();
+                }
+              }
+            }, _callee7);
+          }));
+
+          function hide(_x6) {
+            return _hide.apply(this, arguments);
+          }
+
+          return hide;
+        }()
+      }]);
+
+      return SplashScreenWeb;
+    }(_capacitor_core__WEBPACK_IMPORTED_MODULE_0__["WebPlugin"]); //# sourceMappingURL=web.js.map
+
+    /***/
+
   }
 }]);
 //# sourceMappingURL=web-es5.js.map

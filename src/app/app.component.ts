@@ -1,14 +1,14 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 
 import { Platform, ModalController, AlertController } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@capacitor/splash-screen';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 import { AddPage } from './pages/modals/add/add.page';
 import { Router } from '@angular/router';
 
 import { AccountsService } from './backend/clients/api/accounts.service';
-import {ModalService} from './services/modal.service';
+import { ModalService } from './services/modal.service';
 
 import { PushNotificationSchema, Token, ActionPerformed, PushNotifications } from '@capacitor/push-notifications';
 import { FCM } from '@capacitor-community/fcm';
@@ -24,8 +24,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
     private userService: AccountsService,
     public modalController: ModalController,
     public alertController: AlertController,
@@ -42,8 +40,8 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      StatusBar.setStyle({style: Style.Default});
+      SplashScreen.hide();
       this.registerPush();
 
       if(this.userService.isLoggedIn) { 
