@@ -73,7 +73,8 @@ const routes: Routes = [
   {
     path: 'post-register-locations',
     loadChildren: () => import('./pages/post-register-locations/post-register-locations.module')
-      .then( m => m.PostRegisterLocationsPageModule)
+      .then( m => m.PostRegisterLocationsPageModule),
+      canActivate: [AuthGuard]
   },
   {
     path: 'mark-location',

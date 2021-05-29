@@ -14,7 +14,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./user-timeline.page.scss'],
 })
 export class UserTimelinePage implements OnInit {
-  @ViewChild(IonInfiniteScroll,  {static: false}) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   posts: PostApi[] = [];
   pageNumber = 1;

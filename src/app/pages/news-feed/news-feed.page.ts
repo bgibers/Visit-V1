@@ -14,7 +14,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['news-feed.page.scss']
 })
 export class NewsFeedPage implements OnInit {
-  @ViewChild(IonInfiniteScroll,  {static: false}) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   posts: PostApi[] = [];
   pageNumber = 1;

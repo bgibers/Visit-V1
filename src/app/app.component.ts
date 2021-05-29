@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
 import { AccountsService } from './backend/clients/api/accounts.service';
 import {ModalService} from './services/modal.service';
 
-import { Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed, Capacitor, Modals} from '@capacitor/core';
-const { PushNotifications } = Plugins;
+import { PushNotificationSchema, Token, ActionPerformed, PushNotifications } from '@capacitor/push-notifications';
 import { FCM } from '@capacitor-community/fcm';
+import { from } from 'rxjs';
 const fcm = new FCM();
 @Component({
   selector: 'app-root',
@@ -55,25 +55,24 @@ export class AppComponent implements OnInit {
   }
 
   private registerPush() {
+      from(fcm.getToken().then((r) => {
+        console.log(`FCM Token: ${r.token}`); // ---- showing null.
+      }).catch((err) => {
+        console.log(`FCM Token ERROR: ${JSON.stringify(err)}`);
+      }));
 
-    PushNotifications.requestPermission().then((permission) => {
-      if (permission.granted) {
+    from(PushNotifications.requestPermissions().then((permission) => {
+      if (permission.receive !== "granted") {
         PushNotifications.register();
       } else {
         alert('No permission for push granted');
       }
-    });
+    }));
 
     PushNotifications.addListener(
       'registration',
-      (token: PushNotificationToken) => {
+      (token: Token) => {
         console.log('APN token: ' + JSON.stringify(token));
-        fcm.getToken().then((r) => {
-          console.log(`FCM Token: ${r.token}`); // ---- showing null.
-        }).catch((err) => {
-          console.log(`FCM Token ERROR: ${JSON.stringify(err)}`);
-        });
-
       }
     );
 
@@ -83,7 +82,7 @@ export class AppComponent implements OnInit {
 
     PushNotifications.addListener(
       'pushNotificationReceived',
-      async (notification: PushNotification) => {
+      async (notification: PushNotificationSchema) => {
         console.log(notification.title);
         this.alert(notification.title, notification.body);
       }
@@ -91,7 +90,7 @@ export class AppComponent implements OnInit {
 
     PushNotifications.addListener(
       'pushNotificationActionPerformed',
-      async (notification: PushNotificationActionPerformed) => {
+      async (notification: ActionPerformed) => {
         alert('Action performed: ' + JSON.stringify(notification.notification.body));
       }
     );
