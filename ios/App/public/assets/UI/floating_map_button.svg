@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="163" height="70" viewBox="0 0 153 70">
+  <defs>
+    <filter id="bg" x="0" y="0" width="163" height="70" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Component_331_1" data-name="Component 331 – 1" transform="translate(15 13)">
+    <g id="btn_filter" transform="translate(34)">
+      <g transform="matrix(1, 0, 0, 1, -49, -13)" filter="url(#bg)">
+        <rect id="bg-2" data-name="bg" width="133" height="40" rx="20" transform="translate(15 13)" fill="#fff"/>
+      </g>
+      <text id="Filter" transform="translate(-20 25)" fill="#128C7E" font-size="12" font-family="Helvetica"><tspan x="0" y="0">View All Travels</tspan></text>
+    </g>
+    <g id="Icon_feather-arrow-down-circle" data-name="Icon feather-arrow-down-circle" transform="translate(105 12)">
+      <path id="Path_46743" data-name="Path 46743" d="M19.891,11.445a8.445,8.445,0,1,0-8.445,8.445A8.445,8.445,0,0,0,19.891,11.445Z" transform="translate(-3 -3)" fill="none" stroke="#128C7E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_46744" data-name="Path 46744" d="M12,21.378,15.378,18l3.378,3.378" transform="translate(-6.933 -12.933)" fill="none" stroke="#128C7E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_46745" data-name="Path 46745" d="M18,18.756V12" transform="translate(-9.555 -6.933)" fill="none" stroke="#128C7E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>
