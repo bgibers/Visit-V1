@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
-import { CameraPhoto, Camera, CameraResultType } from '@capacitor/core';
+import { Photo, Camera, CameraResultType } from '@capacitor/camera';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 import { AccountsService, RegisterRequest, UserResponse } from 'src/app/backend/clients';
@@ -15,7 +15,7 @@ export class UserSettingsPage implements OnInit {
 
   userImage = '../../../assets/UI/profilePicUpload.svg';
   aboutForm: FormGroup;
-  image: CameraPhoto;
+  image: Photo;
   blob: Blob = undefined;
   user: UserResponse;
  

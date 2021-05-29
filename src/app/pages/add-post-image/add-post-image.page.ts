@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Plugins, CameraResultType, CameraPhoto } from '@capacitor/core';
+import {  CameraResultType, Photo, Camera } from '@capacitor/camera';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { take } from 'rxjs/operators';
 import { PostService } from 'src/app/backend/clients';
 import { LocationSelector } from 'src/app/objects/location-json/location.selector';
-const { Camera } = Plugins;
 
 @Component({
   selector: 'app-add-post-image',
@@ -18,7 +17,7 @@ export class AddPostImagePage implements OnInit {
   public postText: string = undefined;
   public locationOptions: {id: string, name: string}[] = [];
   public userImage = '../../../assets/UI/clickToUpload.jpg';
-  image: CameraPhoto;
+  image: Photo;
   blob: Blob;
   error: boolean;
 

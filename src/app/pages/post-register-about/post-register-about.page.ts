@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { Plugins, CameraResultType, CameraPhoto } from '@capacitor/core';
+import { Camera, CameraResultType, Photo } from '@capacitor/camera';
 
-const { Camera } = Plugins;
 import * as moment from 'moment';
 import { AccountsService, RegisterRequest } from 'src/app/backend/clients';
 import { mergeMap, take } from 'rxjs/operators';
@@ -25,7 +24,7 @@ export class PostRegisterAboutPage implements OnInit {
   password: string;
   hasError = false;
   error = '';
-  image: CameraPhoto;
+  image: Photo;
   blob: Blob;
 
   validationMessages = {
