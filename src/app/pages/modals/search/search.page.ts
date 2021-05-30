@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { UserService } from 'src/app/backend/clients';
 import { take } from 'rxjs/operators';
@@ -15,6 +15,7 @@ export class SearchPage implements OnInit {
 
   constructor(public viewCtrl: ModalController,
               public userService: UserService,
+              private zone: NgZone,
               private router: Router) {}
 
   people: BehaviorSubject<SlimUserResponse[]> = new BehaviorSubject([]);
@@ -39,7 +40,9 @@ export class SearchPage implements OnInit {
     };
     const onClosedData = user.id;
     this.viewCtrl.dismiss(onClosedData);
-    this.router.navigateByUrl('/user-profile', navigationExtras);
+    this.zone.run(() => {
+      this.router.navigateByUrl('/user-profile', navigationExtras);
+    })
   }
 
   dismiss() {

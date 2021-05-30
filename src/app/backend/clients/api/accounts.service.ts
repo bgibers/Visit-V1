@@ -12,7 +12,7 @@
 /* tslint:disable:no-unused-variable member-ordering */
 // tslint:disable: max-line-length
 // tslint:disable: import-spacing
-import { Inject, Injectable, Optional }                      from '@angular/core';
+import { Inject, Injectable, NgZone, Optional }                      from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams,
          HttpResponse, HttpEvent }                           from '@angular/common/http';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
@@ -44,6 +44,7 @@ export class AccountsService {
                 @Optional()@Inject(BASE_PATH) basePath: string,
                 @Optional() configuration: Configuration,
                 private router: Router,
+                private zone: NgZone,
                 private storage: Storage,
                 private ngFireAuth: AngularFireAuth) {
         if (basePath) {
@@ -77,7 +78,9 @@ export class AccountsService {
     public async logout() {
         return this.ngFireAuth.signOut().then(() => {
             localStorage.removeItem('user');
-            this.router.navigate(['sign-in']);
+            this.zone.run(() => {
+                this.router.navigate(['sign-in']);
+            })
           })
     }
 
@@ -90,7 +93,9 @@ export class AccountsService {
     SendVerificationMail() {
         return firebase.auth().currentUser.sendEmailVerification()
         .then(() => {
-        this.router.navigate(['verify-email']);
+            this.zone.run(() => {
+                this.router.navigate(['verify-email']);
+            })
         });
     }
 

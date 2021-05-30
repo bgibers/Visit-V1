@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { IonInfiniteScroll, IonRefresher, LoadingController, ModalController } from '@ionic/angular';
 import { SearchPage } from '../modals/search/search.page';
 import { MapFilterPage } from '../modals/map-filter/map-filter.page';
@@ -23,6 +23,7 @@ export class NewsFeedPage implements OnInit {
   selectedUserId = '';
 
   constructor(public modalController: ModalController,
+              private zone: NgZone,
               private loadingController: LoadingController,
               private accountService: AccountsService,
               private postService: PostService,
@@ -118,7 +119,9 @@ export class NewsFeedPage implements OnInit {
         userId: this.accountService.getUserId()
       }
     };
-    this.router.navigateByUrl('/user-profile', navigationExtras);
+    this.zone.run(() => {
+      this.router.navigateByUrl('/user-profile', navigationExtras);
+    })
   }
 
   async presentMapFilter() {

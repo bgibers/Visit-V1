@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, NgZone, OnInit, ViewChild } from '@angular/core';
 import { IonInfiniteScroll, LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { SearchPage } from '../modals/search/search.page';
 import { MapFilterPage } from '../modals/map-filter/map-filter.page';
@@ -27,6 +27,7 @@ export class UserTimelinePage implements OnInit {
               private accountService: AccountsService,
               private postService: PostService,
               private navParams: NavParams,
+              private zone: NgZone,
               private router: Router) {
   }
 
@@ -105,7 +106,9 @@ export class UserTimelinePage implements OnInit {
         userId: this.accountService.getUserId()
       }
     };
-    this.router.navigateByUrl('/user-profile', navigationExtras);
+    this.zone.run(() => {
+      this.router.navigateByUrl('/user-profile', navigationExtras);
+    })
   }
 
   async presentMapFilter() {

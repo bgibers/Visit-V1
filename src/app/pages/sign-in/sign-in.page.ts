@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import { AccountsService, LoginApiRequest } from 'src/app/backend/clients';
@@ -30,6 +30,7 @@ export class SignInPage implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     public loadingController: LoadingController,
+    private zone: NgZone,
     private router: Router,
     private accountService: AccountsService
   ) { }
@@ -76,7 +77,9 @@ export class SignInPage implements OnInit {
         // }
       };
       loading.dismiss();
-      this.router.navigateByUrl('/tab1', navigationExtras);
+      this.zone.run(() => {
+        this.router.navigateByUrl('/tab1', navigationExtras);
+      })
     });
   }
 
@@ -87,7 +90,9 @@ export class SignInPage implements OnInit {
         userName: 'tester'
       }
     };
-    this.router.navigateByUrl('/register', navigationExtras);
+    this.zone.run(() => {
+      this.router.navigateByUrl('/register', navigationExtras);
+    })
   }
 
 }

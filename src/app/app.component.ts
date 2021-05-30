@@ -1,19 +1,18 @@
 import { Component, NgZone, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Platform, ModalController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { StatusBar, Style } from '@capacitor/status-bar';
-
-import { AddPage } from './pages/modals/add/add.page';
-import { Router } from '@angular/router';
-
-import { AccountsService } from './backend/clients/api/accounts.service';
-import { ModalService } from './services/modal.service';
-
 import { PushNotificationSchema, Token, ActionPerformed, PushNotifications } from '@capacitor/push-notifications';
 import { FCM } from '@capacitor-community/fcm';
+import {  Capacitor } from '@capacitor/core';
 import { from } from 'rxjs';
 const fcm = new FCM();
+
+import { AddPage } from './pages/modals/add/add.page';
+import { AccountsService } from './backend/clients/api/accounts.service';
+import { ModalService } from './services/modal.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -41,15 +40,25 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      StatusBar.setStyle({style: Style.Default});
-      SplashScreen.hide();
-      this.registerPush();
+      if (Capacitor.isPluginAvailable('StatusBar')) { 
+        StatusBar.setStyle({style: Style.Default});
+      };
 
-      if(this.userService.isLoggedIn) { 
-          this.router.navigate(['tab1']);
-      } else {
-          this.router.navigate(['sign-in']);
-      }
+      if (Capacitor.isPluginAvailable('SplashScreen')) { 
+        SplashScreen.hide();
+      };
+
+      if (Capacitor.isPluginAvailable('PushNotifications')) { 
+        this.registerPush();
+      };
+
+      this.zone.run(() => {
+        if(this.userService.isLoggedIn) { 
+            this.router.navigate(['tab1']);
+        } else {
+            this.router.navigate(['sign-in']);
+        }
+      })
     });
   }
 

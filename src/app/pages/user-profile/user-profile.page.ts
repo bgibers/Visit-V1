@@ -9,7 +9,7 @@ import { UserService } from '../../backend/clients/api/user.service';
 import { AccountsService } from '../../backend/clients/api/accounts.service';
 import { UserResponse } from '../../backend/clients/model/userResponse';
 import { take, map } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {ModalService} from '../../services/modal.service';
 import { UserSettingsPage } from '../user-settings/user-settings.page';
 
@@ -57,18 +57,23 @@ export class UserProfilePage {
     if (this.userId === undefined) {
       this.userId = this.accountService.getUserId();
     }
+  
+    this.zone.run(() => {
+      this.getUser(loading).subscribe(() => {
+        loading.dismiss()
+        console.log(this.user.value)
+      })
+    })
 
-    this.getUser(loading);
   }
 
-  getUser(loading: HTMLIonLoadingElement) {
-    this.userService.userIdGet(this.userId).pipe(take(1)).subscribe(user => {
+  getUser(loading: HTMLIonLoadingElement) : Observable<any> {
+    return this.userService.userIdGet(this.userId).pipe(map(user => {
       if (this.accountService.getUserId() === this.userId) {
         this.canEditProfile = true;
       }
 
       this.user.next(user);
-      loading.dismiss();
       if (this.user.value.avi === undefined) {
         this.user.value.avi = '../../../assets/defaultuser.png';
       }
@@ -89,7 +94,7 @@ export class UserProfilePage {
       var countryCount = this.visitedCount - usVisitedCount;
       
       this.visitedPercent = ((countryCount / 405) + (usVisitedCount / 355)) * 100;
-    });
+    }));
   }
 
   ionViewDidLeave() {

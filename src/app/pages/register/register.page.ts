@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PasswordValidator } from 'src/app/objects/validators/password.validator';
@@ -44,6 +44,7 @@ export class RegisterPage implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
+    private zone: NgZone,
     private accountService: AccountsService
   ) { }
 
@@ -89,7 +90,9 @@ export class RegisterPage implements OnInit {
             password: this.matchingPasswordsGroup.controls.password.value
           }
         };
-        this.router.navigateByUrl('/post-register-about', navigationExtras);
+        this.zone.run(() => {
+          this.router.navigateByUrl('/post-register-about', navigationExtras);
+        })
       } else {
         this.hasError = true;
         this.error = 'An account with this email is already registered.';

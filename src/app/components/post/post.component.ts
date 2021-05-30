@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { Post, PostService } from 'src/app/backend/clients';
@@ -12,6 +12,7 @@ import { PostApi } from 'src/app/backend/clients/model/postApi';
 export class PostComponent implements OnInit {
 
   constructor(private router: Router,
+              private zone: NgZone,
               private postSvc: PostService) {
     // this.route.queryParams.subscribe(params => {
     //   if (this.router.getCurrentNavigation().extras.state) {
@@ -46,7 +47,9 @@ export class PostComponent implements OnInit {
         postId: post.postId
       }
     };
-    this.router.navigateByUrl('/comments', navigationExtras)
+    this.zone.run(() => {
+      this.router.navigateByUrl('/comments', navigationExtras)
+    })
   }
 
   openProfile(post: PostApi) {
@@ -56,6 +59,8 @@ export class PostComponent implements OnInit {
         userId: post.fkUserId
       }
     };
-    this.router.navigateByUrl('/user-profile', navigationExtras);
+    this.zone.run(() => {
+      this.router.navigateByUrl('/user-profile', navigationExtras);
+    })
   }
 }

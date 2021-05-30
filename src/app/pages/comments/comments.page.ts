@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
@@ -24,6 +24,7 @@ export class CommentsPage implements OnInit {
 
   constructor(public modalController: ModalController,
               private router: Router,
+              private zone: NgZone,
               private route: ActivatedRoute,
               private postSvc: PostService,
               private accountService: AccountsService) {
@@ -86,7 +87,9 @@ export class CommentsPage implements OnInit {
   }
 
   backToFeed() {
-    this.router.navigateByUrl('/news-feed');
+    this.zone.run(() => {
+      this.router.navigateByUrl('/news-feed');
+    })
   }
 
   openProfile() {
@@ -97,7 +100,9 @@ export class CommentsPage implements OnInit {
         userId: this.accountService.getUserId()
       }
     };
-    this.router.navigateByUrl('/user-profile', navigationExtras);
+    this.zone.run(() => {
+      this.router.navigateByUrl('/user-profile', navigationExtras);
+    })
   }
 
   async presentSearchModal() {

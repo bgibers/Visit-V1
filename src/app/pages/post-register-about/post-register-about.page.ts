@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { Camera, CameraResultType, Photo } from '@capacitor/camera';
@@ -49,6 +49,7 @@ export class PostRegisterAboutPage implements OnInit {
     public router: Router,
     public loadingController: LoadingController,
     public formBuilder: FormBuilder,
+    private zone: NgZone,
     private route: ActivatedRoute,
     private accountService: AccountsService
   ) {
@@ -117,7 +118,9 @@ export class PostRegisterAboutPage implements OnInit {
       replaceUrl: false
     };
     this.accountService.accountUpdateProfileImagePost(this.blob).pipe(take(1)).subscribe(res => {
-      this.router.navigateByUrl('/post-register-locations', navigationExtras);
+      this.zone.run(() => {
+        this.router.navigateByUrl('/post-register-locations', navigationExtras);
+      })
     });
   }
 

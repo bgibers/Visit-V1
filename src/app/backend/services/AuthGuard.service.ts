@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 
@@ -8,7 +8,7 @@ import firebase from 'firebase/app';
 
 export class AuthGuard implements CanActivate {
 
-    constructor(public router: Router) {}
+    constructor(public router: Router, private zone: NgZone) {}
 
     canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
 
@@ -27,8 +27,9 @@ export class AuthGuard implements CanActivate {
                     // No user is signed in.
 
                     resolve(false);
-
-                    this.router.navigate(['sign-in']);
+                    this.zone.run(() => {
+                        this.router.navigate(['sign-in']);
+                    })
 
                 }
 
