@@ -1,4 +1,5 @@
-<ion-content no-bounce>
+<ion-content no-bounce [scrollY]="false">
+  <div class = "splash">
   <h1>Create Account</h1>
   <p class="back-to-login">
     Already have an account? <a [routerLink]="['/sign-in']" routerLinkActive="router-link-active" >Login instead</a>
@@ -102,5 +103,6 @@
       <ion-icon slot="start" name="logo-apple"></ion-icon>
       Sign in with Apple
     </ion-button>
+  </div>
   </div>
 </ion-content>

@@ -1,4 +1,5 @@
 <ion-content no-bounce [scrollY]="false" class="form-content">
+  <div class = "splash">
   <h1>Welcome</h1>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">  
     <ion-item class="roundedInput">
@@ -37,5 +38,5 @@
       Sign in with Apple
     </ion-button>
   </div>
-
+</div>
 </ion-content>

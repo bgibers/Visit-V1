@@ -1,4 +1,5 @@
 <ion-content no-bounce>
+  <div class = "splash">
   <h1>About {{firstName}}</h1>
   <h3>Just a little more about you!</h3>
   <form [formGroup]="aboutForm" (ngSubmit)="onSubmit()">  
@@ -91,4 +92,5 @@
       <ion-button class="submit-button" expand="block" type="submit" [disabled]="!aboutForm.valid">Next</ion-button>
     </div>
   </form>
+  </div>
 </ion-content>

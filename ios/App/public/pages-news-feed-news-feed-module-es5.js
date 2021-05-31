@@ -188,11 +188,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./src/app/components/post/post.component.ts");
 
     var NewsFeedPage = /*#__PURE__*/function () {
-      function NewsFeedPage(modalController, zone, loadingController, accountService, postService, router) {
+      function NewsFeedPage(modalController, zone, cd, loadingController, accountService, postService, router) {
         _classCallCheck(this, NewsFeedPage);
 
         this.modalController = modalController;
         this.zone = zone;
+        this.cd = cd;
         this.loadingController = loadingController;
         this.accountService = accountService;
         this.postService = postService;
@@ -200,115 +201,193 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.posts = [];
         this.pageNumber = 1;
         this.morePages = false;
-        this.filter = '';
-        this.selectedUserId = '';
+        this.filter = "";
+        this.selectedUserId = "";
       }
 
       _createClass(NewsFeedPage, [{
-        key: "ngOnInit",
-        value: function ngOnInit() {
-          var _this = this;
+        key: "ionViewWillEnter",
+        value: function () {
+          var _ionViewWillEnter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            var _this = this;
 
-          // console.log(1);
-          // setInterval(_ => {
-          //   console.log(this.posts);
-          // }, 1000)
-          this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(function (res) {
-            _this.morePages = res.hasNextPage;
-            _this.pageNumber = res.pageIndex;
-            _this.posts = res.items;
-          }, /*#__PURE__*/function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(err) {
-              return regeneratorRuntime.wrap(function _callee$(_context) {
-                while (1) {
-                  switch (_context.prev = _context.next) {
-                    case 0:
-                      if (!(err.status === 401)) {
-                        _context.next = 3;
-                        break;
-                      }
+            var loading;
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              while (1) {
+                switch (_context3.prev = _context3.next) {
+                  case 0:
+                    _context3.next = 2;
+                    return this.loadingController.create();
 
-                      _context.next = 3;
-                      return _this.accountService.logout();
+                  case 2:
+                    loading = _context3.sent;
+                    _context3.next = 5;
+                    return loading.present();
 
-                    case 3:
-                    case "end":
-                      return _context.stop();
-                  }
+                  case 5:
+                    this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe( /*#__PURE__*/function () {
+                      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(res) {
+                        return regeneratorRuntime.wrap(function _callee$(_context) {
+                          while (1) {
+                            switch (_context.prev = _context.next) {
+                              case 0:
+                                _this.morePages = res.hasNextPage;
+                                _this.pageNumber = res.pageIndex;
+                                _this.posts = res.items;
+
+                                _this.refresh(); // see if there are more than one page if so get them
+
+
+                                _context.next = 6;
+                                return _this.getPosts(1);
+
+                              case 6:
+                                loading.dismiss();
+
+                              case 7:
+                              case "end":
+                                return _context.stop();
+                            }
+                          }
+                        }, _callee);
+                      }));
+
+                      return function (_x) {
+                        return _ref.apply(this, arguments);
+                      };
+                    }(), /*#__PURE__*/function () {
+                      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(err) {
+                        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                          while (1) {
+                            switch (_context2.prev = _context2.next) {
+                              case 0:
+                                if (!(err.status === 401)) {
+                                  _context2.next = 3;
+                                  break;
+                                }
+
+                                _context2.next = 3;
+                                return _this.accountService.logout();
+
+                              case 3:
+                              case "end":
+                                return _context2.stop();
+                            }
+                          }
+                        }, _callee2);
+                      }));
+
+                      return function (_x2) {
+                        return _ref2.apply(this, arguments);
+                      };
+                    }());
+
+                  case 6:
+                  case "end":
+                    return _context3.stop();
                 }
-              }, _callee);
-            }));
+              }
+            }, _callee3, this);
+          }));
 
-            return function (_x) {
-              return _ref.apply(this, arguments);
-            };
-          }());
-        }
+          function ionViewWillEnter() {
+            return _ionViewWillEnter.apply(this, arguments);
+          }
+
+          return ionViewWillEnter;
+        }()
       }, {
         key: "getPosts",
-        value: function getPosts(event) {
-          var _this2 = this;
+        value: function () {
+          var _getPosts = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(incr, event) {
+            var _this2 = this;
 
-          if (this.morePages) {
-            this.postService.postsPageGet(this.pageNumber + 1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(function (res) {
-              console.log(res);
-              _this2.morePages = res.hasNextPage;
-              _this2.pageNumber = res.pageIndex; // TODO The posts shouldn't be overwritten here but rather appended... not working though
-              // this.posts = res.items;
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+              while (1) {
+                switch (_context5.prev = _context5.next) {
+                  case 0:
+                    return _context5.abrupt("return", new Promise(function (resolve) {
+                      if (_this2.morePages) {
+                        _this2.postService.postsPageGet(_this2.pageNumber + incr, _this2.filter, _this2.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(function (res) {
+                          _this2.morePages = res.hasNextPage;
+                          _this2.pageNumber = res.pageIndex;
 
-              if (_this2.posts.length === 0) {
-                _this2.posts = [];
-              } else {
-                var oldposts = _this2.posts;
-                _this2.posts = [];
-                var oldResLen = oldposts.length;
+                          if (_this2.posts.length === 0) {
+                            _this2.posts = [];
+                          } else {
+                            var oldposts = _this2.posts;
+                            _this2.posts = [];
+                            var oldResLen = oldposts.length;
 
-                for (var i = 0; i < oldResLen; i++) {
-                  _this2.posts.push(oldposts[i]);
+                            for (var i = 0; i < oldResLen; i++) {
+                              _this2.posts.push(oldposts[i]);
+                            }
+                          }
+
+                          var resLen = res.items.length;
+
+                          for (var _i = 0; _i < resLen; _i++) {
+                            _this2.posts.push(res.items[_i]);
+                          }
+
+                          if (event) {
+                            event.target.complete();
+                          }
+
+                          _this2.refresh();
+
+                          resolve('done');
+                        }, /*#__PURE__*/function () {
+                          var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(err) {
+                            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                              while (1) {
+                                switch (_context4.prev = _context4.next) {
+                                  case 0:
+                                    console.log(err);
+
+                                    if (!(err.status === 401)) {
+                                      _context4.next = 5;
+                                      break;
+                                    }
+
+                                    _context4.next = 4;
+                                    return _this2.accountService.logout();
+
+                                  case 4:
+                                    resolve('done');
+
+                                  case 5:
+                                  case "end":
+                                    return _context4.stop();
+                                }
+                              }
+                            }, _callee4);
+                          }));
+
+                          return function (_x5) {
+                            return _ref3.apply(this, arguments);
+                          };
+                        }());
+                      } else {
+                        resolve('done');
+                        _this2.infiniteScroll.disabled = !_this2.infiniteScroll.disabled;
+                      }
+                    }));
+
+                  case 1:
+                  case "end":
+                    return _context5.stop();
                 }
               }
+            }, _callee5);
+          }));
 
-              var resLen = res.items.length;
-
-              for (var _i = 0; _i < resLen; _i++) {
-                _this2.posts.push(res.items[_i]);
-              }
-
-              if (event) {
-                event.target.complete();
-              }
-            }, /*#__PURE__*/function () {
-              var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(err) {
-                return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                  while (1) {
-                    switch (_context2.prev = _context2.next) {
-                      case 0:
-                        console.log(err);
-
-                        if (!(err.status === 401)) {
-                          _context2.next = 4;
-                          break;
-                        }
-
-                        _context2.next = 4;
-                        return _this2.accountService.logout();
-
-                      case 4:
-                      case "end":
-                        return _context2.stop();
-                    }
-                  }
-                }, _callee2);
-              }));
-
-              return function (_x2) {
-                return _ref2.apply(this, arguments);
-              };
-            }());
-          } else {
-            this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+          function getPosts(_x3, _x4) {
+            return _getPosts.apply(this, arguments);
           }
-        }
+
+          return getPosts;
+        }()
       }, {
         key: "refreshPosts",
         value: function refreshPosts(event) {
@@ -323,65 +402,65 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               event.target.complete();
             }
           }, /*#__PURE__*/function () {
-            var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(err) {
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(err) {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context3.prev = _context3.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
                       console.log(err);
 
                       if (!(err.status === 401)) {
-                        _context3.next = 4;
+                        _context6.next = 4;
                         break;
                       }
 
-                      _context3.next = 4;
+                      _context6.next = 4;
                       return _this3.accountService.logout();
 
                     case 4:
                     case "end":
-                      return _context3.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee3);
+              }, _callee6);
             }));
 
-            return function (_x3) {
-              return _ref3.apply(this, arguments);
+            return function (_x6) {
+              return _ref4.apply(this, arguments);
             };
           }());
         }
       }, {
         key: "presentSearchModal",
         value: function () {
-          var _presentSearchModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+          var _presentSearchModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
             var modal;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            return regeneratorRuntime.wrap(function _callee7$(_context7) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context7.prev = _context7.next) {
                   case 0:
-                    _context4.next = 2;
+                    _context7.next = 2;
                     return this.modalController.create({
                       component: _modals_search_search_page__WEBPACK_IMPORTED_MODULE_2__["SearchPage"],
                       componentProps: {},
                       showBackdrop: true,
-                      cssClass: 'search-modal'
+                      cssClass: "search-modal"
                     });
 
                   case 2:
-                    modal = _context4.sent;
-                    _context4.next = 5;
+                    modal = _context7.sent;
+                    _context7.next = 5;
                     return modal.present();
 
                   case 5:
-                    return _context4.abrupt("return", _context4.sent);
+                    return _context7.abrupt("return", _context7.sent);
 
                   case 6:
                   case "end":
-                    return _context4.stop();
+                    return _context7.stop();
                 }
               }
-            }, _callee4, this);
+            }, _callee7, this);
           }));
 
           function presentSearchModal() {
@@ -403,40 +482,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           };
           this.zone.run(function () {
-            _this4.router.navigateByUrl('/user-profile', navigationExtras);
+            _this4.router.navigateByUrl("/user-profile", navigationExtras);
           });
         }
       }, {
         key: "presentMapFilter",
         value: function () {
-          var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+          var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
             var _this5 = this;
 
             var modal;
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            return regeneratorRuntime.wrap(function _callee9$(_context9) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context9.prev = _context9.next) {
                   case 0:
-                    _context6.next = 2;
+                    _context9.next = 2;
                     return this.modalController.create({
                       component: _modals_map_filter_map_filter_page__WEBPACK_IMPORTED_MODULE_3__["MapFilterPage"],
                       showBackdrop: true,
-                      cssClass: 'filter-modal',
+                      cssClass: "filter-modal",
                       componentProps: {
                         filter: this.filter
                       }
                     });
 
                   case 2:
-                    modal = _context6.sent;
+                    modal = _context9.sent;
                     modal.onDidDismiss().then( /*#__PURE__*/function () {
-                      var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(dataReturned) {
-                        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                      var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(dataReturned) {
+                        return regeneratorRuntime.wrap(function _callee8$(_context8) {
                           while (1) {
-                            switch (_context5.prev = _context5.next) {
+                            switch (_context8.prev = _context8.next) {
                               case 0:
                                 if (!(dataReturned !== null)) {
-                                  _context5.next = 5;
+                                  _context8.next = 5;
                                   break;
                                 }
 
@@ -444,33 +523,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                                 _this5.refreshPosts();
 
-                                _context5.next = 5;
+                                _context8.next = 5;
                                 return _this5.loadingController.dismiss();
 
                               case 5:
                               case "end":
-                                return _context5.stop();
+                                return _context8.stop();
                             }
                           }
-                        }, _callee5);
+                        }, _callee8);
                       }));
 
-                      return function (_x4) {
-                        return _ref4.apply(this, arguments);
+                      return function (_x7) {
+                        return _ref5.apply(this, arguments);
                       };
                     }());
-                    _context6.next = 6;
+                    _context9.next = 6;
                     return modal.present();
 
                   case 6:
-                    return _context6.abrupt("return", _context6.sent);
+                    return _context9.abrupt("return", _context9.sent);
 
                   case 7:
                   case "end":
-                    return _context6.stop();
+                    return _context9.stop();
                 }
               }
-            }, _callee6, this);
+            }, _callee9, this);
           }));
 
           function presentMapFilter() {
@@ -479,13 +558,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           return presentMapFilter;
         }()
+      }, {
+        key: "refresh",
+        value: function refresh() {
+          this.cd.detectChanges();
+        }
       }]);
 
       return NewsFeedPage;
     }();
 
     NewsFeedPage.ɵfac = function NewsFeedPage_Factory(t) {
-      return new (t || NewsFeedPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_5__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]));
+      return new (t || NewsFeedPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_5__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]));
     };
 
     NewsFeedPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -582,7 +666,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "ion-infinite-scroll", 17);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ionInfinite", function NewsFeedPage_Template_ion_infinite_scroll_ionInfinite_19_listener($event) {
-            return ctx.getPosts($event);
+            return ctx.getPosts(1, $event);
           });
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](20, "ion-infinite-scroll-content", 18);
@@ -625,15 +709,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NewsFeedPage, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
-          selector: 'news-feed',
-          templateUrl: 'news-feed.page.html',
-          styleUrls: ['news-feed.page.scss']
+          selector: "news-feed",
+          templateUrl: "news-feed.page.html",
+          styleUrls: ["news-feed.page.scss"]
         }]
       }], function () {
         return [{
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]
         }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]
         }, {

@@ -1,31 +1,29 @@
 h1 {
-    font-size: 50px;
-    font-weight: bold;
-    color:white;
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
 }
 
 ion-content {
-  --background: none;
-  background: url("../../../assets/backgroundLogin.png");
-  background-size: cover;
+--background: none;
   h1 {
-      padding-left: 5%;
-      padding-top: 10%;
-      font-size: 40px;
-      font-weight: bold;
-      color:white;
+    padding-left: 5%;
+    padding-top: 10%;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
   }
 }
 
 .roundedInput {
-    --border-radius: 10px;
-    --border-width: 1px;
-    --highlight-height: 0;
-    --background: #f8f9fa;
-     padding-top:10px;
-     padding-left: 5%;
-     padding-right: 5%;
-   }
+  --border-radius: 10px;
+  --border-width: 1px;
+  --highlight-height: 0;
+  --background: #f8f9fa;
+  padding-top: 10px;
+  padding-left: 5%;
+  padding-right: 5%;
+}
 
 .roundedInput.ion-invalid.item-has-focus {
 
@@ -44,7 +42,7 @@ ion-content {
   --border-color: var(--ion-color-success-shade);
 }
 
-.submit-button{
+.submit-button {
   --background: #ffff;
   --background-activated: #fff;
   --ripple-color: #fff;
@@ -57,6 +55,6 @@ ion-content {
   padding-right: 5%;
 }
 
-.button-div{
+.button-div {
   padding-top: 10%;
 }

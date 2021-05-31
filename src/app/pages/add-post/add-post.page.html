@@ -1,4 +1,5 @@
 <ion-content no-bounce>
+  <div class = "splash">
   <h1>Create Post</h1>
     <h3>Looking for travel advice? Want to share something interesting about a destination? Let's hear it!</h3>
     <ion-grid>
@@ -33,4 +34,5 @@
       <ion-button class="submit-button" expand="block" type="submit" (click)="post()" [disabled]="!postText && !selectedLocation">Add post</ion-button>
       <ion-button class="submit-button" expand="block" type="submit" (click)="dismiss()">Cancel</ion-button>
     </div>
+  </div>
 </ion-content>

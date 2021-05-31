@@ -1,45 +1,46 @@
 ion-content {
-    --background:none;
-    background: url("../../../assets/backgroundLogin.png");
-    background-size: cover;
+    --background: none;
     h1 {
         padding-left: 5%;
         padding-top: 5%;
         font-size: 40px;
         font-weight: bold;
-        color:white;
+        color: white;
     }
+
     h3 {
         padding-left: 5%;
         padding-right: 5%;
         font-size: 15px;
-        color:white;
+        color: white;
     }
+
     h4 {
         padding-left: 5%;
         padding-right: 5%;
         font-size: 10px;
-        color:white;
+        color: white;
     }
 }
-.submit-button{
+
+.submit-button {
     --background: #fff;
     --background-activated: #fff;
     --ripple-color: #fff;
     --background-focused: #fff;
     --color-focused: #fff;
     color: #128C7E;
-  
+
     --vertical-align: middle;
     padding-left: 5%;
     padding-right: 5%;
-  }
+}
 
-.button-div{
+.button-div {
     padding-top: 10%;
 }
 
 .chartdiv {
     width: 100%;
     height: 400px;
-  }
+}

@@ -93,9 +93,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class NewsFeedPage {
-    constructor(modalController, zone, loadingController, accountService, postService, router) {
+    constructor(modalController, zone, cd, loadingController, accountService, postService, router) {
         this.modalController = modalController;
         this.zone = zone;
+        this.cd = cd;
         this.loadingController = loadingController;
         this.accountService = accountService;
         this.postService = postService;
@@ -103,82 +104,93 @@ class NewsFeedPage {
         this.posts = [];
         this.pageNumber = 1;
         this.morePages = false;
-        this.filter = '';
-        this.selectedUserId = '';
+        this.filter = "";
+        this.selectedUserId = "";
     }
-    ngOnInit() {
-        // console.log(1);
-        // setInterval(_ => {
-        //   console.log(this.posts);
-        // }, 1000)
-        this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(res => {
+    async ionViewWillEnter() {
+        const loading = await this.loadingController.create();
+        await loading.present();
+        this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(async (res) => {
             this.morePages = res.hasNextPage;
             this.pageNumber = res.pageIndex;
             this.posts = res.items;
+            this.refresh();
+            // see if there are more than one page if so get them
+            await this.getPosts(1);
+            loading.dismiss();
         }, async (err) => {
             if (err.status === 401) {
                 await this.accountService.logout();
             }
         });
     }
-    getPosts(event) {
-        if (this.morePages) {
-            this.postService.postsPageGet(this.pageNumber + 1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(res => {
-                console.log(res);
-                this.morePages = res.hasNextPage;
-                this.pageNumber = res.pageIndex;
-                // TODO The posts shouldn't be overwritten here but rather appended... not working though
-                // this.posts = res.items;
-                if (this.posts.length === 0) {
-                    this.posts = [];
-                }
-                else {
-                    let oldposts = this.posts;
-                    this.posts = [];
-                    let oldResLen = oldposts.length;
-                    for (let i = 0; i < oldResLen; i++) {
-                        this.posts.push(oldposts[i]);
+    async getPosts(incr, event) {
+        return new Promise(resolve => {
+            if (this.morePages) {
+                this.postService
+                    .postsPageGet(this.pageNumber + incr, this.filter, this.selectedUserId)
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1))
+                    .subscribe((res) => {
+                    this.morePages = res.hasNextPage;
+                    this.pageNumber = res.pageIndex;
+                    if (this.posts.length === 0) {
+                        this.posts = [];
                     }
-                }
-                let resLen = res.items.length;
-                for (let i = 0; i < resLen; i++) {
-                    this.posts.push(res.items[i]);
-                }
-                if (event) {
-                    event.target.complete();
-                }
-            }, (async (err) => {
-                console.log(err);
-                if (err.status === 401) {
-                    await this.accountService.logout();
-                }
-            }));
-        }
-        else {
-            this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
-        }
+                    else {
+                        let oldposts = this.posts;
+                        this.posts = [];
+                        let oldResLen = oldposts.length;
+                        for (let i = 0; i < oldResLen; i++) {
+                            this.posts.push(oldposts[i]);
+                        }
+                    }
+                    let resLen = res.items.length;
+                    for (let i = 0; i < resLen; i++) {
+                        this.posts.push(res.items[i]);
+                    }
+                    if (event) {
+                        event.target.complete();
+                    }
+                    this.refresh();
+                    resolve('done');
+                }, async (err) => {
+                    console.log(err);
+                    if (err.status === 401) {
+                        await this.accountService.logout();
+                        resolve('done');
+                    }
+                });
+            }
+            else {
+                resolve('done');
+                this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+            }
+        });
     }
     refreshPosts(event) {
-        this.postService.postsPageGet(1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(res => {
+        this.postService
+            .postsPageGet(1, this.filter, this.selectedUserId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1))
+            .subscribe((res) => {
             this.morePages = res.hasNextPage;
             this.pageNumber = res.pageIndex;
             this.posts = res.items;
             if (event) {
                 event.target.complete();
             }
-        }, (async (err) => {
+        }, async (err) => {
             console.log(err);
             if (err.status === 401) {
                 await this.accountService.logout();
             }
-        }));
+        });
     }
     async presentSearchModal() {
         const modal = await this.modalController.create({
             component: _modals_search_search_page__WEBPACK_IMPORTED_MODULE_2__["SearchPage"],
             componentProps: {},
             showBackdrop: true,
-            cssClass: 'search-modal'
+            cssClass: "search-modal",
         });
         return await modal.present();
     }
@@ -187,21 +199,21 @@ class NewsFeedPage {
             replaceUrl: true,
             skipLocationChange: true,
             state: {
-                userId: this.accountService.getUserId()
-            }
+                userId: this.accountService.getUserId(),
+            },
         };
         this.zone.run(() => {
-            this.router.navigateByUrl('/user-profile', navigationExtras);
+            this.router.navigateByUrl("/user-profile", navigationExtras);
         });
     }
     async presentMapFilter() {
         const modal = await this.modalController.create({
             component: _modals_map_filter_map_filter_page__WEBPACK_IMPORTED_MODULE_3__["MapFilterPage"],
             showBackdrop: true,
-            cssClass: 'filter-modal',
+            cssClass: "filter-modal",
             componentProps: {
-                filter: this.filter
-            }
+                filter: this.filter,
+            },
         });
         modal.onDidDismiss().then(async (dataReturned) => {
             if (dataReturned !== null) {
@@ -212,8 +224,11 @@ class NewsFeedPage {
         });
         return await modal.present();
     }
+    refresh() {
+        this.cd.detectChanges();
+    }
 }
-NewsFeedPage.ɵfac = function NewsFeedPage_Factory(t) { return new (t || NewsFeedPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_5__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"])); };
+NewsFeedPage.ɵfac = function NewsFeedPage_Factory(t) { return new (t || NewsFeedPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_5__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"])); };
 NewsFeedPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: NewsFeedPage, selectors: [["news-feed"]], viewQuery: function NewsFeedPage_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonInfiniteScroll"], true);
     } if (rf & 2) {
@@ -254,7 +269,7 @@ NewsFeedPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](18, "post", 16);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "ion-infinite-scroll", 17);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ionInfinite", function NewsFeedPage_Template_ion_infinite_scroll_ionInfinite_19_listener($event) { return ctx.getPosts($event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ionInfinite", function NewsFeedPage_Template_ion_infinite_scroll_ionInfinite_19_listener($event) { return ctx.getPosts(1, $event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](20, "ion-infinite-scroll-content", 18);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -273,11 +288,11 @@ NewsFeedPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NewsFeedPage, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
-                selector: 'news-feed',
-                templateUrl: 'news-feed.page.html',
-                styleUrls: ['news-feed.page.scss']
+                selector: "news-feed",
+                templateUrl: "news-feed.page.html",
+                styleUrls: ["news-feed.page.scss"],
             }]
-    }], function () { return [{ type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"] }, { type: _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_5__["AccountsService"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["PostService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }]; }, { infiniteScroll: [{
+    }], function () { return [{ type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"] }, { type: _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_5__["AccountsService"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["PostService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }]; }, { infiniteScroll: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: [_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonInfiniteScroll"]]
         }] }); })();

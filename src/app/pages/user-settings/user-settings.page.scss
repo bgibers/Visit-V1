@@ -1,70 +1,70 @@
 ion-content {
-    --background: #fff url("../../../assets/backgroundLogin.png")  no-repeat center/cover fixed;
-    background: #fff url("../../../assets/backgroundLogin.png");
-    background-size: cover;
-    h1 {
-        padding-left: 5%;
-        padding-top: 10%;
-        font-size: 40px;
-        font-weight: bold;
-        color:white;
-    }
-    h3 {
-        padding-left: 5%;
-        font-size: 20px;
-        color:white;
-    }
-  }
-    
-  .roundedInput {
-      --border-radius: 10px;
-      --border-width: 1px;
-      --highlight-height: 0;
-      --background: #f8f9fa;
-       padding-top:10px;
-       padding-block: 10%;
-  }
-  
-  .nameRow {
-      .roundedInput {
-          padding-block: 0%;
-      }
-      padding-block: 10%;
-  }
-  
-  .submit-button{
-    --background: #fff;
-    --background-activated: #fff;
-    --ripple-color: #fff;
-    --background-focused: #fff;
-    --color-focused: #fff;
-    color: #128C7E;
-  
-    --vertical-align: middle;
+  --background: none;
+  h1 {
     padding-left: 5%;
-    padding-right: 5%;
-  }
-
-  .bottomRow {
-    margin-top: -30px;
-  }
-
-  // .button-div{
-  //   padding-top: 10%;
-  // }
-  
-  ion-avatar  {     
-    width:110% !important;  
-    height : 110% !important;  
-    max-width: 80px !important;  //any size
-    max-height: 80px !important; //any size 
-  }
-
-  .logout {
-    padding-left: 5%;
+    padding-top: 10%;
+    font-size: 40px;
+    font-weight: bold;
     color: white;
-    a {
-        color: white;
-    }
+  }
+
+  h3 {
+    padding-left: 5%;
+    font-size: 20px;
+    color: white;
+  }
 }
-  
+
+.roundedInput {
+  --border-radius: 10px;
+  --border-width: 1px;
+  --highlight-height: 0;
+  --background: #f8f9fa;
+  padding-top: 10px;
+  padding-block: 10%;
+}
+
+.nameRow {
+  .roundedInput {
+    padding-block: 0%;
+  }
+
+  padding-block: 10%;
+}
+
+.submit-button {
+  --background: #fff;
+  --background-activated: #fff;
+  --ripple-color: #fff;
+  --background-focused: #fff;
+  --color-focused: #fff;
+  color: #128C7E;
+
+  --vertical-align: middle;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.bottomRow {
+  margin-top: -30px;
+}
+
+// .button-div{
+//   padding-top: 10%;
+// }
+
+ion-avatar {
+  width: 110% !important;
+  height: 110% !important;
+  max-width: 80px !important; //any size
+  max-height: 80px !important; //any size 
+}
+
+.logout {
+  padding-left: 5%;
+  color: white;
+
+  a {
+    color: white;
+  }
+}
