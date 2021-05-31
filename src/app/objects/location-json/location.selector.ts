@@ -1,6 +1,6 @@
-import { OnInit, Injectable } from "@angular/core";
-import stateRaw from "./json/states.json";
-import countryRaw from "./json/countries.json";
+import { OnInit, Injectable } from '@angular/core';
+import stateRaw from './json/states.json';
+import countryRaw from './json/countries.json';
 
 export interface Country {
   id: string;

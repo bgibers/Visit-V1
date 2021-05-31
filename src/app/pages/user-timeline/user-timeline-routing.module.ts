@@ -1,11 +1,11 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { UserTimelinePage } from "./user-timeline.page";
+import { UserTimelinePage } from './user-timeline.page';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: UserTimelinePage,
   },
 ];

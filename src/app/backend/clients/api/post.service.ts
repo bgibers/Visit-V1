@@ -12,36 +12,36 @@
 // tslint:disable: no-redundant-jsdoc
 // tslint:disable: max-line-length
 // tslint:disable: import-spacing
-import { Inject, Injectable, Optional } from "@angular/core";
+import { Inject, Injectable, Optional } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
   HttpParams,
   HttpResponse,
   HttpEvent,
-} from "@angular/common/http";
-import { CustomHttpUrlEncodingCodec } from "../encoder";
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { PostPaginatedList } from "../model/postPaginatedList";
-import { BASE_PATH } from "src/environments/environment";
+import { PostPaginatedList } from '../model/postPaginatedList';
+import { BASE_PATH } from 'src/environments/environment';
 
-import { COLLECTION_FORMATS } from "../variables";
-import { Configuration } from "../configuration";
-import { CreatePostRequest } from "../model/createPostRequest";
-import { NewPostResponse } from "../model/newPostResponse";
-import { CommentForPost } from "../model/commentForPost";
-import { LikeForPost } from "../model/likeForPost";
-import { PostApiPaginatedList } from "../model/postApiPaginatedList";
-import { CommentApi } from "../model/commentApi";
-import { string } from "@amcharts/amcharts4/core";
-const InterceptorSkipHeader = "X-Skip-Interceptor";
+import { COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
+import { CreatePostRequest } from '../model/createPostRequest';
+import { NewPostResponse } from '../model/newPostResponse';
+import { CommentForPost } from '../model/commentForPost';
+import { LikeForPost } from '../model/likeForPost';
+import { PostApiPaginatedList } from '../model/postApiPaginatedList';
+import { CommentApi } from '../model/commentApi';
+import { string } from '@amcharts/amcharts4/core';
+const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
 export class PostService {
   protected basePath = BASE_PATH;
-  public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, "");
+  public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, '');
   public configuration = new Configuration();
 
   constructor(
@@ -67,30 +67,30 @@ export class PostService {
   public postsCommentPostIdPost(
     postId: string,
     body?: CommentApi,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
   public postsCommentPostIdPost(
     postId: string,
     body?: CommentApi,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
   public postsCommentPostIdPost(
     postId: string,
     body?: CommentApi,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
   public postsCommentPostIdPost(
     postId: string,
     body?: CommentApi,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (postId === null || postId === undefined) {
       throw new Error(
-        "Required parameter postId was null or undefined when calling postsCommentPostIdPost."
+        'Required parameter postId was null or undefined when calling postsCommentPostIdPost.'
       );
     }
 
@@ -98,33 +98,33 @@ export class PostService {
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [
-      "application/json-patch+json",
-      "application/json",
-      "text/json",
-      "application/_*+json",
+      'application/json-patch+json',
+      'application/json',
+      'text/json',
+      'application/_*+json',
     ];
     const httpContentTypeSelected:
       | string
       | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected !== undefined) {
-      headers = headers.set("Content-Type", httpContentTypeSelected);
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
     return this.httpClient.request<boolean>(
-      "post",
+      'post',
       `${this.basePath}/posts/comment/${encodeURIComponent(String(postId))}`,
       {
         body,
@@ -143,27 +143,27 @@ export class PostService {
    */
   public postsCommentsGetPostIdGet(
     postId: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<CommentForPost>>;
   public postsCommentsGetPostIdGet(
     postId: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<CommentForPost>>>;
   public postsCommentsGetPostIdGet(
     postId: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<CommentForPost>>>;
   public postsCommentsGetPostIdGet(
     postId: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (postId === null || postId === undefined) {
       throw new Error(
-        "Required parameter postId was null or undefined when calling postsCommentsGetPostIdGet."
+        'Required parameter postId was null or undefined when calling postsCommentsGetPostIdGet.'
       );
     }
 
@@ -171,22 +171,22 @@ export class PostService {
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<Array<CommentForPost>>(
-      "get",
+      'get',
       `${this.basePath}/posts/comments/get/${encodeURIComponent(
         String(postId)
       )}`,
@@ -208,27 +208,27 @@ export class PostService {
    */
   public postsLikePostIdPost(
     postId: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
   public postsLikePostIdPost(
     postId: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
   public postsLikePostIdPost(
     postId: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
   public postsLikePostIdPost(
     postId: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (postId === null || postId === undefined) {
       throw new Error(
-        "Required parameter postId was null or undefined when calling postsLikePostIdPost."
+        'Required parameter postId was null or undefined when calling postsLikePostIdPost.'
       );
     }
 
@@ -236,22 +236,22 @@ export class PostService {
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<boolean>(
-      "post",
+      'post',
       `${this.basePath}/posts/like/${encodeURIComponent(String(postId))}`,
       {
         withCredentials: this.configuration.withCredentials,
@@ -271,27 +271,27 @@ export class PostService {
    */
   public postsLikesGetPostIdGet(
     postId: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<LikeForPost>>;
   public postsLikesGetPostIdGet(
     postId: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<LikeForPost>>>;
   public postsLikesGetPostIdGet(
     postId: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<LikeForPost>>>;
   public postsLikesGetPostIdGet(
     postId: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (postId === null || postId === undefined) {
       throw new Error(
-        "Required parameter postId was null or undefined when calling postsLikesGetPostIdGet."
+        'Required parameter postId was null or undefined when calling postsLikesGetPostIdGet.'
       );
     }
 
@@ -299,22 +299,22 @@ export class PostService {
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<Array<LikeForPost>>(
-      "get",
+      'get',
       `${this.basePath}/posts/likes/get/${encodeURIComponent(String(postId))}`,
       {
         withCredentials: this.configuration.withCredentials,
@@ -337,7 +337,7 @@ export class PostService {
     postType?: string,
     locationCode?: string,
     image?: Blob,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<NewPostResponse>;
   public postsNewPostForm(
@@ -345,7 +345,7 @@ export class PostService {
     postType?: string,
     locationCode?: string,
     image?: Blob,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<NewPostResponse>>;
   public postsNewPostForm(
@@ -353,7 +353,7 @@ export class PostService {
     postType?: string,
     locationCode?: string,
     image?: Blob,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<NewPostResponse>>;
   public postsNewPostForm(
@@ -361,26 +361,26 @@ export class PostService {
     postType?: string,
     locationCode?: string,
     image?: Blob,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
-    const consumes: string[] = ["multipart/form-data"];
+    const consumes: string[] = ['multipart/form-data'];
 
     let formParams: { append(param: string, value: any): void };
     formParams = new FormData();
@@ -389,24 +389,24 @@ export class PostService {
 
     if (caption !== undefined) {
       formParams =
-        (formParams.append("Caption", caption as any) as any) || formParams;
+        (formParams.append('Caption', caption as any) as any) || formParams;
     }
     if (postType !== undefined) {
       formParams =
-        (formParams.append("PostType", postType as any) as any) || formParams;
+        (formParams.append('PostType', postType as any) as any) || formParams;
     }
     if (locationCode !== undefined) {
       formParams =
-        (formParams.append("LocationCode", locationCode as any) as any) ||
+        (formParams.append('LocationCode', locationCode as any) as any) ||
         formParams;
     }
     if (image !== undefined) {
       formParams =
-        (formParams.append("Image", image as any) as any) || formParams;
+        (formParams.append('Image', image as any) as any) || formParams;
     }
 
     return this.httpClient.request<NewPostResponse>(
-      "post",
+      'post',
       `${this.basePath}/posts/new`,
       {
         body: convertFormParamsToString ? formParams.toString() : formParams,
@@ -427,33 +427,33 @@ export class PostService {
     page: number,
     filter: string,
     userId: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<PostApiPaginatedList>;
   public postsPageGet(
     page: number,
     filter: string,
     userId: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<PostApiPaginatedList>>;
   public postsPageGet(
     page: number,
     filter: string,
     userId: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<PostApiPaginatedList>>;
   public postsPageGet(
     page: number,
     filter: string,
     userId: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (page === null || page === undefined) {
       throw new Error(
-        "Required parameter page was null or undefined when calling postsPageGet."
+        'Required parameter page was null or undefined when calling postsPageGet.'
       );
     }
 
@@ -461,15 +461,15 @@ export class PostService {
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -477,15 +477,15 @@ export class PostService {
 
     let uri = `${this.basePath}/posts/${encodeURIComponent(String(page))}`;
 
-    if (filter !== "" && userId === "") {
+    if (filter !== '' && userId === '') {
       uri = `${this.basePath}/posts/${encodeURIComponent(
         String(page)
       )}/filter/${encodeURIComponent(String(filter))}`;
-    } else if (userId !== "" && filter === "") {
+    } else if (userId !== '' && filter === '') {
       uri = `${this.basePath}/posts/${encodeURIComponent(
         String(page)
       )}/user/${encodeURIComponent(String(userId))}`;
-    } else if (userId !== "" && filter !== "") {
+    } else if (userId !== '' && filter !== '') {
       uri = `${this.basePath}/posts/${encodeURIComponent(
         String(page)
       )}/${encodeURIComponent(String(filter))}/${encodeURIComponent(
@@ -493,7 +493,7 @@ export class PostService {
       )}`;
     }
 
-    return this.httpClient.request<PostApiPaginatedList>("get", uri, {
+    return this.httpClient.request<PostApiPaginatedList>('get', uri, {
       withCredentials: this.configuration.withCredentials,
       headers,
       observe,

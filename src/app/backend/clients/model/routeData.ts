@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { IRouter } from "./iRouter";
+import { IRouter } from './iRouter';
 
 export interface RouteData {
   readonly dataTokens?: { [key: string]: any };

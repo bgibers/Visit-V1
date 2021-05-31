@@ -9,9 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Assembly } from "./assembly";
-import { CustomAttributeData } from "./customAttributeData";
-import { ModuleHandle } from "./moduleHandle";
+import { Assembly } from './assembly';
+import { CustomAttributeData } from './customAttributeData';
+import { ModuleHandle } from './moduleHandle';
 
 export interface Module {
   assembly?: Assembly;

@@ -9,10 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Location } from "./location";
-import { LocationTag } from "./locationTag";
-import { PostUserLocation } from "./postUserLocation";
-import { User } from "./user";
+import { Location } from './location';
+import { LocationTag } from './locationTag';
+import { PostUserLocation } from './postUserLocation';
+import { User } from './user';
 
 export interface UserLocation {
   userLocationId?: number;

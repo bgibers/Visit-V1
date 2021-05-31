@@ -1,17 +1,17 @@
-import { Component, OnInit, NgZone, AfterViewInit } from "@angular/core";
-import { Map } from "../../../objects/map";
-import { MapSelectionMode } from "../../../objects/enums/map-selection-mode";
-import { LoadingController, ModalController, NavParams } from "@ionic/angular";
+import { Component, OnInit, NgZone, AfterViewInit } from '@angular/core';
+import { Map } from '../../../objects/map';
+import { MapSelectionMode } from '../../../objects/enums/map-selection-mode';
+import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 
 @Component({
-  selector: "map-filter",
-  templateUrl: "./map-filter.page.html",
-  styleUrls: ["./map-filter.page.scss"],
+  selector: 'map-filter',
+  templateUrl: './map-filter.page.html',
+  styleUrls: ['./map-filter.page.scss'],
 })
 export class MapFilterPage {
   private map: Map;
   public selectionMode: MapSelectionMode = MapSelectionMode.FILTER;
-  public filter = "";
+  public filter = '';
   public selectedLocation: string;
 
   constructor(
@@ -23,7 +23,7 @@ export class MapFilterPage {
 
   ionViewWillEnter() {
     this.map = new Map(this.zone);
-    this.map.addMapToDiv(this.selectionMode, "filter-map");
+    this.map.addMapToDiv(this.selectionMode, 'filter-map');
     this.filter = this.navParams.data.filter;
   }
 
@@ -32,7 +32,7 @@ export class MapFilterPage {
   }
 
   async restFilter() {
-    this.filter = "";
+    this.filter = '';
     await this.closeModal();
   }
 

@@ -9,9 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { AsnEncodedData } from "./asnEncodedData";
-import { AsymmetricAlgorithm } from "./asymmetricAlgorithm";
-import { Oid } from "./oid";
+import { AsnEncodedData } from './asnEncodedData';
+import { AsymmetricAlgorithm } from './asymmetricAlgorithm';
+import { Oid } from './oid';
 
 export interface PublicKey {
   encodedKeyValue?: AsnEncodedData;

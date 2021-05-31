@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { AddressFamily } from "./addressFamily";
+import { AddressFamily } from './addressFamily';
 
 export interface IPAddress {
   addressFamily?: AddressFamily;

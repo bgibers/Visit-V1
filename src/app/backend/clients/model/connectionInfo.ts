@@ -9,8 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { IPAddress } from "./iPAddress";
-import { X509Certificate2 } from "./x509Certificate2";
+import { IPAddress } from './iPAddress';
+import { X509Certificate2 } from './x509Certificate2';
 
 export interface ConnectionInfo {
   id?: string;

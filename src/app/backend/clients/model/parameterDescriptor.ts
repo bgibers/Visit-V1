@@ -9,8 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { BindingInfo } from "./bindingInfo";
-import { Type } from "./type";
+import { BindingInfo } from './bindingInfo';
+import { Type } from './type';
 
 export interface ParameterDescriptor {
   name?: string;

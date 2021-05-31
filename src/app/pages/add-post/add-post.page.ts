@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { LoadingController, ModalController } from "@ionic/angular";
-import { IonicSelectableComponent } from "ionic-selectable";
-import { take } from "rxjs/operators";
-import { PostService } from "src/app/backend/clients";
-import { CreatePostRequest } from "src/app/backend/clients/model/createPostRequest";
-import { LocationSelector } from "src/app/objects/location-json/location.selector";
+import { Component, OnInit } from '@angular/core';
+import { LoadingController, ModalController } from '@ionic/angular';
+import { IonicSelectableComponent } from 'ionic-selectable';
+import { take } from 'rxjs/operators';
+import { PostService } from 'src/app/backend/clients';
+import { CreatePostRequest } from 'src/app/backend/clients/model/createPostRequest';
+import { LocationSelector } from 'src/app/objects/location-json/location.selector';
 
 @Component({
-  selector: "app-add-post",
-  templateUrl: "./add-post.page.html",
-  styleUrls: ["./add-post.page.scss"],
+  selector: 'app-add-post',
+  templateUrl: './add-post.page.html',
+  styleUrls: ['./add-post.page.scss'],
 })
 export class AddPostPage implements OnInit {
   public selectedLocation: { id: string; name: string } = undefined;
@@ -58,7 +58,7 @@ export class AddPostPage implements OnInit {
     await loading.present();
 
     this.postService
-      .postsNewPostForm(this.postText, "text", this.selectedLocation.id)
+      .postsNewPostForm(this.postText, 'text', this.selectedLocation.id)
       .pipe(take(1))
       .subscribe(
         (res) => {

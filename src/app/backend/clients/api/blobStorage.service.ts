@@ -13,24 +13,24 @@
 // tslint:disable: import-spacing
 // tslint:disable: max-line-length
 
-import { Inject, Injectable, Optional } from "@angular/core";
+import { Inject, Injectable, Optional } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
   HttpParams,
   HttpResponse,
   HttpEvent,
-} from "@angular/common/http";
-import { CustomHttpUrlEncodingCodec } from "../encoder";
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { BASE_PATH, COLLECTION_FORMATS } from "../variables";
-import { Configuration } from "../configuration";
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 @Injectable()
 export class BlobStorageService {
-  protected basePath = "https://localhost:5001";
+  protected basePath = 'https://localhost:5001';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -53,7 +53,7 @@ export class BlobStorageService {
    * @return true: consumes contains 'multipart/form-data', false: otherwise
    */
   private canConsumeForm(consumes: string[]): boolean {
-    const form = "multipart/form-data";
+    const form = 'multipart/form-data';
     for (const consume of consumes) {
       if (form === consume) {
         return true;
@@ -71,27 +71,27 @@ export class BlobStorageService {
    */
   public storageDeleteFileFileNameGet(
     fileName: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<any>;
   public storageDeleteFileFileNameGet(
     fileName: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<any>>;
   public storageDeleteFileFileNameGet(
     fileName: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<any>>;
   public storageDeleteFileFileNameGet(
     fileName: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (fileName === null || fileName === undefined) {
       throw new Error(
-        "Required parameter fileName was null or undefined when calling storageDeleteFileFileNameGet."
+        'Required parameter fileName was null or undefined when calling storageDeleteFileFileNameGet.'
       );
     }
 
@@ -103,14 +103,14 @@ export class BlobStorageService {
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<any>(
-      "get",
+      'get',
       `${this.basePath}/storage/DeleteFile/${encodeURIComponent(
         String(fileName)
       )}`,
@@ -132,27 +132,27 @@ export class BlobStorageService {
    */
   public storageDownloadFileFileNameGet(
     fileName: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<string>;
   public storageDownloadFileFileNameGet(
     fileName: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<string>>;
   public storageDownloadFileFileNameGet(
     fileName: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<string>>;
   public storageDownloadFileFileNameGet(
     fileName: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (fileName === null || fileName === undefined) {
       throw new Error(
-        "Required parameter fileName was null or undefined when calling storageDownloadFileFileNameGet."
+        'Required parameter fileName was null or undefined when calling storageDownloadFileFileNameGet.'
       );
     }
 
@@ -160,22 +160,22 @@ export class BlobStorageService {
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<string>(
-      "get",
+      'get',
       `${this.basePath}/storage/DownloadFile/${encodeURIComponent(
         String(fileName)
       )}`,
@@ -197,27 +197,27 @@ export class BlobStorageService {
    */
   public storageListFilesUserIdGet(
     userId: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<string>>;
   public storageListFilesUserIdGet(
     userId: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<string>>>;
   public storageListFilesUserIdGet(
     userId: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<string>>>;
   public storageListFilesUserIdGet(
     userId: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        "Required parameter userId was null or undefined when calling storageListFilesUserIdGet."
+        'Required parameter userId was null or undefined when calling storageListFilesUserIdGet.'
       );
     }
 
@@ -225,22 +225,22 @@ export class BlobStorageService {
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<Array<string>>(
-      "get",
+      'get',
       `${this.basePath}/storage/ListFiles/${encodeURIComponent(
         String(userId)
       )}`,
@@ -264,32 +264,32 @@ export class BlobStorageService {
   public storageUploadFilePostForm(
     asset?: Blob,
     fileName?: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<any>;
   public storageUploadFilePostForm(
     asset?: Blob,
     fileName?: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<any>>;
   public storageUploadFilePostForm(
     asset?: Blob,
     fileName?: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<any>>;
   public storageUploadFilePostForm(
     asset?: Blob,
     fileName?: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let queryParameters = new HttpParams({
       encoder: new CustomHttpUrlEncodingCodec(),
     });
     if (fileName !== undefined && fileName !== null) {
-      queryParameters = queryParameters.set("fileName", fileName as any);
+      queryParameters = queryParameters.set('fileName', fileName as any);
     }
 
     let headers = this.defaultHeaders;
@@ -300,11 +300,11 @@ export class BlobStorageService {
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
-    const consumes: string[] = ["multipart/form-data"];
+    const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
@@ -324,11 +324,11 @@ export class BlobStorageService {
 
     if (asset !== undefined) {
       formParams =
-        (formParams.append("asset", asset as any) as any) || formParams;
+        (formParams.append('asset', asset as any) as any) || formParams;
     }
 
     return this.httpClient.request<any>(
-      "post",
+      'post',
       `${this.basePath}/storage/UploadFile`,
       {
         body: convertFormParamsToString ? formParams.toString() : formParams,

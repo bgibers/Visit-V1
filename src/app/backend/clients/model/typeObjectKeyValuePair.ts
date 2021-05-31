@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Type } from "./type";
+import { Type } from './type';
 
 export interface TypeObjectKeyValuePair {
   key?: Type;

@@ -9,8 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Post } from "./post";
-import { User } from "./user";
+import { Post } from './post';
+import { User } from './user';
 
 export interface Like {
   likeId?: number;

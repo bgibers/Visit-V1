@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ActionContext } from "./actionContext";
+import { ActionContext } from './actionContext';
 
 export interface IUrlHelper {
   actionContext?: ActionContext;

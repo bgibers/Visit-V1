@@ -12,31 +12,31 @@
 /* tslint:disable:no-unused-variable member-ordering */
 // tslint:disable: max-line-length
 // tslint:disable: import-spacing
-import { Inject, Injectable, Optional } from "@angular/core";
+import { Inject, Injectable, Optional } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
   HttpParams,
   HttpResponse,
   HttpEvent,
-} from "@angular/common/http";
-import { CustomHttpUrlEncodingCodec } from "../encoder";
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { User } from "../model/user";
-import { UserResponse } from "../model/userResponse";
-import { BASE_PATH } from "src/environments/environment";
-import { Platform } from "@ionic/angular";
-import { Storage } from "@ionic/storage";
-import { Configuration } from "../configuration";
-import { SlimUserResponse } from "../model/slimUserResponse";
-const InterceptorSkipHeader = "X-Skip-Interceptor";
+import { User } from '../model/user';
+import { UserResponse } from '../model/userResponse';
+import { BASE_PATH } from 'src/environments/environment';
+import { Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { Configuration } from '../configuration';
+import { SlimUserResponse } from '../model/slimUserResponse';
+const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
 export class UserService {
   protected basePath = BASE_PATH;
-  public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, "");
+  public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, '');
   public configuration = new Configuration();
 
   constructor(
@@ -57,7 +57,7 @@ export class UserService {
    * @return true: consumes contains 'multipart/form-data', false: otherwise
    */
   private canConsumeForm(consumes: string[]): boolean {
-    const form = "multipart/form-data";
+    const form = 'multipart/form-data';
     for (const consume of consumes) {
       if (form === consume) {
         return true;
@@ -73,19 +73,19 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public userAllGet(
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<User>>;
   public userAllGet(
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<User>>>;
   public userAllGet(
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<User>>>;
   public userAllGet(
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
@@ -96,29 +96,29 @@ export class UserService {
       this.configuration.apiKeys.Authorization
     ) {
       headers = headers.set(
-        "Authorization",
+        'Authorization',
         this.configuration.apiKeys.Authorization
       );
     }
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<Array<User>>(
-      "get",
+      'get',
       `${this.basePath}/User/all`,
       {
         withCredentials: this.configuration.withCredentials,
@@ -138,27 +138,27 @@ export class UserService {
    */
   public userIdGet(
     id: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<UserResponse>;
   public userIdGet(
     id: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<UserResponse>>;
   public userIdGet(
     id: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<UserResponse>>;
   public userIdGet(
     id: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        "Required parameter id was null or undefined when calling userIdGet."
+        'Required parameter id was null or undefined when calling userIdGet.'
       );
     }
 
@@ -170,29 +170,29 @@ export class UserService {
       this.configuration.apiKeys.Authorization
     ) {
       headers = headers.set(
-        "Authorization",
+        'Authorization',
         this.configuration.apiKeys.Authorization
       );
     }
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<UserResponse>(
-      "get",
+      'get',
       `${this.basePath}/User/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
@@ -212,27 +212,27 @@ export class UserService {
    */
   public userSearchQueryGet(
     query: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<SlimUserResponse>>;
   public userSearchQueryGet(
     query: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<SlimUserResponse>>>;
   public userSearchQueryGet(
     query: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<SlimUserResponse>>>;
   public userSearchQueryGet(
     query: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (query === null || query === undefined) {
       throw new Error(
-        "Required parameter query was null or undefined when calling userSearchQueryGet."
+        'Required parameter query was null or undefined when calling userSearchQueryGet.'
       );
     }
 
@@ -244,29 +244,29 @@ export class UserService {
       this.configuration.apiKeys.Authorization
     ) {
       headers = headers.set(
-        "Authorization",
+        'Authorization',
         this.configuration.apiKeys.Authorization
       );
     }
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<Array<SlimUserResponse>>(
-      "get",
+      'get',
       `${this.basePath}/User/search/${encodeURIComponent(String(query))}`,
       {
         withCredentials: this.configuration.withCredentials,
@@ -284,19 +284,19 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public userSelfGet(
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<SlimUserResponse>;
   public userSelfGet(
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<SlimUserResponse>>;
   public userSelfGet(
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<SlimUserResponse>>;
   public userSelfGet(
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
@@ -307,29 +307,29 @@ export class UserService {
       this.configuration.apiKeys.Authorization
     ) {
       headers = headers.set(
-        "Authorization",
+        'Authorization',
         this.configuration.apiKeys.Authorization
       );
     }
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<SlimUserResponse>(
-      "get",
+      'get',
       `${this.basePath}/User/self`,
       {
         withCredentials: this.configuration.withCredentials,

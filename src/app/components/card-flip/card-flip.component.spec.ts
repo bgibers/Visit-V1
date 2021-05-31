@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { IonicModule } from "@ionic/angular";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
 
-import { CardFlipComponent } from "./card-flip.component";
+import { CardFlipComponent } from './card-flip.component';
 
-describe("CardFlipComponent", () => {
+describe('CardFlipComponent', () => {
   let component: CardFlipComponent;
   let fixture: ComponentFixture<CardFlipComponent>;
 
@@ -18,7 +18,7 @@ describe("CardFlipComponent", () => {
     fixture.detectChanges();
   }));
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

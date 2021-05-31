@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Claim } from "./claim";
+import { Claim } from './claim';
 
 export interface ClaimsIdentity {
   readonly authenticationType?: string;

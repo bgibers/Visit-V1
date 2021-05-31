@@ -1,22 +1,22 @@
-import { Component, NgZone, OnInit, ViewChild } from "@angular/core";
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import {
   IonInfiniteScroll,
   LoadingController,
   ModalController,
   NavParams,
-} from "@ionic/angular";
-import { SearchPage } from "../modals/search/search.page";
-import { MapFilterPage } from "../modals/map-filter/map-filter.page";
-import { Router, NavigationExtras } from "@angular/router";
-import { AccountsService } from "../../backend/clients/api/accounts.service";
-import { PostService } from "src/app/backend/clients";
-import { PostApi } from "src/app/backend/clients/model/postApi";
-import { take } from "rxjs/operators";
+} from '@ionic/angular';
+import { SearchPage } from '../modals/search/search.page';
+import { MapFilterPage } from '../modals/map-filter/map-filter.page';
+import { Router, NavigationExtras } from '@angular/router';
+import { AccountsService } from '../../backend/clients/api/accounts.service';
+import { PostService } from 'src/app/backend/clients';
+import { PostApi } from 'src/app/backend/clients/model/postApi';
+import { take } from 'rxjs/operators';
 
 @Component({
-  selector: "user-timeline",
-  templateUrl: "./user-timeline.page.html",
-  styleUrls: ["./user-timeline.page.scss"],
+  selector: 'user-timeline',
+  templateUrl: './user-timeline.page.html',
+  styleUrls: ['./user-timeline.page.scss'],
 })
 export class UserTimelinePage {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
@@ -24,8 +24,8 @@ export class UserTimelinePage {
   posts: PostApi[] = [];
   pageNumber = 1;
   morePages = false;
-  filter = "";
-  selectedUserId = "";
+  filter = '';
+  selectedUserId = '';
 
   constructor(
     public modalController: ModalController,
@@ -62,14 +62,14 @@ export class UserTimelinePage {
           if (this.posts.length === 0) {
             this.posts = [];
           } else {
-            let oldposts = this.posts;
+            const oldposts = this.posts;
             this.posts = [];
-            let oldResLen = oldposts.length;
+            const oldResLen = oldposts.length;
             for (let i = 0; i < oldResLen; i++) {
               this.posts.push(oldposts[i]);
             }
           }
-          let resLen = res.items.length;
+          const resLen = res.items.length;
           for (let i = 0; i < resLen; i++) {
             this.posts.push(res.items[i]);
           }
@@ -102,7 +102,7 @@ export class UserTimelinePage {
       component: SearchPage,
       componentProps: {},
       showBackdrop: true,
-      cssClass: "search-modal",
+      cssClass: 'search-modal',
     });
     return await modal.present();
   }
@@ -116,7 +116,7 @@ export class UserTimelinePage {
       },
     };
     this.zone.run(() => {
-      this.router.navigateByUrl("/user-profile", navigationExtras);
+      this.router.navigateByUrl('/user-profile', navigationExtras);
     });
   }
 
@@ -124,7 +124,7 @@ export class UserTimelinePage {
     const modal = await this.modalController.create({
       component: MapFilterPage,
       showBackdrop: true,
-      cssClass: "filter-modal",
+      cssClass: 'filter-modal',
       componentProps: {
         filter: this.filter,
       },

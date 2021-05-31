@@ -9,10 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ActionContextBooleanFunc } from "./actionContextBooleanFunc";
-import { BindingSource } from "./bindingSource";
-import { IPropertyFilterProvider } from "./iPropertyFilterProvider";
-import { Type } from "./type";
+import { ActionContextBooleanFunc } from './actionContextBooleanFunc';
+import { BindingSource } from './bindingSource';
+import { IPropertyFilterProvider } from './iPropertyFilterProvider';
+import { Type } from './type';
 
 export interface BindingInfo {
   bindingSource?: BindingSource;

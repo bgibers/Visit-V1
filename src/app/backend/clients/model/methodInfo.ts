@@ -9,16 +9,16 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { CallingConventions } from "./callingConventions";
-import { CustomAttributeData } from "./customAttributeData";
-import { ICustomAttributeProvider } from "./iCustomAttributeProvider";
-import { MemberTypes } from "./memberTypes";
-import { MethodAttributes } from "./methodAttributes";
-import { MethodImplAttributes } from "./methodImplAttributes";
-import { Module } from "./module";
-import { ParameterInfo } from "./parameterInfo";
-import { RuntimeMethodHandle } from "./runtimeMethodHandle";
-import { Type } from "./type";
+import { CallingConventions } from './callingConventions';
+import { CustomAttributeData } from './customAttributeData';
+import { ICustomAttributeProvider } from './iCustomAttributeProvider';
+import { MemberTypes } from './memberTypes';
+import { MethodAttributes } from './methodAttributes';
+import { MethodImplAttributes } from './methodImplAttributes';
+import { Module } from './module';
+import { ParameterInfo } from './parameterInfo';
+import { RuntimeMethodHandle } from './runtimeMethodHandle';
+import { Type } from './type';
 
 export interface MethodInfo {
   memberType?: MemberTypes;

@@ -9,8 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ModelError } from "./modelError";
-import { ModelValidationState } from "./modelValidationState";
+import { ModelError } from './modelError';
+import { ModelValidationState } from './modelValidationState';
 
 export interface ModelStateEntry {
   rawValue?: any;

@@ -9,13 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Like } from "./like";
-import { Location } from "./location";
-import { Post } from "./post";
-import { PostComment } from "./postComment";
-import { UserFollowing } from "./userFollowing";
-import { UserLocation } from "./userLocation";
-import { UserMessage } from "./userMessage";
+import { Like } from './like';
+import { Location } from './location';
+import { Post } from './post';
+import { PostComment } from './postComment';
+import { UserFollowing } from './userFollowing';
+import { UserLocation } from './userLocation';
+import { UserMessage } from './userMessage';
 
 export interface User {
   firstname?: string;

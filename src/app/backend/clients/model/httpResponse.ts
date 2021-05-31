@@ -9,10 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { HttpContext } from "./httpContext";
-import { IResponseCookies } from "./iResponseCookies";
-import { PipeWriter } from "./pipeWriter";
-import { Stream } from "./stream";
+import { HttpContext } from './httpContext';
+import { IResponseCookies } from './iResponseCookies';
+import { PipeWriter } from './pipeWriter';
+import { Stream } from './stream';
 
 export interface HttpResponse {
   httpContext?: HttpContext;

@@ -9,12 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { CustomAttributeData } from "./customAttributeData";
-import { MethodInfo } from "./methodInfo";
-import { Module } from "./module";
-import { SecurityRuleSet } from "./securityRuleSet";
-import { Type } from "./type";
-import { TypeInfo } from "./typeInfo";
+import { CustomAttributeData } from './customAttributeData';
+import { MethodInfo } from './methodInfo';
+import { Module } from './module';
+import { SecurityRuleSet } from './securityRuleSet';
+import { Type } from './type';
+import { TypeInfo } from './typeInfo';
 
 export interface Assembly {
   readonly definedTypes?: Array<TypeInfo>;

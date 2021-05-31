@@ -11,26 +11,26 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from "@angular/core";
+import { Inject, Injectable, Optional } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
   HttpParams,
   HttpResponse,
   HttpEvent,
-} from "@angular/common/http";
-import { CustomHttpUrlEncodingCodec } from "../encoder";
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { UserMessage } from "../model/userMessage";
+import { UserMessage } from '../model/userMessage';
 
-import { BASE_PATH, COLLECTION_FORMATS } from "../variables";
-import { Configuration } from "../configuration";
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 @Injectable()
 export class UserMessageService {
-  protected basePath = "https://localhost:5001";
+  protected basePath = 'https://localhost:5001';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -53,7 +53,7 @@ export class UserMessageService {
    * @return true: consumes contains 'multipart/form-data', false: otherwise
    */
   private canConsumeForm(consumes: string[]): boolean {
-    const form = "multipart/form-data";
+    const form = 'multipart/form-data';
     for (const consume of consumes) {
       if (form === consume) {
         return true;
@@ -71,43 +71,43 @@ export class UserMessageService {
    */
   public userMessageDeleteUserMessage(
     id: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<UserMessage>;
   public userMessageDeleteUserMessage(
     id: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<UserMessage>>;
   public userMessageDeleteUserMessage(
     id: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<UserMessage>>;
   public userMessageDeleteUserMessage(
     id: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        "Required parameter id was null or undefined when calling userMessageDeleteUserMessage."
+        'Required parameter id was null or undefined when calling userMessageDeleteUserMessage.'
       );
     }
 
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+    const httpHeaderAccepts: string[] = [
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -117,9 +117,9 @@ export class UserMessageService {
       `${this.basePath}/api/UserMessage/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
+        headers,
+        observe,
+        reportProgress,
       }
     );
   }
@@ -133,43 +133,43 @@ export class UserMessageService {
    */
   public userMessageGetUserMessage(
     id: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<UserMessage>;
   public userMessageGetUserMessage(
     id: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<UserMessage>>;
   public userMessageGetUserMessage(
     id: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<UserMessage>>;
   public userMessageGetUserMessage(
     id: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        "Required parameter id was null or undefined when calling userMessageGetUserMessage."
+        'Required parameter id was null or undefined when calling userMessageGetUserMessage.'
       );
     }
 
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+    const httpHeaderAccepts: string[] = [
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -179,9 +179,9 @@ export class UserMessageService {
       `${this.basePath}/api/UserMessage/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
+        headers,
+        observe,
+        reportProgress,
       }
     );
   }
@@ -193,34 +193,34 @@ export class UserMessageService {
    * @param reportProgress flag to report request and response progress.
    */
   public userMessageGetUserMessageAll(
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<UserMessage>>;
   public userMessageGetUserMessageAll(
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<UserMessage>>>;
   public userMessageGetUserMessageAll(
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<UserMessage>>>;
   public userMessageGetUserMessageAll(
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+    const httpHeaderAccepts: string[] = [
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -230,9 +230,9 @@ export class UserMessageService {
       `${this.basePath}/api/UserMessage`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
+        headers,
+        observe,
+        reportProgress,
       }
     );
   }
@@ -246,57 +246,57 @@ export class UserMessageService {
    */
   public userMessagePostUserMessage(
     userMessage: UserMessage,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<UserMessage>;
   public userMessagePostUserMessage(
     userMessage: UserMessage,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<UserMessage>>;
   public userMessagePostUserMessage(
     userMessage: UserMessage,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<UserMessage>>;
   public userMessagePostUserMessage(
     userMessage: UserMessage,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (userMessage === null || userMessage === undefined) {
       throw new Error(
-        "Required parameter userMessage was null or undefined when calling userMessagePostUserMessage."
+        'Required parameter userMessage was null or undefined when calling userMessagePostUserMessage.'
       );
     }
 
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+    const httpHeaderAccepts: string[] = [
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [
-      "application/json-patch+json",
-      "application/json",
-      "text/json",
-      "application/_*+json",
+      'application/json-patch+json',
+      'application/json',
+      'text/json',
+      'application/_*+json',
     ];
     const httpContentTypeSelected:
       | string
       | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
-      headers = headers.set("Content-Type", httpContentTypeSelected);
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
     return this.httpClient.post<UserMessage>(
@@ -304,9 +304,9 @@ export class UserMessageService {
       userMessage,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
+        headers,
+        observe,
+        reportProgress,
       }
     );
   }
@@ -322,73 +322,73 @@ export class UserMessageService {
   public userMessagePutUserMessage(
     id: number,
     userMessage: UserMessage,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<Blob>;
   public userMessagePutUserMessage(
     id: number,
     userMessage: UserMessage,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Blob>>;
   public userMessagePutUserMessage(
     id: number,
     userMessage: UserMessage,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Blob>>;
   public userMessagePutUserMessage(
     id: number,
     userMessage: UserMessage,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        "Required parameter id was null or undefined when calling userMessagePutUserMessage."
+        'Required parameter id was null or undefined when calling userMessagePutUserMessage.'
       );
     }
 
     if (userMessage === null || userMessage === undefined) {
       throw new Error(
-        "Required parameter userMessage was null or undefined when calling userMessagePutUserMessage."
+        'Required parameter userMessage was null or undefined when calling userMessagePutUserMessage.'
       );
     }
 
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [];
+    const httpHeaderAccepts: string[] = [];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [
-      "application/json-patch+json",
-      "application/json",
-      "text/json",
-      "application/_*+json",
+      'application/json-patch+json',
+      'application/json',
+      'text/json',
+      'application/_*+json',
     ];
     const httpContentTypeSelected:
       | string
       | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
-      headers = headers.set("Content-Type", httpContentTypeSelected);
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
     return this.httpClient.put(
       `${this.basePath}/api/UserMessage/${encodeURIComponent(String(id))}`,
       userMessage,
       {
-        responseType: "blob",
+        responseType: 'blob',
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
+        headers,
+        observe,
+        reportProgress,
       }
     );
   }

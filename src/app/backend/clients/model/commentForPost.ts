@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { SlimUserResponse } from "./slimUserResponse";
+import { SlimUserResponse } from './slimUserResponse';
 
 export interface CommentForPost {
   commentId?: number;

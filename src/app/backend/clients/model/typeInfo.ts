@@ -9,22 +9,22 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Assembly } from "./assembly";
-import { ConstructorInfo } from "./constructorInfo";
-import { CustomAttributeData } from "./customAttributeData";
-import { EventInfo } from "./eventInfo";
-import { FieldInfo } from "./fieldInfo";
-import { GenericParameterAttributes } from "./genericParameterAttributes";
-import { MemberInfo } from "./memberInfo";
-import { MemberTypes } from "./memberTypes";
-import { MethodBase } from "./methodBase";
-import { MethodInfo } from "./methodInfo";
-import { Module } from "./module";
-import { PropertyInfo } from "./propertyInfo";
-import { RuntimeTypeHandle } from "./runtimeTypeHandle";
-import { StructLayoutAttribute } from "./structLayoutAttribute";
-import { Type } from "./type";
-import { TypeAttributes } from "./typeAttributes";
+import { Assembly } from './assembly';
+import { ConstructorInfo } from './constructorInfo';
+import { CustomAttributeData } from './customAttributeData';
+import { EventInfo } from './eventInfo';
+import { FieldInfo } from './fieldInfo';
+import { GenericParameterAttributes } from './genericParameterAttributes';
+import { MemberInfo } from './memberInfo';
+import { MemberTypes } from './memberTypes';
+import { MethodBase } from './methodBase';
+import { MethodInfo } from './methodInfo';
+import { Module } from './module';
+import { PropertyInfo } from './propertyInfo';
+import { RuntimeTypeHandle } from './runtimeTypeHandle';
+import { StructLayoutAttribute } from './structLayoutAttribute';
+import { Type } from './type';
+import { TypeAttributes } from './typeAttributes';
 
 export interface TypeInfo {
   readonly genericTypeParameters?: Array<Type>;

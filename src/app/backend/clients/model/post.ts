@@ -9,12 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Like } from "./like";
-import { PostComment } from "./postComment";
-import { PostTag } from "./postTag";
-import { PostType } from "./postType";
-import { PostUserLocation } from "./postUserLocation";
-import { User } from "./user";
+import { Like } from './like';
+import { PostComment } from './postComment';
+import { PostTag } from './postTag';
+import { PostType } from './postType';
+import { PostUserLocation } from './postUserLocation';
+import { User } from './user';
 
 export interface Post {
   postId?: number;

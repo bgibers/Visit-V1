@@ -1,8 +1,8 @@
-import { Injectable, NgZone } from "@angular/core";
+import { Injectable, NgZone } from '@angular/core';
 
-import { Router, CanActivate, ActivatedRouteSnapshot } from "@angular/router";
+import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 
-import firebase from "firebase/app";
+import firebase from 'firebase/app';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
 
           resolve(false);
           this.zone.run(() => {
-            this.router.navigate(["sign-in"]);
+            this.router.navigate(['sign-in']);
           });
         }
       });

@@ -9,8 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { IntPtr } from "./intPtr";
-import { SafeWaitHandle } from "./safeWaitHandle";
+import { IntPtr } from './intPtr';
+import { SafeWaitHandle } from './safeWaitHandle';
 
 export interface WaitHandle {
   handle?: IntPtr;

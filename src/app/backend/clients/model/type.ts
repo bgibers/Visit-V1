@@ -9,16 +9,16 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Assembly } from "./assembly";
-import { ConstructorInfo } from "./constructorInfo";
-import { CustomAttributeData } from "./customAttributeData";
-import { GenericParameterAttributes } from "./genericParameterAttributes";
-import { MemberTypes } from "./memberTypes";
-import { MethodBase } from "./methodBase";
-import { Module } from "./module";
-import { RuntimeTypeHandle } from "./runtimeTypeHandle";
-import { StructLayoutAttribute } from "./structLayoutAttribute";
-import { TypeAttributes } from "./typeAttributes";
+import { Assembly } from './assembly';
+import { ConstructorInfo } from './constructorInfo';
+import { CustomAttributeData } from './customAttributeData';
+import { GenericParameterAttributes } from './genericParameterAttributes';
+import { MemberTypes } from './memberTypes';
+import { MethodBase } from './methodBase';
+import { Module } from './module';
+import { RuntimeTypeHandle } from './runtimeTypeHandle';
+import { StructLayoutAttribute } from './structLayoutAttribute';
+import { TypeAttributes } from './typeAttributes';
 
 export interface Type {
   readonly isInterface?: boolean;

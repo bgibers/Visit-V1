@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { MethodBase } from "./methodBase";
+import { MethodBase } from './methodBase';
 
 export interface Exception {
   targetSite?: MethodBase;

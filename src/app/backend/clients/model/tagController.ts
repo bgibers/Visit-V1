@@ -9,18 +9,18 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ClaimsPrincipal } from "./claimsPrincipal";
-import { ControllerContext } from "./controllerContext";
-import { HttpContext } from "./httpContext";
-import { HttpRequest } from "./httpRequest";
-import { HttpResponse } from "./httpResponse";
-import { IModelBinderFactory } from "./iModelBinderFactory";
-import { IModelMetadataProvider } from "./iModelMetadataProvider";
-import { IObjectModelValidator } from "./iObjectModelValidator";
-import { IUrlHelper } from "./iUrlHelper";
-import { ModelStateEntry } from "./modelStateEntry";
-import { ProblemDetailsFactory } from "./problemDetailsFactory";
-import { RouteData } from "./routeData";
+import { ClaimsPrincipal } from './claimsPrincipal';
+import { ControllerContext } from './controllerContext';
+import { HttpContext } from './httpContext';
+import { HttpRequest } from './httpRequest';
+import { HttpResponse } from './httpResponse';
+import { IModelBinderFactory } from './iModelBinderFactory';
+import { IModelMetadataProvider } from './iModelMetadataProvider';
+import { IObjectModelValidator } from './iObjectModelValidator';
+import { IUrlHelper } from './iUrlHelper';
+import { ModelStateEntry } from './modelStateEntry';
+import { ProblemDetailsFactory } from './problemDetailsFactory';
+import { RouteData } from './routeData';
 
 export interface TagController {
   httpContext?: HttpContext;

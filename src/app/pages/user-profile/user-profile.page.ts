@@ -57,16 +57,16 @@ export class UserProfilePage {
     if (this.userId === undefined) {
       this.userId = this.accountService.getUserId();
     }
-  
+
     this.zone.run(() => {
       this.getUser(loading).subscribe(() => {
-        loading.dismiss()
-      })
-    })
+        loading.dismiss();
+      });
+    });
 
   }
 
-  getUser(loading: HTMLIonLoadingElement) : Observable<any> {
+  getUser(loading: HTMLIonLoadingElement): Observable<any> {
     return this.userService.userIdGet(this.userId).pipe(map(user => {
       if (this.accountService.getUserId() === this.userId) {
         this.canEditProfile = true;
@@ -84,14 +84,14 @@ export class UserProfilePage {
         if (location.status === 'toVisit') {
           this.toVisitCount++;
         } else {
-          if(location.fkLocation.locationCountry === 'United State of America') {
+          if (location.fkLocation.locationCountry === 'United State of America') {
 
           }
           this.visitedCount++;
         }
       });
-      var countryCount = this.visitedCount - usVisitedCount;
-      
+      const countryCount = this.visitedCount - usVisitedCount;
+
       this.visitedPercent = ((countryCount / 405) + (usVisitedCount / 355)) * 100;
     }));
   }

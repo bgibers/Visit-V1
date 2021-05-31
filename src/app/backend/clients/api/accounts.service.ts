@@ -12,35 +12,35 @@
 /* tslint:disable:no-unused-variable member-ordering */
 // tslint:disable: max-line-length
 // tslint:disable: import-spacing
-import { Inject, Injectable, NgZone, Optional } from "@angular/core";
+import { Inject, Injectable, NgZone, Optional } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
   HttpParams,
   HttpResponse,
   HttpEvent,
-} from "@angular/common/http";
-import { CustomHttpUrlEncodingCodec } from "../encoder";
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
-import { Observable, BehaviorSubject, from } from "rxjs";
-import { take } from "rxjs/operators";
-import { RegisterRequest } from "../model/registerRequest";
+import { Observable, BehaviorSubject, from } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { RegisterRequest } from '../model/registerRequest';
 
-import { Configuration } from "../configuration";
-import { MarkLocationsRequest } from "../model/markLocationsRequest";
-import { BASE_PATH } from "src/environments/environment";
-import { AngularFireAuth } from "@angular/fire/auth";
-import firebase from "firebase/app";
-import { Storage } from "@ionic/storage";
-import { Router } from "@angular/router";
-import { Capacitor } from "@capacitor/core";
+import { Configuration } from '../configuration';
+import { MarkLocationsRequest } from '../model/markLocationsRequest';
+import { BASE_PATH } from 'src/environments/environment';
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
+import { Capacitor } from '@capacitor/core';
 
-export const InterceptorSkipHeader = "X-Skip-Interceptor";
+export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
 export class AccountsService {
   protected basePath = BASE_PATH;
-  public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, "");
+  public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, '');
   public configuration = new Configuration();
   public authSubject = new BehaviorSubject(false);
   public userData: any;
@@ -64,10 +64,10 @@ export class AccountsService {
 
     this.ngFireAuth.authState.subscribe((user) => {
       if (user) {
-        localStorage.setItem("user", JSON.stringify(user));
-        JSON.parse(localStorage.getItem("user"));
+        localStorage.setItem('user', JSON.stringify(user));
+        JSON.parse(localStorage.getItem('user'));
         this.getFcmToken().subscribe((token) => {
-          console.log("FCM:" + token);
+          console.log('FCM:' + token);
           this.accountUpdateFcmDeviceIdPost(token)
             .pipe(take(1))
             .subscribe(
@@ -78,23 +78,23 @@ export class AccountsService {
             );
         });
       } else {
-        localStorage.setItem("user", null);
-        JSON.parse(localStorage.getItem("user"));
+        localStorage.setItem('user', null);
+        JSON.parse(localStorage.getItem('user'));
       }
     });
   }
 
   public async logout() {
     return this.ngFireAuth.signOut().then(() => {
-      localStorage.removeItem("user");
+      localStorage.removeItem('user');
       this.zone.run(() => {
-        this.router.navigate(["sign-in"]);
+        this.router.navigate(['sign-in']);
       });
     });
   }
 
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem('user'));
     return user !== null && user.emailVerified !== false ? true : false;
   }
 
@@ -105,13 +105,13 @@ export class AccountsService {
       .currentUser.sendEmailVerification()
       .then(() => {
         this.zone.run(() => {
-          this.router.navigate(["verify-email"]);
+          this.router.navigate(['verify-email']);
         });
       });
   }
 
   get isEmailVerified(): boolean {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem('user'));
     return user.emailVerified !== false ? true : false;
   }
 
@@ -122,7 +122,7 @@ export class AccountsService {
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
         window.alert(
-          "Password reset email has been sent, please check your inbox."
+          'Password reset email has been sent, please check your inbox.'
         );
       })
       .catch((error) => {
@@ -134,7 +134,7 @@ export class AccountsService {
     try {
       return await firebase.auth().currentUser.getIdToken();
     } catch {
-      return "";
+      return '';
     }
   }
 
@@ -204,60 +204,60 @@ export class AccountsService {
   }
 
   public getFcmToken() {
-    return from(this.storage.get("fcm"));
+    return from(this.storage.get('fcm'));
   }
 
   public setFcmToken(token) {
-    return from(this.storage.set("fcm", token));
+    return from(this.storage.set('fcm', token));
   }
 
   public accountEmailTakenGet(
     email?: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
   public accountEmailTakenGet(
     email?: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
   public accountEmailTakenGet(
     email?: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
   public accountEmailTakenGet(
     email?: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let queryParameters = new HttpParams({
       encoder: new CustomHttpUrlEncodingCodec(),
     });
     if (email !== undefined && email !== null) {
-      queryParameters = queryParameters.set("email", email as string);
+      queryParameters = queryParameters.set('email', email as string);
     }
 
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<boolean>(
-      "get",
+      'get',
       `${this.basePath}/account/email_taken`,
       {
         params: queryParameters,
@@ -271,27 +271,27 @@ export class AccountsService {
 
   public accountUpdateFcmDeviceIdPost(
     deviceId: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
   public accountUpdateFcmDeviceIdPost(
     deviceId: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
   public accountUpdateFcmDeviceIdPost(
     deviceId: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
   public accountUpdateFcmDeviceIdPost(
     deviceId: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (deviceId === null || deviceId === undefined) {
       throw new Error(
-        "Required parameter deviceId was null or undefined when calling accountUpdateFcmDeviceIdPost."
+        'Required parameter deviceId was null or undefined when calling accountUpdateFcmDeviceIdPost.'
       );
     }
 
@@ -300,40 +300,40 @@ export class AccountsService {
     // authentication (Bearer) required
     if (
       this.configuration.apiKeys &&
-      this.configuration.apiKeys["Authorization"]
+      this.configuration.apiKeys.Authorization
     ) {
       headers = headers.set(
-        "Authorization",
-        this.configuration.apiKeys["Authorization"]
+        'Authorization',
+        this.configuration.apiKeys.Authorization
       );
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+    const httpHeaderAccepts: string[] = [
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<boolean>(
-      "post",
+      'post',
       `${this.basePath}/account/update/fcm/${encodeURIComponent(
         String(deviceId)
       )}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
+        headers,
+        observe,
+        reportProgress,
       }
     );
   }
@@ -341,7 +341,7 @@ export class AccountsService {
   public accountRegisterPostForm(
     body?: RegisterRequest,
     blob?: Blob,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<string> {
     // public accountRegisterPostForm(body?: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
@@ -352,22 +352,22 @@ export class AccountsService {
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
-    const consumes: string[] = ["multipart/form-data"];
+    const consumes: string[] = ['multipart/form-data'];
 
     return this.httpClient.request<string>(
-      "post",
+      'post',
       `${this.basePath}/account/register`,
       {
         body,
@@ -386,55 +386,55 @@ export class AccountsService {
    */
   public accountUpdateLocationsPost(
     body?: MarkLocationsRequest,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
   public accountUpdateLocationsPost(
     body?: MarkLocationsRequest,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
   public accountUpdateLocationsPost(
     body?: MarkLocationsRequest,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
   public accountUpdateLocationsPost(
     body?: MarkLocationsRequest,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [
-      "application/json-patch+json",
-      "application/json",
-      "text/json",
-      "application/_*+json",
+      'application/json-patch+json',
+      'application/json',
+      'text/json',
+      'application/_*+json',
     ];
     const httpContentTypeSelected:
       | string
       | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected !== undefined) {
-      headers = headers.set("Content-Type", httpContentTypeSelected);
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
     return this.httpClient.request<boolean>(
-      "post",
+      'post',
       `${this.basePath}/account/update/locations`,
       {
         body,
@@ -453,52 +453,52 @@ export class AccountsService {
    */
   public accountUpdateProfileImagePost(
     blob?: Blob,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
   public accountUpdateProfileImagePost(
     blob?: Blob,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
   public accountUpdateProfileImagePost(
     blob?: Blob,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
   public accountUpdateProfileImagePost(
     blob?: Blob,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [
-      "application/json-patch+json",
-      "application/json",
-      "text/json",
-      "application/_*+json",
+      'application/json-patch+json',
+      'application/json',
+      'text/json',
+      'application/_*+json',
     ];
 
     const body = new FormData();
-    body.append("image", blob);
+    body.append('image', blob);
 
     return this.httpClient.request<boolean>(
-      "post",
+      'post',
       `${this.basePath}/account/update/profile_image`,
       {
         body,
@@ -517,7 +517,7 @@ export class AccountsService {
     education?: string,
     birthLocation?: string,
     residenceLocation?: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
   public accountUpdatePost(
@@ -527,7 +527,7 @@ export class AccountsService {
     education?: string,
     birthLocation?: string,
     residenceLocation?: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
   public accountUpdatePost(
@@ -537,7 +537,7 @@ export class AccountsService {
     education?: string,
     birthLocation?: string,
     residenceLocation?: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
   public accountUpdatePost(
@@ -547,33 +547,33 @@ export class AccountsService {
     education?: string,
     birthLocation?: string,
     residenceLocation?: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let queryParameters = new HttpParams({
       encoder: new CustomHttpUrlEncodingCodec(),
     });
     if (firstname !== undefined && firstname !== null) {
-      queryParameters = queryParameters.set("Firstname", firstname as any);
+      queryParameters = queryParameters.set('Firstname', firstname as any);
     }
     if (lastname !== undefined && lastname !== null) {
-      queryParameters = queryParameters.set("Lastname", lastname as any);
+      queryParameters = queryParameters.set('Lastname', lastname as any);
     }
     if (title !== undefined && title !== null) {
-      queryParameters = queryParameters.set("Title", title as any);
+      queryParameters = queryParameters.set('Title', title as any);
     }
     if (education !== undefined && education !== null) {
-      queryParameters = queryParameters.set("Education", education as any);
+      queryParameters = queryParameters.set('Education', education as any);
     }
     if (birthLocation !== undefined && birthLocation !== null) {
       queryParameters = queryParameters.set(
-        "BirthLocation",
+        'BirthLocation',
         birthLocation as any
       );
     }
     if (residenceLocation !== undefined && residenceLocation !== null) {
       queryParameters = queryParameters.set(
-        "ResidenceLocation",
+        'ResidenceLocation',
         residenceLocation as any
       );
     }
@@ -582,22 +582,22 @@ export class AccountsService {
 
     // to determine the Accept header
     const httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected !== undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<boolean>(
-      "post",
+      'post',
       `${this.basePath}/account/update`,
       {
         params: queryParameters,

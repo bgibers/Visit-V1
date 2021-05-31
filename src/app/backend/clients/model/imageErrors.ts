@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { IdentityError } from "./identityError";
+import { IdentityError } from './identityError';
 
 export interface ImageErrors {
   identityErrors?: Array<IdentityError>;

@@ -1,10 +1,10 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { IonicModule } from "@ionic/angular";
-import { ExploreContainerComponentModule } from "../explore-container/explore-container.module";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
+import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { NewsFeedPage } from "./news-feed.page";
+import { NewsFeedPage } from './news-feed.page';
 
-describe("NewsFeedPage", () => {
+describe('NewsFeedPage', () => {
   let component: NewsFeedPage;
   let fixture: ComponentFixture<NewsFeedPage>;
 
@@ -19,7 +19,7 @@ describe("NewsFeedPage", () => {
     fixture.detectChanges();
   }));
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

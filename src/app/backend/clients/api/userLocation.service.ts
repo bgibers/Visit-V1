@@ -11,26 +11,26 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from "@angular/core";
+import { Inject, Injectable, Optional } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
   HttpParams,
   HttpResponse,
   HttpEvent,
-} from "@angular/common/http";
-import { CustomHttpUrlEncodingCodec } from "../encoder";
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { UserLocation } from "../model/userLocation";
+import { UserLocation } from '../model/userLocation';
 
-import { BASE_PATH, COLLECTION_FORMATS } from "../variables";
-import { Configuration } from "../configuration";
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 @Injectable()
 export class UserLocationService {
-  protected basePath = "https://localhost:5001";
+  protected basePath = 'https://localhost:5001';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -53,7 +53,7 @@ export class UserLocationService {
    * @return true: consumes contains 'multipart/form-data', false: otherwise
    */
   private canConsumeForm(consumes: string[]): boolean {
-    const form = "multipart/form-data";
+    const form = 'multipart/form-data';
     for (const consume of consumes) {
       if (form === consume) {
         return true;
@@ -71,43 +71,43 @@ export class UserLocationService {
    */
   public userLocationDeleteUserLocation(
     id: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<UserLocation>;
   public userLocationDeleteUserLocation(
     id: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<UserLocation>>;
   public userLocationDeleteUserLocation(
     id: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<UserLocation>>;
   public userLocationDeleteUserLocation(
     id: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        "Required parameter id was null or undefined when calling userLocationDeleteUserLocation."
+        'Required parameter id was null or undefined when calling userLocationDeleteUserLocation.'
       );
     }
 
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+    const httpHeaderAccepts: string[] = [
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -117,9 +117,9 @@ export class UserLocationService {
       `${this.basePath}/api/UserLocation/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
+        headers,
+        observe,
+        reportProgress,
       }
     );
   }
@@ -133,43 +133,43 @@ export class UserLocationService {
    */
   public userLocationGetUserLocation(
     id: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<UserLocation>;
   public userLocationGetUserLocation(
     id: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<UserLocation>>;
   public userLocationGetUserLocation(
     id: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<UserLocation>>;
   public userLocationGetUserLocation(
     id: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        "Required parameter id was null or undefined when calling userLocationGetUserLocation."
+        'Required parameter id was null or undefined when calling userLocationGetUserLocation.'
       );
     }
 
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+    const httpHeaderAccepts: string[] = [
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -179,9 +179,9 @@ export class UserLocationService {
       `${this.basePath}/api/UserLocation/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
+        headers,
+        observe,
+        reportProgress,
       }
     );
   }
@@ -193,34 +193,34 @@ export class UserLocationService {
    * @param reportProgress flag to report request and response progress.
    */
   public userLocationGetUserLocationAll(
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<UserLocation>>;
   public userLocationGetUserLocationAll(
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<UserLocation>>>;
   public userLocationGetUserLocationAll(
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<UserLocation>>>;
   public userLocationGetUserLocationAll(
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+    const httpHeaderAccepts: string[] = [
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -230,9 +230,9 @@ export class UserLocationService {
       `${this.basePath}/api/UserLocation`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
+        headers,
+        observe,
+        reportProgress,
       }
     );
   }
@@ -246,57 +246,57 @@ export class UserLocationService {
    */
   public userLocationPostUserLocation(
     userLocation: UserLocation,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<UserLocation>;
   public userLocationPostUserLocation(
     userLocation: UserLocation,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<UserLocation>>;
   public userLocationPostUserLocation(
     userLocation: UserLocation,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<UserLocation>>;
   public userLocationPostUserLocation(
     userLocation: UserLocation,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (userLocation === null || userLocation === undefined) {
       throw new Error(
-        "Required parameter userLocation was null or undefined when calling userLocationPostUserLocation."
+        'Required parameter userLocation was null or undefined when calling userLocationPostUserLocation.'
       );
     }
 
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      "text/plain",
-      "application/json",
-      "text/json",
+    const httpHeaderAccepts: string[] = [
+      'text/plain',
+      'application/json',
+      'text/json',
     ];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [
-      "application/json-patch+json",
-      "application/json",
-      "text/json",
-      "application/_*+json",
+      'application/json-patch+json',
+      'application/json',
+      'text/json',
+      'application/_*+json',
     ];
     const httpContentTypeSelected:
       | string
       | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
-      headers = headers.set("Content-Type", httpContentTypeSelected);
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
     return this.httpClient.post<UserLocation>(
@@ -304,9 +304,9 @@ export class UserLocationService {
       userLocation,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
+        headers,
+        observe,
+        reportProgress,
       }
     );
   }
@@ -322,73 +322,73 @@ export class UserLocationService {
   public userLocationPutUserLocation(
     id: number,
     userLocation: UserLocation,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<Blob>;
   public userLocationPutUserLocation(
     id: number,
     userLocation: UserLocation,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Blob>>;
   public userLocationPutUserLocation(
     id: number,
     userLocation: UserLocation,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Blob>>;
   public userLocationPutUserLocation(
     id: number,
     userLocation: UserLocation,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        "Required parameter id was null or undefined when calling userLocationPutUserLocation."
+        'Required parameter id was null or undefined when calling userLocationPutUserLocation.'
       );
     }
 
     if (userLocation === null || userLocation === undefined) {
       throw new Error(
-        "Required parameter userLocation was null or undefined when calling userLocationPutUserLocation."
+        'Required parameter userLocation was null or undefined when calling userLocationPutUserLocation.'
       );
     }
 
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [];
+    const httpHeaderAccepts: string[] = [];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [
-      "application/json-patch+json",
-      "application/json",
-      "text/json",
-      "application/_*+json",
+      'application/json-patch+json',
+      'application/json',
+      'text/json',
+      'application/_*+json',
     ];
     const httpContentTypeSelected:
       | string
       | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
-      headers = headers.set("Content-Type", httpContentTypeSelected);
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
     return this.httpClient.put(
       `${this.basePath}/api/UserLocation/${encodeURIComponent(String(id))}`,
       userLocation,
       {
-        responseType: "blob",
+        responseType: 'blob',
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
+        headers,
+        observe,
+        reportProgress,
       }
     );
   }

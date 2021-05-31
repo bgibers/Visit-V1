@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { IonicModule } from "@ionic/angular";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
 
-import { MapFilterPage } from "./map-filter.page";
+import { MapFilterPage } from './map-filter.page';
 
-describe("MapFilterPage", () => {
+describe('MapFilterPage', () => {
   let component: MapFilterPage;
   let fixture: ComponentFixture<MapFilterPage>;
 
@@ -18,7 +18,7 @@ describe("MapFilterPage", () => {
     fixture.detectChanges();
   }));
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

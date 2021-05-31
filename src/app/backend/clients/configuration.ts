@@ -36,7 +36,7 @@ export class Configuration {
       return undefined;
     }
 
-    let type = contentTypes.find((x) => this.isJsonMime(x));
+    const type = contentTypes.find((x) => this.isJsonMime(x));
     if (type === undefined) {
       return contentTypes[0];
     }
@@ -55,7 +55,7 @@ export class Configuration {
       return undefined;
     }
 
-    let type = accepts.find((x) => this.isJsonMime(x));
+    const type = accepts.find((x) => this.isJsonMime(x));
     if (type === undefined) {
       return accepts[0];
     }
@@ -74,13 +74,13 @@ export class Configuration {
    */
   public isJsonMime(mime: string): boolean {
     const jsonMime: RegExp = new RegExp(
-      "^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$",
-      "i"
+      '^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$',
+      'i'
     );
     return (
       mime != null &&
       (jsonMime.test(mime) ||
-        mime.toLowerCase() === "application/json-patch+json")
+        mime.toLowerCase() === 'application/json-patch+json')
     );
   }
 }

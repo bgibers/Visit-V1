@@ -1,46 +1,46 @@
-import { Component, NgZone, OnInit } from "@angular/core";
+import { Component, NgZone, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
   Validators,
   FormBuilder,
-} from "@angular/forms";
-import { Router, NavigationExtras, ActivatedRoute } from "@angular/router";
-import { Camera, CameraResultType, Photo } from "@capacitor/camera";
+} from '@angular/forms';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { Camera, CameraResultType, Photo } from '@capacitor/camera';
 
-import * as moment from "moment";
-import { AccountsService, RegisterRequest } from "src/app/backend/clients";
-import { mergeMap, take } from "rxjs/operators";
-import { LoadingController } from "@ionic/angular";
+import * as moment from 'moment';
+import { AccountsService, RegisterRequest } from 'src/app/backend/clients';
+import { mergeMap, take } from 'rxjs/operators';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
-  selector: "post-register-about",
-  templateUrl: "./post-register-about.page.html",
-  styleUrls: ["./post-register-about.page.scss"],
+  selector: 'post-register-about',
+  templateUrl: './post-register-about.page.html',
+  styleUrls: ['./post-register-about.page.scss'],
 })
 export class PostRegisterAboutPage implements OnInit {
-  minDate = moment().subtract(100, "y").format();
-  maxDate = moment().subtract(16, "y").format();
-  userImage = "../../../assets/UI/profilePicUpload.svg";
+  minDate = moment().subtract(100, 'y').format();
+  maxDate = moment().subtract(16, 'y').format();
+  userImage = '../../../assets/UI/profilePicUpload.svg';
   aboutForm: FormGroup;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   hasError = false;
-  error = "";
+  error = '';
   image: Photo;
   blob: Blob;
 
   validationMessages = {
     birthday: [
-      { type: "required", message: "Birthday is required." },
-      { type: "pattern", message: "Please enter a valid birthday." },
+      { type: 'required', message: 'Birthday is required.' },
+      { type: 'pattern', message: 'Please enter a valid birthday.' },
     ],
-    birthPlace: [{ type: "required", message: "Birthplace is required." }],
-    residence: [{ type: "required", message: "Residence is required." }],
-    education: [{ type: "required", message: "Please select a valid option" }],
-    title: [{ type: "required", message: "A useful title is required" }],
+    birthPlace: [{ type: 'required', message: 'Birthplace is required.' }],
+    residence: [{ type: 'required', message: 'Residence is required.' }],
+    education: [{ type: 'required', message: 'Please select a valid option' }],
+    title: [{ type: 'required', message: 'A useful title is required' }],
   };
   constructor(
     public router: Router,
@@ -62,10 +62,10 @@ export class PostRegisterAboutPage implements OnInit {
 
   ngOnInit() {
     const birthday = new FormControl(new Date(), Validators.required);
-    const birthPlace = new FormControl("", Validators.required);
-    const residence = new FormControl("", Validators.required);
-    const education = new FormControl("", Validators.required);
-    const title = new FormControl("", Validators.required);
+    const birthPlace = new FormControl('', Validators.required);
+    const residence = new FormControl('', Validators.required);
+    const education = new FormControl('', Validators.required);
+    const title = new FormControl('', Validators.required);
     this.aboutForm = new FormGroup({
       birthday,
       birthPlace,
@@ -113,7 +113,7 @@ export class PostRegisterAboutPage implements OnInit {
         },
         (error) => {
           this.hasError = true;
-          this.error = "Unable to register user. Please try again";
+          this.error = 'Unable to register user. Please try again';
         }
       );
   }
@@ -129,7 +129,7 @@ export class PostRegisterAboutPage implements OnInit {
       .subscribe((res) => {
         this.zone.run(() => {
           this.router.navigateByUrl(
-            "/post-register-locations",
+            '/post-register-locations',
             navigationExtras
           );
         });
@@ -137,14 +137,14 @@ export class PostRegisterAboutPage implements OnInit {
   }
 
   b64toBlob(dataURI) {
-    const byteString = atob(dataURI.split(",")[1]);
+    const byteString = atob(dataURI.split(',')[1]);
     const ab = new ArrayBuffer(byteString.length);
     const ia = new Uint8Array(ab);
 
     for (let i = 0; i < byteString.length; i++) {
       ia[i] = byteString.charCodeAt(i);
     }
-    this.blob = new Blob([ab], { type: "image/jpeg" });
+    this.blob = new Blob([ab], { type: 'image/jpeg' });
   }
 
   async getUserImage() {

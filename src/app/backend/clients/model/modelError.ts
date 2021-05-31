@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Exception } from "./exception";
+import { Exception } from './exception';
 
 export interface ModelError {
   exception?: Exception;

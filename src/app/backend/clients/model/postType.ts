@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Post } from "./post";
+import { Post } from './post';
 
 export interface PostType {
   postTypeId?: number;

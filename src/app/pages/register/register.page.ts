@@ -92,13 +92,13 @@ export class RegisterPage implements OnInit {
         };
         this.zone.run(() => {
           this.router.navigateByUrl('/post-register-about', navigationExtras);
-        })
+        });
       } else {
         this.hasError = true;
         this.error = 'An account with this email is already registered.';
       }
     }, error => {
-      console.log(error)
+      console.log(error);
       this.hasError = true;
       this.error = 'An unexpected error has occurred.';
     });

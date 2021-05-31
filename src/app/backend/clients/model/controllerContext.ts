@@ -9,11 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ActionDescriptor } from "./actionDescriptor";
-import { HttpContext } from "./httpContext";
-import { IValueProviderFactory } from "./iValueProviderFactory";
-import { ModelStateEntry } from "./modelStateEntry";
-import { RouteData } from "./routeData";
+import { ActionDescriptor } from './actionDescriptor';
+import { HttpContext } from './httpContext';
+import { IValueProviderFactory } from './iValueProviderFactory';
+import { ModelStateEntry } from './modelStateEntry';
+import { RouteData } from './routeData';
 
 export interface ControllerContext {
   actionDescriptor?: ActionDescriptor;

@@ -1,15 +1,15 @@
-import { Component, NgZone, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
-import { UserService } from "src/app/backend/clients";
-import { take } from "rxjs/operators";
-import { BehaviorSubject } from "rxjs";
-import { SlimUserResponse } from "src/app/backend/clients/model/slimUserResponse";
-import { NavigationExtras, Router } from "@angular/router";
+import { Component, NgZone, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { UserService } from 'src/app/backend/clients';
+import { take } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { SlimUserResponse } from 'src/app/backend/clients/model/slimUserResponse';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
-  selector: "search",
-  templateUrl: "./search.page.html",
-  styleUrls: ["./search.page.scss"],
+  selector: 'search',
+  templateUrl: './search.page.html',
+  styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
   constructor(
@@ -20,7 +20,7 @@ export class SearchPage implements OnInit {
   ) {}
 
   people: BehaviorSubject<SlimUserResponse[]> = new BehaviorSubject([]);
-  searchQuery = "";
+  searchQuery = '';
 
   ngOnInit() {}
 
@@ -44,7 +44,7 @@ export class SearchPage implements OnInit {
     const onClosedData = user.id;
     this.viewCtrl.dismiss(onClosedData);
     this.zone.run(() => {
-      this.router.navigateByUrl("/user-profile", navigationExtras);
+      this.router.navigateByUrl('/user-profile', navigationExtras);
     });
   }
 

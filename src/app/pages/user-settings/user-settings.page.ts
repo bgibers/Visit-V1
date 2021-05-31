@@ -1,30 +1,31 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
-  FormBuilder,
   FormControl,
-  Validators,
-} from "@angular/forms";
-import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
-import { Photo, Camera, CameraResultType } from "@capacitor/camera";
-import { LoadingController, ModalController, NavParams } from "@ionic/angular";
-import { take } from "rxjs/operators";
+} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Photo, Camera, CameraResultType } from '@capacitor/camera';
+import { LoadingController, ModalController, NavParams } from '@ionic/angular';
+import { take } from 'rxjs/operators';
 import {
   AccountsService,
-  RegisterRequest,
   UserResponse,
-} from "src/app/backend/clients";
+} from 'src/app/backend/clients';
 
 @Component({
-  selector: "app-user-settings",
-  templateUrl: "./user-settings.page.html",
-  styleUrls: ["./user-settings.page.scss"],
+  selector: 'app-user-settings',
+  templateUrl: './user-settings.page.html',
+  styleUrls: ['./user-settings.page.scss'],
 })
 export class UserSettingsPage implements OnInit {
-  userImage = "../../../assets/UI/profilePicUpload.svg";
+  userImage = '../../../assets/UI/profilePicUpload.svg';
+
   aboutForm: FormGroup;
+
   image: Photo;
+
   blob: Blob = undefined;
+
   user: UserResponse;
 
   constructor(
@@ -32,17 +33,17 @@ export class UserSettingsPage implements OnInit {
     private route: ActivatedRoute,
     private navParams: NavParams,
     private modalController: ModalController,
-    private accountService: AccountsService
+    private accountService: AccountsService,
   ) {
     this.user = this.navParams.data.user;
     this.userImage = this.user.avi;
   }
 
   ngOnInit() {
-    const birthPlace = new FormControl("");
-    const residence = new FormControl("");
-    const education = new FormControl("");
-    const title = new FormControl("");
+    const birthPlace = new FormControl('');
+    const residence = new FormControl('');
+    const education = new FormControl('');
+    const title = new FormControl('');
     this.aboutForm = new FormGroup({
       birthPlace,
       residence,
@@ -57,22 +58,18 @@ export class UserSettingsPage implements OnInit {
     });
     await loading.present();
 
-    var title =
-      this.aboutForm.controls.title.value === ""
-        ? this.user.title
-        : this.aboutForm.controls.title.value;
-    var education =
-      this.aboutForm.controls.education.value === ""
-        ? this.user.education
-        : this.aboutForm.controls.education.value;
-    var birthPlace =
-      this.aboutForm.controls.birthPlace.value === ""
-        ? this.user.birthLocation
-        : this.aboutForm.controls.birthPlace.value;
-    var residence =
-      this.aboutForm.controls.residence.value === ""
-        ? this.user.residenceLocation
-        : this.aboutForm.controls.residence.value;
+    const title = this.aboutForm.controls.title.value === ''
+      ? this.user.title
+      : this.aboutForm.controls.title.value;
+    const education = this.aboutForm.controls.education.value === ''
+      ? this.user.education
+      : this.aboutForm.controls.education.value;
+    const birthPlace = this.aboutForm.controls.birthPlace.value === ''
+      ? this.user.birthLocation
+      : this.aboutForm.controls.birthPlace.value;
+    const residence = this.aboutForm.controls.residence.value === ''
+      ? this.user.residenceLocation
+      : this.aboutForm.controls.residence.value;
 
     // todo create a forkjoin or something here to make these run together
     this.accountService
@@ -82,15 +79,15 @@ export class UserSettingsPage implements OnInit {
         title,
         education,
         birthPlace,
-        residence
+        residence,
       )
       .pipe(take(1))
-      .subscribe(async (res) => {
+      .subscribe(async () => {
         if (this.blob !== undefined) {
           this.accountService
             .accountUpdateProfileImagePost(this.blob)
             .pipe(take(1))
-            .subscribe((res) => {});
+            .subscribe(() => {});
         }
         await loading.dismiss();
         this.dismiss();
@@ -98,14 +95,14 @@ export class UserSettingsPage implements OnInit {
   }
 
   b64toBlob(dataURI) {
-    const byteString = atob(dataURI.split(",")[1]);
+    const byteString = atob(dataURI.split(',')[1]);
     const ab = new ArrayBuffer(byteString.length);
     const ia = new Uint8Array(ab);
 
-    for (let i = 0; i < byteString.length; i++) {
+    for (let i = 0; i < byteString.length; i += 1) {
       ia[i] = byteString.charCodeAt(i);
     }
-    this.blob = new Blob([ab], { type: "image/jpeg" });
+    this.blob = new Blob([ab], { type: 'image/jpeg' });
   }
 
   async getUserImage() {

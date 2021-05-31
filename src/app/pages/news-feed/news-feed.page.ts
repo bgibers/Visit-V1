@@ -4,26 +4,26 @@ import {
   NgZone,
   OnInit,
   ViewChild,
-} from "@angular/core";
+} from '@angular/core';
 import {
   IonInfiniteScroll,
   IonRefresher,
   LoadingController,
   ModalController,
-} from "@ionic/angular";
-import { SearchPage } from "../modals/search/search.page";
-import { MapFilterPage } from "../modals/map-filter/map-filter.page";
-import { Router, NavigationExtras } from "@angular/router";
-import { AccountsService } from "../../backend/clients/api/accounts.service";
-import { PostService } from "src/app/backend/clients";
-import { PostApi } from "src/app/backend/clients/model/postApi";
-import { take } from "rxjs/operators";
-import { from } from "rxjs";
+} from '@ionic/angular';
+import { SearchPage } from '../modals/search/search.page';
+import { MapFilterPage } from '../modals/map-filter/map-filter.page';
+import { Router, NavigationExtras } from '@angular/router';
+import { AccountsService } from '../../backend/clients/api/accounts.service';
+import { PostService } from 'src/app/backend/clients';
+import { PostApi } from 'src/app/backend/clients/model/postApi';
+import { take } from 'rxjs/operators';
+import { from } from 'rxjs';
 
 @Component({
-  selector: "news-feed",
-  templateUrl: "news-feed.page.html",
-  styleUrls: ["news-feed.page.scss"],
+  selector: 'news-feed',
+  templateUrl: 'news-feed.page.html',
+  styleUrls: ['news-feed.page.scss'],
 })
 export class NewsFeedPage {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
@@ -31,8 +31,8 @@ export class NewsFeedPage {
   posts: PostApi[] = [];
   pageNumber = 1;
   morePages = false;
-  filter = "";
-  selectedUserId = "";
+  filter = '';
+  selectedUserId = '';
 
   constructor(
     public modalController: ModalController,
@@ -87,14 +87,14 @@ export class NewsFeedPage {
               if (this.posts.length === 0) {
                 this.posts = [];
               } else {
-                let oldposts = this.posts;
+                const oldposts = this.posts;
                 this.posts = [];
-                let oldResLen = oldposts.length;
+                const oldResLen = oldposts.length;
                 for (let i = 0; i < oldResLen; i++) {
                   this.posts.push(oldposts[i]);
                 }
               }
-              let resLen = res.items.length;
+              const resLen = res.items.length;
               for (let i = 0; i < resLen; i++) {
                 this.posts.push(res.items[i]);
               }
@@ -102,18 +102,18 @@ export class NewsFeedPage {
                 event.target.complete();
               }
               this.refresh();
-              resolve("done");
+              resolve('done');
             },
             async (err) => {
               console.log(err);
               if (err.status === 401) {
                 await this.accountService.logout();
-                resolve("done");
+                resolve('done');
               }
             }
           );
       } else {
-        resolve("done");
+        resolve('done');
         this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
       }
     });
@@ -146,7 +146,7 @@ export class NewsFeedPage {
       component: SearchPage,
       componentProps: {},
       showBackdrop: true,
-      cssClass: "search-modal",
+      cssClass: 'search-modal',
     });
     return await modal.present();
   }
@@ -160,7 +160,7 @@ export class NewsFeedPage {
       },
     };
     this.zone.run(() => {
-      this.router.navigateByUrl("/user-profile", navigationExtras);
+      this.router.navigateByUrl('/user-profile', navigationExtras);
     });
   }
 
@@ -168,7 +168,7 @@ export class NewsFeedPage {
     const modal = await this.modalController.create({
       component: MapFilterPage,
       showBackdrop: true,
-      cssClass: "filter-modal",
+      cssClass: 'filter-modal',
       componentProps: {
         filter: this.filter,
       },

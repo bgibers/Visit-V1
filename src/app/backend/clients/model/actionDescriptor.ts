@@ -9,10 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { AttributeRouteInfo } from "./attributeRouteInfo";
-import { FilterDescriptor } from "./filterDescriptor";
-import { IActionConstraintMetadata } from "./iActionConstraintMetadata";
-import { ParameterDescriptor } from "./parameterDescriptor";
+import { AttributeRouteInfo } from './attributeRouteInfo';
+import { FilterDescriptor } from './filterDescriptor';
+import { IActionConstraintMetadata } from './iActionConstraintMetadata';
+import { ParameterDescriptor } from './parameterDescriptor';
 
 export interface ActionDescriptor {
   displayName?: string;

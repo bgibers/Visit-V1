@@ -12,25 +12,25 @@
 
 // tslint:disable: max-line-length
 // tslint:disable: import-spacing
-import { Inject, Injectable, Optional } from "@angular/core";
+import { Inject, Injectable, Optional } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
   HttpParams,
   HttpResponse,
   HttpEvent,
-} from "@angular/common/http";
-import { Observable } from "rxjs";
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-import { BASE_PATH } from "src/environments/environment";
+import { BASE_PATH } from 'src/environments/environment';
 
-import { Configuration } from "../configuration";
-const InterceptorSkipHeader = "X-Skip-Interceptor";
+import { Configuration } from '../configuration';
+const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
 export class DevopsService {
   protected basePath = BASE_PATH;
-  public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, "");
+  public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, '');
   public configuration = new Configuration();
 
   constructor(
@@ -51,7 +51,7 @@ export class DevopsService {
    * @return true: consumes contains 'multipart/form-data', false: otherwise
    */
   private canConsumeForm(consumes: string[]): boolean {
-    const form = "multipart/form-data";
+    const form = 'multipart/form-data';
     for (const consume of consumes) {
       if (form === consume) {
         return true;
@@ -67,19 +67,19 @@ export class DevopsService {
    * @param reportProgress flag to report request and response progress.
    */
   public devopsPostTypesPost(
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean
   ): Observable<any>;
   public devopsPostTypesPost(
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<any>>;
   public devopsPostTypesPost(
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<any>>;
   public devopsPostTypesPost(
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
@@ -87,11 +87,11 @@ export class DevopsService {
     // authentication (Bearer) required
     if (
       this.configuration.apiKeys &&
-      this.configuration.apiKeys["Authorization"]
+      this.configuration.apiKeys.Authorization
     ) {
       headers = headers.set(
-        "Authorization",
-        this.configuration.apiKeys["Authorization"]
+        'Authorization',
+        this.configuration.apiKeys.Authorization
       );
     }
 
@@ -101,14 +101,14 @@ export class DevopsService {
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
 
     return this.httpClient.request<any>(
-      "post",
+      'post',
       `${this.basePath}/devops/post_types`,
       {
         withCredentials: this.configuration.withCredentials,

@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { LayoutKind } from "./layoutKind";
+import { LayoutKind } from './layoutKind';
 
 export interface StructLayoutAttribute {
   value?: LayoutKind;

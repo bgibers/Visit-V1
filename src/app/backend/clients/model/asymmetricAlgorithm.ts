@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { KeySizes } from "./keySizes";
+import { KeySizes } from './keySizes';
 
 export interface AsymmetricAlgorithm {
   keySize?: number;

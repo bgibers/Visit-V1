@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, NgZone } from "@angular/core";
-import { Router, NavigationExtras } from "@angular/router";
-import { take } from "rxjs/operators";
-import { Post, PostService } from "src/app/backend/clients";
-import { PostApi } from "src/app/backend/clients/model/postApi";
+import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
+import { take } from 'rxjs/operators';
+import { Post, PostService } from 'src/app/backend/clients';
+import { PostApi } from 'src/app/backend/clients/model/postApi';
 
 @Component({
-  selector: "post",
-  templateUrl: "./post.component.html",
-  styleUrls: ["./post.component.scss"],
+  selector: 'post',
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
   constructor(
@@ -25,11 +25,11 @@ export class PostComponent implements OnInit {
 
   @Input() posts: PostApi[] = [];
 
-  location = "Charleston, SC";
+  location = 'Charleston, SC';
 
   // flipped = false;
-  likeIcon = "../../assets/UI/heart.svg";
-  likedIcon = "../../assets/UI/liked-icon.svg";
+  likeIcon = '../../assets/UI/heart.svg';
+  likedIcon = '../../assets/UI/liked-icon.svg';
   ngOnInit() {}
 
   likePost(post: PostApi) {
@@ -51,7 +51,7 @@ export class PostComponent implements OnInit {
       },
     };
     this.zone.run(() => {
-      this.router.navigateByUrl("/comments", navigationExtras);
+      this.router.navigateByUrl('/comments', navigationExtras);
     });
   }
 
@@ -63,7 +63,7 @@ export class PostComponent implements OnInit {
       },
     };
     this.zone.run(() => {
-      this.router.navigateByUrl("/user-profile", navigationExtras);
+      this.router.navigateByUrl('/user-profile', navigationExtras);
     });
   }
 }

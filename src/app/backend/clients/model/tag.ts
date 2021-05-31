@@ -9,8 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { LocationTag } from "./locationTag";
-import { PostTag } from "./postTag";
+import { LocationTag } from './locationTag';
+import { PostTag } from './postTag';
 
 export interface Tag {
   tagId?: number;

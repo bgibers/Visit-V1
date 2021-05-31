@@ -9,12 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { CustomAttributeData } from "./customAttributeData";
-import { FieldAttributes } from "./fieldAttributes";
-import { MemberTypes } from "./memberTypes";
-import { Module } from "./module";
-import { RuntimeFieldHandle } from "./runtimeFieldHandle";
-import { Type } from "./type";
+import { CustomAttributeData } from './customAttributeData';
+import { FieldAttributes } from './fieldAttributes';
+import { MemberTypes } from './memberTypes';
+import { Module } from './module';
+import { RuntimeFieldHandle } from './runtimeFieldHandle';
+import { Type } from './type';
 
 export interface FieldInfo {
   memberType?: MemberTypes;

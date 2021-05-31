@@ -9,11 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { AsymmetricAlgorithm } from "./asymmetricAlgorithm";
-import { IntPtr } from "./intPtr";
-import { Oid } from "./oid";
-import { PublicKey } from "./publicKey";
-import { X500DistinguishedName } from "./x500DistinguishedName";
+import { AsymmetricAlgorithm } from './asymmetricAlgorithm';
+import { IntPtr } from './intPtr';
+import { Oid } from './oid';
+import { PublicKey } from './publicKey';
+import { X500DistinguishedName } from './x500DistinguishedName';
 
 export interface X509Certificate2 {
   archived?: boolean;

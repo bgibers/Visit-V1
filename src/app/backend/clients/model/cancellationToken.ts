@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { WaitHandle } from "./waitHandle";
+import { WaitHandle } from './waitHandle';
 
 export interface CancellationToken {
   readonly isCancellationRequested?: boolean;

@@ -9,15 +9,15 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { CancellationToken } from "./cancellationToken";
-import { ClaimsPrincipal } from "./claimsPrincipal";
-import { ConnectionInfo } from "./connectionInfo";
-import { HttpRequest } from "./httpRequest";
-import { HttpResponse } from "./httpResponse";
-import { IServiceProvider } from "./iServiceProvider";
-import { ISession } from "./iSession";
-import { TypeObjectKeyValuePair } from "./typeObjectKeyValuePair";
-import { WebSocketManager } from "./webSocketManager";
+import { CancellationToken } from './cancellationToken';
+import { ClaimsPrincipal } from './claimsPrincipal';
+import { ConnectionInfo } from './connectionInfo';
+import { HttpRequest } from './httpRequest';
+import { HttpResponse } from './httpResponse';
+import { IServiceProvider } from './iServiceProvider';
+import { ISession } from './iSession';
+import { TypeObjectKeyValuePair } from './typeObjectKeyValuePair';
+import { WebSocketManager } from './webSocketManager';
 
 export interface HttpContext {
   readonly features?: Array<TypeObjectKeyValuePair>;

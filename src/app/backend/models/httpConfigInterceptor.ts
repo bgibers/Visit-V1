@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
   HttpRequest,
@@ -6,16 +6,16 @@ import {
   HttpHandler,
   HttpEvent,
   HttpErrorResponse,
-} from "@angular/common/http";
+} from '@angular/common/http';
 
-import { Observable, throwError, from } from "rxjs";
-import { map, catchError, switchMap } from "rxjs/operators";
+import { Observable, throwError, from } from 'rxjs';
+import { map, catchError, switchMap } from 'rxjs/operators';
 
-import { AlertController } from "@ionic/angular";
-import { BASE_PATH } from "../../../environments/environment";
-import { AccountsService } from "../clients/api/accounts.service";
+import { AlertController } from '@ionic/angular';
+import { BASE_PATH } from '../../../environments/environment';
+import { AccountsService } from '../clients/api/accounts.service';
 
-const TOKEN_KEY = "ACCESS_TOKEN";
+const TOKEN_KEY = 'ACCESS_TOKEN';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
@@ -30,9 +30,9 @@ export class HttpConfigInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return from(this.accountService.getToken()).pipe(
       switchMap((token) => {
-        if (token !== "") {
+        if (token !== '') {
           request = request.clone({
-            headers: request.headers.set("Authorization", "Bearer " + token),
+            headers: request.headers.set('Authorization', 'Bearer ' + token),
           });
         }
 
@@ -61,10 +61,10 @@ export class HttpConfigInterceptor implements HttpInterceptor {
 
   async presentAlert(status, reason) {
     const alert = await this.alertController.create({
-      header: status + " Error",
-      subHeader: "Subtitle",
+      header: status + ' Error',
+      subHeader: 'Subtitle',
       message: reason,
-      buttons: ["OK"],
+      buttons: ['OK'],
     });
 
     await alert.present();

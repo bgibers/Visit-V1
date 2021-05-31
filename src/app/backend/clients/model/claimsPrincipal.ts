@@ -9,9 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Claim } from "./claim";
-import { ClaimsIdentity } from "./claimsIdentity";
-import { IIdentity } from "./iIdentity";
+import { Claim } from './claim';
+import { ClaimsIdentity } from './claimsIdentity';
+import { IIdentity } from './iIdentity';
 
 export interface ClaimsPrincipal {
   readonly claims?: Array<Claim>;

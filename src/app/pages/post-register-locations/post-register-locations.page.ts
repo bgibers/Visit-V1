@@ -1,20 +1,20 @@
-import { Component, OnInit, NgZone, AfterViewInit } from "@angular/core";
-import { Map } from "../../objects/map";
-import { MapSelectionMode } from "src/app/objects/enums/map-selection-mode";
-import { NavigationExtras, Router, ActivatedRoute } from "@angular/router";
-import { JwtToken, AccountsService } from "src/app/backend/clients";
-import { MarkLocationsRequest } from "src/app/backend/clients/model/markLocationsRequest";
-import { take } from "rxjs/operators";
+import { Component, OnInit, NgZone, AfterViewInit } from '@angular/core';
+import { Map } from '../../objects/map';
+import { MapSelectionMode } from 'src/app/objects/enums/map-selection-mode';
+import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
+import { JwtToken, AccountsService } from 'src/app/backend/clients';
+import { MarkLocationsRequest } from 'src/app/backend/clients/model/markLocationsRequest';
+import { take } from 'rxjs/operators';
 
 @Component({
-  selector: "post-register-locations",
-  templateUrl: "./post-register-locations.page.html",
-  styleUrls: ["./post-register-locations.page.scss"],
+  selector: 'post-register-locations',
+  templateUrl: './post-register-locations.page.html',
+  styleUrls: ['./post-register-locations.page.scss'],
 })
 export class PostRegisterLocationsPage {
   public selectionMode: MapSelectionMode = MapSelectionMode.VISITED;
-  public titleTextVisited = "Where have you visited?";
-  public titleTextToVisit = "Bucketlist";
+  public titleTextVisited = 'Where have you visited?';
+  public titleTextToVisit = 'Bucketlist';
   public subtitleTextVisited = `We'll get to where you want to go in a moment,
   but first let\'s show your friends (and yourself) where you've been!`;
   public subtitleTextToVisit = `Mark down every and any place you find interesting and want to checkout someday, let's make it happen!`;
@@ -25,7 +25,7 @@ export class PostRegisterLocationsPage {
   } as MarkLocationsRequest;
   private map: Map;
   hasError = false;
-  error = "";
+  error = '';
 
   constructor(
     public router: Router,
@@ -36,7 +36,7 @@ export class PostRegisterLocationsPage {
 
   ionViewWillEnter() {
     this.map = new Map(this.zone);
-    this.map.addMapToDiv(this.selectionMode, "register-map");
+    this.map.addMapToDiv(this.selectionMode, 'register-map');
   }
 
   ionViewDidLeave() {
@@ -72,16 +72,16 @@ export class PostRegisterLocationsPage {
           const navigationExtras: NavigationExtras = {
             replaceUrl: false,
             state: {
-              userName: "tester",
+              userName: 'tester',
             },
           };
           this.zone.run(() => {
-            this.router.navigateByUrl("/tab1", navigationExtras);
+            this.router.navigateByUrl('/tab1', navigationExtras);
           });
         },
         (error) => {
           this.hasError = true;
-          this.error = "An unexpected error has occurred.";
+          this.error = 'An unexpected error has occurred.';
         }
       );
   }

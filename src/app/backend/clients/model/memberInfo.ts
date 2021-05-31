@@ -9,10 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { CustomAttributeData } from "./customAttributeData";
-import { MemberTypes } from "./memberTypes";
-import { Module } from "./module";
-import { Type } from "./type";
+import { CustomAttributeData } from './customAttributeData';
+import { MemberTypes } from './memberTypes';
+import { Module } from './module';
+import { Type } from './type';
 
 export interface MemberInfo {
   memberType?: MemberTypes;

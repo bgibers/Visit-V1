@@ -4,16 +4,16 @@ import {
   NgZone,
   OnDestroy,
   Injectable,
-} from "@angular/core";
+} from '@angular/core';
 
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4maps from "@amcharts/amcharts4/maps";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import worldLow from "@amcharts/amcharts4-geodata/worldLow";
-import am4geodata_usaLow from "@amcharts/amcharts4-geodata/usaLow";
+import * as am4core from '@amcharts/amcharts4/core';
+import * as am4maps from '@amcharts/amcharts4/maps';
+import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+import worldLow from '@amcharts/amcharts4-geodata/worldLow';
+import am4geodata_usaLow from '@amcharts/amcharts4-geodata/usaLow';
 // import am4geodata_canadaLow from '@amcharts/amcharts4-geodata/canadaLow';
 // import am4geodata_russiaLow from '@amcharts/amcharts4-geodata/russiaLow';
-import { MapSelectionMode } from "./enums/map-selection-mode";
+import { MapSelectionMode } from './enums/map-selection-mode';
 
 @Injectable()
 export class Map {
@@ -86,12 +86,12 @@ export class Map {
         chart.zoomControl.plusButton.hide();
         chart.zoomControl.minusButton.hide();
         chart.tapToActivate = true;
-        chart.seriesContainer.events.disableType("doublehit");
-        chart.chartContainer.background.events.disableType("doublehit");
+        chart.seriesContainer.events.disableType('doublehit');
+        chart.chartContainer.background.events.disableType('doublehit');
         chart.showOnInit = true;
         // Home button
         const homeButton = new am4core.Button();
-        homeButton.events.on("hit", () => {
+        homeButton.events.on('hit', () => {
           chart.goHome();
         });
 
@@ -99,14 +99,14 @@ export class Map {
         homeButton.padding(7, 5, 7, 5);
         homeButton.width = 30;
         homeButton.icon.path =
-          "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
+          'M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8';
         homeButton.marginBottom = 10;
         homeButton.parent = chart.zoomControl;
         homeButton.insertAfter(chart.zoomControl.minusButton);
 
         // Series for World map
         worldSeries = chart.series.push(new am4maps.MapPolygonSeries());
-        worldSeries.exclude = ["AQ"];
+        worldSeries.exclude = ['AQ'];
         worldSeries.useGeodata = true;
         this.seriesArr.push(worldSeries);
         this.polygonArr.push(worldSeries.mapPolygons.template);
@@ -144,23 +144,23 @@ export class Map {
 
   setupTemplates() {
     this.polygonArr.forEach((polygonTemplate) => {
-      polygonTemplate.tooltipText = "{name}";
+      polygonTemplate.tooltipText = '{name}';
       polygonTemplate.nonScalingStroke = true;
       polygonTemplate.applyOnClones = true;
       polygonTemplate.strokeOpacity = 0.5;
 
-      const activeState = polygonTemplate.states.create("active");
+      const activeState = polygonTemplate.states.create('active');
 
-      const visited = polygonTemplate.states.create("visited");
-      visited.properties.fill = am4core.color("#128C7E");
+      const visited = polygonTemplate.states.create('visited');
+      visited.properties.fill = am4core.color('#128C7E');
 
-      const toVisit = polygonTemplate.states.create("toVisit");
-      toVisit.properties.fill = am4core.color("#F05E23");
+      const toVisit = polygonTemplate.states.create('toVisit');
+      toVisit.properties.fill = am4core.color('#F05E23');
 
-      const defaultState = polygonTemplate.states.create("default");
-      defaultState.properties.fill = am4core.color("#d9d9d9");
+      const defaultState = polygonTemplate.states.create('default');
+      defaultState.properties.fill = am4core.color('#d9d9d9');
 
-      polygonTemplate.events.on("hit", (ev) => {
+      polygonTemplate.events.on('hit', (ev) => {
         const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
 
         this.selectedArea = data;
@@ -181,21 +181,21 @@ export class Map {
     // Allow only one location to be hightlighted at a time
     if (this.selectionMode === MapSelectionMode.FILTER) {
       this.polygonArr.forEach((polygonTemplate) => {
-        polygonTemplate.events.on("doublehit", (ev) => {
+        polygonTemplate.events.on('doublehit', (ev) => {
           const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
           this.resetAllLocations();
-          this.changeVisitStatus(data.id, "visited");
+          this.changeVisitStatus(data.id, 'visited');
         });
       });
     } else if (this.selectionMode !== MapSelectionMode.NONE) {
       this.polygonArr.forEach((polygonTemplate) => {
-        polygonTemplate.events.off("doublehit");
-        polygonTemplate.events.on("doublehit", (ev) => {
+        polygonTemplate.events.off('doublehit');
+        polygonTemplate.events.on('doublehit', (ev) => {
           const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
           if (this.selectionMode === MapSelectionMode.TO_VISIT) {
-            this.changeVisitStatus(data.id, "toVisit");
+            this.changeVisitStatus(data.id, 'toVisit');
           } else {
-            this.changeVisitStatus(data.id, "visited");
+            this.changeVisitStatus(data.id, 'visited');
           }
         });
       });
@@ -222,7 +222,7 @@ export class Map {
       for (const series of this.seriesArr) {
         const result = series.getPolygonById(location.locationId);
         if (result !== undefined) {
-          result.setState("default");
+          result.setState('default');
         }
       }
     });
@@ -245,13 +245,13 @@ export class Map {
       const index = this.selectedArr.indexOf(locationInArray, 0);
       if (index > -1) {
         this.selectedArr.splice(index, 1);
-        this.selectedArea.setState("default");
+        this.selectedArea.setState('default');
       }
     } else {
-      if (status === "visited") {
-        this.selectedArea.setState("visited");
-      } else if (status === "toVisit") {
-        this.selectedArea.setState("toVisit");
+      if (status === 'visited') {
+        this.selectedArea.setState('visited');
+      } else if (status === 'toVisit') {
+        this.selectedArea.setState('toVisit');
       }
       this.selectedArr.push({ locationId, status });
     }

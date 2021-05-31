@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { CameraResultType, Photo, Camera } from "@capacitor/camera";
-import { LoadingController, ModalController } from "@ionic/angular";
-import { IonicSelectableComponent } from "ionic-selectable";
-import { take } from "rxjs/operators";
-import { PostService } from "src/app/backend/clients";
-import { LocationSelector } from "src/app/objects/location-json/location.selector";
+import { Component, OnInit } from '@angular/core';
+import { CameraResultType, Photo, Camera } from '@capacitor/camera';
+import { LoadingController, ModalController } from '@ionic/angular';
+import { IonicSelectableComponent } from 'ionic-selectable';
+import { take } from 'rxjs/operators';
+import { PostService } from 'src/app/backend/clients';
+import { LocationSelector } from 'src/app/objects/location-json/location.selector';
 
 @Component({
-  selector: "app-add-post-image",
-  templateUrl: "./add-post-image.page.html",
-  styleUrls: ["./add-post-image.page.scss"],
+  selector: 'app-add-post-image',
+  templateUrl: './add-post-image.page.html',
+  styleUrls: ['./add-post-image.page.scss'],
 })
 export class AddPostImagePage implements OnInit {
   public selectedLocation: { id: string; name: string } = undefined;
   public postText: string = undefined;
   public locationOptions: { id: string; name: string }[] = [];
-  public userImage = "../../../assets/UI/clickToUpload.jpg";
+  public userImage = '../../../assets/UI/clickToUpload.jpg';
   image: Photo;
   blob: Blob;
   error: boolean;
@@ -63,7 +63,7 @@ export class AddPostImagePage implements OnInit {
     this.postService
       .postsNewPostForm(
         this.postText,
-        "image",
+        'image',
         this.selectedLocation.id,
         this.blob
       )
@@ -89,14 +89,14 @@ export class AddPostImagePage implements OnInit {
   }
 
   b64toBlob(dataURI) {
-    const byteString = atob(dataURI.split(",")[1]);
+    const byteString = atob(dataURI.split(',')[1]);
     const ab = new ArrayBuffer(byteString.length);
     const ia = new Uint8Array(ab);
 
     for (let i = 0; i < byteString.length; i++) {
       ia[i] = byteString.charCodeAt(i);
     }
-    this.blob = new Blob([ab], { type: "image/jpeg" });
+    this.blob = new Blob([ab], { type: 'image/jpeg' });
   }
 
   async getUserImage() {

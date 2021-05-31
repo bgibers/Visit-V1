@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ModelMetadataBooleanFunc } from "./modelMetadataBooleanFunc";
+import { ModelMetadataBooleanFunc } from './modelMetadataBooleanFunc';
 
 export interface IPropertyFilterProvider {
   propertyFilter?: ModelMetadataBooleanFunc;

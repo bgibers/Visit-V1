@@ -1,25 +1,25 @@
-import { Component, NgZone, OnInit } from "@angular/core";
-import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
-import { ModalController } from "@ionic/angular";
-import { take } from "rxjs/operators";
-import { AccountsService, PostService } from "src/app/backend/clients";
-import { CommentForPost } from "src/app/backend/clients/model/commentForPost";
-import { CommentApi } from "src/app/backend/clients/model/commentApi";
-import { SearchPage } from "../modals/search/search.page";
-import { Observable } from "rxjs";
+import { Component, NgZone, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { take } from 'rxjs/operators';
+import { AccountsService, PostService } from 'src/app/backend/clients';
+import { CommentForPost } from 'src/app/backend/clients/model/commentForPost';
+import { CommentApi } from 'src/app/backend/clients/model/commentApi';
+import { SearchPage } from '../modals/search/search.page';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: "comments",
-  templateUrl: "./comments.page.html",
-  styleUrls: ["./comments.page.scss"],
+  selector: 'comments',
+  templateUrl: './comments.page.html',
+  styleUrls: ['./comments.page.scss'],
 })
 export class CommentsPage implements OnInit {
   comments = [];
   thisIstheDataForThisComponent: Observable<any>;
   newComments = [];
-  postId = "";
+  postId = '';
   userId: any;
-  public commentText = "";
+  public commentText = '';
 
   constructor(
     public modalController: ModalController,
@@ -65,7 +65,7 @@ export class CommentsPage implements OnInit {
           //     this.newComments.push(oldComments[i]);
           //   }
         }
-        let resLen = res.length;
+        const resLen = res.length;
         for (let i = 0; i < resLen; i++) {
           console.log(i);
           this.comments.push(res[i]);
@@ -90,12 +90,12 @@ export class CommentsPage implements OnInit {
         // todo handle error. refresh comments after new posted
         this.getComments();
       });
-    this.commentText = "";
+    this.commentText = '';
   }
 
   backToFeed() {
     this.zone.run(() => {
-      this.router.navigateByUrl("/news-feed");
+      this.router.navigateByUrl('/news-feed');
     });
   }
 
@@ -108,7 +108,7 @@ export class CommentsPage implements OnInit {
       },
     };
     this.zone.run(() => {
-      this.router.navigateByUrl("/user-profile", navigationExtras);
+      this.router.navigateByUrl('/user-profile', navigationExtras);
     });
   }
 
@@ -117,7 +117,7 @@ export class CommentsPage implements OnInit {
       component: SearchPage,
       componentProps: {},
       showBackdrop: true,
-      cssClass: "search-modal",
+      cssClass: 'search-modal',
     });
     return await modal.present();
   }

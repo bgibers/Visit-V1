@@ -9,14 +9,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { HostString } from "./hostString";
-import { HttpContext } from "./httpContext";
-import { PathString } from "./pathString";
-import { PipeReader } from "./pipeReader";
-import { QueryString } from "./queryString";
-import { Stream } from "./stream";
-import { StringStringKeyValuePair } from "./stringStringKeyValuePair";
-import { StringStringValuesKeyValuePair } from "./stringStringValuesKeyValuePair";
+import { HostString } from './hostString';
+import { HttpContext } from './httpContext';
+import { PathString } from './pathString';
+import { PipeReader } from './pipeReader';
+import { QueryString } from './queryString';
+import { Stream } from './stream';
+import { StringStringKeyValuePair } from './stringStringKeyValuePair';
+import { StringStringValuesKeyValuePair } from './stringStringValuesKeyValuePair';
 
 export interface HttpRequest {
   httpContext?: HttpContext;

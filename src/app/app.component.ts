@@ -1,27 +1,27 @@
-import { Component, NgZone, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, NgZone, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Platform, ModalController, AlertController } from "@ionic/angular";
-import { SplashScreen } from "@capacitor/splash-screen";
-import { StatusBar, Style } from "@capacitor/status-bar";
+import { Platform, ModalController, AlertController } from '@ionic/angular';
+import { SplashScreen } from '@capacitor/splash-screen';
+import { StatusBar, Style } from '@capacitor/status-bar';
 import {
   PushNotificationSchema,
   Token,
   ActionPerformed,
   PushNotifications,
-} from "@capacitor/push-notifications";
-import { FCM } from "@capacitor-community/fcm";
-import { Capacitor } from "@capacitor/core";
-import { from } from "rxjs";
+} from '@capacitor/push-notifications';
+import { FCM } from '@capacitor-community/fcm';
+import { Capacitor } from '@capacitor/core';
+import { from } from 'rxjs';
 const fcm = new FCM();
 
-import { AddPage } from "./pages/modals/add/add.page";
-import { AccountsService } from "./backend/clients/api/accounts.service";
-import { ModalService } from "./services/modal.service";
+import { AddPage } from './pages/modals/add/add.page';
+import { AccountsService } from './backend/clients/api/accounts.service';
+import { ModalService } from './services/modal.service';
 @Component({
-  selector: "app-root",
-  templateUrl: "app.component.html",
-  styleUrls: ["app.component.scss"],
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
   page: string;
@@ -44,23 +44,23 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      if (Capacitor.isPluginAvailable("StatusBar")) {
+      if (Capacitor.isPluginAvailable('StatusBar')) {
         StatusBar.setStyle({ style: Style.Default });
       }
 
-      if (Capacitor.isPluginAvailable("SplashScreen")) {
+      if (Capacitor.isPluginAvailable('SplashScreen')) {
         SplashScreen.hide();
       }
 
-      if (Capacitor.isPluginAvailable("PushNotifications")) {
+      if (Capacitor.isPluginAvailable('PushNotifications')) {
         this.registerPush();
       }
 
       this.zone.run(() => {
         if (this.userService.isLoggedIn) {
-          this.router.navigate(["tab1"]);
+          this.router.navigate(['tab1']);
         } else {
-          this.router.navigate(["sign-in"]);
+          this.router.navigate(['sign-in']);
         }
       });
     });
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
 
   private registerPush() {
     PushNotifications.requestPermissions().then((result) => {
-      if (result.receive === "granted") {
+      if (result.receive === 'granted') {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register().then(() =>
           from(
@@ -83,20 +83,20 @@ export class AppComponent implements OnInit {
           )
         );
       } else {
-        console.log("Push notifications not registered");
+        console.log('Push notifications not registered');
       }
     });
 
-    PushNotifications.addListener("registration", (token: Token) => {
-      alert("Push registration success, token: " + token.value);
+    PushNotifications.addListener('registration', (token: Token) => {
+      alert('Push registration success, token: ' + token.value);
     });
 
-    PushNotifications.addListener("registrationError", (error: any) => {
-      alert("Error on registration: " + JSON.stringify(error));
+    PushNotifications.addListener('registrationError', (error: any) => {
+      alert('Error on registration: ' + JSON.stringify(error));
     });
 
     PushNotifications.addListener(
-      "pushNotificationReceived",
+      'pushNotificationReceived',
       async (notification: PushNotificationSchema) => {
         console.log(notification.title);
         this.alert(notification.title, notification.body);
@@ -104,9 +104,9 @@ export class AppComponent implements OnInit {
     );
 
     PushNotifications.addListener(
-      "pushNotificationActionPerformed",
+      'pushNotificationActionPerformed',
       (notification: ActionPerformed) => {
-        alert("Push action performed: " + JSON.stringify(notification));
+        alert('Push action performed: ' + JSON.stringify(notification));
       }
     );
   }
@@ -117,8 +117,8 @@ export class AppComponent implements OnInit {
       message: body,
       buttons: [
         {
-          text: "OKAY",
-          role: "cancel",
+          text: 'OKAY',
+          role: 'cancel',
           handler: () => {
             alert.dismiss();
           },
@@ -129,19 +129,19 @@ export class AppComponent implements OnInit {
   }
 
   get showFooter() {
-    if (this.router.url === "/sign-in") {
+    if (this.router.url === '/sign-in') {
       return false;
     }
-    if (this.router.url === "/register") {
+    if (this.router.url === '/register') {
       return false;
     }
-    if (this.router.url === "/post-register-about") {
+    if (this.router.url === '/post-register-about') {
       return false;
     }
-    if (this.router.url === "/post-register-locations") {
+    if (this.router.url === '/post-register-locations') {
       return false;
     }
-    if (this.router.url === "/comments") {
+    if (this.router.url === '/comments') {
       return false;
     }
     if (this.myservice.dis === false) {
@@ -155,7 +155,7 @@ export class AppComponent implements OnInit {
       component: AddPage,
       showBackdrop: true,
       swipeToClose: true,
-      cssClass: "add-modal",
+      cssClass: 'add-modal',
       backdropDismiss: true,
     });
     return await modal.present();
