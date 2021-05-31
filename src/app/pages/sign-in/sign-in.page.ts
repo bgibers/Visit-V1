@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import { AccountsService, LoginApiRequest } from 'src/app/backend/clients';
@@ -27,11 +27,13 @@ export class SignInPage implements OnInit {
     ]
   };
 
-  invalidLogin = new BehaviorSubject(false);
+  invalidLogin = false;
+  invalidLoginText = '';
 
   constructor(
     public formBuilder: FormBuilder,
     public loadingController: LoadingController,
+    private cd: ChangeDetectorRef,
     private zone: NgZone,
     private router: Router,
     private accountService: AccountsService
@@ -69,7 +71,7 @@ export class SignInPage implements OnInit {
     this.accountService.login(loginModel.userName, loginModel.password)
     .then(res => {
       console.log(res)
-      this.invalidLogin.next(false);
+      this.invalidLogin = false;
       
       this.zone.run(() => {
         const navigationExtras: NavigationExtras = {
@@ -83,27 +85,18 @@ export class SignInPage implements OnInit {
       loading.dismiss();
 
     }, err => {
-        console.log(err)
-        this.invalidLogin.next(true);
-        loading.dismiss();
-    })
+      if (err.code === 'auth/user-not-found') {
+        this.invalidLoginText = 'User not found';
+      } else if (err.code === 'auth/wrong-password') {
+        this.invalidLoginText = 'Invalid password';
+      } else {
+        this.invalidLoginText = 'Unexpected error';
+      }
 
-    // this.accountService.login(loginModel.userName, loginModel.password).then(value => {
-    //   console.log(value)
-    //   this.invalidLogin = false;
-      // const navigationExtras: NavigationExtras = {
-      //   // replaceUrl: false,
-      //   // state: {
-      //   //   userId: value.id
-      //   // }
-      // };
-    //   loading.dismiss();
-    //   this.zone.run(() => {
-    //     this.router.navigateByUrl('/tab1', navigationExtras);
-    //   })}, err => {
-    //     this.invalidLogin = true;
-    //     loading.dismiss();
-    //   });
+      this.invalidLogin = true;
+      this.refresh();
+      loading.dismiss();
+    })
   }
 
   openRegister() {
@@ -116,6 +109,14 @@ export class SignInPage implements OnInit {
     this.zone.run(() => {
       this.router.navigateByUrl('/register', navigationExtras);
     })
+  }
+
+  refresh() {
+    this.cd.detectChanges();
+  }
+
+  get getInvalidLogin() {
+    return this.invalidLogin;
   }
 
 }

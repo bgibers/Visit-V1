@@ -13,7 +13,7 @@ import { take } from 'rxjs/operators';
   templateUrl: './user-timeline.page.html',
   styleUrls: ['./user-timeline.page.scss'],
 })
-export class UserTimelinePage implements OnInit {
+export class UserTimelinePage {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   posts: PostApi[] = [];
@@ -31,17 +31,13 @@ export class UserTimelinePage implements OnInit {
               private router: Router) {
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.selectedUserId = this.navParams.data.userId;
     this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(take(1)).subscribe(res => {
       this.morePages = res.hasNextPage;
       this.pageNumber = res.pageIndex;
       this.posts = res.items;
     });
-  }
-
-  ionViewWillEnter() {
-    this.selectedUserId = this.navParams.data.userId;
   }
 
   getPosts(event?: any) {

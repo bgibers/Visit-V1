@@ -16,8 +16,8 @@
       <ion-icon name="eye" item-right (click)="togglePasswordMode()"></ion-icon>    
     </ion-item>
     <div class="validation-errors">
-        <div class="error-message" *ngIf="invalidLogin.value">
-          <ion-icon name="information-circle-outline"></ion-icon> Incorrect username/password
+        <div class="error-message" *ngIf="getInvalidLogin">
+          <ion-icon name="information-circle-outline"></ion-icon> {{invalidLoginText}}
         </div>
     </div>
     <div class="button-div">

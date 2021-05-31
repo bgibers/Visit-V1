@@ -33,7 +33,7 @@ export class SearchPage implements OnInit {
   goToProfile(user: SlimUserResponse) {
     const navigationExtras: NavigationExtras = {
       replaceUrl: true,
-      skipLocationChange: false,
+      skipLocationChange: true,
       state: {
         userId: user.id
       }
