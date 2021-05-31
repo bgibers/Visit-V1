@@ -361,13 +361,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }
 
     var CommentsPage = /*#__PURE__*/function () {
-      function CommentsPage(modalController, router, route, postSvc, accountService) {
+      function CommentsPage(modalController, router, zone, route, postSvc, accountService) {
         var _this = this;
 
         _classCallCheck(this, CommentsPage);
 
         this.modalController = modalController;
         this.router = router;
+        this.zone = zone;
         this.route = route;
         this.postSvc = postSvc;
         this.accountService = accountService;
@@ -449,11 +450,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "backToFeed",
         value: function backToFeed() {
-          this.router.navigateByUrl('/news-feed');
+          var _this4 = this;
+
+          this.zone.run(function () {
+            _this4.router.navigateByUrl('/news-feed');
+          });
         }
       }, {
         key: "openProfile",
         value: function openProfile() {
+          var _this5 = this;
+
           var navigationExtras = {
             replaceUrl: true,
             skipLocationChange: true,
@@ -461,7 +468,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               userId: this.accountService.getUserId()
             }
           };
-          this.router.navigateByUrl('/user-profile', navigationExtras);
+          this.zone.run(function () {
+            _this5.router.navigateByUrl('/user-profile', navigationExtras);
+          });
         }
       }, {
         key: "presentSearchModal",
@@ -513,7 +522,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     CommentsPage.ɵfac = function CommentsPage_Factory(t) {
-      return new (t || CommentsPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]));
+      return new (t || CommentsPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]));
     };
 
     CommentsPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -674,6 +683,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]
         }, {

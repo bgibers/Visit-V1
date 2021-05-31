@@ -299,9 +299,10 @@ function RegisterPage_div_41_Template(rf, ctx) { if (rf & 1) {
 } }
 const _c0 = function () { return ["/sign-in"]; };
 class RegisterPage {
-    constructor(formBuilder, router, accountService) {
+    constructor(formBuilder, router, zone, accountService) {
         this.formBuilder = formBuilder;
         this.router = router;
+        this.zone = zone;
         this.accountService = accountService;
         this.passwordType = 'password';
         this.hasError = false;
@@ -369,7 +370,9 @@ class RegisterPage {
                         password: this.matchingPasswordsGroup.controls.password.value
                     }
                 };
-                this.router.navigateByUrl('/post-register-about', navigationExtras);
+                this.zone.run(() => {
+                    this.router.navigateByUrl('/post-register-about', navigationExtras);
+                });
             }
             else {
                 this.hasError = true;
@@ -382,7 +385,7 @@ class RegisterPage {
         });
     }
 }
-RegisterPage.ɵfac = function RegisterPage_Factory(t) { return new (t || RegisterPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"])); };
+RegisterPage.ɵfac = function RegisterPage_Factory(t) { return new (t || RegisterPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"])); };
 RegisterPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: RegisterPage, selectors: [["register"]], decls: 52, vars: 13, consts: [["no-bounce", ""], [1, "back-to-login"], ["routerLinkActive", "router-link-active", 3, "routerLink"], [3, "formGroup", "ngSubmit"], [1, "roundedInput"], ["autocapitalize", "true", "placeholder", "First Name*", "type", "text", "formControlName", "firstName", "required", ""], [1, "validation-errors"], [4, "ngFor", "ngForOf"], ["autocapitalize", "true", "placeholder", "Last Name*", "type", "text", "formControlName", "lastName", "required", ""], ["autocapitalize", "true", "placeholder", "Email*", "type", "email", "formControlName", "email", "required", ""], ["formGroupName", "matchingPasswords"], ["autocapitalize", "true", "placeholder", "Password*", "formControlName", "password", "required", "", 3, "type"], ["name", "eye", "item-right", "", 3, "click"], ["autocapitalize", "true", "placeholder", "Confirm Password*", "formControlName", "confirmPassword", "required", "", 3, "type"], ["class", "error-message", 4, "ngIf"], [1, "button-div"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "disabled"], ["expand", "block", 1, "facebook-button"], ["slot", "start", "name", "logo-facebook"], ["expand", "block", 1, "apple-button"], ["slot", "start", "name", "logo-apple"], [1, "error-message"], ["name", "information-circle-outline"]], template: function RegisterPage_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-content", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h1");
@@ -503,7 +506,7 @@ RegisterPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
                 templateUrl: './register.page.html',
                 styleUrls: ['./register.page.scss'],
             }]
-    }], function () { return [{ type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"] }]; }, null); })();
+    }], function () { return [{ type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"] }]; }, null); })();
 
 
 /***/ })

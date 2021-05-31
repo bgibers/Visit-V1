@@ -289,11 +289,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }
 
     var SignInPage = /*#__PURE__*/function () {
-      function SignInPage(formBuilder, loadingController, router, accountService) {
+      function SignInPage(formBuilder, loadingController, zone, router, accountService) {
         _classCallCheck(this, SignInPage);
 
         this.formBuilder = formBuilder;
         this.loadingController = loadingController;
+        this.zone = zone;
         this.router = router;
         this.accountService = accountService;
         this.passwordType = 'password';
@@ -367,7 +368,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       };
                       loading.dismiss();
 
-                      _this.router.navigateByUrl('/tab1', navigationExtras);
+                      _this.zone.run(function () {
+                        _this.router.navigateByUrl('/tab1', navigationExtras);
+                      });
                     });
 
                   case 8:
@@ -387,13 +390,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openRegister",
         value: function openRegister() {
+          var _this2 = this;
+
           var navigationExtras = {
             replaceUrl: false,
             state: {
               userName: 'tester'
             }
           };
-          this.router.navigateByUrl('/register', navigationExtras);
+          this.zone.run(function () {
+            _this2.router.navigateByUrl('/register', navigationExtras);
+          });
         }
       }]);
 
@@ -401,7 +408,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     SignInPage.ɵfac = function SignInPage_Factory(t) {
-      return new (t || SignInPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_3__["AccountsService"]));
+      return new (t || SignInPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_3__["AccountsService"]));
     };
 
     SignInPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -549,6 +556,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
         }, {

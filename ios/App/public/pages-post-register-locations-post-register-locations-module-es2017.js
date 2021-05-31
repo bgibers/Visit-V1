@@ -199,7 +199,9 @@ class PostRegisterLocationsPage {
                     userName: 'tester',
                 },
             };
-            this.router.navigateByUrl('/tab1', navigationExtras);
+            this.zone.run(() => {
+                this.router.navigateByUrl('/tab1', navigationExtras);
+            });
         }, (error) => {
             this.hasError = true;
             this.error = 'An unexpected error has occurred.';

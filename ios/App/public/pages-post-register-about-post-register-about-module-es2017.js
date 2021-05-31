@@ -21466,10 +21466,11 @@ function PostRegisterAboutPage_div_44_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx_r5.error, " ");
 } }
 class PostRegisterAboutPage {
-    constructor(router, loadingController, formBuilder, route, accountService) {
+    constructor(router, loadingController, formBuilder, zone, route, accountService) {
         this.router = router;
         this.loadingController = loadingController;
         this.formBuilder = formBuilder;
+        this.zone = zone;
         this.route = route;
         this.accountService = accountService;
         this.minDate = moment__WEBPACK_IMPORTED_MODULE_4__().subtract(100, 'y').format();
@@ -21554,7 +21555,9 @@ class PostRegisterAboutPage {
             replaceUrl: false
         };
         this.accountService.accountUpdateProfileImagePost(this.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe(res => {
-            this.router.navigateByUrl('/post-register-locations', navigationExtras);
+            this.zone.run(() => {
+                this.router.navigateByUrl('/post-register-locations', navigationExtras);
+            });
         });
     }
     b64toBlob(dataURI) {
@@ -21582,7 +21585,7 @@ class PostRegisterAboutPage {
         this.b64toBlob(this.image.dataUrl);
     }
 }
-PostRegisterAboutPage.ɵfac = function PostRegisterAboutPage_Factory(t) { return new (t || PostRegisterAboutPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["AccountsService"])); };
+PostRegisterAboutPage.ɵfac = function PostRegisterAboutPage_Factory(t) { return new (t || PostRegisterAboutPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["AccountsService"])); };
 PostRegisterAboutPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PostRegisterAboutPage, selectors: [["post-register-about"]], decls: 48, vars: 12, consts: [["no-bounce", ""], [3, "formGroup", "ngSubmit"], ["size", "3"], [3, "src", "click"], [1, "roundedInput"], ["formControlName", "birthday", "placeholder", "Birthday*", "displayFormat", "MM/DD/YYYY", "startrequired", "", 3, "min", "max"], [1, "validation-errors"], [4, "ngFor", "ngForOf"], ["autocapitalize", "true", "placeholder", "BirthPlace*", "type", "text", "formControlName", "birthPlace", "required", ""], ["autocapitalize", "true", "placeholder", "Current Residence*", "type", "text", "formControlName", "residence", "required", ""], ["autocapitalize", "true", "placeholder", "Education*", "type", "text", "formControlName", "education", "required", ""], ["autocapitalize", "true", "placeholder", "Title or Employment*", "type", "text", "formControlName", "title", "required", ""], ["class", "error-message", 4, "ngIf"], [1, "button-div"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "disabled"], [1, "error-message"], ["name", "information-circle-outline"]], template: function PostRegisterAboutPage_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-content", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h1");
@@ -21698,7 +21701,7 @@ PostRegisterAboutPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵde
                 templateUrl: './post-register-about.page.html',
                 styleUrls: ['./post-register-about.page.scss'],
             }]
-    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"] }, { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["AccountsService"] }]; }, null); })();
+    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"] }, { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["AccountsService"] }]; }, null); })();
 
 
 /***/ })

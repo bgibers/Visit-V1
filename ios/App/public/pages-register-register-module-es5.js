@@ -572,11 +572,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     };
 
     var RegisterPage = /*#__PURE__*/function () {
-      function RegisterPage(formBuilder, router, accountService) {
+      function RegisterPage(formBuilder, router, zone, accountService) {
         _classCallCheck(this, RegisterPage);
 
         this.formBuilder = formBuilder;
         this.router = router;
+        this.zone = zone;
         this.accountService = accountService;
         this.passwordType = 'password';
         this.hasError = false;
@@ -659,7 +660,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 }
               };
 
-              _this.router.navigateByUrl('/post-register-about', navigationExtras);
+              _this.zone.run(function () {
+                _this.router.navigateByUrl('/post-register-about', navigationExtras);
+              });
             } else {
               _this.hasError = true;
               _this.error = 'An account with this email is already registered.';
@@ -676,7 +679,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }();
 
     RegisterPage.ɵfac = function RegisterPage_Factory(t) {
-      return new (t || RegisterPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]));
+      return new (t || RegisterPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]));
     };
 
     RegisterPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -932,6 +935,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]
         }];

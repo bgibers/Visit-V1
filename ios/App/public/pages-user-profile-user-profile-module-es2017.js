@@ -1468,15 +1468,18 @@ class UserProfilePage {
         if (this.userId === undefined) {
             this.userId = this.accountService.getUserId();
         }
-        this.getUser(loading);
+        this.zone.run(() => {
+            this.getUser(loading).subscribe(() => {
+                loading.dismiss();
+            });
+        });
     }
     getUser(loading) {
-        this.userService.userIdGet(this.userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["take"])(1)).subscribe(user => {
+        return this.userService.userIdGet(this.userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["map"])(user => {
             if (this.accountService.getUserId() === this.userId) {
                 this.canEditProfile = true;
             }
             this.user.next(user);
-            loading.dismiss();
             if (this.user.value.avi === undefined) {
                 this.user.value.avi = '../../../assets/defaultuser.png';
             }
@@ -1494,7 +1497,7 @@ class UserProfilePage {
             });
             var countryCount = this.visitedCount - usVisitedCount;
             this.visitedPercent = ((countryCount / 405) + (usVisitedCount / 355)) * 100;
-        });
+        }));
     }
     ionViewDidLeave() {
         this.canEditProfile = false;

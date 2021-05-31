@@ -4,6 +4,8 @@ import { Router, NavigationExtras } from '@angular/router';
 import { AccountsService, LoginApiRequest } from 'src/app/backend/clients';
 import { take } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
+import { AnimationFrameScheduler } from 'rxjs/internal/scheduler/AnimationFrameScheduler';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'sign-in',
@@ -25,7 +27,7 @@ export class SignInPage implements OnInit {
     ]
   };
 
-  invalidLogin: boolean;
+  invalidLogin = new BehaviorSubject(false);
 
   constructor(
     public formBuilder: FormBuilder,
@@ -64,23 +66,44 @@ export class SignInPage implements OnInit {
     });
     await loading.present();
 
-    await this.accountService.login(loginModel.userName, loginModel.password).then(value => {
-
-      if (value === null) {
-        this.invalidLogin = true;
-        loading.dismiss();
-      }
-      const navigationExtras: NavigationExtras = {
-        // replaceUrl: false,
-        // state: {
-        //   userId: value.id
-        // }
-      };
-      loading.dismiss();
+    this.accountService.login(loginModel.userName, loginModel.password)
+    .then(res => {
+      console.log(res)
+      this.invalidLogin.next(false);
+      
       this.zone.run(() => {
-        this.router.navigateByUrl('/tab1', navigationExtras);
+        const navigationExtras: NavigationExtras = {
+          replaceUrl: false,
+          // state: {
+          //   userId: value.id
+          // }
+        };
+          this.router.navigateByUrl('/tab1', navigationExtras);
       })
-    });
+      loading.dismiss();
+
+    }, err => {
+        console.log(err)
+        this.invalidLogin.next(true);
+        loading.dismiss();
+    })
+
+    // this.accountService.login(loginModel.userName, loginModel.password).then(value => {
+    //   console.log(value)
+    //   this.invalidLogin = false;
+      // const navigationExtras: NavigationExtras = {
+      //   // replaceUrl: false,
+      //   // state: {
+      //   //   userId: value.id
+      //   // }
+      // };
+    //   loading.dismiss();
+    //   this.zone.run(() => {
+    //     this.router.navigateByUrl('/tab1', navigationExtras);
+    //   })}, err => {
+    //     this.invalidLogin = true;
+    //     loading.dismiss();
+    //   });
   }
 
   openRegister() {

@@ -61,7 +61,6 @@ export class UserProfilePage {
     this.zone.run(() => {
       this.getUser(loading).subscribe(() => {
         loading.dismiss()
-        console.log(this.user.value)
       })
     })
 

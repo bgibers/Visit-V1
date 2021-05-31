@@ -181,9 +181,10 @@ function CommentsPage_ion_item_20_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](18, 5, comment_r2.date));
 } }
 class CommentsPage {
-    constructor(modalController, router, route, postSvc, accountService) {
+    constructor(modalController, router, zone, route, postSvc, accountService) {
         this.modalController = modalController;
         this.router = router;
+        this.zone = zone;
         this.route = route;
         this.postSvc = postSvc;
         this.accountService = accountService;
@@ -245,7 +246,9 @@ class CommentsPage {
         this.commentText = '';
     }
     backToFeed() {
-        this.router.navigateByUrl('/news-feed');
+        this.zone.run(() => {
+            this.router.navigateByUrl('/news-feed');
+        });
     }
     openProfile() {
         const navigationExtras = {
@@ -255,7 +258,9 @@ class CommentsPage {
                 userId: this.accountService.getUserId()
             }
         };
-        this.router.navigateByUrl('/user-profile', navigationExtras);
+        this.zone.run(() => {
+            this.router.navigateByUrl('/user-profile', navigationExtras);
+        });
     }
     async presentSearchModal() {
         const modal = await this.modalController.create({
@@ -267,7 +272,7 @@ class CommentsPage {
         return await modal.present();
     }
 }
-CommentsPage.ɵfac = function CommentsPage_Factory(t) { return new (t || CommentsPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"])); };
+CommentsPage.ɵfac = function CommentsPage_Factory(t) { return new (t || CommentsPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"])); };
 CommentsPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: CommentsPage, selectors: [["comments"]], decls: 26, vars: 5, consts: [[2, "background-color", "#128c7e"], ["color", "#128C7E"], [1, "header-grid"], [1, "ion-align-items-baseline"], [1, "ion-justify-content-start"], [1, "ion-justify-content-start", "circle-pic", 3, "click"], ["src", "../../assets/defaultuser.png", 1, "img-center", "circle-pic"], [1, "ion-justify-self-bottom"], ["height", "60px", "width", "120px", "src", "../../assets/logos/whiteLogo.png"], [1, "ion-justify-content-end"], [1, "ion-justify-content-end", 3, "click"], ["src", "../../assets/UI/search-outline.svg", 1, "img-center"], [3, "scrollY"], ["class", "ion-text-center ion-justify-center", "style", "height: 100%; flex-direction: column", 4, "ngIf"], [3, "items"], ["class", "comment", 4, "virtualItem"], ["type", "text", "placeholder", "Comment", 3, "ngModel", "ngModelChange"], ["clear", "", "item-right", "", 3, "disabled", "click"], [1, "ion-text-center", "ion-justify-center", 2, "height", "100%", "flex-direction", "column"], [1, "comment"], [1, "comments-grid"], [1, "ion-align-self-center"], [1, "ion-align-items-center"], [1, "user-pic", "img-center", 3, "src"], ["size", "2.2"], ["color", "medium"]], template: function CommentsPage_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-header", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "ion-toolbar", 1);
@@ -338,7 +343,7 @@ CommentsPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
                 templateUrl: './comments.page.html',
                 styleUrls: ['./comments.page.scss'],
             }]
-    }], function () { return [{ type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["PostService"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"] }]; }, null); })();
+    }], function () { return [{ type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["PostService"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"] }]; }, null); })();
 
 
 /***/ })

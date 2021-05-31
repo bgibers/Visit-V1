@@ -480,67 +480,73 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _ionic_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @ionic/angular */
-    "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
-    /* harmony import */
-
-
-    var _capacitor_splash_screen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @capacitor/splash-screen */
-    "./node_modules/@capacitor/splash-screen/dist/esm/index.js");
-    /* harmony import */
-
-
-    var _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! @capacitor/status-bar */
-    "./node_modules/@capacitor/status-bar/dist/esm/index.js");
-    /* harmony import */
-
-
-    var _pages_modals_add_add_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ./pages/modals/add/add.page */
-    "./src/app/pages/modals/add/add.page.ts");
-    /* harmony import */
-
-
-    var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/router */
     "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
     /* harmony import */
 
 
-    var _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-    /*! ./backend/clients/api/accounts.service */
-    "./src/app/backend/clients/api/accounts.service.ts");
+    var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @ionic/angular */
+    "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
     /* harmony import */
 
 
-    var _services_modal_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-    /*! ./services/modal.service */
-    "./src/app/services/modal.service.ts");
+    var _capacitor_splash_screen__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @capacitor/splash-screen */
+    "./node_modules/@capacitor/splash-screen/dist/esm/index.js");
     /* harmony import */
 
 
-    var _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @capacitor/status-bar */
+    "./node_modules/@capacitor/status-bar/dist/esm/index.js");
+    /* harmony import */
+
+
+    var _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! @capacitor/push-notifications */
     "./node_modules/@capacitor/push-notifications/dist/esm/index.js");
     /* harmony import */
 
 
-    var _capacitor_community_fcm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var _capacitor_community_fcm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! @capacitor-community/fcm */
     "./node_modules/@capacitor-community/fcm/dist/esm/index.js");
     /* harmony import */
 
 
-    var rxjs__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    var _capacitor_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! @capacitor/core */
+    "./node_modules/@capacitor/core/dist/index.js");
+    /* harmony import */
+
+
+    var rxjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! rxjs */
     "./node_modules/rxjs/_esm2015/index.js");
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    var _pages_modals_add_add_page__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    /*! ./pages/modals/add/add.page */
+    "./src/app/pages/modals/add/add.page.ts");
+    /* harmony import */
+
+
+    var _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    /*! ./backend/clients/api/accounts.service */
+    "./src/app/backend/clients/api/accounts.service.ts");
+    /* harmony import */
+
+
+    var _services_modal_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    /*! ./services/modal.service */
+    "./src/app/services/modal.service.ts");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
     /*! @angular/common */
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
@@ -600,7 +606,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
     }
 
-    var fcm = new _capacitor_community_fcm__WEBPACK_IMPORTED_MODULE_9__["FCM"]();
+    var fcm = new _capacitor_community_fcm__WEBPACK_IMPORTED_MODULE_6__["FCM"]();
 
     var AppComponent = /*#__PURE__*/function () {
       function AppComponent(platform, userService, modalController, alertController, router, zone, myservice) {
@@ -629,19 +635,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this2 = this;
 
           this.platform.ready().then(function () {
-            _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_3__["StatusBar"].setStyle({
-              style: _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_3__["Style"].Default
-            });
-
-            _capacitor_splash_screen__WEBPACK_IMPORTED_MODULE_2__["SplashScreen"].hide();
-
-            _this2.registerPush();
-
-            if (_this2.userService.isLoggedIn) {
-              _this2.router.navigate(['tab1']);
-            } else {
-              _this2.router.navigate(['sign-in']);
+            if (_capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Capacitor"].isPluginAvailable('StatusBar')) {
+              _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_4__["StatusBar"].setStyle({
+                style: _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_4__["Style"].Default
+              });
             }
+
+            ;
+
+            if (_capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Capacitor"].isPluginAvailable('SplashScreen')) {
+              _capacitor_splash_screen__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"].hide();
+            }
+
+            ;
+
+            if (_capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Capacitor"].isPluginAvailable('PushNotifications')) {
+              _this2.registerPush();
+            }
+
+            ;
+
+            _this2.zone.run(function () {
+              if (_this2.userService.isLoggedIn) {
+                _this2.router.navigate(['tab1']);
+              } else {
+                _this2.router.navigate(['sign-in']);
+              }
+            });
           });
         }
       }, {
@@ -649,11 +669,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function registerPush() {
           var _this3 = this;
 
-          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].requestPermissions().then(function (result) {
+          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].requestPermissions().then(function (result) {
             if (result.receive === 'granted') {
               // Register with Apple / Google to receive push via APNS/FCM
-              _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].register().then(function () {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_10__["from"])(fcm.getToken().then(function (r) {
+              _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].register().then(function () {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_8__["from"])(fcm.getToken().then(function (r) {
                   _this3.userService.setFcmToken(r.token);
                 })["catch"](function (err) {
                   console.log("FCM Token ERROR: ".concat(JSON.stringify(err)));
@@ -664,15 +684,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           });
 
-          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('registration', function (token) {
+          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].addListener('registration', function (token) {
             alert('Push registration success, token: ' + token.value);
           });
 
-          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('registrationError', function (error) {
+          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].addListener('registrationError', function (error) {
             alert('Error on registration: ' + JSON.stringify(error));
           });
 
-          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('pushNotificationReceived', /*#__PURE__*/function () {
+          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].addListener('pushNotificationReceived', /*#__PURE__*/function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(notification) {
               return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
@@ -695,7 +715,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             };
           }());
 
-          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_8__["PushNotifications"].addListener('pushNotificationActionPerformed', function (notification) {
+          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].addListener('pushNotificationActionPerformed', function (notification) {
             alert('Push action performed: ' + JSON.stringify(notification));
           });
         }
@@ -751,7 +771,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 0:
                     _context3.next = 2;
                     return this.modalController.create({
-                      component: _pages_modals_add_add_page__WEBPACK_IMPORTED_MODULE_4__["AddPage"],
+                      component: _pages_modals_add_add_page__WEBPACK_IMPORTED_MODULE_9__["AddPage"],
                       showBackdrop: true,
                       swipeToClose: true,
                       cssClass: 'add-modal',
@@ -815,7 +835,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     AppComponent.ɵfac = function AppComponent_Factory(t) {
-      return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_6__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_modal_service__WEBPACK_IMPORTED_MODULE_7__["ModalService"]));
+      return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_10__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_modal_service__WEBPACK_IMPORTED_MODULE_11__["ModalService"]));
     };
 
     AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -851,7 +871,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.showFooter);
         }
       },
-      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonApp"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonRouterOutlet"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonTabs"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonTabBar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonTabButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonLabel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonFabButton"]],
+      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonApp"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRouterOutlet"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabs"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabBar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFabButton"]],
       styles: ["ion-tab-button[_ngcontent-%COMP%] {\n  --color-selected: #128C7E;\n}\n\n.add-button[_ngcontent-%COMP%] {\n  --background: #128C7E;\n  --background-activated: #128C7E;\n  --ripple-color: #128C7E;\n  --background-focused: #128C7E;\n  --color-focused: #128C7E;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9CcmVuZGFuR2liZXJzb24vRG9jdW1lbnRzL0Rldi9WaXNpdC9WaXNpdC1hcHAtbmV3L1Zpc2l0Li9zcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0kseUJBQUE7QUNBSjs7QURHQTtFQUNJLHFCQUFBO0VBQ0EsK0JBQUE7RUFDQSx1QkFBQTtFQUNBLDZCQUFBO0VBQ0Esd0JBQUE7QUNBSiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuaW9uLXRhYi1idXR0b257XG4gICAgLS1jb2xvci1zZWxlY3RlZDogIzEyOEM3RTtcbn1cblxuLmFkZC1idXR0b257XG4gICAgLS1iYWNrZ3JvdW5kOiAjMTI4QzdFO1xuICAgIC0tYmFja2dyb3VuZC1hY3RpdmF0ZWQ6ICMxMjhDN0U7XG4gICAgLS1yaXBwbGUtY29sb3I6ICMxMjhDN0U7XG4gICAgLS1iYWNrZ3JvdW5kLWZvY3VzZWQ6ICMxMjhDN0U7XG4gICAgLS1jb2xvci1mb2N1c2VkOiAjMTI4QzdFO1xufSIsImlvbi10YWItYnV0dG9uIHtcbiAgLS1jb2xvci1zZWxlY3RlZDogIzEyOEM3RTtcbn1cblxuLmFkZC1idXR0b24ge1xuICAtLWJhY2tncm91bmQ6ICMxMjhDN0U7XG4gIC0tYmFja2dyb3VuZC1hY3RpdmF0ZWQ6ICMxMjhDN0U7XG4gIC0tcmlwcGxlLWNvbG9yOiAjMTI4QzdFO1xuICAtLWJhY2tncm91bmQtZm9jdXNlZDogIzEyOEM3RTtcbiAgLS1jb2xvci1mb2N1c2VkOiAjMTI4QzdFO1xufSJdfQ== */"]
     });
     /*@__PURE__*/
@@ -866,19 +886,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }]
       }], function () {
         return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]
         }, {
-          type: _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_6__["AccountsService"]
+          type: _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_10__["AccountsService"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
         }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
-          type: _services_modal_service__WEBPACK_IMPORTED_MODULE_7__["ModalService"]
+          type: _services_modal_service__WEBPACK_IMPORTED_MODULE_11__["ModalService"]
         }];
       }, null);
     })();
@@ -1378,13 +1398,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var InterceptorSkipHeader = 'X-Skip-Interceptor';
 
     var AccountsService = /*#__PURE__*/function () {
-      function AccountsService(httpClient, basePath, configuration, router, storage, ngFireAuth) {
+      function AccountsService(httpClient, basePath, configuration, router, zone, storage, ngFireAuth) {
         var _this4 = this;
 
         _classCallCheck(this, AccountsService);
 
         this.httpClient = httpClient;
         this.router = router;
+        this.zone = zone;
         this.storage = storage;
         this.ngFireAuth = ngFireAuth;
         this.basePath = src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["BASE_PATH"];
@@ -1435,7 +1456,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     return _context4.abrupt("return", this.ngFireAuth.signOut().then(function () {
                       localStorage.removeItem('user');
 
-                      _this5.router.navigate(['sign-in']);
+                      _this5.zone.run(function () {
+                        _this5.router.navigate(['sign-in']);
+                      });
                     }));
 
                   case 1:
@@ -1459,7 +1482,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this6 = this;
 
           return firebase_app__WEBPACK_IMPORTED_MODULE_8__["default"].auth().currentUser.sendEmailVerification().then(function () {
-            _this6.router.navigate(['verify-email']);
+            _this6.zone.run(function () {
+              _this6.router.navigate(['verify-email']);
+            });
           });
         }
       }, {
@@ -1813,7 +1838,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     AccountsService.ɵfac = function AccountsService_Factory(t) {
-      return new (t || AccountsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["BASE_PATH"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_configuration__WEBPACK_IMPORTED_MODULE_5__["Configuration"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_10__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_9__["Storage"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_7__["AngularFireAuth"]));
+      return new (t || AccountsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["BASE_PATH"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_configuration__WEBPACK_IMPORTED_MODULE_5__["Configuration"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_10__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_9__["Storage"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_7__["AngularFireAuth"]));
     };
 
     AccountsService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
@@ -1843,6 +1868,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_10__["Router"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["Storage"]
         }, {
@@ -5656,10 +5683,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./node_modules/firebase/app/dist/index.esm.js");
 
     var AuthGuard = /*#__PURE__*/function () {
-      function AuthGuard(router) {
+      function AuthGuard(router, zone) {
         _classCallCheck(this, AuthGuard);
 
         this.router = router;
+        this.zone = zone;
       }
 
       _createClass(AuthGuard, [{
@@ -5676,7 +5704,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 // No user is signed in.
                 resolve(false);
 
-                _this11.router.navigate(['sign-in']);
+                _this11.zone.run(function () {
+                  _this11.router.navigate(['sign-in']);
+                });
               }
             });
           });
@@ -5687,7 +5717,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     AuthGuard.ɵfac = function AuthGuard_Factory(t) {
-      return new (t || AuthGuard)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]));
+      return new (t || AuthGuard)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]));
     };
 
     AuthGuard.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
@@ -5702,6 +5732,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }], function () {
         return [{
           type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }];
       }, null);
     })();
@@ -6150,10 +6182,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }
 
     var PostComponent = /*#__PURE__*/function () {
-      function PostComponent(router, postSvc) {
+      function PostComponent(router, zone, postSvc) {
         _classCallCheck(this, PostComponent);
 
         this.router = router;
+        this.zone = zone;
         this.postSvc = postSvc;
         this.posts = [];
         this.location = 'Charleston, SC'; // flipped = false;
@@ -6182,24 +6215,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "viewComments",
         value: function viewComments(post) {
+          var _this12 = this;
+
           var navigationExtras = {
             replaceUrl: false,
             state: {
               postId: post.postId
             }
           };
-          this.router.navigateByUrl('/comments', navigationExtras);
+          this.zone.run(function () {
+            _this12.router.navigateByUrl('/comments', navigationExtras);
+          });
         }
       }, {
         key: "openProfile",
         value: function openProfile(post) {
+          var _this13 = this;
+
           var navigationExtras = {
             replaceUrl: false,
             state: {
               userId: post.fkUserId
             }
           };
-          this.router.navigateByUrl('/user-profile', navigationExtras);
+          this.zone.run(function () {
+            _this13.router.navigateByUrl('/user-profile', navigationExtras);
+          });
         }
       }]);
 
@@ -6207,7 +6248,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     PostComponent.ɵfac = function PostComponent_Factory(t) {
-      return new (t || PostComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_3__["PostService"]));
+      return new (t || PostComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_3__["PostService"]));
     };
 
     PostComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -6249,6 +6290,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }], function () {
         return [{
           type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_3__["PostService"]
         }];
@@ -6536,7 +6579,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "createMap",
         value: function () {
           var _createMap = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(selectionMode) {
-            var _this12 = this;
+            var _this14 = this;
 
             return regeneratorRuntime.wrap(function _callee9$(_context9) {
               while (1) {
@@ -6583,17 +6626,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         worldSeries.exclude = ['AQ'];
                         worldSeries.useGeodata = true;
 
-                        _this12.seriesArr.push(worldSeries);
+                        _this14.seriesArr.push(worldSeries);
 
-                        _this12.polygonArr.push(worldSeries.mapPolygons.template); // Series for United States map
+                        _this14.polygonArr.push(worldSeries.mapPolygons.template); // Series for United States map
 
 
                         usaSeries = chart.series.push(new _amcharts_amcharts4_maps__WEBPACK_IMPORTED_MODULE_2__["MapPolygonSeries"]());
                         usaSeries.geodata = _amcharts_amcharts4_geodata_usaLow__WEBPACK_IMPORTED_MODULE_5__["default"];
 
-                        _this12.seriesArr.push(usaSeries);
+                        _this14.seriesArr.push(usaSeries);
 
-                        _this12.polygonArr.push(usaSeries.mapPolygons.template); // // Series for Canada map
+                        _this14.polygonArr.push(usaSeries.mapPolygons.template); // // Series for Canada map
                         // canadaSeries = chart.series.push(new am4maps.MapPolygonSeries());
                         // canadaSeries.geodata = am4geodata_canadaLow;
                         // this.seriesArr.push(canadaSeries);
@@ -6606,11 +6649,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                       });
 
-                      _this12.setupTemplates();
+                      _this14.setupTemplates();
 
-                      _this12.setSelectionMode(selectionMode);
+                      _this14.setSelectionMode(selectionMode);
 
-                      _this12.chart = chart;
+                      _this14.chart = chart;
                     });
 
                   case 2:
@@ -6637,7 +6680,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setupTemplates",
         value: function setupTemplates() {
-          var _this13 = this;
+          var _this15 = this;
 
           this.polygonArr.forEach(function (polygonTemplate) {
             polygonTemplate.tooltipText = '{name}';
@@ -6653,13 +6696,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             defaultState.properties.fill = _amcharts_amcharts4_core__WEBPACK_IMPORTED_MODULE_1__["color"]('#d9d9d9');
             polygonTemplate.events.on('hit', function (ev) {
               var data = ev.target.dataItem.dataContext;
-              _this13.selectedArea = data; // this.selectedName = data.name;
+              _this15.selectedArea = data; // this.selectedName = data.name;
 
-              _this13.selectedId = data.id;
+              _this15.selectedId = data.id;
 
-              if (_this13.lastSelected !== ev.target) {
+              if (_this15.lastSelected !== ev.target) {
                 ev.target.series.chart.zoomToMapObject(ev.target);
-                _this13.lastSelected = ev.target;
+                _this15.lastSelected = ev.target;
               }
             });
           });
@@ -6667,7 +6710,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setSelectionMode",
         value: function setSelectionMode(selectionMode) {
-          var _this14 = this;
+          var _this16 = this;
 
           this.selectionMode = selectionMode; // Allow only one location to be hightlighted at a time
 
@@ -6676,9 +6719,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               polygonTemplate.events.on('doublehit', function (ev) {
                 var data = ev.target.dataItem.dataContext;
 
-                _this14.resetAllLocations();
+                _this16.resetAllLocations();
 
-                _this14.changeVisitStatus(data.id, 'visited');
+                _this16.changeVisitStatus(data.id, 'visited');
               });
             });
           } else if (this.selectionMode !== _enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_6__["MapSelectionMode"].NONE) {
@@ -6687,10 +6730,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               polygonTemplate.events.on('doublehit', function (ev) {
                 var data = ev.target.dataItem.dataContext;
 
-                if (_this14.selectionMode === _enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_6__["MapSelectionMode"].TO_VISIT) {
-                  _this14.changeVisitStatus(data.id, 'toVisit');
+                if (_this16.selectionMode === _enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_6__["MapSelectionMode"].TO_VISIT) {
+                  _this16.changeVisitStatus(data.id, 'toVisit');
                 } else {
-                  _this14.changeVisitStatus(data.id, 'visited');
+                  _this16.changeVisitStatus(data.id, 'visited');
                 }
               });
             });
@@ -6726,10 +6769,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "resetAllLocations",
         value: function resetAllLocations() {
-          var _this15 = this;
+          var _this17 = this;
 
           this.selectedArr.forEach(function (location) {
-            var _iterator9 = _createForOfIteratorHelper(_this15.seriesArr),
+            var _iterator9 = _createForOfIteratorHelper(_this17.seriesArr),
                 _step9;
 
             try {
@@ -6843,11 +6886,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "destroyMap",
         value: function destroyMap() {
-          var _this16 = this;
+          var _this18 = this;
 
           this.zone.runOutsideAngular(function () {
-            if (_this16.chart) {
-              _this16.chart.dispose();
+            if (_this18.chart) {
+              _this18.chart.dispose();
             }
           });
         }
@@ -7203,7 +7246,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "post",
         value: function () {
           var _post = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
-            var _this17 = this;
+            var _this19 = this;
 
             var loading;
             return regeneratorRuntime.wrap(function _callee11$(_context11) {
@@ -7224,9 +7267,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.postService.postsNewPostForm(this.postText, 'image', this.selectedLocation.id, this.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (res) {
                       loading.dismiss();
 
-                      _this17.dismiss();
+                      _this19.dismiss();
                     }, function (err) {
-                      _this17.error = true;
+                      _this19.error = true;
                       loading.dismiss();
                     });
 
@@ -7795,7 +7838,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "post",
         value: function () {
           var _post2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
-            var _this18 = this;
+            var _this20 = this;
 
             var loading;
             return regeneratorRuntime.wrap(function _callee13$(_context13) {
@@ -7816,9 +7859,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.postService.postsNewPostForm(this.postText, 'text', this.selectedLocation.id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1)).subscribe(function (res) {
                       loading.dismiss();
 
-                      _this18.dismiss();
+                      _this20.dismiss();
                     }, function (err) {
-                      _this18.error = true;
+                      _this20.error = true;
                       loading.dismiss();
                     });
 
@@ -8268,10 +8311,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "mapLocationsToRequest",
         value: function mapLocationsToRequest() {
-          var _this19 = this;
+          var _this21 = this;
 
           this.map.selectedArr.forEach(function (location) {
-            _this19.locationRequest.locations[location.locationId] = location.status;
+            _this21.locationRequest.locations[location.locationId] = location.status;
           });
         }
       }, {
@@ -8286,11 +8329,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this20 = this;
+          var _this22 = this;
 
           this.mapLocationsToRequest();
           this.accountService.accountUpdateLocationsPost(this.locationRequest).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function (res) {
-            _this20.dismiss();
+            _this22.dismiss();
           });
         }
       }]);
@@ -9748,11 +9791,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }
 
     var SearchPage = /*#__PURE__*/function () {
-      function SearchPage(viewCtrl, userService, router) {
+      function SearchPage(viewCtrl, userService, zone, router) {
         _classCallCheck(this, SearchPage);
 
         this.viewCtrl = viewCtrl;
         this.userService = userService;
+        this.zone = zone;
         this.router = router;
         this.people = new rxjs__WEBPACK_IMPORTED_MODULE_4__["BehaviorSubject"]([]);
         this.searchQuery = '';
@@ -9764,15 +9808,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "search",
         value: function search() {
-          var _this21 = this;
+          var _this23 = this;
 
           this.userService.userSearchQueryGet(this.searchQuery).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (users) {
-            _this21.people.next(users);
+            _this23.people.next(users);
           });
         }
       }, {
         key: "goToProfile",
         value: function goToProfile(user) {
+          var _this24 = this;
+
           var navigationExtras = {
             replaceUrl: true,
             skipLocationChange: false,
@@ -9782,7 +9828,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           };
           var onClosedData = user.id;
           this.viewCtrl.dismiss(onClosedData);
-          this.router.navigateByUrl('/user-profile', navigationExtras);
+          this.zone.run(function () {
+            _this24.router.navigateByUrl('/user-profile', navigationExtras);
+          });
         }
       }, {
         key: "dismiss",
@@ -9795,7 +9843,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     SearchPage.ɵfac = function SearchPage_Factory(t) {
-      return new (t || SearchPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_2__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]));
+      return new (t || SearchPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_2__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]));
     };
 
     SearchPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -9876,6 +9924,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]
         }, {
           type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_2__["UserService"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
         }];
@@ -10151,7 +10201,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "onSubmit",
         value: function () {
           var _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
-            var _this22 = this;
+            var _this25 = this;
 
             var loading, title, education, birthPlace, residence;
             return regeneratorRuntime.wrap(function _callee22$(_context22) {
@@ -10180,15 +10230,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           while (1) {
                             switch (_context21.prev = _context21.next) {
                               case 0:
-                                if (_this22.blob !== undefined) {
-                                  _this22.accountService.accountUpdateProfileImagePost(_this22.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function (res) {});
+                                if (_this25.blob !== undefined) {
+                                  _this25.accountService.accountUpdateProfileImagePost(_this25.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function (res) {});
                                 }
 
                                 _context21.next = 3;
                                 return loading.dismiss();
 
                               case 3:
-                                _this22.dismiss();
+                                _this25.dismiss();
 
                               case 4:
                               case "end":
@@ -10811,7 +10861,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./src/app/components/post/post.component.ts");
 
     var UserTimelinePage = /*#__PURE__*/function () {
-      function UserTimelinePage(modalController, loadingController, accountService, postService, navParams, router) {
+      function UserTimelinePage(modalController, loadingController, accountService, postService, navParams, zone, router) {
         _classCallCheck(this, UserTimelinePage);
 
         this.modalController = modalController;
@@ -10819,6 +10869,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.accountService = accountService;
         this.postService = postService;
         this.navParams = navParams;
+        this.zone = zone;
         this.router = router;
         this.posts = [];
         this.pageNumber = 1;
@@ -10830,13 +10881,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(UserTimelinePage, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this23 = this;
+          var _this26 = this;
 
           this.selectedUserId = this.navParams.data.userId;
           this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(function (res) {
-            _this23.morePages = res.hasNextPage;
-            _this23.pageNumber = res.pageIndex;
-            _this23.posts = res.items;
+            _this26.morePages = res.hasNextPage;
+            _this26.pageNumber = res.pageIndex;
+            _this26.posts = res.items;
           });
         }
       }, {
@@ -10847,29 +10898,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getPosts",
         value: function getPosts(event) {
-          var _this24 = this;
+          var _this27 = this;
 
           if (this.morePages) {
             this.postService.postsPageGet(this.pageNumber + 1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(function (res) {
-              _this24.morePages = res.hasNextPage;
-              _this24.pageNumber = res.pageIndex; // TODO The posts shouldn't be overwritten here but rather appended... not working though
+              _this27.morePages = res.hasNextPage;
+              _this27.pageNumber = res.pageIndex; // TODO The posts shouldn't be overwritten here but rather appended... not working though
 
-              if (_this24.posts.length === 0) {
-                _this24.posts = [];
+              if (_this27.posts.length === 0) {
+                _this27.posts = [];
               } else {
-                var oldposts = _this24.posts;
-                _this24.posts = [];
+                var oldposts = _this27.posts;
+                _this27.posts = [];
                 var oldResLen = oldposts.length;
 
                 for (var i = 0; i < oldResLen; i++) {
-                  _this24.posts.push(oldposts[i]);
+                  _this27.posts.push(oldposts[i]);
                 }
               }
 
               var resLen = res.items.length;
 
               for (var _i = 0; _i < resLen; _i++) {
-                _this24.posts.push(res.items[_i]);
+                _this27.posts.push(res.items[_i]);
               } // this.posts = res.items;
 
 
@@ -10884,12 +10935,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "refreshPosts",
         value: function refreshPosts(event) {
-          var _this25 = this;
+          var _this28 = this;
 
           this.postService.postsPageGet(1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(function (res) {
-            _this25.morePages = res.hasNextPage;
-            _this25.pageNumber = res.pageIndex;
-            _this25.posts = res.items;
+            _this28.morePages = res.hasNextPage;
+            _this28.pageNumber = res.pageIndex;
+            _this28.posts = res.items;
 
             if (event) {
               event.target.complete();
@@ -10938,6 +10989,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openProfile",
         value: function openProfile() {
+          var _this29 = this;
+
           var navigationExtras = {
             replaceUrl: true,
             skipLocationChange: true,
@@ -10945,13 +10998,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               userId: this.accountService.getUserId()
             }
           };
-          this.router.navigateByUrl('/user-profile', navigationExtras);
+          this.zone.run(function () {
+            _this29.router.navigateByUrl('/user-profile', navigationExtras);
+          });
         }
       }, {
         key: "presentMapFilter",
         value: function () {
           var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
-            var _this26 = this;
+            var _this30 = this;
 
             var modal;
             return regeneratorRuntime.wrap(function _callee27$(_context27) {
@@ -10981,12 +11036,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                   break;
                                 }
 
-                                _this26.filter = dataReturned.data;
+                                _this30.filter = dataReturned.data;
 
-                                _this26.refreshPosts();
+                                _this30.refreshPosts();
 
                                 _context26.next = 5;
-                                return _this26.loadingController.dismiss();
+                                return _this30.loadingController.dismiss();
 
                               case 5:
                               case "end":
@@ -11031,7 +11086,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     UserTimelinePage.ɵfac = function UserTimelinePage_Factory(t) {
-      return new (t || UserTimelinePage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_5__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavParams"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]));
+      return new (t || UserTimelinePage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_5__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavParams"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]));
     };
 
     UserTimelinePage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -11164,6 +11219,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["PostService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavParams"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
         }];

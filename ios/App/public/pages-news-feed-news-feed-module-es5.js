@@ -188,10 +188,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./src/app/components/post/post.component.ts");
 
     var NewsFeedPage = /*#__PURE__*/function () {
-      function NewsFeedPage(modalController, loadingController, accountService, postService, router) {
+      function NewsFeedPage(modalController, zone, loadingController, accountService, postService, router) {
         _classCallCheck(this, NewsFeedPage);
 
         this.modalController = modalController;
+        this.zone = zone;
         this.loadingController = loadingController;
         this.accountService = accountService;
         this.postService = postService;
@@ -392,6 +393,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openProfile",
         value: function openProfile() {
+          var _this4 = this;
+
           var navigationExtras = {
             replaceUrl: true,
             skipLocationChange: true,
@@ -399,13 +402,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               userId: this.accountService.getUserId()
             }
           };
-          this.router.navigateByUrl('/user-profile', navigationExtras);
+          this.zone.run(function () {
+            _this4.router.navigateByUrl('/user-profile', navigationExtras);
+          });
         }
       }, {
         key: "presentMapFilter",
         value: function () {
           var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-            var _this4 = this;
+            var _this5 = this;
 
             var modal;
             return regeneratorRuntime.wrap(function _callee6$(_context6) {
@@ -435,12 +440,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                   break;
                                 }
 
-                                _this4.filter = dataReturned.data;
+                                _this5.filter = dataReturned.data;
 
-                                _this4.refreshPosts();
+                                _this5.refreshPosts();
 
                                 _context5.next = 5;
-                                return _this4.loadingController.dismiss();
+                                return _this5.loadingController.dismiss();
 
                               case 5:
                               case "end":
@@ -480,7 +485,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     NewsFeedPage.ɵfac = function NewsFeedPage_Factory(t) {
-      return new (t || NewsFeedPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_5__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]));
+      return new (t || NewsFeedPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_5__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]));
     };
 
     NewsFeedPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -627,6 +632,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }], function () {
         return [{
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]
         }, {

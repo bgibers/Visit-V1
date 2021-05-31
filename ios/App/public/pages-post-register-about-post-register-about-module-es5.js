@@ -20559,7 +20559,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }
 
     var PostRegisterAboutPage = /*#__PURE__*/function () {
-      function PostRegisterAboutPage(router, loadingController, formBuilder, route, accountService) {
+      function PostRegisterAboutPage(router, loadingController, formBuilder, zone, route, accountService) {
         var _this = this;
 
         _classCallCheck(this, PostRegisterAboutPage);
@@ -20567,6 +20567,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.router = router;
         this.loadingController = loadingController;
         this.formBuilder = formBuilder;
+        this.zone = zone;
         this.route = route;
         this.accountService = accountService;
         this.minDate = moment__WEBPACK_IMPORTED_MODULE_4__().subtract(100, 'y').format();
@@ -20729,7 +20730,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             replaceUrl: false
           };
           this.accountService.accountUpdateProfileImagePost(this.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe(function (res) {
-            _this3.router.navigateByUrl('/post-register-locations', navigationExtras);
+            _this3.zone.run(function () {
+              _this3.router.navigateByUrl('/post-register-locations', navigationExtras);
+            });
           });
         }
       }, {
@@ -20794,7 +20797,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     PostRegisterAboutPage.ɵfac = function PostRegisterAboutPage_Factory(t) {
-      return new (t || PostRegisterAboutPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["AccountsService"]));
+      return new (t || PostRegisterAboutPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["AccountsService"]));
     };
 
     PostRegisterAboutPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -21042,6 +21045,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"]
         }, {
           type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]
         }, {

@@ -374,7 +374,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               }
             };
 
-            _this2.router.navigateByUrl('/tab1', navigationExtras);
+            _this2.zone.run(function () {
+              _this2.router.navigateByUrl('/tab1', navigationExtras);
+            });
           }, function (error) {
             _this2.hasError = true;
             _this2.error = 'An unexpected error has occurred.';

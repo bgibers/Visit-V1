@@ -1925,6 +1925,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "ionViewWillEnter",
         value: function () {
           var _ionViewWillEnter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            var _this3 = this;
+
             var loading;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
@@ -1948,7 +1950,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       this.userId = this.accountService.getUserId();
                     }
 
-                    this.getUser(loading);
+                    this.zone.run(function () {
+                      _this3.getUser(loading).subscribe(function () {
+                        loading.dismiss();
+                      });
+                    });
 
                   case 9:
                   case "end":
@@ -1967,36 +1973,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getUser",
         value: function getUser(loading) {
-          var _this3 = this;
+          var _this4 = this;
 
-          this.userService.userIdGet(this.userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["take"])(1)).subscribe(function (user) {
-            if (_this3.accountService.getUserId() === _this3.userId) {
-              _this3.canEditProfile = true;
+          return this.userService.userIdGet(this.userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["map"])(function (user) {
+            if (_this4.accountService.getUserId() === _this4.userId) {
+              _this4.canEditProfile = true;
             }
 
-            _this3.user.next(user);
+            _this4.user.next(user);
 
-            loading.dismiss();
-
-            if (_this3.user.value.avi === undefined) {
-              _this3.user.value.avi = '../../../assets/defaultuser.png';
+            if (_this4.user.value.avi === undefined) {
+              _this4.user.value.avi = '../../../assets/defaultuser.png';
             }
 
             var usVisitedCount = 0;
             user.userLocations.forEach(function (location) {
-              _this3.map.changeVisitStatus(location.fkLocation.locationCode, location.status);
+              _this4.map.changeVisitStatus(location.fkLocation.locationCode, location.status);
 
               if (location.status === 'toVisit') {
-                _this3.toVisitCount++;
+                _this4.toVisitCount++;
               } else {
                 if (location.fkLocation.locationCountry === 'United State of America') {}
 
-                _this3.visitedCount++;
+                _this4.visitedCount++;
               }
             });
-            var countryCount = _this3.visitedCount - usVisitedCount;
-            _this3.visitedPercent = (countryCount / 405 + usVisitedCount / 355) * 100;
-          });
+            var countryCount = _this4.visitedCount - usVisitedCount;
+            _this4.visitedPercent = (countryCount / 405 + usVisitedCount / 355) * 100;
+          }));
         }
       }, {
         key: "ionViewDidLeave",
@@ -2011,7 +2015,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "presentSearchModal",
         value: function () {
           var _presentSearchModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-            var _this4 = this;
+            var _this5 = this;
 
             var modal;
             return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -2040,7 +2044,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                 }
 
                                 _context2.next = 3;
-                                return _this4.loadingController.create({
+                                return _this5.loadingController.create({
                                   duration: 2000
                                 });
 
@@ -2051,9 +2055,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                               case 6:
                                 console.log(returned.data);
-                                _this4.userId = returned.data;
+                                _this5.userId = returned.data;
 
-                                _this4.getUser(loading);
+                                _this5.getUser(loading);
 
                               case 9:
                               case "end":
