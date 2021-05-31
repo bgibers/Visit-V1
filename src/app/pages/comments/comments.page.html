@@ -50,7 +50,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-         <ion-virtual-scroll [items]="comments">
+        <ion-virtual-scroll [items]="comments">
           <ion-item
             *virtualItem="let comment; let itemBounds = bounds;"
             class="comment"
@@ -60,7 +60,10 @@
                 <ion-col class="ion-align-self-center">
                   <ion-row class="ion-align-items-center">
                     <ion-col>
-                      <img [src]="comment.user.avi" class="user-pic img-center" />
+                      <img
+                        [src]="comment.user.avi"
+                        class="user-pic img-center"
+                      />
                     </ion-col>
                   </ion-row>
                 </ion-col>
@@ -78,7 +81,9 @@
                   </ion-row>
                   <ion-row>
                     <ion-col>
-                      <ion-text color="medium">{{comment.date | dateAgo}}</ion-text>
+                      <ion-text color="medium"
+                        >{{comment.date | dateAgo}}</ion-text
+                      >
                     </ion-col>
                   </ion-row>
                 </ion-col>
@@ -91,8 +96,14 @@
   </ion-grid>
 </ion-content>
 <ion-footer>
-  <ion-item >
-    <ion-input type="text" placeholder="Comment" [(ngModel)]="commentText"></ion-input>
-    <button [disabled]="!canSend" clear item-right (click)="commentOnPost()">Send</button>
-   </ion-item>
+  <ion-item>
+    <ion-input
+      type="text"
+      placeholder="Comment"
+      [(ngModel)]="commentText"
+    ></ion-input>
+    <button [disabled]="!canSend" clear item-right (click)="commentOnPost()">
+      Send
+    </button>
+  </ion-item>
 </ion-footer>

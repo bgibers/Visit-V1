@@ -1,17 +1,22 @@
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
-import { IonInfiniteScroll, LoadingController, ModalController, NavParams } from '@ionic/angular';
-import { SearchPage } from '../modals/search/search.page';
-import { MapFilterPage } from '../modals/map-filter/map-filter.page';
-import { Router, NavigationExtras } from '@angular/router';
-import { AccountsService } from '../../backend/clients/api/accounts.service';
-import { PostService } from 'src/app/backend/clients';
-import { PostApi } from 'src/app/backend/clients/model/postApi';
-import { take } from 'rxjs/operators';
+import { Component, NgZone, OnInit, ViewChild } from "@angular/core";
+import {
+  IonInfiniteScroll,
+  LoadingController,
+  ModalController,
+  NavParams,
+} from "@ionic/angular";
+import { SearchPage } from "../modals/search/search.page";
+import { MapFilterPage } from "../modals/map-filter/map-filter.page";
+import { Router, NavigationExtras } from "@angular/router";
+import { AccountsService } from "../../backend/clients/api/accounts.service";
+import { PostService } from "src/app/backend/clients";
+import { PostApi } from "src/app/backend/clients/model/postApi";
+import { take } from "rxjs/operators";
 
 @Component({
-  selector: 'user-timeline',
-  templateUrl: './user-timeline.page.html',
-  styleUrls: ['./user-timeline.page.scss'],
+  selector: "user-timeline",
+  templateUrl: "./user-timeline.page.html",
+  styleUrls: ["./user-timeline.page.scss"],
 })
 export class UserTimelinePage {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
@@ -19,77 +24,85 @@ export class UserTimelinePage {
   posts: PostApi[] = [];
   pageNumber = 1;
   morePages = false;
-  filter = '';
-  selectedUserId = '';
+  filter = "";
+  selectedUserId = "";
 
-  constructor(public modalController: ModalController,
-              private loadingController: LoadingController,
-              private accountService: AccountsService,
-              private postService: PostService,
-              private navParams: NavParams,
-              private zone: NgZone,
-              private router: Router) {
-  }
+  constructor(
+    public modalController: ModalController,
+    private loadingController: LoadingController,
+    private accountService: AccountsService,
+    private postService: PostService,
+    private navParams: NavParams,
+    private zone: NgZone,
+    private router: Router
+  ) {}
 
   ionViewWillEnter() {
     this.selectedUserId = this.navParams.data.userId;
-    this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(take(1)).subscribe(res => {
-      this.morePages = res.hasNextPage;
-      this.pageNumber = res.pageIndex;
-      this.posts = res.items;
-    });
+    this.postService
+      .postsPageGet(this.pageNumber, this.filter, this.selectedUserId)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.morePages = res.hasNextPage;
+        this.pageNumber = res.pageIndex;
+        this.posts = res.items;
+      });
   }
 
   getPosts(event?: any) {
     if (this.morePages) {
-      this.postService.postsPageGet(this.pageNumber + 1, this.filter, this.selectedUserId).pipe(take(1)).subscribe(res => {
-        this.morePages = res.hasNextPage;
-        this.pageNumber = res.pageIndex;
+      this.postService
+        .postsPageGet(this.pageNumber + 1, this.filter, this.selectedUserId)
+        .pipe(take(1))
+        .subscribe((res) => {
+          this.morePages = res.hasNextPage;
+          this.pageNumber = res.pageIndex;
 
-        // TODO The posts shouldn't be overwritten here but rather appended... not working though
-        if (this.posts.length === 0) {
-          this.posts = [];
-        } else {
-          let oldposts = this.posts;
-          this.posts = [];
-          let oldResLen = oldposts.length;
+          // TODO The posts shouldn't be overwritten here but rather appended... not working though
+          if (this.posts.length === 0) {
+            this.posts = [];
+          } else {
+            let oldposts = this.posts;
+            this.posts = [];
+            let oldResLen = oldposts.length;
             for (let i = 0; i < oldResLen; i++) {
               this.posts.push(oldposts[i]);
             }
-        }
-        let resLen = res.items.length;
-      for (let i = 0; i < resLen; i++) {
-        this.posts.push(res.items[i]);
-      }
-        // this.posts = res.items;
+          }
+          let resLen = res.items.length;
+          for (let i = 0; i < resLen; i++) {
+            this.posts.push(res.items[i]);
+          }
+          // this.posts = res.items;
+          if (event) {
+            event.target.complete();
+          }
+        });
+    } else {
+      this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+    }
+  }
+
+  refreshPosts(event?: any) {
+    this.postService
+      .postsPageGet(1, this.filter, this.selectedUserId)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.morePages = res.hasNextPage;
+        this.pageNumber = res.pageIndex;
+        this.posts = res.items;
         if (event) {
           event.target.complete();
         }
       });
-    } else {
-        this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
-      }
-  }
-
-  refreshPosts(event?: any) {
-    this.postService.postsPageGet(1, this.filter, this.selectedUserId).pipe(take(1)).subscribe(res => {
-      this.morePages = res.hasNextPage;
-      this.pageNumber = res.pageIndex;
-      this.posts = res.items;
-      if (event) {
-        event.target.complete();
-      }
-    });
   }
 
   async presentSearchModal() {
     const modal = await this.modalController.create({
       component: SearchPage,
-      componentProps: {
-
-      },
+      componentProps: {},
       showBackdrop: true,
-      cssClass: 'search-modal'
+      cssClass: "search-modal",
     });
     return await modal.present();
   }
@@ -99,22 +112,22 @@ export class UserTimelinePage {
       replaceUrl: true,
       skipLocationChange: true,
       state: {
-        userId: this.accountService.getUserId()
-      }
+        userId: this.accountService.getUserId(),
+      },
     };
     this.zone.run(() => {
-      this.router.navigateByUrl('/user-profile', navigationExtras);
-    })
+      this.router.navigateByUrl("/user-profile", navigationExtras);
+    });
   }
 
   async presentMapFilter() {
     const modal = await this.modalController.create({
       component: MapFilterPage,
       showBackdrop: true,
-      cssClass: 'filter-modal',
+      cssClass: "filter-modal",
       componentProps: {
-        filter: this.filter
-      }
+        filter: this.filter,
+      },
     });
 
     modal.onDidDismiss().then(async (dataReturned) => {

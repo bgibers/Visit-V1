@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
-import { AddPostImagePageRoutingModule } from './add-post-image-routing.module';
+import { AddPostImagePageRoutingModule } from "./add-post-image-routing.module";
 
-import { AddPostImagePage } from './add-post-image.page';
-import { IonicSelectableModule } from 'ionic-selectable';
+import { AddPostImagePage } from "./add-post-image.page";
+import { IonicSelectableModule } from "ionic-selectable";
 
 @NgModule({
   imports: [
@@ -15,8 +15,8 @@ import { IonicSelectableModule } from 'ionic-selectable';
     FormsModule,
     IonicModule,
     AddPostImagePageRoutingModule,
-    IonicSelectableModule
+    IonicSelectableModule,
   ],
-  declarations: [AddPostImagePage]
+  declarations: [AddPostImagePage],
 })
 export class AddPostImagePageModule {}

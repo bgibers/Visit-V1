@@ -174,14 +174,14 @@ export class AccountsService {
             .then(
               (res) => {
                 if (Capacitor.isNative) {
-                    this.getFcmToken()
+                  this.getFcmToken()
                     .pipe(take(1))
                     .subscribe((token) => {
                       this.accountUpdateFcmDeviceIdPost(token);
                       resolve(res);
                     });
                 } else {
-                    resolve(res);
+                  resolve(res);
                 }
               },
               (err) => reject(err)

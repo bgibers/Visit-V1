@@ -1,21 +1,37 @@
-<ion-header style="background-color:#128C7E">
+<ion-header style="background-color: #128c7e">
   <ion-toolbar color="#128C7E">
     <ion-grid class="header-grid">
       <ion-row class="ion-align-items-baseline">
         <ion-col class="ion-justify-content-start">
-          <ion-buttons class="ion-justify-content-start"> 
-            <ion-button class="ion-justify-content-start circle-pic" (click)="openProfile()">
-              <img class="img-center circle-pic" src="../../assets/defaultuser.png">
+          <ion-buttons class="ion-justify-content-start">
+            <ion-button
+              class="ion-justify-content-start circle-pic"
+              (click)="openProfile()"
+            >
+              <img
+                class="img-center circle-pic"
+                src="../../assets/defaultuser.png"
+              />
             </ion-button>
           </ion-buttons>
         </ion-col>
-        <ion-col class="ion-justify-self-bottom"> 
-          <img height="60px" width="120px" src="../../assets/logos/whiteLogo.png">
+        <ion-col class="ion-justify-self-bottom">
+          <img
+            height="60px"
+            width="120px"
+            src="../../assets/logos/whiteLogo.png"
+          />
         </ion-col>
         <ion-col class="ion-justify-content-end">
-          <ion-buttons class="ion-justify-content-end"> 
-            <ion-button class="ion-justify-content-end" (click)="presentSearchModal()">  
-              <img class="img-center" src="../../assets/UI/search-outline.svg" >
+          <ion-buttons class="ion-justify-content-end">
+            <ion-button
+              class="ion-justify-content-end"
+              (click)="presentSearchModal()"
+            >
+              <img
+                class="img-center"
+                src="../../assets/UI/search-outline.svg"
+              />
             </ion-button>
           </ion-buttons>
         </ion-col>
@@ -28,19 +44,21 @@
     <ion-refresher-content
       pullingText="Pull to refresh"
       refreshingSpinner="circles"
-      refreshingText="Refreshing...">
+      refreshingText="Refreshing..."
+    >
     </ion-refresher-content>
   </ion-refresher>
   <post [posts]="posts"></post>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="getPosts(1, $event)">
     <ion-infinite-scroll-content
       loadingSpinner="circles"
-      loadingText="Getting more posts...">
+      loadingText="Getting more posts..."
+    >
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
 <ion-fab class="map-filter-fab" vertical="bottom">
   <ion-button fill="clear" (click)="presentMapFilter()">
-    <img src="../../assets/UI/FilterClosed.svg">
+    <img src="../../assets/UI/FilterClosed.svg" />
   </ion-button>
 </ion-fab>

@@ -1,37 +1,49 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { RouteReuseStrategy } from "@angular/router";
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SearchPageModule} from './pages/modals/search/search.module';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AddPageModule } from './pages/modals/add/add.module';
-import { MapFilterPageModule } from './pages/modals/map-filter/map-filter.module';
-import { UserTimelinePageModule } from './pages/user-timeline/user-timeline.module';
-import { IonicStorageModule } from '@ionic/storage';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HttpConfigInterceptor } from './backend/models/httpConfigInterceptor';
-import { AuthGuard } from './backend/services/AuthGuard.service';
-import { AccountsService, UserService, PostService } from './backend/clients';
-import { MarkLocationPageModule } from './pages/mark-location/mark-location.module';
-import { IonicSelectableModule } from 'ionic-selectable';
-import { LocationSelector } from './objects/location-json/location.selector';
-import { AddPostPageModule } from './pages/add-post/add-post.module';
-import { AddPostImagePageModule } from './pages/add-post-image/add-post-image.module';
-import { DateAgoPipe } from './pipes/date-ago.pipe';
-import { UserSettingsPageModule } from './pages/user-settings/user-settings.module';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { environment } from '../environments/environment';
+import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
+import { SearchPageModule } from "./pages/modals/search/search.module";
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { AddPageModule } from "./pages/modals/add/add.module";
+import { MapFilterPageModule } from "./pages/modals/map-filter/map-filter.module";
+import { UserTimelinePageModule } from "./pages/user-timeline/user-timeline.module";
+import { IonicStorageModule } from "@ionic/storage";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { HttpConfigInterceptor } from "./backend/models/httpConfigInterceptor";
+import { AuthGuard } from "./backend/services/AuthGuard.service";
+import { AccountsService, UserService, PostService } from "./backend/clients";
+import { MarkLocationPageModule } from "./pages/mark-location/mark-location.module";
+import { IonicSelectableModule } from "ionic-selectable";
+import { LocationSelector } from "./objects/location-json/location.selector";
+import { AddPostPageModule } from "./pages/add-post/add-post.module";
+import { AddPostImagePageModule } from "./pages/add-post-image/add-post-image.module";
+import { DateAgoPipe } from "./pipes/date-ago.pipe";
+import { UserSettingsPageModule } from "./pages/user-settings/user-settings.module";
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { environment } from "../environments/environment";
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, SearchPageModule, AddPageModule,
-     HttpClientModule, UserTimelinePageModule, MapFilterPageModule, MarkLocationPageModule, AddPostPageModule, UserSettingsPageModule,
-     AddPostImagePageModule, IonicSelectableModule,
-     AngularFireModule.initializeApp(environment.firebaseConfig),
-     AngularFireAuthModule,
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
+    AppRoutingModule,
+    SearchPageModule,
+    AddPageModule,
+    HttpClientModule,
+    UserTimelinePageModule,
+    MapFilterPageModule,
+    MarkLocationPageModule,
+    AddPostPageModule,
+    UserSettingsPageModule,
+    AddPostImagePageModule,
+    IonicSelectableModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
   ],
   providers: [
     AuthGuard,
@@ -43,9 +55,9 @@ import { environment } from '../environments/environment';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -12,235 +12,331 @@
 /* tslint:disable:no-unused-variable member-ordering */
 // tslint:disable: max-line-length
 // tslint:disable: import-spacing
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec }                        from '../encoder';
+import { Inject, Injectable, Optional } from "@angular/core";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+} from "@angular/common/http";
+import { CustomHttpUrlEncodingCodec } from "../encoder";
 
-import { Observable }                                        from 'rxjs';
+import { Observable } from "rxjs";
 
-import { User } from '../model/user';
-import { UserResponse } from '../model/userResponse';
-import { BASE_PATH } from 'src/environments/environment';
-import { Platform } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
-import { Configuration }                                     from '../configuration';
-import { SlimUserResponse } from '../model/slimUserResponse';
-const InterceptorSkipHeader = 'X-Skip-Interceptor';
+import { User } from "../model/user";
+import { UserResponse } from "../model/userResponse";
+import { BASE_PATH } from "src/environments/environment";
+import { Platform } from "@ionic/angular";
+import { Storage } from "@ionic/storage";
+import { Configuration } from "../configuration";
+import { SlimUserResponse } from "../model/slimUserResponse";
+const InterceptorSkipHeader = "X-Skip-Interceptor";
 
 @Injectable()
 export class UserService {
+  protected basePath = BASE_PATH;
+  public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, "");
+  public configuration = new Configuration();
 
-    protected basePath = BASE_PATH;
-    public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, '');
-    public configuration = new Configuration();
-
-    constructor(protected httpClient: HttpClient,
-                @Optional()@Inject(BASE_PATH) basePath: string,
-                @Optional() configuration: Configuration ) {
-        if (basePath) {
-            this.basePath = basePath;
-        }
-        if (configuration) {
-            this.configuration = configuration;
-            this.basePath = basePath || configuration.basePath || this.basePath;
-        }
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() configuration: Configuration
+  ) {
+    if (basePath) {
+      this.basePath = basePath;
     }
-    /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        for (const consume of consumes) {
-            if (form === consume) {
-                return true;
-            }
-        }
-        return false;
+    if (configuration) {
+      this.configuration = configuration;
+      this.basePath = basePath || configuration.basePath || this.basePath;
+    }
+  }
+  /**
+   * @param consumes string[] mime-types
+   * @return true: consumes contains 'multipart/form-data', false: otherwise
+   */
+  private canConsumeForm(consumes: string[]): boolean {
+    const form = "multipart/form-data";
+    for (const consume of consumes) {
+      if (form === consume) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   *
+   *
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public userAllGet(
+    observe?: "body",
+    reportProgress?: boolean
+  ): Observable<Array<User>>;
+  public userAllGet(
+    observe?: "response",
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<User>>>;
+  public userAllGet(
+    observe?: "events",
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<User>>>;
+  public userAllGet(
+    observe: any = "body",
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (Bearer) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys.Authorization
+    ) {
+      headers = headers.set(
+        "Authorization",
+        this.configuration.apiKeys.Authorization
+      );
     }
 
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = [
+      "text/plain",
+      "application/json",
+      "text/json",
+    ];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set("Accept", httpHeaderAcceptSelected);
+    }
 
-    /**
-     *
-     *
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-     public userAllGet(observe?: 'body', reportProgress?: boolean): Observable<Array<User>>;
-     public userAllGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<User>>>;
-     public userAllGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<User>>>;
-     public userAllGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    // to determine the Content-Type header
+    const consumes: string[] = [];
 
-         let headers = this.defaultHeaders;
+    return this.httpClient.request<Array<User>>(
+      "get",
+      `${this.basePath}/User/all`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers,
+        observe,
+        reportProgress,
+      }
+    );
+  }
 
-         // authentication (Bearer) required
-         if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
-                        headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
-         }
+  /**
+   *
+   *
+   * @param id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public userIdGet(
+    id: string,
+    observe?: "body",
+    reportProgress?: boolean
+  ): Observable<UserResponse>;
+  public userIdGet(
+    id: string,
+    observe?: "response",
+    reportProgress?: boolean
+  ): Observable<HttpResponse<UserResponse>>;
+  public userIdGet(
+    id: string,
+    observe?: "events",
+    reportProgress?: boolean
+  ): Observable<HttpEvent<UserResponse>>;
+  public userIdGet(
+    id: string,
+    observe: any = "body",
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        "Required parameter id was null or undefined when calling userIdGet."
+      );
+    }
 
-         // to determine the Accept header
-         const httpHeaderAccepts: string[] = [
-             'text/plain',
-             'application/json',
-             'text/json'
-         ];
-         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-         if (httpHeaderAcceptSelected !== undefined) {
-             headers = headers.set('Accept', httpHeaderAcceptSelected);
-         }
+    let headers = this.defaultHeaders;
 
-         // to determine the Content-Type header
-         const consumes: string[] = [
-         ];
+    // authentication (Bearer) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys.Authorization
+    ) {
+      headers = headers.set(
+        "Authorization",
+        this.configuration.apiKeys.Authorization
+      );
+    }
 
-         return this.httpClient.request<Array<User>>('get', `${this.basePath}/User/all`,
-             {
-                 withCredentials: this.configuration.withCredentials,
-                 headers,
-                 observe,
-                 reportProgress
-             }
-         );
-     }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = [
+      "text/plain",
+      "application/json",
+      "text/json",
+    ];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set("Accept", httpHeaderAcceptSelected);
+    }
 
-     /**
-      *
-      *
-      * @param id
-      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-      * @param reportProgress flag to report request and response progress.
-      */
-     public userIdGet(id: string, observe?: 'body', reportProgress?: boolean): Observable<UserResponse>;
-     public userIdGet(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserResponse>>;
-     public userIdGet(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserResponse>>;
-     public userIdGet(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    // to determine the Content-Type header
+    const consumes: string[] = [];
 
-         if (id === null || id === undefined) {
-             throw new Error('Required parameter id was null or undefined when calling userIdGet.');
-         }
+    return this.httpClient.request<UserResponse>(
+      "get",
+      `${this.basePath}/User/${encodeURIComponent(String(id))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers,
+        observe,
+        reportProgress,
+      }
+    );
+  }
 
-         let headers = this.defaultHeaders;
+  /**
+   *
+   *
+   * @param query
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public userSearchQueryGet(
+    query: string,
+    observe?: "body",
+    reportProgress?: boolean
+  ): Observable<Array<SlimUserResponse>>;
+  public userSearchQueryGet(
+    query: string,
+    observe?: "response",
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<SlimUserResponse>>>;
+  public userSearchQueryGet(
+    query: string,
+    observe?: "events",
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<SlimUserResponse>>>;
+  public userSearchQueryGet(
+    query: string,
+    observe: any = "body",
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (query === null || query === undefined) {
+      throw new Error(
+        "Required parameter query was null or undefined when calling userSearchQueryGet."
+      );
+    }
 
-         // authentication (Bearer) required
-         if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
-                        headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
-         }
+    let headers = this.defaultHeaders;
 
-         // to determine the Accept header
-         const httpHeaderAccepts: string[] = [
-             'text/plain',
-             'application/json',
-             'text/json'
-         ];
-         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-         if (httpHeaderAcceptSelected !== undefined) {
-             headers = headers.set('Accept', httpHeaderAcceptSelected);
-         }
+    // authentication (Bearer) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys.Authorization
+    ) {
+      headers = headers.set(
+        "Authorization",
+        this.configuration.apiKeys.Authorization
+      );
+    }
 
-         // to determine the Content-Type header
-         const consumes: string[] = [
-         ];
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = [
+      "text/plain",
+      "application/json",
+      "text/json",
+    ];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set("Accept", httpHeaderAcceptSelected);
+    }
 
-         return this.httpClient.request<UserResponse>('get', `${this.basePath}/User/${encodeURIComponent(String(id))}`,
-             {
-                 withCredentials: this.configuration.withCredentials,
-                 headers,
-                 observe,
-                 reportProgress
-             }
-         );
-     }
+    // to determine the Content-Type header
+    const consumes: string[] = [];
 
-     /**
-      *
-      *
-      * @param query
-      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-      * @param reportProgress flag to report request and response progress.
-      */
-     public userSearchQueryGet(query: string, observe?: 'body', reportProgress?: boolean): Observable<Array<SlimUserResponse>>;
-     public userSearchQueryGet(query: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SlimUserResponse>>>;
-     public userSearchQueryGet(query: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SlimUserResponse>>>;
-     public userSearchQueryGet(query: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    return this.httpClient.request<Array<SlimUserResponse>>(
+      "get",
+      `${this.basePath}/User/search/${encodeURIComponent(String(query))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers,
+        observe,
+        reportProgress,
+      }
+    );
+  }
 
-         if (query === null || query === undefined) {
-             throw new Error('Required parameter query was null or undefined when calling userSearchQueryGet.');
-         }
+  /**
+   *
+   *
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public userSelfGet(
+    observe?: "body",
+    reportProgress?: boolean
+  ): Observable<SlimUserResponse>;
+  public userSelfGet(
+    observe?: "response",
+    reportProgress?: boolean
+  ): Observable<HttpResponse<SlimUserResponse>>;
+  public userSelfGet(
+    observe?: "events",
+    reportProgress?: boolean
+  ): Observable<HttpEvent<SlimUserResponse>>;
+  public userSelfGet(
+    observe: any = "body",
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
 
-         let headers = this.defaultHeaders;
+    // authentication (Bearer) required
+    if (
+      this.configuration.apiKeys &&
+      this.configuration.apiKeys.Authorization
+    ) {
+      headers = headers.set(
+        "Authorization",
+        this.configuration.apiKeys.Authorization
+      );
+    }
 
-         // authentication (Bearer) required
-         if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
-                        headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
-         }
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = [
+      "text/plain",
+      "application/json",
+      "text/json",
+    ];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set("Accept", httpHeaderAcceptSelected);
+    }
 
-         // to determine the Accept header
-         const httpHeaderAccepts: string[] = [
-             'text/plain',
-             'application/json',
-             'text/json'
-         ];
-         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-         if (httpHeaderAcceptSelected !== undefined) {
-             headers = headers.set('Accept', httpHeaderAcceptSelected);
-         }
+    // to determine the Content-Type header
+    const consumes: string[] = [];
 
-         // to determine the Content-Type header
-         const consumes: string[] = [
-         ];
-
-         return this.httpClient.request<Array<SlimUserResponse>>('get', `${this.basePath}/User/search/${encodeURIComponent(String(query))}`,
-             {
-                 withCredentials: this.configuration.withCredentials,
-                 headers,
-                 observe,
-                 reportProgress
-             }
-         );
-     }
-
-     /**
-      *
-      *
-      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-      * @param reportProgress flag to report request and response progress.
-      */
-     public userSelfGet(observe?: 'body', reportProgress?: boolean): Observable<SlimUserResponse>;
-     public userSelfGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SlimUserResponse>>;
-     public userSelfGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SlimUserResponse>>;
-     public userSelfGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-         let headers = this.defaultHeaders;
-
-         // authentication (Bearer) required
-         if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
-                        headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
-         }
-
-         // to determine the Accept header
-         const httpHeaderAccepts: string[] = [
-             'text/plain',
-             'application/json',
-             'text/json'
-         ];
-         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-         if (httpHeaderAcceptSelected !== undefined) {
-             headers = headers.set('Accept', httpHeaderAcceptSelected);
-         }
-
-         // to determine the Content-Type header
-         const consumes: string[] = [
-         ];
-
-         return this.httpClient.request<SlimUserResponse>('get', `${this.basePath}/User/self`,
-             {
-                 withCredentials: this.configuration.withCredentials,
-                 headers,
-                 observe,
-                 reportProgress
-             }
-         );
-     }
-
+    return this.httpClient.request<SlimUserResponse>(
+      "get",
+      `${this.basePath}/User/self`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers,
+        observe,
+        reportProgress,
+      }
+    );
+  }
 }

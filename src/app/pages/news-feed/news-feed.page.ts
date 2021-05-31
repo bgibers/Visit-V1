@@ -47,27 +47,37 @@ export class NewsFeedPage {
   async ionViewWillEnter() {
     const loading = await this.loadingController.create();
     await loading.present();
-    this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(take(1)).subscribe(async res => {
-      this.morePages = res.hasNextPage;
-      this.pageNumber = res.pageIndex;
-      this.posts = res.items;
+    this.postService
+      .postsPageGet(this.pageNumber, this.filter, this.selectedUserId)
+      .pipe(take(1))
+      .subscribe(
+        async (res) => {
+          this.morePages = res.hasNextPage;
+          this.pageNumber = res.pageIndex;
+          this.posts = res.items;
 
-      this.refresh();
-      // see if there are more than one page if so get them
-      await this.getPosts(1);
-      loading.dismiss();
-    }, async err => {
-      if (err.status === 401) {
-        await this.accountService.logout();
-      }
-    });
+          this.refresh();
+          // see if there are more than one page if so get them
+          await this.getPosts(1);
+          loading.dismiss();
+        },
+        async (err) => {
+          if (err.status === 401) {
+            await this.accountService.logout();
+          }
+        }
+      );
   }
 
   async getPosts(incr: number, event?: any) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       if (this.morePages) {
         this.postService
-          .postsPageGet(this.pageNumber + incr, this.filter, this.selectedUserId)
+          .postsPageGet(
+            this.pageNumber + incr,
+            this.filter,
+            this.selectedUserId
+          )
           .pipe(take(1))
           .subscribe(
             (res) => {
@@ -92,21 +102,21 @@ export class NewsFeedPage {
                 event.target.complete();
               }
               this.refresh();
-              resolve('done');
+              resolve("done");
             },
             async (err) => {
               console.log(err);
               if (err.status === 401) {
                 await this.accountService.logout();
-                resolve('done');
+                resolve("done");
               }
             }
           );
       } else {
-        resolve('done');
+        resolve("done");
         this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
       }
-    })
+    });
   }
 
   refreshPosts(event?: any) {

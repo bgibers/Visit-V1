@@ -1,13 +1,20 @@
 <ion-content [scrollY]="false">
-    <ion-searchbar spellcheck="true" showCancelButton="true"></ion-searchbar>
-    <div id="filter-map" class="chartdiv" onload="onLoad()"></div>
-    <ion-grid>
+  <ion-searchbar spellcheck="true" showCancelButton="true"></ion-searchbar>
+  <div id="filter-map" class="chartdiv" onload="onLoad()"></div>
+  <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button color="medium" expand="block"  (click)="restFilter()">Reset</ion-button>
+        <ion-button color="medium" expand="block" (click)="restFilter()"
+          >Reset</ion-button
+        >
       </ion-col>
       <ion-col>
-        <ion-button class="filter-button" expand="block" (click)="filterSubmit()">Filter</ion-button>
+        <ion-button
+          class="filter-button"
+          expand="block"
+          (click)="filterSubmit()"
+          >Filter</ion-button
+        >
       </ion-col>
     </ion-row>
   </ion-grid>

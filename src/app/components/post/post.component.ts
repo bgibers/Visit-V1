@@ -1,19 +1,20 @@
-import { Component, OnInit, Input, NgZone } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
-import { take } from 'rxjs/operators';
-import { Post, PostService } from 'src/app/backend/clients';
-import { PostApi } from 'src/app/backend/clients/model/postApi';
+import { Component, OnInit, Input, NgZone } from "@angular/core";
+import { Router, NavigationExtras } from "@angular/router";
+import { take } from "rxjs/operators";
+import { Post, PostService } from "src/app/backend/clients";
+import { PostApi } from "src/app/backend/clients/model/postApi";
 
 @Component({
-  selector: 'post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss'],
+  selector: "post",
+  templateUrl: "./post.component.html",
+  styleUrls: ["./post.component.scss"],
 })
 export class PostComponent implements OnInit {
-
-  constructor(private router: Router,
-              private zone: NgZone,
-              private postSvc: PostService) {
+  constructor(
+    private router: Router,
+    private zone: NgZone,
+    private postSvc: PostService
+  ) {
     // this.route.queryParams.subscribe(params => {
     //   if (this.router.getCurrentNavigation().extras.state) {
     //     this.displayNewUser = true;
@@ -24,17 +25,19 @@ export class PostComponent implements OnInit {
 
   @Input() posts: PostApi[] = [];
 
-  location = 'Charleston, SC';
+  location = "Charleston, SC";
 
   // flipped = false;
-  likeIcon = '../../assets/UI/heart.svg';
-  likedIcon = '../../assets/UI/liked-icon.svg';
-  ngOnInit() {
-  }
+  likeIcon = "../../assets/UI/heart.svg";
+  likedIcon = "../../assets/UI/liked-icon.svg";
+  ngOnInit() {}
 
   likePost(post: PostApi) {
     if (!post.likedByCurrentUser) {
-      this.postSvc.postsLikePostIdPost(post.postId.toString()).pipe(take(1)).subscribe();
+      this.postSvc
+        .postsLikePostIdPost(post.postId.toString())
+        .pipe(take(1))
+        .subscribe();
       post.likeCount++;
       post.likedByCurrentUser = true;
     }
@@ -44,23 +47,23 @@ export class PostComponent implements OnInit {
     const navigationExtras: NavigationExtras = {
       replaceUrl: false,
       state: {
-        postId: post.postId
-      }
+        postId: post.postId,
+      },
     };
     this.zone.run(() => {
-      this.router.navigateByUrl('/comments', navigationExtras)
-    })
+      this.router.navigateByUrl("/comments", navigationExtras);
+    });
   }
 
   openProfile(post: PostApi) {
     const navigationExtras: NavigationExtras = {
       replaceUrl: false,
       state: {
-        userId: post.fkUserId
-      }
+        userId: post.fkUserId,
+      },
     };
     this.zone.run(() => {
-      this.router.navigateByUrl('/user-profile', navigationExtras);
-    })
+      this.router.navigateByUrl("/user-profile", navigationExtras);
+    });
   }
 }

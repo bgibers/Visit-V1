@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
-import { UserTimelinePageRoutingModule } from './user-timeline-routing.module';
+import { UserTimelinePageRoutingModule } from "./user-timeline-routing.module";
 
-import { UserTimelinePage } from './user-timeline.page';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { UserTimelinePage } from "./user-timeline.page";
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
   imports: [
@@ -15,8 +15,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     IonicModule,
     SharedModule,
-    UserTimelinePageRoutingModule
+    UserTimelinePageRoutingModule,
   ],
-  declarations: [UserTimelinePage]
+  declarations: [UserTimelinePage],
 })
 export class UserTimelinePageModule {}

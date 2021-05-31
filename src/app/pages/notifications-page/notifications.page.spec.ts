@@ -1,16 +1,16 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { IonicModule } from "@ionic/angular";
 
-import { NotificationsPage } from './notifications.page';
+import { NotificationsPage } from "./notifications.page";
 
-describe('Tab3Page', () => {
+describe("Tab3Page", () => {
   let component: NotificationsPage;
   let fixture: ComponentFixture<NotificationsPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NotificationsPage],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NotificationsPage);
@@ -18,7 +18,7 @@ describe('Tab3Page', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

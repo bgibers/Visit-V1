@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { MapFilterPage } from './map-filter.page';
+import { MapFilterPage } from "./map-filter.page";
 
 const routes: Routes = [
   {
-    path: '',
-    component: MapFilterPage
-  }
+    path: "",
+    component: MapFilterPage,
+  },
 ];
 
 @NgModule({

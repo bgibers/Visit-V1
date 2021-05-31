@@ -2,9 +2,9 @@
 //   --background: translucent;
 // }
 
-.user-pic{
-  width:40px;
-  height:40px;
+.user-pic {
+  width: 40px;
+  height: 40px;
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
@@ -15,11 +15,12 @@
 ion-content {
   --padding-top: 10%;
 }
+
 .comments-grid {
   --ion-grid-columns: 3;
-  --ion-grid-column-padding:1px;
-  --ion-grid-padding:1px;
-  }
+  --ion-grid-column-padding: 1px;
+  --ion-grid-padding: 1px;
+}
 
 ion-card {
   margin-bottom: 0px !important;

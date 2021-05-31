@@ -1,8 +1,8 @@
-.card-title{
-    font-size:20px;
-    font-weight: normal;
-    padding-bottom: 5px;
-  }
+.card-title {
+  font-size: 20px;
+  font-weight: normal;
+  padding-bottom: 5px;
+}
 
 .btn {
   border: none;
@@ -11,10 +11,10 @@
   display: inline-block;
 }
 
-.comment{
-    --padding-start: 0px;
-    --inner-padding-end: 0px;
-    --padding-bottom: 0px;
+.comment {
+  --padding-start: 0px;
+  --inner-padding-end: 0px;
+  --padding-bottom: 0px;
 }
 
 ion-card-content {
@@ -37,10 +37,10 @@ ion-card-content {
   perspective: 1000px;
 }
 
-  /* flip the pane when hovered */
-  .flip-container.flipped .flipper {
-      transform: rotateY(180deg);
-  }
+/* flip the pane when hovered */
+.flip-container.flipped .flipper {
+  transform: rotateY(180deg);
+}
 
 
 /* flip speed goes here */
@@ -52,7 +52,8 @@ ion-card-content {
 }
 
 /* hide back of pane during swap */
-.front, .back {
+.front,
+.back {
   backface-visibility: hidden;
 }
 

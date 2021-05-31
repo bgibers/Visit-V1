@@ -1,13 +1,19 @@
-import { Component, OnInit, NgZone, OnDestroy, Injectable } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  NgZone,
+  OnDestroy,
+  Injectable,
+} from "@angular/core";
 
-import * as am4core from '@amcharts/amcharts4/core';
-import * as am4maps from '@amcharts/amcharts4/maps';
-import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import worldLow from '@amcharts/amcharts4-geodata/worldLow';
-import am4geodata_usaLow from '@amcharts/amcharts4-geodata/usaLow';
+import * as am4core from "@amcharts/amcharts4/core";
+import * as am4maps from "@amcharts/amcharts4/maps";
+import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import worldLow from "@amcharts/amcharts4-geodata/worldLow";
+import am4geodata_usaLow from "@amcharts/amcharts4-geodata/usaLow";
 // import am4geodata_canadaLow from '@amcharts/amcharts4-geodata/canadaLow';
 // import am4geodata_russiaLow from '@amcharts/amcharts4-geodata/russiaLow';
-import { MapSelectionMode } from './enums/map-selection-mode';
+import { MapSelectionMode } from "./enums/map-selection-mode";
 
 @Injectable()
 export class Map {
@@ -16,8 +22,8 @@ export class Map {
   private chart: am4maps.MapChart;
   private polygonArr: Array<am4maps.MapPolygon>;
   public selectedArr: Array<{
-      locationId: string,
-      status: string
+    locationId: string;
+    status: string;
   }>;
   private seriesArr: Array<am4maps.MapPolygonSeries>;
   private selectedArea: am4maps.MapPolygon;
@@ -48,7 +54,7 @@ export class Map {
   }
 
   set selectedId(id) {
-      this.id = id;
+    this.id = id;
   }
 
   get selectedName() {
@@ -56,7 +62,7 @@ export class Map {
   }
 
   set selectedName(name) {
-      this.name = name;
+    this.name = name;
   }
 
   async createMap(selectionMode: MapSelectionMode) {
@@ -80,27 +86,27 @@ export class Map {
         chart.zoomControl.plusButton.hide();
         chart.zoomControl.minusButton.hide();
         chart.tapToActivate = true;
-        chart.seriesContainer.events.disableType('doublehit');
-        chart.chartContainer.background.events.disableType('doublehit');
+        chart.seriesContainer.events.disableType("doublehit");
+        chart.chartContainer.background.events.disableType("doublehit");
         chart.showOnInit = true;
         // Home button
         const homeButton = new am4core.Button();
-        homeButton.events.on('hit', () => {
-                  chart.goHome();
-                });
+        homeButton.events.on("hit", () => {
+          chart.goHome();
+        });
 
         homeButton.icon = new am4core.Sprite();
         homeButton.padding(7, 5, 7, 5);
         homeButton.width = 30;
         homeButton.icon.path =
-                  'M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8';
+          "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
         homeButton.marginBottom = 10;
         homeButton.parent = chart.zoomControl;
         homeButton.insertAfter(chart.zoomControl.minusButton);
 
         // Series for World map
         worldSeries = chart.series.push(new am4maps.MapPolygonSeries());
-        worldSeries.exclude = ['AQ'];
+        worldSeries.exclude = ["AQ"];
         worldSeries.useGeodata = true;
         this.seriesArr.push(worldSeries);
         this.polygonArr.push(worldSeries.mapPolygons.template);
@@ -137,63 +143,63 @@ export class Map {
   }
 
   setupTemplates() {
-    this.polygonArr.forEach(polygonTemplate => {
-        polygonTemplate.tooltipText = '{name}';
-        polygonTemplate.nonScalingStroke = true;
-        polygonTemplate.applyOnClones = true;
-        polygonTemplate.strokeOpacity = 0.5;
+    this.polygonArr.forEach((polygonTemplate) => {
+      polygonTemplate.tooltipText = "{name}";
+      polygonTemplate.nonScalingStroke = true;
+      polygonTemplate.applyOnClones = true;
+      polygonTemplate.strokeOpacity = 0.5;
 
-        const activeState = polygonTemplate.states.create('active');
+      const activeState = polygonTemplate.states.create("active");
 
-        const visited = polygonTemplate.states.create('visited');
-        visited.properties.fill = am4core.color('#128C7E');
+      const visited = polygonTemplate.states.create("visited");
+      visited.properties.fill = am4core.color("#128C7E");
 
-        const toVisit = polygonTemplate.states.create('toVisit');
-        toVisit.properties.fill = am4core.color('#F05E23');
+      const toVisit = polygonTemplate.states.create("toVisit");
+      toVisit.properties.fill = am4core.color("#F05E23");
 
-        const defaultState = polygonTemplate.states.create('default');
-        defaultState.properties.fill = am4core.color('#d9d9d9');
+      const defaultState = polygonTemplate.states.create("default");
+      defaultState.properties.fill = am4core.color("#d9d9d9");
 
-        polygonTemplate.events.on('hit', ev => {
-            const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
+      polygonTemplate.events.on("hit", (ev) => {
+        const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
 
-            this.selectedArea = data;
-           // this.selectedName = data.name;
+        this.selectedArea = data;
+        // this.selectedName = data.name;
 
-            this.selectedId = data.id;
+        this.selectedId = data.id;
 
-            if (this.lastSelected !== ev.target) {
-              ev.target.series.chart.zoomToMapObject(ev.target);
-              this.lastSelected = ev.target;
-            }
-          });
+        if (this.lastSelected !== ev.target) {
+          ev.target.series.chart.zoomToMapObject(ev.target);
+          this.lastSelected = ev.target;
+        }
+      });
     });
   }
 
   setSelectionMode(selectionMode: MapSelectionMode) {
-      this.selectionMode = selectionMode;
-      // Allow only one location to be hightlighted at a time
-      if (this.selectionMode === MapSelectionMode.FILTER) {
-        this.polygonArr.forEach(polygonTemplate => {
-          polygonTemplate.events.on('doublehit', ev => {
-              const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
-              this.resetAllLocations();
-              this.changeVisitStatus(data.id, 'visited');
-          });
-      });
-      } else if (this.selectionMode !== MapSelectionMode.NONE) {
-        this.polygonArr.forEach(polygonTemplate => {
-            polygonTemplate.events.off('doublehit');
-            polygonTemplate.events.on('doublehit', ev => {
-                const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
-                if (this.selectionMode === MapSelectionMode.TO_VISIT) {
-                  this.changeVisitStatus(data.id, 'toVisit');
-                } else {
-                  this.changeVisitStatus(data.id, 'visited');
-                }
-            });
+    this.selectionMode = selectionMode;
+    // Allow only one location to be hightlighted at a time
+    if (this.selectionMode === MapSelectionMode.FILTER) {
+      this.polygonArr.forEach((polygonTemplate) => {
+        polygonTemplate.events.on("doublehit", (ev) => {
+          const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
+          this.resetAllLocations();
+          this.changeVisitStatus(data.id, "visited");
         });
-      }
+      });
+    } else if (this.selectionMode !== MapSelectionMode.NONE) {
+      this.polygonArr.forEach((polygonTemplate) => {
+        polygonTemplate.events.off("doublehit");
+        polygonTemplate.events.on("doublehit", (ev) => {
+          const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
+          if (this.selectionMode === MapSelectionMode.TO_VISIT) {
+            this.changeVisitStatus(data.id, "toVisit");
+          } else {
+            this.changeVisitStatus(data.id, "visited");
+          }
+        });
+      });
+    }
   }
 
   zoomToLocation(locationId: string) {
@@ -201,8 +207,8 @@ export class Map {
       const result = series.getPolygonById(locationId);
 
       if (result !== undefined) {
-          this.chart.zoomToMapObject(result);
-          break;
+        this.chart.zoomToMapObject(result);
+        break;
       }
     }
   }
@@ -212,40 +218,42 @@ export class Map {
   }
 
   resetAllLocations() {
-    this.selectedArr.forEach(location =>{
+    this.selectedArr.forEach((location) => {
       for (const series of this.seriesArr) {
         const result = series.getPolygonById(location.locationId);
         if (result !== undefined) {
-          result.setState('default');
+          result.setState("default");
         }
-    }
+      }
     });
   }
 
-  async changeVisitStatus(locationId: string , status: string) {
+  async changeVisitStatus(locationId: string, status: string) {
     for (const series of this.seriesArr) {
-        const result = series.getPolygonById(locationId);
+      const result = series.getPolygonById(locationId);
 
-        if (result !== undefined) {
-            this.selectedArea = result;
-            break;
-        }
+      if (result !== undefined) {
+        this.selectedArea = result;
+        break;
+      }
     }
 
-    const locationInArray = this.selectedArr.find(d => d.locationId === locationId);
+    const locationInArray = this.selectedArr.find(
+      (d) => d.locationId === locationId
+    );
     if (locationInArray !== undefined) {
-        const index = this.selectedArr.indexOf(locationInArray, 0);
-        if (index > -1) {
-            this.selectedArr.splice(index, 1);
-            this.selectedArea.setState('default');
-        }
+      const index = this.selectedArr.indexOf(locationInArray, 0);
+      if (index > -1) {
+        this.selectedArr.splice(index, 1);
+        this.selectedArea.setState("default");
+      }
     } else {
-        if (status === 'visited') {
-            this.selectedArea.setState('visited');
-          } else if (status === 'toVisit') {
-            this.selectedArea.setState('toVisit');
-          }
-        this.selectedArr.push({locationId, status});
+      if (status === "visited") {
+        this.selectedArea.setState("visited");
+      } else if (status === "toVisit") {
+        this.selectedArea.setState("toVisit");
+      }
+      this.selectedArr.push({ locationId, status });
     }
   }
 

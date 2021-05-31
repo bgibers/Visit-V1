@@ -26,13 +26,13 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 .center-any-object {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .img-center {
-    position: relative;  
-    margin: auto;
+  position: relative;
+  margin: auto;
 }
 
 .splash {
@@ -43,82 +43,95 @@
   height: 100%;
 }
 
-.refresher-ios .refresher-pulling-icon, .refresher-ios .refresher-pulling-text, .refresher-ios .refresher-refreshing-icon, .refresher-ios .refresher-refreshing-text { color: var(--ion-text-color,#128C7E); }
+.refresher-ios .refresher-pulling-icon,
+.refresher-ios .refresher-pulling-text,
+.refresher-ios .refresher-refreshing-icon,
+.refresher-ios .refresher-refreshing-text {
+  color: var(--ion-text-color, #128C7E);
+}
+
 ion-refresher-content {
   background: transparent;
 }
-.search-modal { 
-    background: rgba(0, 0, 0, 0.5) !important; 
-    padding: 5% 10% !important; 
-    .modal-wrapper {
-         border-radius: 20px; 
-         background: transparent;
-        } 
+
+.search-modal {
+  background: rgba(0, 0, 0, 0.5) !important;
+  padding: 5% 10% !important;
+
+  .modal-wrapper {
+    border-radius: 20px;
+    background: transparent;
+  }
 }
 
-.add-modal { 
-    // background: rgba(0, 0, 0, 0.5) !important; 
-    padding-top: 110% !important;
-    .modal-wrapper {
-      border-radius: 20px 20px 0 0;
-      background: transparent;
-      height: 300px;
-      position: absolute;
-      bottom: 0;
-    } 
-    .modal-shadow {
-        height: 0;
-    }
+.add-modal {
+  // background: rgba(0, 0, 0, 0.5) !important; 
+  padding-top: 110% !important;
+
+  .modal-wrapper {
+    border-radius: 20px 20px 0 0;
+    background: transparent;
+    height: 300px;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .modal-shadow {
+    height: 0;
+  }
 }
 
-.filter-modal { 
-    // background: rgba(0, 0, 0, 0.5) !important; 
-    padding-top: 70% !important;
-    .modal-wrapper {
-      border-radius: 20px 20px 0 0;
-         background: transparent;
-    } 
-    .modal-shadow {
-        height: 0;
-    }
+.filter-modal {
+  // background: rgba(0, 0, 0, 0.5) !important; 
+  padding-top: 70% !important;
+
+  .modal-wrapper {
+    border-radius: 20px 20px 0 0;
+    background: transparent;
+  }
+
+  .modal-shadow {
+    height: 0;
+  }
 }
 
-.error-message
-{
+.error-message {
   color: red;
   font-size: 14px;
   margin-left: 10px;
   margin-top: 10px;
 }
 
-.facebook-button{
-    --background: #3b5998;
-    --background-activated: #3b5998;
-    --ripple-color: #3b5998;
-    --background-focused: #3b5998;
-    --color-focused: #3b5998;
-    color: #fff;
-  
-    --vertical-align: middle;
-    padding-left: 5%;
+.facebook-button {
+  --background: #3b5998;
+  --background-activated: #3b5998;
+  --ripple-color: #3b5998;
+  --background-focused: #3b5998;
+  --color-focused: #3b5998;
+  color: #fff;
+
+  --vertical-align: middle;
+  padding-left: 5%;
+  padding-right: 5%;
+
+  ion-icon {
     padding-right: 5%;
-    ion-icon {
-      padding-right: 5%;
-    }
   }
-  
-  .apple-button{
-    --background: #000;
-    --background-activated: ##000;
-    --ripple-color: ##000;
-    --background-focused: ##000;
-    --color-focused: ##000;
-    color: #fff;
-  
-    --vertical-align: middle;
-    padding-left: 5%;
+}
+
+.apple-button {
+  --background: #000;
+  --background-activated: ##000;
+  --ripple-color: ##000;
+  --background-focused: ##000;
+  --color-focused: ##000;
+  color: #fff;
+
+  --vertical-align: middle;
+  padding-left: 5%;
+  padding-right: 5%;
+
+  ion-icon {
     padding-right: 5%;
-    ion-icon {
-      padding-right: 5%;
-    }
   }
+}

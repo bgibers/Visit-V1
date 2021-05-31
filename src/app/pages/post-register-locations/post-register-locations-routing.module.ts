@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { PostRegisterLocationsPage } from './post-register-locations.page';
+import { PostRegisterLocationsPage } from "./post-register-locations.page";
 
 const routes: Routes = [
   {
-    path: '',
-    component: PostRegisterLocationsPage
-  }
+    path: "",
+    component: PostRegisterLocationsPage,
+  },
 ];
 
 @NgModule({

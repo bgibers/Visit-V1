@@ -1,72 +1,72 @@
 .close-icon {
-    font-size: 30px; 
-    color: white;
+  font-size: 30px;
+  color: white;
 }
 
-ion-content{
-    --background: translucent;
-  }
-  
-  ion-toolbar{
-    --min-height:2%!important;
-    --padding-top: 10px;
-  }
-  
-  .circle-pic{
-    width:45px;
-    height:35px;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-  }
-  
-  .center {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-  }
-  
-  .post-pic{
-    --border-radius: 75%
-  }
-  
-  .card-title{
-    font-size:20px;
-    font-weight: normal;
-    padding-bottom: 5px;
-  }
-  
-  .header-grid {
+ion-content {
+  --background: translucent;
+}
+
+ion-toolbar {
+  --min-height: 2% !important;
+  --padding-top: 10px;
+}
+
+.circle-pic {
+  width: 45px;
+  height: 35px;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.post-pic {
+  --border-radius: 75%
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: normal;
+  padding-bottom: 5px;
+}
+
+.header-grid {
   --ion-grid-columns: 3;
-  --ion-grid-column-padding:1px;
-  --ion-grid-padding:1px;
-  }
-  
-  .map-filter{
-    justify-content: center;
-    align-self: center;
-  }
-  
-  .map-filter-fab{
-    justify-content: center;
-    align-self: center;
-  }
-  
-  // .button:hover {
-  //   background-color: #2EE59D;
-  //   box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-  //   color: #fff;
-  //   transform: translateY(-7px);
-  // }
-  
-  .btn {
-    border: none;
-    background-color: inherit;
-    font-size: 16px;
-    display: inline-block;
-  }
-  
-  .comment{
-    --padding-start: 0px;
-    --inner-padding-end: 0px;
-    --padding-bottom: 0px;
-    }
+  --ion-grid-column-padding: 1px;
+  --ion-grid-padding: 1px;
+}
+
+.map-filter {
+  justify-content: center;
+  align-self: center;
+}
+
+.map-filter-fab {
+  justify-content: center;
+  align-self: center;
+}
+
+// .button:hover {
+//   background-color: #2EE59D;
+//   box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+//   color: #fff;
+//   transform: translateY(-7px);
+// }
+
+.btn {
+  border: none;
+  background-color: inherit;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.comment {
+  --padding-start: 0px;
+  --inner-padding-end: 0px;
+  --padding-bottom: 0px;
+}

@@ -1,33 +1,36 @@
-import { Component, NgZone, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { UserService } from 'src/app/backend/clients';
-import { take } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
-import { SlimUserResponse } from 'src/app/backend/clients/model/slimUserResponse';
-import { NavigationExtras, Router } from '@angular/router';
+import { Component, NgZone, OnInit } from "@angular/core";
+import { ModalController } from "@ionic/angular";
+import { UserService } from "src/app/backend/clients";
+import { take } from "rxjs/operators";
+import { BehaviorSubject } from "rxjs";
+import { SlimUserResponse } from "src/app/backend/clients/model/slimUserResponse";
+import { NavigationExtras, Router } from "@angular/router";
 
 @Component({
-  selector: 'search',
-  templateUrl: './search.page.html',
-  styleUrls: ['./search.page.scss'],
+  selector: "search",
+  templateUrl: "./search.page.html",
+  styleUrls: ["./search.page.scss"],
 })
 export class SearchPage implements OnInit {
-
-  constructor(public viewCtrl: ModalController,
-              public userService: UserService,
-              private zone: NgZone,
-              private router: Router) {}
+  constructor(
+    public viewCtrl: ModalController,
+    public userService: UserService,
+    private zone: NgZone,
+    private router: Router
+  ) {}
 
   people: BehaviorSubject<SlimUserResponse[]> = new BehaviorSubject([]);
-  searchQuery = '';
+  searchQuery = "";
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   search() {
-    this.userService.userSearchQueryGet(this.searchQuery).pipe(take(1)).subscribe(users => {
-      this.people.next(users);
-    });
+    this.userService
+      .userSearchQueryGet(this.searchQuery)
+      .pipe(take(1))
+      .subscribe((users) => {
+        this.people.next(users);
+      });
   }
 
   goToProfile(user: SlimUserResponse) {
@@ -35,14 +38,14 @@ export class SearchPage implements OnInit {
       replaceUrl: true,
       skipLocationChange: true,
       state: {
-        userId: user.id
-      }
+        userId: user.id,
+      },
     };
     const onClosedData = user.id;
     this.viewCtrl.dismiss(onClosedData);
     this.zone.run(() => {
-      this.router.navigateByUrl('/user-profile', navigationExtras);
-    })
+      this.router.navigateByUrl("/user-profile", navigationExtras);
+    });
   }
 
   dismiss() {

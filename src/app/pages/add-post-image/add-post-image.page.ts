@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import {  CameraResultType, Photo, Camera } from '@capacitor/camera';
-import { LoadingController, ModalController } from '@ionic/angular';
-import { IonicSelectableComponent } from 'ionic-selectable';
-import { take } from 'rxjs/operators';
-import { PostService } from 'src/app/backend/clients';
-import { LocationSelector } from 'src/app/objects/location-json/location.selector';
+import { Component, OnInit } from "@angular/core";
+import { CameraResultType, Photo, Camera } from "@capacitor/camera";
+import { LoadingController, ModalController } from "@ionic/angular";
+import { IonicSelectableComponent } from "ionic-selectable";
+import { take } from "rxjs/operators";
+import { PostService } from "src/app/backend/clients";
+import { LocationSelector } from "src/app/objects/location-json/location.selector";
 
 @Component({
-  selector: 'app-add-post-image',
-  templateUrl: './add-post-image.page.html',
-  styleUrls: ['./add-post-image.page.scss'],
+  selector: "app-add-post-image",
+  templateUrl: "./add-post-image.page.html",
+  styleUrls: ["./add-post-image.page.scss"],
 })
 export class AddPostImagePage implements OnInit {
-
-  public selectedLocation: {id: string, name: string} = undefined;
+  public selectedLocation: { id: string; name: string } = undefined;
   public postText: string = undefined;
-  public locationOptions: {id: string, name: string}[] = [];
-  public userImage = '../../../assets/UI/clickToUpload.jpg';
+  public locationOptions: { id: string; name: string }[] = [];
+  public userImage = "../../../assets/UI/clickToUpload.jpg";
   image: Photo;
   blob: Blob;
   error: boolean;
@@ -26,21 +25,21 @@ export class AddPostImagePage implements OnInit {
     private modalCtrl: ModalController,
     private selector: LocationSelector,
     private postService: PostService
-  ) { }
+  ) {}
 
   ngOnInit() {
-   this.locationOptions = this.selector.getAllLocations();
+    this.locationOptions = this.selector.getAllLocations();
   }
 
   filterLocations(text: string) {
-    return this.locationOptions.filter(option => {
+    return this.locationOptions.filter((option) => {
       return option.name.toLowerCase().indexOf(text) !== -1;
     });
   }
 
   searchLocations(event: {
-    component: IonicSelectableComponent,
-    text: string
+    component: IonicSelectableComponent;
+    text: string;
   }) {
     const text = event.text.trim().toLowerCase();
     event.component.startSearch();
@@ -57,43 +56,54 @@ export class AddPostImagePage implements OnInit {
 
   async post() {
     const loading = await this.loadingController.create({
-      duration: 2000
+      duration: 2000,
     });
     await loading.present();
 
-    this.postService.postsNewPostForm(this.postText, 'image', this.selectedLocation.id, this.blob).pipe(take(1)).subscribe((res) => {
-      loading.dismiss();
-      this.dismiss();
-    }, (err) => {
-      this.error = true;
-      loading.dismiss();
-    });
+    this.postService
+      .postsNewPostForm(
+        this.postText,
+        "image",
+        this.selectedLocation.id,
+        this.blob
+      )
+      .pipe(take(1))
+      .subscribe(
+        (res) => {
+          loading.dismiss();
+          this.dismiss();
+        },
+        (err) => {
+          this.error = true;
+          loading.dismiss();
+        }
+      );
   }
 
   dismiss() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
     this.modalCtrl.dismiss({
-      dismissed: true
+      dismissed: true,
     });
   }
 
   b64toBlob(dataURI) {
-    const byteString = atob(dataURI.split(',')[1]);
+    const byteString = atob(dataURI.split(",")[1]);
     const ab = new ArrayBuffer(byteString.length);
     const ia = new Uint8Array(ab);
 
     for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
+      ia[i] = byteString.charCodeAt(i);
     }
-    this.blob = new Blob([ab], { type: 'image/jpeg' });
-}
+    this.blob = new Blob([ab], { type: "image/jpeg" });
+  }
 
   async getUserImage() {
     this.image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
-      resultType: CameraResultType.DataUrl
+      resultType: CameraResultType.DataUrl,
     });
     // image.webPath will contain a path that can be set as an image src.
     // You can access the original file using image.path, which can be

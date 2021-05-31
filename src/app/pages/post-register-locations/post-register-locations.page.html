@@ -1,13 +1,37 @@
 <ion-content no-bounce>
-  <div class = "splash">
-  <h1>{{displayVisitedText ? titleTextVisited : titleTextToVisit}}</h1>
-  <h3>{{displayVisitedText ? subtitleTextVisited : subtitleTextToVisit}}</h3>
-  <h4>Click a location on the map to zoom to it. Double click the location to select/deselect it.</h4>
-  <div id="register-map" class="chartdiv"></div>
-  <div class="button-div">
-    <ion-button *ngIf="displayVisitedText" class="submit-button" expand="block" type="submit" (click)="switchMode()">Next</ion-button>
-    <ion-button *ngIf="!displayVisitedText" class="submit-button" expand="block" type="submit" (click)="switchMode()">Back</ion-button>
-    <ion-button *ngIf="!displayVisitedText" class="submit-button" expand="block" type="submit" (click)="onSubmit()">I'm Done!</ion-button>
-  </div>
+  <div class="splash">
+    <h1>{{displayVisitedText ? titleTextVisited : titleTextToVisit}}</h1>
+    <h3>{{displayVisitedText ? subtitleTextVisited : subtitleTextToVisit}}</h3>
+    <h4>
+      Click a location on the map to zoom to it. Double click the location to
+      select/deselect it.
+    </h4>
+    <div id="register-map" class="chartdiv"></div>
+    <div class="button-div">
+      <ion-button
+        *ngIf="displayVisitedText"
+        class="submit-button"
+        expand="block"
+        type="submit"
+        (click)="switchMode()"
+        >Next</ion-button
+      >
+      <ion-button
+        *ngIf="!displayVisitedText"
+        class="submit-button"
+        expand="block"
+        type="submit"
+        (click)="switchMode()"
+        >Back</ion-button
+      >
+      <ion-button
+        *ngIf="!displayVisitedText"
+        class="submit-button"
+        expand="block"
+        type="submit"
+        (click)="onSubmit()"
+        >I'm Done!</ion-button
+      >
+    </div>
   </div>
 </ion-content>
