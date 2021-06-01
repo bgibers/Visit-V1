@@ -10,7 +10,9 @@ import { Camera, CameraResultType, Photo } from '@capacitor/camera';
 
 import * as moment from 'moment';
 import { AccountsService, RegisterRequest } from 'src/app/backend/clients';
-import { mergeMap, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+
 import { LoadingController } from '@ionic/angular';
 
 @Component({
@@ -102,16 +104,19 @@ export class PostRegisterAboutPage implements OnInit {
             .loginWithToken(res)
             .pipe(take(1))
             .subscribe(
-              async (res) => {
+              () => {
                 this.uploadImage();
+                if (environment.production !== false) {
+                  this.accountService.SendVerificationMail().pipe(take(1)).subscribe();
+                }
                 loading.dismiss();
               },
-              (error) => {
+              () => {
                 loading.dismiss();
               }
             );
         },
-        (error) => {
+        () => {
           this.hasError = true;
           this.error = 'Unable to register user. Please try again';
         }

@@ -36,7 +36,6 @@ import { MarkLocationsRequest } from '../model/markLocationsRequest';
 import { Configuration } from '../configuration';
 import { RegisterRequest } from '../model/registerRequest';
 import { CustomHttpUrlEncodingCodec } from '../encoder';
-
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
@@ -106,14 +105,14 @@ export class AccountsService {
 
   // Email verification when new user register
   SendVerificationMail() {
-    return firebase
+    return from(firebase
       .auth()
       .currentUser.sendEmailVerification()
       .then(() => {
         this.zone.run(() => {
           this.router.navigate(['verify-email']);
         });
-      });
+      }));
   }
 
   get isEmailVerified(): boolean {
@@ -179,7 +178,7 @@ export class AccountsService {
             .signInWithEmailAndPassword(email, password)
             .then(
               (res) => {
-                if (Capacitor.isNative) {
+                if (Capacitor.isNativePlatform()) {
                   this.getFcmToken()
                     .pipe(take(1))
                     .subscribe((token) => {
