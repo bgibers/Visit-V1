@@ -12,7 +12,9 @@
 /* tslint:disable:no-unused-variable member-ordering */
 // tslint:disable: max-line-length
 // tslint:disable: import-spacing
-import { Inject, Injectable, NgZone, Optional } from '@angular/core';
+import {
+  Inject, Injectable, NgZone, Optional,
+} from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
@@ -20,29 +22,33 @@ import {
   HttpResponse,
   HttpEvent,
 } from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 import { Observable, BehaviorSubject, from } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { RegisterRequest } from '../model/registerRequest';
 
-import { Configuration } from '../configuration';
-import { MarkLocationsRequest } from '../model/markLocationsRequest';
 import { BASE_PATH } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { Capacitor } from '@capacitor/core';
+import { MarkLocationsRequest } from '../model/markLocationsRequest';
+import { Configuration } from '../configuration';
+import { RegisterRequest } from '../model/registerRequest';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
 export class AccountsService {
   protected basePath = BASE_PATH;
+
   public defaultHeaders = new HttpHeaders().set(InterceptorSkipHeader, '');
+
   public configuration = new Configuration();
+
   public authSubject = new BehaviorSubject(false);
+
   public userData: any;
 
   constructor(
@@ -52,7 +58,7 @@ export class AccountsService {
     private router: Router,
     private zone: NgZone,
     private storage: Storage,
-    private ngFireAuth: AngularFireAuth
+    private ngFireAuth: AngularFireAuth,
   ) {
     if (basePath) {
       this.basePath = basePath;
@@ -67,14 +73,14 @@ export class AccountsService {
         localStorage.setItem('user', JSON.stringify(user));
         JSON.parse(localStorage.getItem('user'));
         this.getFcmToken().subscribe((token) => {
-          console.log('FCM:' + token);
+          console.log(`FCM:${token}`);
           this.accountUpdateFcmDeviceIdPost(token)
             .pipe(take(1))
             .subscribe(
               (res) => {
                 console.log(res);
               },
-              (err) => console.log(err)
+              (err) => console.log(err),
             );
         });
       } else {
@@ -95,7 +101,7 @@ export class AccountsService {
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return user !== null && user.emailVerified !== false ? true : false;
+    return (user !== null);
   }
 
   // Email verification when new user register
@@ -112,7 +118,7 @@ export class AccountsService {
 
   get isEmailVerified(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return user.emailVerified !== false ? true : false;
+    return user.emailVerified !== false;
   }
 
   // Recover password
@@ -122,7 +128,7 @@ export class AccountsService {
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
         window.alert(
-          'Password reset email has been sent, please check your inbox.'
+          'Password reset email has been sent, please check your inbox.',
         );
       })
       .catch((error) => {
@@ -184,7 +190,7 @@ export class AccountsService {
                   resolve(res);
                 }
               },
-              (err) => reject(err)
+              (err) => reject(err),
             );
         });
     });
@@ -195,11 +201,9 @@ export class AccountsService {
       firebase
         .auth()
         .signInWithCustomToken(token)
-        .then(() =>
-          this.getFcmToken()
-            .pipe(take(1))
-            .subscribe((token) => this.accountUpdateFcmDeviceIdPost(token))
-        )
+        .then(() => this.getFcmToken()
+          .pipe(take(1))
+          .subscribe((token) => this.accountUpdateFcmDeviceIdPost(token))),
     );
   }
 
@@ -216,20 +220,23 @@ export class AccountsService {
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
+
   public accountEmailTakenGet(
     email?: string,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
+
   public accountEmailTakenGet(
     email?: string,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
+
   public accountEmailTakenGet(
     email?: string,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false,
   ): Observable<any> {
     let queryParameters = new HttpParams({
       encoder: new CustomHttpUrlEncodingCodec(),
@@ -265,7 +272,7 @@ export class AccountsService {
         headers,
         observe,
         reportProgress,
-      }
+      },
     );
   }
 
@@ -274,24 +281,27 @@ export class AccountsService {
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
+
   public accountUpdateFcmDeviceIdPost(
     deviceId: string,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
+
   public accountUpdateFcmDeviceIdPost(
     deviceId: string,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
+
   public accountUpdateFcmDeviceIdPost(
     deviceId: string,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false,
   ): Observable<any> {
     if (deviceId === null || deviceId === undefined) {
       throw new Error(
-        'Required parameter deviceId was null or undefined when calling accountUpdateFcmDeviceIdPost.'
+        'Required parameter deviceId was null or undefined when calling accountUpdateFcmDeviceIdPost.',
       );
     }
 
@@ -299,12 +309,12 @@ export class AccountsService {
 
     // authentication (Bearer) required
     if (
-      this.configuration.apiKeys &&
-      this.configuration.apiKeys.Authorization
+      this.configuration.apiKeys
+      && this.configuration.apiKeys.Authorization
     ) {
       headers = headers.set(
         'Authorization',
-        this.configuration.apiKeys.Authorization
+        this.configuration.apiKeys.Authorization,
       );
     }
 
@@ -327,14 +337,14 @@ export class AccountsService {
     return this.httpClient.request<boolean>(
       'post',
       `${this.basePath}/account/update/fcm/${encodeURIComponent(
-        String(deviceId)
+        String(deviceId),
       )}`,
       {
         withCredentials: this.configuration.withCredentials,
         headers,
         observe,
         reportProgress,
-      }
+      },
     );
   }
 
@@ -342,7 +352,7 @@ export class AccountsService {
     body?: RegisterRequest,
     blob?: Blob,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<string> {
     // public accountRegisterPostForm(body?: RegisterRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtToken>>;
     // public accountRegisterPostForm(body?: RegisterRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtToken>>;
@@ -375,7 +385,7 @@ export class AccountsService {
         headers,
         observe,
         reportProgress,
-      }
+      },
     );
   }
 
@@ -389,20 +399,23 @@ export class AccountsService {
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
+
   public accountUpdateLocationsPost(
     body?: MarkLocationsRequest,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
+
   public accountUpdateLocationsPost(
     body?: MarkLocationsRequest,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
+
   public accountUpdateLocationsPost(
     body?: MarkLocationsRequest,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false,
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -442,7 +455,7 @@ export class AccountsService {
         headers,
         observe,
         reportProgress,
-      }
+      },
     );
   }
 
@@ -456,20 +469,23 @@ export class AccountsService {
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
+
   public accountUpdateProfileImagePost(
     blob?: Blob,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
+
   public accountUpdateProfileImagePost(
     blob?: Blob,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
+
   public accountUpdateProfileImagePost(
     blob?: Blob,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false,
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -506,7 +522,7 @@ export class AccountsService {
         headers,
         observe,
         reportProgress,
-      }
+      },
     );
   }
 
@@ -520,6 +536,7 @@ export class AccountsService {
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<boolean>;
+
   public accountUpdatePost(
     firstname?: string,
     lastname?: string,
@@ -530,6 +547,7 @@ export class AccountsService {
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<boolean>>;
+
   public accountUpdatePost(
     firstname?: string,
     lastname?: string,
@@ -540,6 +558,7 @@ export class AccountsService {
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<boolean>>;
+
   public accountUpdatePost(
     firstname?: string,
     lastname?: string,
@@ -548,7 +567,7 @@ export class AccountsService {
     birthLocation?: string,
     residenceLocation?: string,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false,
   ): Observable<any> {
     let queryParameters = new HttpParams({
       encoder: new CustomHttpUrlEncodingCodec(),
@@ -568,13 +587,13 @@ export class AccountsService {
     if (birthLocation !== undefined && birthLocation !== null) {
       queryParameters = queryParameters.set(
         'BirthLocation',
-        birthLocation as any
+        birthLocation as any,
       );
     }
     if (residenceLocation !== undefined && residenceLocation !== null) {
       queryParameters = queryParameters.set(
         'ResidenceLocation',
-        residenceLocation as any
+        residenceLocation as any,
       );
     }
 
@@ -605,7 +624,7 @@ export class AccountsService {
         headers,
         observe,
         reportProgress,
-      }
+      },
     );
   }
 }

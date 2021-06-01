@@ -11,7 +11,7 @@
            }
     },
     "extends": [
-        "airbnb-base",
+        // "airbnb-base",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended"
     ],
@@ -25,6 +25,7 @@
     ],
     "rules": {
         "import/prefer-default-export": "off",
-        "import/no-unresolved": "off"
+        "import/no-unresolved": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off"
     }
 }
