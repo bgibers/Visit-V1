@@ -33,7 +33,7 @@ class PasswordValidator {
             return null;
         }
         return {
-            areEqual: true
+            areEqual: true,
         };
     }
 }

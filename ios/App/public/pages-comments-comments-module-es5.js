@@ -633,7 +633,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             return ctx.commentOnPost();
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25, "Send");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25, " Send ");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 

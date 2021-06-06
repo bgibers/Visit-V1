@@ -21,8 +21,8 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: '',
-        component: _comments_page__WEBPACK_IMPORTED_MODULE_2__["CommentsPage"]
-    }
+        component: _comments_page__WEBPACK_IMPORTED_MODULE_2__["CommentsPage"],
+    },
 ];
 class CommentsPageRoutingModule {
 }
@@ -74,7 +74,7 @@ CommentsPageModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
             _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicModule"],
             src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_6__["SharedModule"],
-            _comments_routing_module__WEBPACK_IMPORTED_MODULE_4__["CommentsPageRoutingModule"]
+            _comments_routing_module__WEBPACK_IMPORTED_MODULE_4__["CommentsPageRoutingModule"],
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](CommentsPageModule, { declarations: [_comments_page__WEBPACK_IMPORTED_MODULE_5__["CommentsPage"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
@@ -89,9 +89,9 @@ CommentsPageModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
                     _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                     _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicModule"],
                     src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_6__["SharedModule"],
-                    _comments_routing_module__WEBPACK_IMPORTED_MODULE_4__["CommentsPageRoutingModule"]
+                    _comments_routing_module__WEBPACK_IMPORTED_MODULE_4__["CommentsPageRoutingModule"],
                 ],
-                declarations: [_comments_page__WEBPACK_IMPORTED_MODULE_5__["CommentsPage"]]
+                declarations: [_comments_page__WEBPACK_IMPORTED_MODULE_5__["CommentsPage"]],
             }]
     }], null, null); })();
 
@@ -192,14 +192,14 @@ class CommentsPage {
         this.newComments = [];
         this.postId = '';
         this.commentText = '';
-        this.route.queryParams.subscribe(params => {
+        this.route.queryParams.subscribe((params) => {
             if (this.router.getCurrentNavigation().extras.state) {
                 this.postId = this.router.getCurrentNavigation().extras.state.postId;
             }
         });
     }
     myFunc() {
-        return ({ count: 1, data: { id: 1 } });
+        return { count: 1, data: { id: 1 } };
     }
     ngOnInit() {
         this.userId = this.accountService.getUserId();
@@ -209,7 +209,10 @@ class CommentsPage {
     }
     getComments() {
         // todo fix this. the list is overwriting
-        this.postSvc.postsCommentsGetPostIdGet(this.postId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(res => {
+        this.postSvc
+            .postsCommentsGetPostIdGet(this.postId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1))
+            .subscribe((res) => {
             if (this.comments.length === 0) {
                 this.comments = [];
             }
@@ -224,7 +227,7 @@ class CommentsPage {
                 //     this.newComments.push(oldComments[i]);
                 //   }
             }
-            let resLen = res.length;
+            const resLen = res.length;
             for (let i = 0; i < resLen; i++) {
                 console.log(i);
                 this.comments.push(res[i]);
@@ -237,9 +240,12 @@ class CommentsPage {
     }
     commentOnPost() {
         const comment = {
-            comment: this.commentText
+            comment: this.commentText,
         };
-        this.postSvc.postsCommentPostIdPost(this.postId, comment).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(res => {
+        this.postSvc
+            .postsCommentPostIdPost(this.postId, comment)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1))
+            .subscribe((res) => {
             // todo handle error. refresh comments after new posted
             this.getComments();
         });
@@ -255,8 +261,8 @@ class CommentsPage {
             replaceUrl: true,
             skipLocationChange: true,
             state: {
-                userId: this.accountService.getUserId()
-            }
+                userId: this.accountService.getUserId(),
+            },
         };
         this.zone.run(() => {
             this.router.navigateByUrl('/user-profile', navigationExtras);
@@ -267,7 +273,7 @@ class CommentsPage {
             component: _modals_search_search_page__WEBPACK_IMPORTED_MODULE_5__["SearchPage"],
             componentProps: {},
             showBackdrop: true,
-            cssClass: 'search-modal'
+            cssClass: 'search-modal',
         });
         return await modal.present();
     }
@@ -320,7 +326,7 @@ CommentsPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "button", 17);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function CommentsPage_Template_button_click_24_listener() { return ctx.commentOnPost(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25, "Send");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25, " Send ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();

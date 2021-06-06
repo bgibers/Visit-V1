@@ -1495,7 +1495,7 @@ class UserProfilePage {
                     this.visitedCount++;
                 }
             });
-            var countryCount = this.visitedCount - usVisitedCount;
+            const countryCount = this.visitedCount - usVisitedCount;
             this.visitedPercent = ((countryCount / 405) + (usVisitedCount / 355)) * 100;
         }));
     }
