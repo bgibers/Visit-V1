@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     public alertController: AlertController,
     public router: Router,
     public zone: NgZone,
-    public myservice: ModalService
+    public modalSvc: ModalService
   ) {
     this.platform.ready().then(() => {
       this.initializeApp();
@@ -88,11 +88,11 @@ export class AppComponent implements OnInit {
     });
 
     PushNotifications.addListener('registration', (token: Token) => {
-      alert('Push registration success, token: ' + token.value);
+      // alert('Push registration success, token: ' + token.value);
     });
 
     PushNotifications.addListener('registrationError', (error: any) => {
-      alert('Error on registration: ' + JSON.stringify(error));
+      // alert('Error on registration: ' + JSON.stringify(error));
     });
 
     PushNotifications.addListener(
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
     PushNotifications.addListener(
       'pushNotificationActionPerformed',
       (notification: ActionPerformed) => {
-        alert('Push action performed: ' + JSON.stringify(notification));
+        // alert('Push action performed: ' + JSON.stringify(notification));
       }
     );
   }
@@ -144,7 +144,7 @@ export class AppComponent implements OnInit {
     if (this.router.url === '/comments') {
       return false;
     }
-    if (this.myservice.dis === false) {
+    if (this.modalSvc.dis === false) {
       return false;
     }
     return true;

@@ -5,12 +5,12 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
+
 import { AccountsService, LoginApiRequest } from 'src/app/backend/clients';
-import { take } from 'rxjs/operators';
-import { LoadingController } from '@ionic/angular';
-import { AnimationFrameScheduler } from 'rxjs/internal/scheduler/AnimationFrameScheduler';
-import { BehaviorSubject } from 'rxjs';
+import { ForgotPasswordPage } from '../modals/forgot-password/forgot-password.page';
+
 
 @Component({
   selector: 'sign-in',
@@ -35,6 +35,7 @@ export class SignInPage implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     public loadingController: LoadingController,
+    public modalController: ModalController,
     private cd: ChangeDetectorRef,
     private zone: NgZone,
     private router: Router,
@@ -110,12 +111,30 @@ export class SignInPage implements OnInit {
     const navigationExtras: NavigationExtras = {
       replaceUrl: false,
       state: {
-        userName: 'tester',
+        // userName: 'tester',
       },
     };
     this.zone.run(() => {
       this.router.navigateByUrl('/register', navigationExtras);
     });
+  }
+
+  async presentForgotPassword() {
+    const modal = await this.modalController.create({
+      component: ForgotPasswordPage,
+      showBackdrop: true,
+      cssClass: 'forgot-password-modal',
+    });
+
+    modal.onDidDismiss().then(async (dataReturned) => {
+      if (dataReturned !== null) {
+        // this.filter = dataReturned.data;
+        // this.refreshPosts();
+        // await this.loadingController.dismiss();
+      }
+    });
+
+    return await modal.present();
   }
 
   refresh() {

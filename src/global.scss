@@ -95,6 +95,20 @@ ion-refresher-content {
   }
 }
 
+.forgot-password-modal {
+  // background: rgba(0, 0, 0, 0.5) !important; 
+  padding-top: 70% !important;
+  padding-bottom: 80% !important;
+  .modal-wrapper {
+    border-radius: 20px 20px 20px 20px;
+    background: transparent;
+  }
+
+  .modal-shadow {
+    height: 0;
+  }
+}
+
 .error-message {
   color: red;
   font-size: 14px;

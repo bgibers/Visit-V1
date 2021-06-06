@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddPageModule } from './pages/modals/add/add.module';
 import { MapFilterPageModule } from './pages/modals/map-filter/map-filter.module';
+import { ForgotPasswordPageModule} from './pages/modals/forgot-password/forgot-password.module';
 import { UserTimelinePageModule } from './pages/user-timeline/user-timeline.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -19,7 +20,6 @@ import { IonicSelectableModule } from 'ionic-selectable';
 import { LocationSelector } from './objects/location-json/location.selector';
 import { AddPostPageModule } from './pages/add-post/add-post.module';
 import { AddPostImagePageModule } from './pages/add-post-image/add-post-image.module';
-import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { UserSettingsPageModule } from './pages/user-settings/user-settings.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -41,6 +41,7 @@ import { environment } from '../environments/environment';
     AddPostPageModule,
     UserSettingsPageModule,
     AddPostImagePageModule,
+    ForgotPasswordPageModule,
     IonicSelectableModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,

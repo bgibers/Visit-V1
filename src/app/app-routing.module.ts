@@ -141,6 +141,10 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./pages/modals/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
 ];
 @NgModule({
   imports: [

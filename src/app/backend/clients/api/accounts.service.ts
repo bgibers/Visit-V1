@@ -36,6 +36,7 @@ import { MarkLocationsRequest } from '../model/markLocationsRequest';
 import { Configuration } from '../configuration';
 import { RegisterRequest } from '../model/registerRequest';
 import { CustomHttpUrlEncodingCodec } from '../encoder';
+import { AlertController } from '@ionic/angular';
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
@@ -57,6 +58,7 @@ export class AccountsService {
     private router: Router,
     private zone: NgZone,
     private storage: Storage,
+    private alertController: AlertController,
     private ngFireAuth: AngularFireAuth,
   ) {
     if (basePath) {
@@ -126,13 +128,31 @@ export class AccountsService {
       .auth()
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert(
+        this.alert(
+          'Success',
           'Password reset email has been sent, please check your inbox.',
         );
       })
       .catch((error) => {
-        window.alert(error);
+        this.alert('Reset error', error);
       });
+  }
+
+  async alert(title: string, body: string) {
+    const alert = await this.alertController.create({
+      header: title,
+      message: body,
+      buttons: [
+        {
+          text: 'OKAY',
+          role: 'cancel',
+          handler: () => {
+            alert.dismiss();
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
   async getToken() {

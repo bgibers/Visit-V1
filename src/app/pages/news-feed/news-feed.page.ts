@@ -18,7 +18,6 @@ import { AccountsService } from '../../backend/clients/api/accounts.service';
 import { PostService } from 'src/app/backend/clients';
 import { PostApi } from 'src/app/backend/clients/model/postApi';
 import { take } from 'rxjs/operators';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'news-feed',
