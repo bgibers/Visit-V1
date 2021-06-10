@@ -24,6 +24,155 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["web"], {
   /***/
+  "./node_modules/@capacitor-community/apple-sign-in/dist/esm/web.js":
+  /*!*************************************************************************!*\
+    !*** ./node_modules/@capacitor-community/apple-sign-in/dist/esm/web.js ***!
+    \*************************************************************************/
+
+  /*! exports provided: SignInWithAppleWeb */
+
+  /***/
+  function node_modulesCapacitorCommunityAppleSignInDistEsmWebJs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "SignInWithAppleWeb", function () {
+      return SignInWithAppleWeb;
+    });
+    /* harmony import */
+
+
+    var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @capacitor/core */
+    "./node_modules/@capacitor/core/dist/index.js");
+    /* harmony import */
+
+
+    var scriptjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! scriptjs */
+    "./node_modules/scriptjs/dist/script.js");
+    /* harmony import */
+
+
+    var scriptjs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(scriptjs__WEBPACK_IMPORTED_MODULE_1__);
+
+    var SignInWithAppleWeb = /*#__PURE__*/function (_capacitor_core__WEBP) {
+      _inherits(SignInWithAppleWeb, _capacitor_core__WEBP);
+
+      var _super = _createSuper(SignInWithAppleWeb);
+
+      function SignInWithAppleWeb() {
+        var _this;
+
+        _classCallCheck(this, SignInWithAppleWeb);
+
+        _this = _super.call(this, {
+          name: 'SignInWithApple',
+          platforms: ['web']
+        });
+        _this.appleScriptUrl = 'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js';
+        _this.isAppleScriptLoaded = false;
+        return _this;
+      }
+
+      _createClass(SignInWithAppleWeb, [{
+        key: "authorize",
+        value: function () {
+          var _authorize = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(options) {
+            var _this2 = this;
+
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    return _context.abrupt("return", new Promise(function (resolve, reject) {
+                      if (options) {
+                        _this2.loadSignInWithAppleJS().then(function (loaded) {
+                          var _a, _b, _c;
+
+                          _this2.isAppleScriptLoaded = loaded;
+
+                          if (_this2.isAppleScriptLoaded) {
+                            AppleID.auth.init({
+                              clientId: options.clientId,
+                              redirectURI: options.redirectURI,
+                              scope: (_a = options.scopes) !== null && _a !== void 0 ? _a : undefined,
+                              state: (_b = options.state) !== null && _b !== void 0 ? _b : undefined,
+                              nonce: (_c = options.nonce) !== null && _c !== void 0 ? _c : undefined,
+                              usePopup: true
+                            });
+                            AppleID.auth.signIn().then(function (res) {
+                              var _a, _b, _c;
+
+                              var response = {
+                                response: {
+                                  user: null,
+                                  email: (_a = res.user) === null || _a === void 0 ? void 0 : _a.email,
+                                  givenName: (_b = res.user) === null || _b === void 0 ? void 0 : _b.name.firstName,
+                                  familyName: (_c = res.user) === null || _c === void 0 ? void 0 : _c.name.lastName,
+                                  identityToken: res.authorization.id_token,
+                                  authorizationCode: res.authorization.code
+                                }
+                              };
+                              resolve(response);
+                            })["catch"](function (err) {
+                              reject(err);
+                            });
+                          } else {
+                            reject('Unable to load Sign in with Apple JS framework.');
+                          }
+                        });
+                      } else {
+                        reject('No options were provided.');
+                      }
+                    }));
+
+                  case 1:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee);
+          }));
+
+          function authorize(_x) {
+            return _authorize.apply(this, arguments);
+          }
+
+          return authorize;
+        }()
+      }, {
+        key: "loadSignInWithAppleJS",
+        value: function loadSignInWithAppleJS() {
+          var _this3 = this;
+
+          return new Promise(function (resolve) {
+            if (!_this3.isAppleScriptLoaded) {
+              if (typeof window !== undefined) {
+                scriptjs__WEBPACK_IMPORTED_MODULE_1__["get"](_this3.appleScriptUrl, function () {
+                  return resolve(true);
+                });
+              } else {
+                resolve(false);
+              }
+            } else {
+              resolve(true);
+            }
+          });
+        }
+      }]);
+
+      return SignInWithAppleWeb;
+    }(_capacitor_core__WEBPACK_IMPORTED_MODULE_0__["WebPlugin"]); //# sourceMappingURL=web.js.map
+
+    /***/
+
+  },
+
+  /***/
   "./node_modules/@capacitor/camera/dist/esm/web.js":
   /*!********************************************************!*\
     !*** ./node_modules/@capacitor/camera/dist/esm/web.js ***!
@@ -61,93 +210,93 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
     /*! ./definitions */
     "./node_modules/@capacitor/camera/dist/esm/definitions.js");
 
-    var CameraWeb = /*#__PURE__*/function (_capacitor_core__WEBP) {
-      _inherits(CameraWeb, _capacitor_core__WEBP);
+    var CameraWeb = /*#__PURE__*/function (_capacitor_core__WEBP2) {
+      _inherits(CameraWeb, _capacitor_core__WEBP2);
 
-      var _super = _createSuper(CameraWeb);
+      var _super2 = _createSuper(CameraWeb);
 
       function CameraWeb() {
         _classCallCheck(this, CameraWeb);
 
-        return _super.apply(this, arguments);
+        return _super2.apply(this, arguments);
       }
 
       _createClass(CameraWeb, [{
         key: "getPhoto",
         value: function () {
-          var _getPhoto = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(options) {
-            var _this = this;
+          var _getPhoto = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(options) {
+            var _this4 = this;
 
-            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context3.prev = _context3.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
-                    return _context3.abrupt("return", new Promise( /*#__PURE__*/function () {
-                      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(resolve, reject) {
+                    return _context4.abrupt("return", new Promise( /*#__PURE__*/function () {
+                      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(resolve, reject) {
                         var cameraModal;
-                        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                        return regeneratorRuntime.wrap(function _callee3$(_context3) {
                           while (1) {
-                            switch (_context2.prev = _context2.next) {
+                            switch (_context3.prev = _context3.next) {
                               case 0:
                                 if (!options.webUseInput) {
-                                  _context2.next = 4;
+                                  _context3.next = 4;
                                   break;
                                 }
 
-                                _this.fileInputExperience(options, resolve);
+                                _this4.fileInputExperience(options, resolve);
 
-                                _context2.next = 21;
+                                _context3.next = 21;
                                 break;
 
                               case 4:
                                 if (!customElements.get('pwa-camera-modal')) {
-                                  _context2.next = 19;
+                                  _context3.next = 19;
                                   break;
                                 }
 
                                 cameraModal = document.createElement('pwa-camera-modal');
                                 document.body.appendChild(cameraModal);
-                                _context2.prev = 7;
-                                _context2.next = 10;
+                                _context3.prev = 7;
+                                _context3.next = 10;
                                 return cameraModal.componentOnReady();
 
                               case 10:
                                 cameraModal.addEventListener('onPhoto', /*#__PURE__*/function () {
-                                  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
+                                  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
                                     var photo;
-                                    return regeneratorRuntime.wrap(function _callee$(_context) {
+                                    return regeneratorRuntime.wrap(function _callee2$(_context2) {
                                       while (1) {
-                                        switch (_context.prev = _context.next) {
+                                        switch (_context2.prev = _context2.next) {
                                           case 0:
                                             photo = e.detail;
 
                                             if (!(photo === null)) {
-                                              _context.next = 5;
+                                              _context2.next = 5;
                                               break;
                                             }
 
                                             reject(new _capacitor_core__WEBPACK_IMPORTED_MODULE_0__["CapacitorException"]('User cancelled photos app'));
-                                            _context.next = 14;
+                                            _context2.next = 14;
                                             break;
 
                                           case 5:
                                             if (!(photo instanceof Error)) {
-                                              _context.next = 9;
+                                              _context2.next = 9;
                                               break;
                                             }
 
                                             reject(photo);
-                                            _context.next = 14;
+                                            _context2.next = 14;
                                             break;
 
                                           case 9:
-                                            _context.t0 = resolve;
-                                            _context.next = 12;
-                                            return _this._getCameraPhoto(photo, options);
+                                            _context2.t0 = resolve;
+                                            _context2.next = 12;
+                                            return _this4._getCameraPhoto(photo, options);
 
                                           case 12:
-                                            _context.t1 = _context.sent;
-                                            (0, _context.t0)(_context.t1);
+                                            _context2.t1 = _context2.sent;
+                                            (0, _context2.t0)(_context2.t1);
 
                                           case 14:
                                             cameraModal.dismiss();
@@ -155,57 +304,57 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
                                           case 16:
                                           case "end":
-                                            return _context.stop();
+                                            return _context2.stop();
                                         }
                                       }
-                                    }, _callee);
+                                    }, _callee2);
                                   }));
 
-                                  return function (_x4) {
+                                  return function (_x5) {
                                     return _ref2.apply(this, arguments);
                                   };
                                 }());
                                 cameraModal.present();
-                                _context2.next = 17;
+                                _context3.next = 17;
                                 break;
 
                               case 14:
-                                _context2.prev = 14;
-                                _context2.t0 = _context2["catch"](7);
+                                _context3.prev = 14;
+                                _context3.t0 = _context3["catch"](7);
 
-                                _this.fileInputExperience(options, resolve);
+                                _this4.fileInputExperience(options, resolve);
 
                               case 17:
-                                _context2.next = 21;
+                                _context3.next = 21;
                                 break;
 
                               case 19:
                                 console.error("Unable to load PWA Element 'pwa-camera-modal'. See the docs: https://capacitorjs.com/docs/pwa-elements.");
 
-                                _this.fileInputExperience(options, resolve);
+                                _this4.fileInputExperience(options, resolve);
 
                               case 21:
                               case "end":
-                                return _context2.stop();
+                                return _context3.stop();
                             }
                           }
-                        }, _callee2, null, [[7, 14]]);
+                        }, _callee3, null, [[7, 14]]);
                       }));
 
-                      return function (_x2, _x3) {
+                      return function (_x3, _x4) {
                         return _ref.apply(this, arguments);
                       };
                     }()));
 
                   case 1:
                   case "end":
-                    return _context3.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee3);
+            }, _callee4);
           }));
 
-          function getPhoto(_x) {
+          function getPhoto(_x2) {
             return _getPhoto.apply(this, arguments);
           }
 
@@ -319,44 +468,44 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
       }, {
         key: "checkPermissions",
         value: function () {
-          var _checkPermissions = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+          var _checkPermissions = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
             var permission;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context5.prev = _context5.next) {
                   case 0:
                     if (!(typeof navigator === 'undefined' || !navigator.permissions)) {
-                      _context4.next = 2;
+                      _context5.next = 2;
                       break;
                     }
 
                     throw this.unavailable('Permissions API not available in this browser');
 
                   case 2:
-                    _context4.prev = 2;
-                    _context4.next = 5;
+                    _context5.prev = 2;
+                    _context5.next = 5;
                     return window.navigator.permissions.query({
                       name: 'camera'
                     });
 
                   case 5:
-                    permission = _context4.sent;
-                    return _context4.abrupt("return", {
+                    permission = _context5.sent;
+                    return _context5.abrupt("return", {
                       camera: permission.state,
                       photos: 'granted'
                     });
 
                   case 9:
-                    _context4.prev = 9;
-                    _context4.t0 = _context4["catch"](2);
+                    _context5.prev = 9;
+                    _context5.t0 = _context5["catch"](2);
                     throw this.unavailable('Camera permissions are not available in this browser');
 
                   case 12:
                   case "end":
-                    return _context4.stop();
+                    return _context5.stop();
                 }
               }
-            }, _callee4, this, [[2, 9]]);
+            }, _callee5, this, [[2, 9]]);
           }));
 
           function checkPermissions() {
@@ -368,19 +517,19 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
       }, {
         key: "requestPermissions",
         value: function () {
-          var _requestPermissions = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          var _requestPermissions = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+            return regeneratorRuntime.wrap(function _callee6$(_context6) {
               while (1) {
-                switch (_context5.prev = _context5.next) {
+                switch (_context6.prev = _context6.next) {
                   case 0:
                     throw this.unimplemented('Not implemented on web.');
 
                   case 1:
                   case "end":
-                    return _context5.stop();
+                    return _context6.stop();
                 }
               }
-            }, _callee5, this);
+            }, _callee6, this);
           }));
 
           function requestPermissions() {
@@ -425,45 +574,21 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
     /*! @capacitor/core */
     "./node_modules/@capacitor/core/dist/index.js");
 
-    var SplashScreenWeb = /*#__PURE__*/function (_capacitor_core__WEBP2) {
-      _inherits(SplashScreenWeb, _capacitor_core__WEBP2);
+    var SplashScreenWeb = /*#__PURE__*/function (_capacitor_core__WEBP3) {
+      _inherits(SplashScreenWeb, _capacitor_core__WEBP3);
 
-      var _super2 = _createSuper(SplashScreenWeb);
+      var _super3 = _createSuper(SplashScreenWeb);
 
       function SplashScreenWeb() {
         _classCallCheck(this, SplashScreenWeb);
 
-        return _super2.apply(this, arguments);
+        return _super3.apply(this, arguments);
       }
 
       _createClass(SplashScreenWeb, [{
         key: "show",
         value: function () {
-          var _show = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_options) {
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
-              while (1) {
-                switch (_context6.prev = _context6.next) {
-                  case 0:
-                    return _context6.abrupt("return", undefined);
-
-                  case 1:
-                  case "end":
-                    return _context6.stop();
-                }
-              }
-            }, _callee6);
-          }));
-
-          function show(_x5) {
-            return _show.apply(this, arguments);
-          }
-
-          return show;
-        }()
-      }, {
-        key: "hide",
-        value: function () {
-          var _hide = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_options) {
+          var _show = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_options) {
             return regeneratorRuntime.wrap(function _callee7$(_context7) {
               while (1) {
                 switch (_context7.prev = _context7.next) {
@@ -478,7 +603,31 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
             }, _callee7);
           }));
 
-          function hide(_x6) {
+          function show(_x6) {
+            return _show.apply(this, arguments);
+          }
+
+          return show;
+        }()
+      }, {
+        key: "hide",
+        value: function () {
+          var _hide = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_options) {
+            return regeneratorRuntime.wrap(function _callee8$(_context8) {
+              while (1) {
+                switch (_context8.prev = _context8.next) {
+                  case 0:
+                    return _context8.abrupt("return", undefined);
+
+                  case 1:
+                  case "end":
+                    return _context8.stop();
+                }
+              }
+            }, _callee8);
+          }));
+
+          function hide(_x7) {
             return _hide.apply(this, arguments);
           }
 
@@ -489,6 +638,160 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
       return SplashScreenWeb;
     }(_capacitor_core__WEBPACK_IMPORTED_MODULE_0__["WebPlugin"]); //# sourceMappingURL=web.js.map
 
+    /***/
+
+  },
+
+  /***/
+  "./node_modules/scriptjs/dist/script.js":
+  /*!**********************************************!*\
+    !*** ./node_modules/scriptjs/dist/script.js ***!
+    \**********************************************/
+
+  /*! no static exports found */
+
+  /***/
+  function node_modulesScriptjsDistScriptJs(module, exports, __webpack_require__) {
+    var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;
+    /*!
+    * $script.js JS loader & dependency manager
+    * https://github.com/ded/script.js
+    * (c) Dustin Diaz 2014 | License MIT
+    */
+
+
+    (function (name, definition) {
+      if (true && module.exports) module.exports = definition();else if (true) !(__WEBPACK_AMD_DEFINE_FACTORY__ = definition, __WEBPACK_AMD_DEFINE_RESULT__ = typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? __WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module) : __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else {}
+    })('$script', function () {
+      var doc = document,
+          head = doc.getElementsByTagName('head')[0],
+          s = 'string',
+          f = false,
+          push = 'push',
+          readyState = 'readyState',
+          onreadystatechange = 'onreadystatechange',
+          list = {},
+          ids = {},
+          delay = {},
+          scripts = {},
+          scriptpath,
+          urlArgs;
+
+      function every(ar, fn) {
+        for (var i = 0, j = ar.length; i < j; ++i) {
+          if (!fn(ar[i])) return f;
+        }
+
+        return 1;
+      }
+
+      function each(ar, fn) {
+        every(ar, function (el) {
+          fn(el);
+          return 1;
+        });
+      }
+
+      function $script(paths, idOrDone, optDone) {
+        paths = paths[push] ? paths : [paths];
+        var idOrDoneIsDone = idOrDone && idOrDone.call,
+            done = idOrDoneIsDone ? idOrDone : optDone,
+            id = idOrDoneIsDone ? paths.join('') : idOrDone,
+            queue = paths.length;
+
+        function loopFn(item) {
+          return item.call ? item() : list[item];
+        }
+
+        function callback() {
+          if (! --queue) {
+            list[id] = 1;
+            done && done();
+
+            for (var dset in delay) {
+              every(dset.split('|'), loopFn) && !each(delay[dset], loopFn) && (delay[dset] = []);
+            }
+          }
+        }
+
+        setTimeout(function () {
+          each(paths, function loading(path, force) {
+            if (path === null) return callback();
+
+            if (!force && !/^https?:\/\//.test(path) && scriptpath) {
+              path = path.indexOf('.js') === -1 ? scriptpath + path + '.js' : scriptpath + path;
+            }
+
+            if (scripts[path]) {
+              if (id) ids[id] = 1;
+              return scripts[path] == 2 ? callback() : setTimeout(function () {
+                loading(path, true);
+              }, 0);
+            }
+
+            scripts[path] = 1;
+            if (id) ids[id] = 1;
+            create(path, callback);
+          });
+        }, 0);
+        return $script;
+      }
+
+      function create(path, fn) {
+        var el = doc.createElement('script'),
+            loaded;
+
+        el.onload = el.onerror = el[onreadystatechange] = function () {
+          if (el[readyState] && !/^c|loade/.test(el[readyState]) || loaded) return;
+          el.onload = el[onreadystatechange] = null;
+          loaded = 1;
+          scripts[path] = 2;
+          fn();
+        };
+
+        el.async = 1;
+        el.src = urlArgs ? path + (path.indexOf('?') === -1 ? '?' : '&') + urlArgs : path;
+        head.insertBefore(el, head.lastChild);
+      }
+
+      $script.get = create;
+
+      $script.order = function (scripts, id, done) {
+        (function callback(s) {
+          s = scripts.shift();
+          !scripts.length ? $script(s, id, done) : $script(s, callback);
+        })();
+      };
+
+      $script.path = function (p) {
+        scriptpath = p;
+      };
+
+      $script.urlArgs = function (str) {
+        urlArgs = str;
+      };
+
+      $script.ready = function (deps, ready, req) {
+        deps = deps[push] ? deps : [deps];
+        var missing = [];
+        !each(deps, function (dep) {
+          list[dep] || missing[push](dep);
+        }) && every(deps, function (dep) {
+          return list[dep];
+        }) ? ready() : !function (key) {
+          delay[key] = delay[key] || [];
+          delay[key][push](ready);
+          req && req(missing);
+        }(deps.join('|'));
+        return $script;
+      };
+
+      $script.done = function (idOrDone) {
+        $script([null], idOrDone);
+      };
+
+      return $script;
+    });
     /***/
 
   }

@@ -5,8 +5,21 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, Platform } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
+import {
+  SignInWithApple,
+  SignInWithAppleResponse,
+  SignInWithAppleOptions,
+} from '@capacitor-community/apple-sign-in';
+
+let options: SignInWithAppleOptions = {
+  clientId: 'com.your.webservice',
+  redirectURI: 'https://www.yourfrontend.com/login',
+  scopes: 'email name',
+  state: '12345',
+  nonce: 'nonce',
+};
 
 import { AccountsService, LoginApiRequest } from 'src/app/backend/clients';
 import { ForgotPasswordPage } from '../modals/forgot-password/forgot-password.page';
@@ -31,11 +44,13 @@ export class SignInPage implements OnInit {
 
   invalidLogin = false;
   invalidLoginText = '';
+  showAppleSignIn = false;
 
   constructor(
     public formBuilder: FormBuilder,
     public loadingController: LoadingController,
     public modalController: ModalController,
+    private platform: Platform,
     private cd: ChangeDetectorRef,
     private zone: NgZone,
     private router: Router,
@@ -46,7 +61,10 @@ export class SignInPage implements OnInit {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    // Only show the Apple sign in button on iOS
+    this.showAppleSignIn = this.platform.is('ios');
+
     const email = new FormControl(
       '',
       Validators.compose([
@@ -61,6 +79,19 @@ export class SignInPage implements OnInit {
     this.loginForm = new FormGroup({
       email,
       password,
+    });
+  }
+
+  openAppleSignIn() {
+    SignInWithApple.authorize().then(async res => {
+      if (res.response && res.response.identityToken) {
+        console.log(res)
+        this.accountService.loginApple(res.response);
+      } else {
+        // this.presentAlert();
+      }
+    }).catch(response => {
+      // this.presentAlert();
     });
   }
 

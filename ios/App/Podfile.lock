@@ -119,9 +119,9 @@ SPEC CHECKSUMS:
   CapacitorCamera: b9d1bfddddca800b320fa347cf76edd35f3f4120
   CapacitorCommunityFcm: f49da24e79333e72b398482d229dc08f29ef3319
   CapacitorCordova: 183c8d1af3851da6d7a371f273462c8e64e15464
-  CapacitorLocalNotifications: de1fabf8837ddba97da10c0410ef762d4906c6bb
-  CapacitorPushNotifications: ad90d42a35c012cf4b898c79b8432c7e22989415
-  CapacitorSplashScreen: e3a30cef7e94375ce9a1180673931a622a56e514
+  CapacitorLocalNotifications: 2482030d050fc4bf9db604dbd5d6a573aee3dcc8
+  CapacitorPushNotifications: 60b57551234cc621cd49df8c8ed3e57e5277565a
+  CapacitorSplashScreen: 399720f32213f8429aa06e9de6458a2718967b44
   Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
   FirebaseCore: 907447d8917a4d3eb0cce2829c5a0ad21d90b432
   FirebaseCoreDiagnostics: 68ad972f99206cef818230f3f3179d52ccfb7f8c

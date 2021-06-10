@@ -215,6 +215,22 @@ export class AccountsService {
     });
   }
 
+  loginFacebook() {
+
+  }
+
+  async loginApple(appleResponse) {
+    const provider = new firebase.auth.OAuthProvider('apple.com');
+
+    // Create sign in credentials with our token
+    const credential = provider.credential({
+      idToken: appleResponse.identityToken
+    });
+
+    // Call the sign in with our created credentials
+    const userCredential = await firebase.auth().signInWithCredential(credential);
+  }
+
   public loginWithToken(token): Observable<any> {
     return from(
       firebase
