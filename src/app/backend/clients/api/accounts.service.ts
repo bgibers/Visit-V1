@@ -37,6 +37,14 @@ import { Configuration } from '../configuration';
 import { RegisterRequest } from '../model/registerRequest';
 import { CustomHttpUrlEncodingCodec } from '../encoder';
 import { AlertController } from '@ionic/angular';
+
+import '@capacitor-community/apple-sign-in'; // This call avoid needs to call registerWebPlugin
+import {
+  SignInWithApple,
+  SignInWithAppleOptions,
+  SignInWithAppleResponse,
+} from '@capacitor-community/apple-sign-in';
+
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
@@ -167,25 +175,6 @@ export class AccountsService {
     return firebase.auth().currentUser.uid;
   }
 
-  // Sign in with Gmail
-  // GoogleAuth() {
-  //     return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
-  // }
-
-  // Auth providers
-  // https://www.positronx.io/ionic-firebase-authentication-tutorial-with-examples/
-  // AuthLogin(provider) {
-  //     return this.ngFireAuth.auth.signInWithPopup(provider)
-  //     .then((result) => {
-  //     this.ngZone.run(() => {
-  //         this.router.navigate(['dashboard']);
-  //         })
-  //     this.SetUserData(result.user);
-  //     }).catch((error) => {
-  //     window.alert(error)
-  //     })
-  // }
-
   // Login in with email/password
   login(email, password) {
     return new Promise<any>((resolve, reject) => {
@@ -219,17 +208,43 @@ export class AccountsService {
 
   }
 
-  async loginApple(appleResponse) {
-    const provider = new firebase.auth.OAuthProvider('apple.com');
+  
 
-    // Create sign in credentials with our token
-    const credential = provider.credential({
-      idToken: appleResponse.identityToken
-    });
+  async loginApple() {
+    let options: SignInWithAppleOptions = {
+      clientId: 'com.visittravelapp.visit',
+      redirectURI:'com.visittravelapp.visit',
+      scopes: 'name email',
+      //state: "12345",
+      //nonce: "nonce",
+    };
 
-    // Call the sign in with our created credentials
-    const userCredential = await firebase.auth().signInWithCredential(credential);
+    SignInWithApple.authorize(options)
+      .then((result: SignInWithAppleResponse) => {
+
+        let credentials: any = {
+          response: result.response,
+          provider: 'APPLE'
+        };
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+
+        // Handle error
+      });
+    // const credential = new firebase.auth.OAuthProvider('apple.com').credential({
+    //   idToken: appleResponse.identityToken
+    // });
+
+    // // Call the sign in with our created credentials
+    // const userCredential = await firebase.auth().signInWithCredential(credential);
   }
+
+    // GoogleAuth() {
+    //   return this.AuthLogin(new auth.GoogleAuthProvider());
+    // }
+
 
   public loginWithToken(token): Observable<any> {
     return from(

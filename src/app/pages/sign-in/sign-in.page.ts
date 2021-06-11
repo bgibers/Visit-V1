@@ -7,20 +7,6 @@ import {
 } from '@angular/forms';
 import { LoadingController, ModalController, Platform } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
-import {
-  SignInWithApple,
-  SignInWithAppleResponse,
-  SignInWithAppleOptions,
-} from '@capacitor-community/apple-sign-in';
-
-let options: SignInWithAppleOptions = {
-  clientId: 'com.your.webservice',
-  redirectURI: 'https://www.yourfrontend.com/login',
-  scopes: 'email name',
-  state: '12345',
-  nonce: 'nonce',
-};
-
 import { AccountsService, LoginApiRequest } from 'src/app/backend/clients';
 import { ForgotPasswordPage } from '../modals/forgot-password/forgot-password.page';
 
@@ -83,16 +69,7 @@ export class SignInPage implements OnInit {
   }
 
   openAppleSignIn() {
-    SignInWithApple.authorize().then(async res => {
-      if (res.response && res.response.identityToken) {
-        console.log(res)
-        this.accountService.loginApple(res.response);
-      } else {
-        // this.presentAlert();
-      }
-    }).catch(response => {
-      // this.presentAlert();
-    });
+    this.accountService.loginApple();
   }
 
   async onSubmit(values) {

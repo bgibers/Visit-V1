@@ -19,7 +19,7 @@
     "@angular-builders/custom-webpack": "^10.0.0",
     "@angular/common": "~9.1.13",
     "@angular/core": "~9.1.13",
-    "@angular/fire": "^6.0.4",
+    "@angular/fire": "^6.1.4",
     "@angular/forms": "~9.1.13",
     "@angular/platform-browser": "~9.1.13",
     "@angular/platform-browser-dynamic": "~9.1.13",

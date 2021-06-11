@@ -3,16 +3,22 @@ PODS:
     - CapacitorCordova
   - CapacitorCamera (1.0.0):
     - Capacitor
+  - CapacitorCommunityAppleSignIn (0.1.1):
+    - Capacitor
   - CapacitorCommunityFcm (1.1.0):
     - Capacitor
     - FirebaseCore
     - FirebaseMessaging
   - CapacitorCordova (3.0.0)
+  - CapacitorDevice (1.0.1):
+    - Capacitor
   - CapacitorLocalNotifications (1.0.0):
     - Capacitor
   - CapacitorPushNotifications (1.0.0):
     - Capacitor
   - CapacitorSplashScreen (1.0.0):
+    - Capacitor
+  - CapacitorStatusBar (1.0.0):
     - Capacitor
   - Firebase/CoreOnly (7.11.0):
     - FirebaseCore (= 7.11.0)
@@ -77,11 +83,14 @@ PODS:
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorCamera (from `../../node_modules/@capacitor/camera`)"
+  - "CapacitorCommunityAppleSignIn (from `../../node_modules/@capacitor-community/apple-sign-in`)"
   - "CapacitorCommunityFcm (from `../../node_modules/@capacitor-community/fcm`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
   - "CapacitorLocalNotifications (from `../../node_modules/@capacitor/local-notifications`)"
   - "CapacitorPushNotifications (from `../../node_modules/@capacitor/push-notifications`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
+  - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - Firebase/Messaging (~> 7.11.0)
   - FirebaseCore (~> 7.11.0)
 
@@ -103,25 +112,34 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorCamera:
     :path: "../../node_modules/@capacitor/camera"
+  CapacitorCommunityAppleSignIn:
+    :path: "../../node_modules/@capacitor-community/apple-sign-in"
   CapacitorCommunityFcm:
     :path: "../../node_modules/@capacitor-community/fcm"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
+  CapacitorDevice:
+    :path: "../../node_modules/@capacitor/device"
   CapacitorLocalNotifications:
     :path: "../../node_modules/@capacitor/local-notifications"
   CapacitorPushNotifications:
     :path: "../../node_modules/@capacitor/push-notifications"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
+  CapacitorStatusBar:
+    :path: "../../node_modules/@capacitor/status-bar"
 
 SPEC CHECKSUMS:
   Capacitor: 06cd8cd01340f5b162e9528bf5569d87a6f29009
   CapacitorCamera: b9d1bfddddca800b320fa347cf76edd35f3f4120
+  CapacitorCommunityAppleSignIn: d7349efae0f7a993b0681f0ddb0d3bd06ee5b86c
   CapacitorCommunityFcm: f49da24e79333e72b398482d229dc08f29ef3319
   CapacitorCordova: 183c8d1af3851da6d7a371f273462c8e64e15464
+  CapacitorDevice: 82557210825b25564d4b3815f7cb86dda8661cf1
   CapacitorLocalNotifications: 2482030d050fc4bf9db604dbd5d6a573aee3dcc8
   CapacitorPushNotifications: 60b57551234cc621cd49df8c8ed3e57e5277565a
   CapacitorSplashScreen: 399720f32213f8429aa06e9de6458a2718967b44
+  CapacitorStatusBar: 532fda5c353659ff240f24cb925e58329fab5253
   Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
   FirebaseCore: 907447d8917a4d3eb0cce2829c5a0ad21d90b432
   FirebaseCoreDiagnostics: 68ad972f99206cef818230f3f3179d52ccfb7f8c
@@ -133,6 +151,6 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
-PODFILE CHECKSUM: 298ab66768e3013895e5bc4285eead15a2ee61fc
+PODFILE CHECKSUM: 4ecaae0154068af3d5ad5cd3d8409ac97946806d
 
 COCOAPODS: 1.9.3
