@@ -24,6 +24,7 @@ import { UserSettingsPageModule } from './pages/user-settings/user-settings.modu
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -52,6 +53,7 @@ import { environment } from '../environments/environment';
     UserService,
     PostService,
     LocationSelector,
+    SignInWithApple,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

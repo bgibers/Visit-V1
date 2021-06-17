@@ -473,7 +473,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_modals_add_add_page__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/modals/add/add.page */ "./src/app/pages/modals/add/add.page.ts");
 /* harmony import */ var _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./backend/clients/api/accounts.service */ "./src/app/backend/clients/api/accounts.service.ts");
 /* harmony import */ var _services_modal_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/modal.service */ "./src/app/services/modal.service.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! firebase/app */ "./node_modules/firebase/app/dist/index.esm.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+
+
 
 
 
@@ -552,6 +556,7 @@ class AppComponent {
                 }
             });
         });
+        firebase_app__WEBPACK_IMPORTED_MODULE_13__["default"].initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].firebaseConfig);
     }
     registerPush() {
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].requestPermissions().then((result) => {
@@ -646,7 +651,7 @@ AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.showFooter);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.showFooter);
-    } }, directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonApp"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRouterOutlet"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabs"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabBar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFabButton"]], styles: ["ion-tab-button[_ngcontent-%COMP%] {\n  --color-selected: #128C7E;\n}\n\n.add-button[_ngcontent-%COMP%] {\n  --background: #128C7E;\n  --background-activated: #128C7E;\n  --ripple-color: #128C7E;\n  --background-focused: #128C7E;\n  --color-focused: #128C7E;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9CcmVuZGFuR2liZXJzb24vRG9jdW1lbnRzL0Rldi9WaXNpdC9WaXNpdC4vc3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUFBO0FDQ0o7O0FERUE7RUFDSSxxQkFBQTtFQUNBLCtCQUFBO0VBQ0EsdUJBQUE7RUFDQSw2QkFBQTtFQUNBLHdCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tdGFiLWJ1dHRvbiB7XG4gICAgLS1jb2xvci1zZWxlY3RlZDogIzEyOEM3RTtcbn1cblxuLmFkZC1idXR0b24ge1xuICAgIC0tYmFja2dyb3VuZDogIzEyOEM3RTtcbiAgICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjMTI4QzdFO1xuICAgIC0tcmlwcGxlLWNvbG9yOiAjMTI4QzdFO1xuICAgIC0tYmFja2dyb3VuZC1mb2N1c2VkOiAjMTI4QzdFO1xuICAgIC0tY29sb3ItZm9jdXNlZDogIzEyOEM3RTtcbn0iLCJpb24tdGFiLWJ1dHRvbiB7XG4gIC0tY29sb3Itc2VsZWN0ZWQ6ICMxMjhDN0U7XG59XG5cbi5hZGQtYnV0dG9uIHtcbiAgLS1iYWNrZ3JvdW5kOiAjMTI4QzdFO1xuICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjMTI4QzdFO1xuICAtLXJpcHBsZS1jb2xvcjogIzEyOEM3RTtcbiAgLS1iYWNrZ3JvdW5kLWZvY3VzZWQ6ICMxMjhDN0U7XG4gIC0tY29sb3ItZm9jdXNlZDogIzEyOEM3RTtcbn0iXX0= */"] });
+    } }, directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonApp"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRouterOutlet"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabs"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabBar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFabButton"]], styles: ["ion-tab-button[_ngcontent-%COMP%] {\n  --color-selected: #128C7E;\n}\n\n.add-button[_ngcontent-%COMP%] {\n  --background: #128C7E;\n  --background-activated: #128C7E;\n  --ripple-color: #128C7E;\n  --background-focused: #128C7E;\n  --color-focused: #128C7E;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9CcmVuZGFuR2liZXJzb24vRG9jdW1lbnRzL0Rldi9WaXNpdC9WaXNpdC4vc3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUFBO0FDQ0o7O0FERUE7RUFDSSxxQkFBQTtFQUNBLCtCQUFBO0VBQ0EsdUJBQUE7RUFDQSw2QkFBQTtFQUNBLHdCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tdGFiLWJ1dHRvbiB7XG4gICAgLS1jb2xvci1zZWxlY3RlZDogIzEyOEM3RTtcbn1cblxuLmFkZC1idXR0b24ge1xuICAgIC0tYmFja2dyb3VuZDogIzEyOEM3RTtcbiAgICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjMTI4QzdFO1xuICAgIC0tcmlwcGxlLWNvbG9yOiAjMTI4QzdFO1xuICAgIC0tYmFja2dyb3VuZC1mb2N1c2VkOiAjMTI4QzdFO1xuICAgIC0tY29sb3ItZm9jdXNlZDogIzEyOEM3RTtcbn0iLCJpb24tdGFiLWJ1dHRvbiB7XG4gIC0tY29sb3Itc2VsZWN0ZWQ6ICMxMjhDN0U7XG59XG5cbi5hZGQtYnV0dG9uIHtcbiAgLS1iYWNrZ3JvdW5kOiAjMTI4QzdFO1xuICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjMTI4QzdFO1xuICAtLXJpcHBsZS1jb2xvcjogIzEyOEM3RTtcbiAgLS1iYWNrZ3JvdW5kLWZvY3VzZWQ6ICMxMjhDN0U7XG4gIC0tY29sb3ItZm9jdXNlZDogIzEyOEM3RTtcbn0iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -694,6 +699,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_fire__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/fire */ "./node_modules/@angular/fire/fesm2015/angular-fire.js");
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/fesm2015/angular-fire-auth.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ionic-native/sign-in-with-apple/ngx */ "./node_modules/@ionic-native/sign-in-with-apple/ngx/index.js");
+
 
 
 
@@ -732,6 +739,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector
         _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"],
         _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"],
         _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"],
+        _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"],
         { provide: _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicRouteStrategy"] },
         {
             provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HTTP_INTERCEPTORS"],
@@ -799,6 +807,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector
                     _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"],
                     _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"],
                     _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"],
+                    _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"],
                     { provide: _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicRouteStrategy"] },
                     {
                         provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HTTP_INTERCEPTORS"],
@@ -931,7 +940,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _configuration__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../configuration */ "./src/app/backend/clients/configuration.ts");
 /* harmony import */ var _encoder__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../encoder */ "./src/app/backend/clients/encoder.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
-/* harmony import */ var _capacitor_community_apple_sign_in__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @capacitor-community/apple-sign-in */ "./node_modules/@capacitor-community/apple-sign-in/dist/esm/index.js");
+/* harmony import */ var _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/sign-in-with-apple/ngx */ "./node_modules/@ionic-native/sign-in-with-apple/ngx/index.js");
 /**
  * My Title
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -959,7 +968,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // This call avoid needs to call registerWebPlugin
+
 
 
 
@@ -970,12 +979,13 @@ __webpack_require__.r(__webpack_exports__);
 
 const InterceptorSkipHeader = 'X-Skip-Interceptor';
 class AccountsService {
-    constructor(httpClient, basePath, configuration, router, zone, storage, alertController, ngFireAuth) {
+    constructor(httpClient, basePath, configuration, router, zone, storage, alertController, signInWithApple, ngFireAuth) {
         this.httpClient = httpClient;
         this.router = router;
         this.zone = zone;
         this.storage = storage;
         this.alertController = alertController;
+        this.signInWithApple = signInWithApple;
         this.ngFireAuth = ngFireAuth;
         this.basePath = src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["BASE_PATH"];
         this.defaultHeaders = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]().set(InterceptorSkipHeader, '');
@@ -1102,28 +1112,26 @@ class AccountsService {
     loginFacebook() {
     }
     async loginApple() {
-        let options = {
-            clientId: 'com.visittravelapp.visit',
-            redirectURI: 'com.visittravelapp.visit',
-            scopes: 'name email',
-        };
-        _capacitor_community_apple_sign_in__WEBPACK_IMPORTED_MODULE_13__["SignInWithApple"].authorize(options)
-            .then((result) => {
-            let credentials = {
-                response: result.response,
-                provider: 'APPLE'
-            };
-            console.log(result);
-        })
-            .catch((error) => {
-            console.log(error);
-            // Handle error
+        this.signInWithApple.signin({
+            requestedScopes: [
+                _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["ASAuthorizationAppleIDRequest"].ASAuthorizationScopeFullName,
+                _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["ASAuthorizationAppleIDRequest"].ASAuthorizationScopeEmail
+            ]
+        }).then(async (res) => {
+            const credential = new firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth.OAuthProvider('apple.com').credential(res.identityToken);
+            const response = await firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().signInWithCredential(credential).then(async () => {
+                await firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().onAuthStateChanged(user => {
+                    if (user) {
+                        console.log(JSON.stringify(user));
+                    }
+                });
+            });
+            console.log('Login successful', response);
+            console.log(JSON.stringify(res));
         });
-        // const credential = new firebase.auth.OAuthProvider('apple.com').credential({
-        //   idToken: appleResponse.identityToken
-        // });
-        // // Call the sign in with our created credentials
-        // const userCredential = await firebase.auth().signInWithCredential(credential);
+        // var provider = new firebase.auth.OAuthProvider('apple.com')
+        // const result = await firebase.auth().signInWithPopup(provider);
+        // console.log(result)
     }
     // GoogleAuth() {
     //   return this.AuthLogin(new auth.GoogleAuthProvider());
@@ -1328,7 +1336,7 @@ class AccountsService {
         });
     }
 }
-AccountsService.ɵfac = function AccountsService_Factory(t) { return new (t || AccountsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["BASE_PATH"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_configuration__WEBPACK_IMPORTED_MODULE_10__["Configuration"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_12__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"])); };
+AccountsService.ɵfac = function AccountsService_Factory(t) { return new (t || AccountsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["BASE_PATH"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_configuration__WEBPACK_IMPORTED_MODULE_10__["Configuration"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_12__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["SignInWithApple"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"])); };
 AccountsService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: AccountsService, factory: AccountsService.ɵfac });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AccountsService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
@@ -1339,7 +1347,7 @@ AccountsService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineI
                 args: [src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["BASE_PATH"]]
             }] }, { type: _configuration__WEBPACK_IMPORTED_MODULE_10__["Configuration"], decorators: [{
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"]
-            }] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }, { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_12__["AlertController"] }, { type: _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"] }]; }, null); })();
+            }] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }, { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_12__["AlertController"] }, { type: _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["SignInWithApple"] }, { type: _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"] }]; }, null); })();
 
 
 /***/ }),

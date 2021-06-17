@@ -20,6 +20,8 @@ PODS:
     - Capacitor
   - CapacitorStatusBar (1.0.0):
     - Capacitor
+  - CordovaPlugins (3.0.0):
+    - CapacitorCordova
   - Firebase/CoreOnly (7.11.0):
     - FirebaseCore (= 7.11.0)
   - Firebase/Messaging (7.11.0):
@@ -91,6 +93,7 @@ DEPENDENCIES:
   - "CapacitorPushNotifications (from `../../node_modules/@capacitor/push-notifications`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
+  - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
   - Firebase/Messaging (~> 7.11.0)
   - FirebaseCore (~> 7.11.0)
 
@@ -128,6 +131,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/splash-screen"
   CapacitorStatusBar:
     :path: "../../node_modules/@capacitor/status-bar"
+  CordovaPlugins:
+    :path: "../capacitor-cordova-ios-plugins"
 
 SPEC CHECKSUMS:
   Capacitor: 06cd8cd01340f5b162e9528bf5569d87a6f29009
@@ -140,6 +145,7 @@ SPEC CHECKSUMS:
   CapacitorPushNotifications: 60b57551234cc621cd49df8c8ed3e57e5277565a
   CapacitorSplashScreen: 399720f32213f8429aa06e9de6458a2718967b44
   CapacitorStatusBar: 532fda5c353659ff240f24cb925e58329fab5253
+  CordovaPlugins: 21ab67a6263bb75ee7c54f1a50c7d12630d6af15
   Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
   FirebaseCore: 907447d8917a4d3eb0cce2829c5a0ad21d90b432
   FirebaseCoreDiagnostics: 68ad972f99206cef818230f3f3179d52ccfb7f8c
@@ -151,6 +157,6 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
-PODFILE CHECKSUM: 4ecaae0154068af3d5ad5cd3d8409ac97946806d
+PODFILE CHECKSUM: 9495e8f8285e8b7e4a3596e3d460e9776d32d869
 
 COCOAPODS: 1.9.3

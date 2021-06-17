@@ -18,6 +18,9 @@ const fcm = new FCM();
 import { AddPage } from './pages/modals/add/add.page';
 import { AccountsService } from './backend/clients/api/accounts.service';
 import { ModalService } from './services/modal.service';
+
+import { environment } from 'src/environments/environment';
+import firebase from 'firebase/app';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -64,6 +67,8 @@ export class AppComponent implements OnInit {
         }
       });
     });
+
+    firebase.initializeApp(environment.firebaseConfig);
   }
 
   private registerPush() {

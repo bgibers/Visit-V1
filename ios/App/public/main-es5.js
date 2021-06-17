@@ -555,7 +555,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
+    /* harmony import */
+
+
+    var firebase_app__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+    /*! firebase/app */
+    "./node_modules/firebase/app/dist/index.esm.js");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
     /*! @angular/common */
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
@@ -666,6 +678,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               }
             });
           });
+          firebase_app__WEBPACK_IMPORTED_MODULE_13__["default"].initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].firebaseConfig);
         }
       }, {
         key: "registerPush",
@@ -871,7 +884,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.showFooter);
         }
       },
-      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonApp"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRouterOutlet"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabs"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabBar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFabButton"]],
+      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonApp"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRouterOutlet"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabs"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabBar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFabButton"]],
       styles: ["ion-tab-button[_ngcontent-%COMP%] {\n  --color-selected: #128C7E;\n}\n\n.add-button[_ngcontent-%COMP%] {\n  --background: #128C7E;\n  --background-activated: #128C7E;\n  --ripple-color: #128C7E;\n  --background-focused: #128C7E;\n  --color-focused: #128C7E;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9CcmVuZGFuR2liZXJzb24vRG9jdW1lbnRzL0Rldi9WaXNpdC9WaXNpdC4vc3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUFBO0FDQ0o7O0FERUE7RUFDSSxxQkFBQTtFQUNBLCtCQUFBO0VBQ0EsdUJBQUE7RUFDQSw2QkFBQTtFQUNBLHdCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tdGFiLWJ1dHRvbiB7XG4gICAgLS1jb2xvci1zZWxlY3RlZDogIzEyOEM3RTtcbn1cblxuLmFkZC1idXR0b24ge1xuICAgIC0tYmFja2dyb3VuZDogIzEyOEM3RTtcbiAgICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjMTI4QzdFO1xuICAgIC0tcmlwcGxlLWNvbG9yOiAjMTI4QzdFO1xuICAgIC0tYmFja2dyb3VuZC1mb2N1c2VkOiAjMTI4QzdFO1xuICAgIC0tY29sb3ItZm9jdXNlZDogIzEyOEM3RTtcbn0iLCJpb24tdGFiLWJ1dHRvbiB7XG4gIC0tY29sb3Itc2VsZWN0ZWQ6ICMxMjhDN0U7XG59XG5cbi5hZGQtYnV0dG9uIHtcbiAgLS1iYWNrZ3JvdW5kOiAjMTI4QzdFO1xuICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjMTI4QzdFO1xuICAtLXJpcHBsZS1jb2xvcjogIzEyOEM3RTtcbiAgLS1iYWNrZ3JvdW5kLWZvY3VzZWQ6ICMxMjhDN0U7XG4gIC0tY29sb3ItZm9jdXNlZDogIzEyOEM3RTtcbn0iXX0= */"]
     });
     /*@__PURE__*/
@@ -1075,6 +1088,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _environments_environment__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
     /*! ../environments/environment */
     "./src/environments/environment.ts");
+    /* harmony import */
+
+
+    var _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
+    /*! @ionic-native/sign-in-with-apple/ngx */
+    "./node_modules/@ionic-native/sign-in-with-apple/ngx/index.js");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -1088,7 +1107,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       factory: function AppModule_Factory(t) {
         return new (t || AppModule)();
       },
-      providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], {
+      providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"], {
         provide: _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouteReuseStrategy"],
         useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicRouteStrategy"]
       }, {
@@ -1115,7 +1134,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           declarations: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]],
           entryComponents: [],
           imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicModule"].forRoot(), _ionic_storage__WEBPACK_IMPORTED_MODULE_11__["IonicStorageModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"], _pages_modals_search_search_module__WEBPACK_IMPORTED_MODULE_4__["SearchPageModule"], _pages_modals_add_add_module__WEBPACK_IMPORTED_MODULE_7__["AddPageModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"], _pages_user_timeline_user_timeline_module__WEBPACK_IMPORTED_MODULE_10__["UserTimelinePageModule"], _pages_modals_map_filter_map_filter_module__WEBPACK_IMPORTED_MODULE_8__["MapFilterPageModule"], _pages_mark_location_mark_location_module__WEBPACK_IMPORTED_MODULE_16__["MarkLocationPageModule"], _pages_add_post_add_post_module__WEBPACK_IMPORTED_MODULE_19__["AddPostPageModule"], _pages_user_settings_user_settings_module__WEBPACK_IMPORTED_MODULE_21__["UserSettingsPageModule"], _pages_add_post_image_add_post_image_module__WEBPACK_IMPORTED_MODULE_20__["AddPostImagePageModule"], _pages_modals_forgot_password_forgot_password_module__WEBPACK_IMPORTED_MODULE_9__["ForgotPasswordPageModule"], ionic_selectable__WEBPACK_IMPORTED_MODULE_17__["IonicSelectableModule"], _angular_fire__WEBPACK_IMPORTED_MODULE_22__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_24__["environment"].firebaseConfig), _angular_fire_auth__WEBPACK_IMPORTED_MODULE_23__["AngularFireAuthModule"]],
-          providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], {
+          providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"], {
             provide: _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouteReuseStrategy"],
             useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicRouteStrategy"]
           }, {
@@ -1399,9 +1418,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _capacitor_community_apple_sign_in__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
-    /*! @capacitor-community/apple-sign-in */
-    "./node_modules/@capacitor-community/apple-sign-in/dist/esm/index.js");
+    var _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+    /*! @ionic-native/sign-in-with-apple/ngx */
+    "./node_modules/@ionic-native/sign-in-with-apple/ngx/index.js");
     /**
      * My Title
      * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -1417,13 +1436,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* tslint:disable:no-unused-variable member-ordering */
     // tslint:disable: max-line-length
     // tslint:disable: import-spacing
-    // This call avoid needs to call registerWebPlugin
 
 
     var InterceptorSkipHeader = 'X-Skip-Interceptor';
 
     var AccountsService = /*#__PURE__*/function () {
-      function AccountsService(httpClient, basePath, configuration, router, zone, storage, alertController, ngFireAuth) {
+      function AccountsService(httpClient, basePath, configuration, router, zone, storage, alertController, signInWithApple, ngFireAuth) {
         var _this4 = this;
 
         _classCallCheck(this, AccountsService);
@@ -1433,6 +1451,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.zone = zone;
         this.storage = storage;
         this.alertController = alertController;
+        this.signInWithApple = signInWithApple;
         this.ngFireAuth = ngFireAuth;
         this.basePath = src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["BASE_PATH"];
         this.defaultHeaders = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]().set(InterceptorSkipHeader, '');
@@ -1647,39 +1666,68 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "loginApple",
         value: function () {
-          var _loginApple = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-            var options;
-            return regeneratorRuntime.wrap(function _callee8$(_context8) {
+          var _loginApple = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+            return regeneratorRuntime.wrap(function _callee10$(_context10) {
               while (1) {
-                switch (_context8.prev = _context8.next) {
+                switch (_context10.prev = _context10.next) {
                   case 0:
-                    options = {
-                      clientId: 'com.visittravelapp.visit',
-                      redirectURI: 'com.visittravelapp.visit',
-                      scopes: 'name email'
-                    };
+                    this.signInWithApple.signin({
+                      requestedScopes: [_ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["ASAuthorizationAppleIDRequest"].ASAuthorizationScopeFullName, _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["ASAuthorizationAppleIDRequest"].ASAuthorizationScopeEmail]
+                    }).then( /*#__PURE__*/function () {
+                      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(res) {
+                        var credential, response;
+                        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+                          while (1) {
+                            switch (_context9.prev = _context9.next) {
+                              case 0:
+                                credential = new firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth.OAuthProvider('apple.com').credential(res.identityToken);
+                                _context9.next = 3;
+                                return firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().signInWithCredential(credential).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+                                  return regeneratorRuntime.wrap(function _callee8$(_context8) {
+                                    while (1) {
+                                      switch (_context8.prev = _context8.next) {
+                                        case 0:
+                                          _context8.next = 2;
+                                          return firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().onAuthStateChanged(function (user) {
+                                            if (user) {
+                                              console.log(JSON.stringify(user));
+                                            }
+                                          });
 
-                    _capacitor_community_apple_sign_in__WEBPACK_IMPORTED_MODULE_13__["SignInWithApple"].authorize(options).then(function (result) {
-                      var credentials = {
-                        response: result.response,
-                        provider: 'APPLE'
+                                        case 2:
+                                        case "end":
+                                          return _context8.stop();
+                                      }
+                                    }
+                                  }, _callee8);
+                                })));
+
+                              case 3:
+                                response = _context9.sent;
+                                console.log('Login successful', response);
+                                console.log(JSON.stringify(res));
+
+                              case 6:
+                              case "end":
+                                return _context9.stop();
+                            }
+                          }
+                        }, _callee9);
+                      }));
+
+                      return function (_x6) {
+                        return _ref3.apply(this, arguments);
                       };
-                      console.log(result);
-                    })["catch"](function (error) {
-                      console.log(error); // Handle error
-                    }); // const credential = new firebase.auth.OAuthProvider('apple.com').credential({
-                    //   idToken: appleResponse.identityToken
-                    // });
-                    // // Call the sign in with our created credentials
-                    // const userCredential = await firebase.auth().signInWithCredential(credential);
+                    }()); // var provider = new firebase.auth.OAuthProvider('apple.com')
+                    // const result = await firebase.auth().signInWithPopup(provider);
+                    // console.log(result)
 
-
-                  case 2:
+                  case 1:
                   case "end":
-                    return _context8.stop();
+                    return _context10.stop();
                 }
               }
-            }, _callee8);
+            }, _callee10, this);
           }));
 
           function loginApple() {
@@ -1928,7 +1976,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     AccountsService.ɵfac = function AccountsService_Factory(t) {
-      return new (t || AccountsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["BASE_PATH"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_configuration__WEBPACK_IMPORTED_MODULE_10__["Configuration"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_12__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"]));
+      return new (t || AccountsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["BASE_PATH"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_configuration__WEBPACK_IMPORTED_MODULE_10__["Configuration"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_12__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["SignInWithApple"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"]));
     };
 
     AccountsService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
@@ -1964,6 +2012,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_12__["AlertController"]
+        }, {
+          type: _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["SignInWithApple"]
         }, {
           type: _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"]
         }];
@@ -5673,13 +5723,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "presentAlert",
         value: function () {
-          var _presentAlert = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(status, reason) {
+          var _presentAlert = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(status, reason) {
             var alert;
-            return regeneratorRuntime.wrap(function _callee9$(_context9) {
+            return regeneratorRuntime.wrap(function _callee11$(_context11) {
               while (1) {
-                switch (_context9.prev = _context9.next) {
+                switch (_context11.prev = _context11.next) {
                   case 0:
-                    _context9.next = 2;
+                    _context11.next = 2;
                     return this.alertController.create({
                       header: status + ' Error',
                       subHeader: 'Subtitle',
@@ -5688,19 +5738,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    alert = _context9.sent;
-                    _context9.next = 5;
+                    alert = _context11.sent;
+                    _context11.next = 5;
                     return alert.present();
 
                   case 5:
                   case "end":
-                    return _context9.stop();
+                    return _context11.stop();
                 }
               }
-            }, _callee9, this);
+            }, _callee11, this);
           }));
 
-          function presentAlert(_x6, _x7) {
+          function presentAlert(_x7, _x8) {
             return _presentAlert.apply(this, arguments);
           }
 
@@ -6670,12 +6720,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(Map, [{
         key: "createMap",
         value: function () {
-          var _createMap = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(selectionMode) {
+          var _createMap = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(selectionMode) {
             var _this15 = this;
 
-            return regeneratorRuntime.wrap(function _callee10$(_context10) {
+            return regeneratorRuntime.wrap(function _callee12$(_context12) {
               while (1) {
-                switch (_context10.prev = _context10.next) {
+                switch (_context12.prev = _context12.next) {
                   case 0:
                     _amcharts_amcharts4_core__WEBPACK_IMPORTED_MODULE_1__["disposeAllCharts"]();
 
@@ -6750,13 +6800,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 2:
                   case "end":
-                    return _context10.stop();
+                    return _context12.stop();
                 }
               }
-            }, _callee10, this);
+            }, _callee12, this);
           }));
 
-          function createMap(_x8) {
+          function createMap(_x9) {
             return _createMap.apply(this, arguments);
           }
 
@@ -6886,21 +6936,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "changeVisitStatus",
         value: function () {
-          var _changeVisitStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(locationId, status) {
+          var _changeVisitStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(locationId, status) {
             var _iterator10, _step10, series, result, locationInArray, index;
 
-            return regeneratorRuntime.wrap(function _callee11$(_context11) {
+            return regeneratorRuntime.wrap(function _callee13$(_context13) {
               while (1) {
-                switch (_context11.prev = _context11.next) {
+                switch (_context13.prev = _context13.next) {
                   case 0:
                     _iterator10 = _createForOfIteratorHelper(this.seriesArr);
-                    _context11.prev = 1;
+                    _context13.prev = 1;
 
                     _iterator10.s();
 
                   case 3:
                     if ((_step10 = _iterator10.n()).done) {
-                      _context11.next = 11;
+                      _context13.next = 11;
                       break;
                     }
 
@@ -6908,33 +6958,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     result = series.getPolygonById(locationId);
 
                     if (!(result !== undefined)) {
-                      _context11.next = 9;
+                      _context13.next = 9;
                       break;
                     }
 
                     this.selectedArea = result;
-                    return _context11.abrupt("break", 11);
+                    return _context13.abrupt("break", 11);
 
                   case 9:
-                    _context11.next = 3;
+                    _context13.next = 3;
                     break;
 
                   case 11:
-                    _context11.next = 16;
+                    _context13.next = 16;
                     break;
 
                   case 13:
-                    _context11.prev = 13;
-                    _context11.t0 = _context11["catch"](1);
+                    _context13.prev = 13;
+                    _context13.t0 = _context13["catch"](1);
 
-                    _iterator10.e(_context11.t0);
+                    _iterator10.e(_context13.t0);
 
                   case 16:
-                    _context11.prev = 16;
+                    _context13.prev = 16;
 
                     _iterator10.f();
 
-                    return _context11.finish(16);
+                    return _context13.finish(16);
 
                   case 19:
                     locationInArray = this.selectedArr.find(function (d) {
@@ -6963,13 +7013,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 21:
                   case "end":
-                    return _context11.stop();
+                    return _context13.stop();
                 }
               }
-            }, _callee11, this, [[1, 13, 16, 19]]);
+            }, _callee13, this, [[1, 13, 16, 19]]);
           }));
 
-          function changeVisitStatus(_x9, _x10) {
+          function changeVisitStatus(_x10, _x11) {
             return _changeVisitStatus.apply(this, arguments);
           }
 
@@ -7337,22 +7387,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "post",
         value: function () {
-          var _post = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+          var _post = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
             var _this20 = this;
 
             var loading;
-            return regeneratorRuntime.wrap(function _callee12$(_context12) {
+            return regeneratorRuntime.wrap(function _callee14$(_context14) {
               while (1) {
-                switch (_context12.prev = _context12.next) {
+                switch (_context14.prev = _context14.next) {
                   case 0:
-                    _context12.next = 2;
+                    _context14.next = 2;
                     return this.loadingController.create({
                       duration: 2000
                     });
 
                   case 2:
-                    loading = _context12.sent;
-                    _context12.next = 5;
+                    loading = _context14.sent;
+                    _context14.next = 5;
                     return loading.present();
 
                   case 5:
@@ -7367,10 +7417,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 6:
                   case "end":
-                    return _context12.stop();
+                    return _context14.stop();
                 }
               }
-            }, _callee12, this);
+            }, _callee14, this);
           }));
 
           function post() {
@@ -7406,13 +7456,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getUserImage",
         value: function () {
-          var _getUserImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+          var _getUserImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
             var imageUrl;
-            return regeneratorRuntime.wrap(function _callee13$(_context13) {
+            return regeneratorRuntime.wrap(function _callee15$(_context15) {
               while (1) {
-                switch (_context13.prev = _context13.next) {
+                switch (_context15.prev = _context15.next) {
                   case 0:
-                    _context13.next = 2;
+                    _context15.next = 2;
                     return _capacitor_camera__WEBPACK_IMPORTED_MODULE_1__["Camera"].getPhoto({
                       quality: 90,
                       allowEditing: true,
@@ -7420,7 +7470,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    this.image = _context13.sent;
+                    this.image = _context15.sent;
                     // image.webPath will contain a path that can be set as an image src.
                     // You can access the original file using image.path, which can be
                     // passed to the Filesystem API to read the raw data of the image,
@@ -7432,10 +7482,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 6:
                   case "end":
-                    return _context13.stop();
+                    return _context15.stop();
                 }
               }
-            }, _callee13, this);
+            }, _callee15, this);
           }));
 
           function getUserImage() {
@@ -7933,22 +7983,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "post",
         value: function () {
-          var _post2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
+          var _post2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
             var _this21 = this;
 
             var loading;
-            return regeneratorRuntime.wrap(function _callee14$(_context14) {
+            return regeneratorRuntime.wrap(function _callee16$(_context16) {
               while (1) {
-                switch (_context14.prev = _context14.next) {
+                switch (_context16.prev = _context16.next) {
                   case 0:
-                    _context14.next = 2;
+                    _context16.next = 2;
                     return this.loadingController.create({
                       duration: 2000
                     });
 
                   case 2:
-                    loading = _context14.sent;
-                    _context14.next = 5;
+                    loading = _context16.sent;
+                    _context16.next = 5;
                     return loading.present();
 
                   case 5:
@@ -7963,10 +8013,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 6:
                   case "end":
-                    return _context14.stop();
+                    return _context16.stop();
                 }
               }
-            }, _callee14, this);
+            }, _callee16, this);
           }));
 
           function post() {
@@ -8788,85 +8838,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(AddPage, [{
         key: "markLocationsToVisit",
         value: function () {
-          var _markLocationsToVisit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
-            var modal;
-            return regeneratorRuntime.wrap(function _callee15$(_context15) {
-              while (1) {
-                switch (_context15.prev = _context15.next) {
-                  case 0:
-                    _context15.next = 2;
-                    return this.modalCtrl.create({
-                      component: _mark_location_mark_location_page__WEBPACK_IMPORTED_MODULE_4__["MarkLocationPage"],
-                      componentProps: {
-                        selectionMode: src_app_objects_enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_2__["MapSelectionMode"].TO_VISIT
-                      }
-                    });
-
-                  case 2:
-                    modal = _context15.sent;
-                    _context15.next = 5;
-                    return modal.present();
-
-                  case 5:
-                    return _context15.abrupt("return", _context15.sent);
-
-                  case 6:
-                  case "end":
-                    return _context15.stop();
-                }
-              }
-            }, _callee15, this);
-          }));
-
-          function markLocationsToVisit() {
-            return _markLocationsToVisit.apply(this, arguments);
-          }
-
-          return markLocationsToVisit;
-        }()
-      }, {
-        key: "markVisitedLocations",
-        value: function () {
-          var _markVisitedLocations = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
-            var modal;
-            return regeneratorRuntime.wrap(function _callee16$(_context16) {
-              while (1) {
-                switch (_context16.prev = _context16.next) {
-                  case 0:
-                    _context16.next = 2;
-                    return this.modalCtrl.create({
-                      component: _mark_location_mark_location_page__WEBPACK_IMPORTED_MODULE_4__["MarkLocationPage"],
-                      componentProps: {
-                        selectionMode: src_app_objects_enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_2__["MapSelectionMode"].VISITED
-                      }
-                    });
-
-                  case 2:
-                    modal = _context16.sent;
-                    _context16.next = 5;
-                    return modal.present();
-
-                  case 5:
-                    return _context16.abrupt("return", _context16.sent);
-
-                  case 6:
-                  case "end":
-                    return _context16.stop();
-                }
-              }
-            }, _callee16, this);
-          }));
-
-          function markVisitedLocations() {
-            return _markVisitedLocations.apply(this, arguments);
-          }
-
-          return markVisitedLocations;
-        }()
-      }, {
-        key: "addNewPost",
-        value: function () {
-          var _addNewPost = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
+          var _markLocationsToVisit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
             var modal;
             return regeneratorRuntime.wrap(function _callee17$(_context17) {
               while (1) {
@@ -8874,8 +8846,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 0:
                     _context17.next = 2;
                     return this.modalCtrl.create({
-                      component: _add_post_add_post_page__WEBPACK_IMPORTED_MODULE_5__["AddPostPage"],
-                      componentProps: {}
+                      component: _mark_location_mark_location_page__WEBPACK_IMPORTED_MODULE_4__["MarkLocationPage"],
+                      componentProps: {
+                        selectionMode: src_app_objects_enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_2__["MapSelectionMode"].TO_VISIT
+                      }
                     });
 
                   case 2:
@@ -8894,16 +8868,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }, _callee17, this);
           }));
 
-          function addNewPost() {
-            return _addNewPost.apply(this, arguments);
+          function markLocationsToVisit() {
+            return _markLocationsToVisit.apply(this, arguments);
           }
 
-          return addNewPost;
+          return markLocationsToVisit;
         }()
       }, {
-        key: "addNewImage",
+        key: "markVisitedLocations",
         value: function () {
-          var _addNewImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
+          var _markVisitedLocations = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
             var modal;
             return regeneratorRuntime.wrap(function _callee18$(_context18) {
               while (1) {
@@ -8911,8 +8885,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 0:
                     _context18.next = 2;
                     return this.modalCtrl.create({
-                      component: _add_post_image_add_post_image_page__WEBPACK_IMPORTED_MODULE_6__["AddPostImagePage"],
-                      componentProps: {}
+                      component: _mark_location_mark_location_page__WEBPACK_IMPORTED_MODULE_4__["MarkLocationPage"],
+                      componentProps: {
+                        selectionMode: src_app_objects_enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_2__["MapSelectionMode"].VISITED
+                      }
                     });
 
                   case 2:
@@ -8929,6 +8905,80 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }
               }
             }, _callee18, this);
+          }));
+
+          function markVisitedLocations() {
+            return _markVisitedLocations.apply(this, arguments);
+          }
+
+          return markVisitedLocations;
+        }()
+      }, {
+        key: "addNewPost",
+        value: function () {
+          var _addNewPost = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
+            var modal;
+            return regeneratorRuntime.wrap(function _callee19$(_context19) {
+              while (1) {
+                switch (_context19.prev = _context19.next) {
+                  case 0:
+                    _context19.next = 2;
+                    return this.modalCtrl.create({
+                      component: _add_post_add_post_page__WEBPACK_IMPORTED_MODULE_5__["AddPostPage"],
+                      componentProps: {}
+                    });
+
+                  case 2:
+                    modal = _context19.sent;
+                    _context19.next = 5;
+                    return modal.present();
+
+                  case 5:
+                    return _context19.abrupt("return", _context19.sent);
+
+                  case 6:
+                  case "end":
+                    return _context19.stop();
+                }
+              }
+            }, _callee19, this);
+          }));
+
+          function addNewPost() {
+            return _addNewPost.apply(this, arguments);
+          }
+
+          return addNewPost;
+        }()
+      }, {
+        key: "addNewImage",
+        value: function () {
+          var _addNewImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
+            var modal;
+            return regeneratorRuntime.wrap(function _callee20$(_context20) {
+              while (1) {
+                switch (_context20.prev = _context20.next) {
+                  case 0:
+                    _context20.next = 2;
+                    return this.modalCtrl.create({
+                      component: _add_post_image_add_post_image_page__WEBPACK_IMPORTED_MODULE_6__["AddPostImagePage"],
+                      componentProps: {}
+                    });
+
+                  case 2:
+                    modal = _context20.sent;
+                    _context20.next = 5;
+                    return modal.present();
+
+                  case 5:
+                    return _context20.abrupt("return", _context20.sent);
+
+                  case 6:
+                  case "end":
+                    return _context20.stop();
+                }
+              }
+            }, _callee20, this);
           }));
 
           function addNewImage() {
@@ -9367,20 +9417,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "closeModal",
         value: function () {
-          var _closeModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
-            return regeneratorRuntime.wrap(function _callee19$(_context19) {
+          var _closeModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
+            return regeneratorRuntime.wrap(function _callee21$(_context21) {
               while (1) {
-                switch (_context19.prev = _context19.next) {
+                switch (_context21.prev = _context21.next) {
                   case 0:
-                    _context19.next = 2;
+                    _context21.next = 2;
                     return this.modalController.dismiss();
 
                   case 2:
                   case "end":
-                    return _context19.stop();
+                    return _context21.stop();
                 }
               }
-            }, _callee19, this);
+            }, _callee21, this);
           }));
 
           function closeModal() {
@@ -9392,12 +9442,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function () {
-          var _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
+          var _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
             var _this24 = this;
 
-            return regeneratorRuntime.wrap(function _callee20$(_context20) {
+            return regeneratorRuntime.wrap(function _callee22$(_context22) {
               while (1) {
-                switch (_context20.prev = _context20.next) {
+                switch (_context22.prev = _context22.next) {
                   case 0:
                     this.accountService.PasswordRecover(this.userEmail).then(function () {
                       return _this24.closeModal();
@@ -9405,10 +9455,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 1:
                   case "end":
-                    return _context20.stop();
+                    return _context22.stop();
                 }
               }
-            }, _callee20, this);
+            }, _callee22, this);
           }));
 
           function onSubmit() {
@@ -9788,21 +9838,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "restFilter",
         value: function () {
-          var _restFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
-            return regeneratorRuntime.wrap(function _callee21$(_context21) {
+          var _restFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
+            return regeneratorRuntime.wrap(function _callee23$(_context23) {
               while (1) {
-                switch (_context21.prev = _context21.next) {
+                switch (_context23.prev = _context23.next) {
                   case 0:
                     this.filter = '';
-                    _context21.next = 3;
+                    _context23.next = 3;
                     return this.closeModal();
 
                   case 3:
                   case "end":
-                    return _context21.stop();
+                    return _context23.stop();
                 }
               }
-            }, _callee21, this);
+            }, _callee23, this);
           }));
 
           function restFilter() {
@@ -9814,24 +9864,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "filterSubmit",
         value: function () {
-          var _filterSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
-            return regeneratorRuntime.wrap(function _callee22$(_context22) {
+          var _filterSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+            return regeneratorRuntime.wrap(function _callee24$(_context24) {
               while (1) {
-                switch (_context22.prev = _context22.next) {
+                switch (_context24.prev = _context24.next) {
                   case 0:
                     if (this.map.selectedArr.length > 0) {
                       this.filter = this.map.selectedArr[0].locationId;
                     }
 
-                    _context22.next = 3;
+                    _context24.next = 3;
                     return this.closeModal();
 
                   case 3:
                   case "end":
-                    return _context22.stop();
+                    return _context24.stop();
                 }
               }
-            }, _callee22, this);
+            }, _callee24, this);
           }));
 
           function filterSubmit() {
@@ -9843,33 +9893,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "closeModal",
         value: function () {
-          var _closeModal2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
+          var _closeModal2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
             var loading, onClosedData;
-            return regeneratorRuntime.wrap(function _callee23$(_context23) {
+            return regeneratorRuntime.wrap(function _callee25$(_context25) {
               while (1) {
-                switch (_context23.prev = _context23.next) {
+                switch (_context25.prev = _context25.next) {
                   case 0:
-                    _context23.next = 2;
+                    _context25.next = 2;
                     return this.loadingController.create({
                       duration: 2000
                     });
 
                   case 2:
-                    loading = _context23.sent;
-                    _context23.next = 5;
+                    loading = _context25.sent;
+                    _context25.next = 5;
                     return loading.present();
 
                   case 5:
                     onClosedData = this.filter;
-                    _context23.next = 8;
+                    _context25.next = 8;
                     return this.modalController.dismiss(onClosedData);
 
                   case 8:
                   case "end":
-                    return _context23.stop();
+                    return _context25.stop();
                 }
               }
-            }, _callee23, this);
+            }, _callee25, this);
           }));
 
           function closeModal() {
@@ -10712,22 +10762,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function () {
-          var _onSubmit2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
+          var _onSubmit2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
             var _this27 = this;
 
             var loading, title, education, birthPlace, residence;
-            return regeneratorRuntime.wrap(function _callee25$(_context25) {
+            return regeneratorRuntime.wrap(function _callee27$(_context27) {
               while (1) {
-                switch (_context25.prev = _context25.next) {
+                switch (_context27.prev = _context27.next) {
                   case 0:
-                    _context25.next = 2;
+                    _context27.next = 2;
                     return this.loadingController.create({
                       duration: 2000
                     });
 
                   case 2:
-                    loading = _context25.sent;
-                    _context25.next = 5;
+                    loading = _context27.sent;
+                    _context27.next = 5;
                     return loading.present();
 
                   case 5:
@@ -10736,16 +10786,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     birthPlace = this.aboutForm.controls.birthPlace.value === '' ? this.user.birthLocation : this.aboutForm.controls.birthPlace.value;
                     residence = this.aboutForm.controls.residence.value === '' ? this.user.residenceLocation : this.aboutForm.controls.residence.value; // todo create a forkjoin or something here to make these run together
 
-                    this.accountService.accountUpdatePost(this.user.firstname, this.user.lastname, title, education, birthPlace, residence).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
-                      return regeneratorRuntime.wrap(function _callee24$(_context24) {
+                    this.accountService.accountUpdatePost(this.user.firstname, this.user.lastname, title, education, birthPlace, residence).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
+                      return regeneratorRuntime.wrap(function _callee26$(_context26) {
                         while (1) {
-                          switch (_context24.prev = _context24.next) {
+                          switch (_context26.prev = _context26.next) {
                             case 0:
                               if (_this27.blob !== undefined) {
                                 _this27.accountService.accountUpdateProfileImagePost(_this27.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function () {});
                               }
 
-                              _context24.next = 3;
+                              _context26.next = 3;
                               return loading.dismiss();
 
                             case 3:
@@ -10753,18 +10803,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                             case 4:
                             case "end":
-                              return _context24.stop();
+                              return _context26.stop();
                           }
                         }
-                      }, _callee24);
+                      }, _callee26);
                     })));
 
                   case 10:
                   case "end":
-                    return _context25.stop();
+                    return _context27.stop();
                 }
               }
-            }, _callee25, this);
+            }, _callee27, this);
           }));
 
           function onSubmit() {
@@ -10791,13 +10841,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getUserImage",
         value: function () {
-          var _getUserImage2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
+          var _getUserImage2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
             var imageUrl;
-            return regeneratorRuntime.wrap(function _callee26$(_context26) {
+            return regeneratorRuntime.wrap(function _callee28$(_context28) {
               while (1) {
-                switch (_context26.prev = _context26.next) {
+                switch (_context28.prev = _context28.next) {
                   case 0:
-                    _context26.next = 2;
+                    _context28.next = 2;
                     return _capacitor_camera__WEBPACK_IMPORTED_MODULE_3__["Camera"].getPhoto({
                       quality: 90,
                       allowEditing: true,
@@ -10805,7 +10855,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    this.image = _context26.sent;
+                    this.image = _context28.sent;
                     // image.webPath will contain a path that can be set as an image src.
                     // You can access the original file using image.path, which can be
                     // passed to the Filesystem API to read the raw data of the image,
@@ -10817,10 +10867,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 6:
                   case "end":
-                    return _context26.stop();
+                    return _context28.stop();
                 }
               }
-            }, _callee26, this);
+            }, _callee28, this);
           }));
 
           function getUserImage() {
@@ -10837,12 +10887,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "logout",
         value: function () {
-          var _logout2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
-            return regeneratorRuntime.wrap(function _callee27$(_context27) {
+          var _logout2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
+            return regeneratorRuntime.wrap(function _callee29$(_context29) {
               while (1) {
-                switch (_context27.prev = _context27.next) {
+                switch (_context29.prev = _context29.next) {
                   case 0:
-                    _context27.next = 2;
+                    _context29.next = 2;
                     return this.accountService.logout();
 
                   case 2:
@@ -10850,10 +10900,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 3:
                   case "end":
-                    return _context27.stop();
+                    return _context29.stop();
                 }
               }
-            }, _callee27, this);
+            }, _callee29, this);
           }));
 
           function logout() {
@@ -11455,13 +11505,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "presentSearchModal",
         value: function () {
-          var _presentSearchModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
+          var _presentSearchModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
             var modal;
-            return regeneratorRuntime.wrap(function _callee28$(_context28) {
+            return regeneratorRuntime.wrap(function _callee30$(_context30) {
               while (1) {
-                switch (_context28.prev = _context28.next) {
+                switch (_context30.prev = _context30.next) {
                   case 0:
-                    _context28.next = 2;
+                    _context30.next = 2;
                     return this.modalController.create({
                       component: _modals_search_search_page__WEBPACK_IMPORTED_MODULE_2__["SearchPage"],
                       componentProps: {},
@@ -11470,19 +11520,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    modal = _context28.sent;
-                    _context28.next = 5;
+                    modal = _context30.sent;
+                    _context30.next = 5;
                     return modal.present();
 
                   case 5:
-                    return _context28.abrupt("return", _context28.sent);
+                    return _context30.abrupt("return", _context30.sent);
 
                   case 6:
                   case "end":
-                    return _context28.stop();
+                    return _context30.stop();
                 }
               }
-            }, _callee28, this);
+            }, _callee30, this);
           }));
 
           function presentSearchModal() {
@@ -11510,15 +11560,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "presentMapFilter",
         value: function () {
-          var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
+          var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
             var _this32 = this;
 
             var modal;
-            return regeneratorRuntime.wrap(function _callee30$(_context30) {
+            return regeneratorRuntime.wrap(function _callee32$(_context32) {
               while (1) {
-                switch (_context30.prev = _context30.next) {
+                switch (_context32.prev = _context32.next) {
                   case 0:
-                    _context30.next = 2;
+                    _context32.next = 2;
                     return this.modalController.create({
                       component: _modals_map_filter_map_filter_page__WEBPACK_IMPORTED_MODULE_3__["MapFilterPage"],
                       showBackdrop: true,
@@ -11529,15 +11579,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    modal = _context30.sent;
+                    modal = _context32.sent;
                     modal.onDidDismiss().then( /*#__PURE__*/function () {
-                      var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee29(dataReturned) {
-                        return regeneratorRuntime.wrap(function _callee29$(_context29) {
+                      var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee31(dataReturned) {
+                        return regeneratorRuntime.wrap(function _callee31$(_context31) {
                           while (1) {
-                            switch (_context29.prev = _context29.next) {
+                            switch (_context31.prev = _context31.next) {
                               case 0:
                                 if (!(dataReturned !== null)) {
-                                  _context29.next = 5;
+                                  _context31.next = 5;
                                   break;
                                 }
 
@@ -11545,33 +11595,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                                 _this32.refreshPosts();
 
-                                _context29.next = 5;
+                                _context31.next = 5;
                                 return _this32.loadingController.dismiss();
 
                               case 5:
                               case "end":
-                                return _context29.stop();
+                                return _context31.stop();
                             }
                           }
-                        }, _callee29);
+                        }, _callee31);
                       }));
 
-                      return function (_x11) {
-                        return _ref4.apply(this, arguments);
+                      return function (_x12) {
+                        return _ref6.apply(this, arguments);
                       };
                     }());
-                    _context30.next = 6;
+                    _context32.next = 6;
                     return modal.present();
 
                   case 6:
-                    return _context30.abrupt("return", _context30.sent);
+                    return _context32.abrupt("return", _context32.sent);
 
                   case 7:
                   case "end":
-                    return _context30.stop();
+                    return _context32.stop();
                 }
               }
-            }, _callee30, this);
+            }, _callee32, this);
           }));
 
           function presentMapFilter() {
