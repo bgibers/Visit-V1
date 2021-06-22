@@ -358,6 +358,33 @@ class RegisterPage {
     togglePasswordMode() {
         this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
     }
+    async openAppleSignIn() {
+        await this.accountService.loginApple().then(async (res) => {
+            if (res.firstLogin === true) {
+                const navigationExtras = {
+                    replaceUrl: false,
+                    state: {
+                        firstName: res.firstName,
+                        lastName: res.lastName,
+                        email: res.email,
+                        password: '',
+                        sso: true
+                    }
+                };
+                this.zone.run(() => {
+                    this.router.navigateByUrl('/post-register-about', navigationExtras);
+                });
+            }
+            else {
+                const navigationExtras = {
+                    replaceUrl: false
+                };
+                this.zone.run(() => {
+                    this.router.navigateByUrl('/tab1', navigationExtras);
+                });
+            }
+        });
+    }
     onSubmit() {
         this.accountService.accountEmailTakenGet(this.registerForm.controls.email.value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(res => {
             if (res === false) {

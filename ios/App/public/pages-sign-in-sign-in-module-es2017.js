@@ -201,8 +201,32 @@ class SignInPage {
             password,
         });
     }
-    openAppleSignIn() {
-        this.accountService.loginApple();
+    async openAppleSignIn() {
+        await this.accountService.loginApple().then(async (res) => {
+            if (res.firstLogin === true) {
+                const navigationExtras = {
+                    replaceUrl: false,
+                    state: {
+                        firstName: res.firstName,
+                        lastName: res.lastName,
+                        email: res.email,
+                        password: '',
+                        sso: true
+                    }
+                };
+                this.zone.run(() => {
+                    this.router.navigateByUrl('/post-register-about', navigationExtras);
+                });
+            }
+            else {
+                const navigationExtras = {
+                    replaceUrl: false
+                };
+                this.zone.run(() => {
+                    this.router.navigateByUrl('/tab1', navigationExtras);
+                });
+            }
+        });
     }
     async onSubmit(values) {
         const loginModel = {

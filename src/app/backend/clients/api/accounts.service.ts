@@ -39,6 +39,7 @@ import { CustomHttpUrlEncodingCodec } from '../encoder';
 import { AlertController } from '@ionic/angular';
 
 import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
+import { SsoUser } from '../model/ssoUser';
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
@@ -203,31 +204,34 @@ export class AccountsService {
 
   }
 
+  async loginApple(): Promise<SsoUser> {
+      return this.signInWithApple.signin({
+      requestedScopes: [
+        ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+        ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
+      ]
+    }).then(async (res: AppleSignInResponse) => {
+      const credential = new firebase.auth.OAuthProvider('apple.com').credential(
+        res.identityToken
+      );
+      let firstLogin = false;
 
-
-  async loginApple() {
-      this.signInWithApple.signin({
-        requestedScopes: [
-          ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
-          ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
-        ]
-      }).then(async (res: AppleSignInResponse) => {
-        const credential = new firebase.auth.OAuthProvider('apple.com').credential(
-          res.identityToken
-        );
-        const response = await firebase.auth().signInWithCredential(credential).then(async () => {
+      const response = await firebase.auth().signInWithCredential(credential).then(async (cred) => {
           await firebase.auth().onAuthStateChanged(user => {
             if (user) {
-              console.log(JSON.stringify(user));
+              return res;
             }
           });
+          firstLogin = cred.additionalUserInfo.isNewUser;
         });
-        console.log('Login successful', response);
-        console.log(JSON.stringify(res));
-      });
-      // var provider = new firebase.auth.OAuthProvider('apple.com')
-      // const result = await firebase.auth().signInWithPopup(provider);
-      // console.log(result)
+
+      return {
+        firstLogin,
+        firstName: res.fullName.givenName,
+        lastName: res.fullName.familyName,
+        email: res.email,
+      } as SsoUser;
+    });
   }
 
     // GoogleAuth() {

@@ -70,10 +70,7 @@ export class PostRegisterLocationsPage {
       .subscribe(
         (res) => {
           const navigationExtras: NavigationExtras = {
-            replaceUrl: false,
-            state: {
-              userName: 'tester',
-            },
+            replaceUrl: false
           };
           this.zone.run(() => {
             this.router.navigateByUrl('/tab1', navigationExtras);

@@ -9,6 +9,9 @@ import { LoadingController, ModalController, Platform } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { AccountsService, LoginApiRequest } from 'src/app/backend/clients';
 import { ForgotPasswordPage } from '../modals/forgot-password/forgot-password.page';
+import { AppleSignInResponse } from '@ionic-native/sign-in-with-apple/ngx';
+import { take } from 'rxjs/operators';
+import { SsoUser } from 'src/app/backend/clients/model/ssoUser';
 
 
 @Component({
@@ -68,8 +71,31 @@ export class SignInPage implements OnInit {
     });
   }
 
-  openAppleSignIn() {
-    this.accountService.loginApple();
+  async openAppleSignIn() {
+    await this.accountService.loginApple().then(async (res: SsoUser) => {
+        if (res.firstLogin === true) {
+          const navigationExtras: NavigationExtras = {
+            replaceUrl: false,
+            state: {
+              firstName: res.firstName,
+              lastName: res.lastName,
+              email: res.email,
+              password: '',
+              sso: true
+            }
+          };
+          this.zone.run(() => {
+            this.router.navigateByUrl('/post-register-about', navigationExtras);
+          });
+        } else {
+          const navigationExtras: NavigationExtras = {
+            replaceUrl: false
+          };
+          this.zone.run(() => {
+            this.router.navigateByUrl('/tab1', navigationExtras);
+          });
+        }
+    });
   }
 
   async onSubmit(values) {

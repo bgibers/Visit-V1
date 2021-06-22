@@ -20579,6 +20579,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.minDate = moment__WEBPACK_IMPORTED_MODULE_4__().subtract(100, 'y').format();
         this.maxDate = moment__WEBPACK_IMPORTED_MODULE_4__().subtract(16, 'y').format();
         this.userImage = '../../../assets/UI/profilePicUpload.svg';
+        this.sso = false;
         this.hasError = false;
         this.error = '';
         this.validationMessages = {
@@ -20612,6 +20613,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             _this.lastName = _this.router.getCurrentNavigation().extras.state.lastName;
             _this.email = _this.router.getCurrentNavigation().extras.state.email;
             _this.password = _this.router.getCurrentNavigation().extras.state.password;
+            _this.sso = _this.router.getCurrentNavigation().extras.state.sso;
           }
         });
       }
@@ -20663,7 +20665,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       birthLocation: this.aboutForm.controls.birthPlace.value,
                       residenceLocation: this.aboutForm.controls.residence.value,
                       title: this.aboutForm.controls.title.value,
-                      education: this.aboutForm.controls.education.value
+                      education: this.aboutForm.controls.education.value,
+                      sso: this.sso
                     };
                     this.accountService.accountRegisterPostForm(registerRequest).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe( /*#__PURE__*/function () {
                       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(res) {

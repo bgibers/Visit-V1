@@ -21478,6 +21478,7 @@ class PostRegisterAboutPage {
         this.minDate = moment__WEBPACK_IMPORTED_MODULE_4__().subtract(100, 'y').format();
         this.maxDate = moment__WEBPACK_IMPORTED_MODULE_4__().subtract(16, 'y').format();
         this.userImage = '../../../assets/UI/profilePicUpload.svg';
+        this.sso = false;
         this.hasError = false;
         this.error = '';
         this.validationMessages = {
@@ -21496,6 +21497,7 @@ class PostRegisterAboutPage {
                 this.lastName = this.router.getCurrentNavigation().extras.state.lastName;
                 this.email = this.router.getCurrentNavigation().extras.state.email;
                 this.password = this.router.getCurrentNavigation().extras.state.password;
+                this.sso = this.router.getCurrentNavigation().extras.state.sso;
             }
         });
     }
@@ -21528,6 +21530,7 @@ class PostRegisterAboutPage {
             residenceLocation: this.aboutForm.controls.residence.value,
             title: this.aboutForm.controls.title.value,
             education: this.aboutForm.controls.education.value,
+            sso: this.sso
         };
         this.accountService
             .accountRegisterPostForm(registerRequest)

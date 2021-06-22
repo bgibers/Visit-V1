@@ -29,6 +29,7 @@ export class PostRegisterAboutPage implements OnInit {
   lastName: string;
   email: string;
   password: string;
+  sso = false;
   hasError = false;
   error = '';
   image: Photo;
@@ -58,6 +59,7 @@ export class PostRegisterAboutPage implements OnInit {
         this.lastName = this.router.getCurrentNavigation().extras.state.lastName;
         this.email = this.router.getCurrentNavigation().extras.state.email;
         this.password = this.router.getCurrentNavigation().extras.state.password;
+        this.sso = this.router.getCurrentNavigation().extras.state.sso;
       }
     });
   }
@@ -93,6 +95,7 @@ export class PostRegisterAboutPage implements OnInit {
       residenceLocation: this.aboutForm.controls.residence.value,
       title: this.aboutForm.controls.title.value,
       education: this.aboutForm.controls.education.value,
+      sso: this.sso
     } as RegisterRequest;
 
     this.accountService

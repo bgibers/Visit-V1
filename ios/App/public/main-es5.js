@@ -1671,41 +1671,55 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               while (1) {
                 switch (_context10.prev = _context10.next) {
                   case 0:
-                    this.signInWithApple.signin({
+                    return _context10.abrupt("return", this.signInWithApple.signin({
                       requestedScopes: [_ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["ASAuthorizationAppleIDRequest"].ASAuthorizationScopeFullName, _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["ASAuthorizationAppleIDRequest"].ASAuthorizationScopeEmail]
                     }).then( /*#__PURE__*/function () {
                       var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(res) {
-                        var credential, response;
+                        var credential, firstLogin, response;
                         return regeneratorRuntime.wrap(function _callee9$(_context9) {
                           while (1) {
                             switch (_context9.prev = _context9.next) {
                               case 0:
                                 credential = new firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth.OAuthProvider('apple.com').credential(res.identityToken);
-                                _context9.next = 3;
-                                return firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().signInWithCredential(credential).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-                                  return regeneratorRuntime.wrap(function _callee8$(_context8) {
-                                    while (1) {
-                                      switch (_context8.prev = _context8.next) {
-                                        case 0:
-                                          _context8.next = 2;
-                                          return firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().onAuthStateChanged(function (user) {
-                                            if (user) {
-                                              console.log(JSON.stringify(user));
-                                            }
-                                          });
+                                firstLogin = false;
+                                _context9.next = 4;
+                                return firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().signInWithCredential(credential).then( /*#__PURE__*/function () {
+                                  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(cred) {
+                                    return regeneratorRuntime.wrap(function _callee8$(_context8) {
+                                      while (1) {
+                                        switch (_context8.prev = _context8.next) {
+                                          case 0:
+                                            _context8.next = 2;
+                                            return firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().onAuthStateChanged(function (user) {
+                                              if (user) {
+                                                return res;
+                                              }
+                                            });
 
-                                        case 2:
-                                        case "end":
-                                          return _context8.stop();
+                                          case 2:
+                                            firstLogin = cred.additionalUserInfo.isNewUser;
+
+                                          case 3:
+                                          case "end":
+                                            return _context8.stop();
+                                        }
                                       }
-                                    }
-                                  }, _callee8);
-                                })));
+                                    }, _callee8);
+                                  }));
 
-                              case 3:
+                                  return function (_x7) {
+                                    return _ref4.apply(this, arguments);
+                                  };
+                                }());
+
+                              case 4:
                                 response = _context9.sent;
-                                console.log('Login successful', response);
-                                console.log(JSON.stringify(res));
+                                return _context9.abrupt("return", {
+                                  firstLogin: firstLogin,
+                                  firstName: res.fullName.givenName,
+                                  lastName: res.fullName.familyName,
+                                  email: res.email
+                                });
 
                               case 6:
                               case "end":
@@ -1718,9 +1732,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       return function (_x6) {
                         return _ref3.apply(this, arguments);
                       };
-                    }()); // var provider = new firebase.auth.OAuthProvider('apple.com')
-                    // const result = await firebase.auth().signInWithPopup(provider);
-                    // console.log(result)
+                    }()));
 
                   case 1:
                   case "end":
@@ -5750,7 +5762,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }, _callee11, this);
           }));
 
-          function presentAlert(_x7, _x8) {
+          function presentAlert(_x8, _x9) {
             return _presentAlert.apply(this, arguments);
           }
 
@@ -6806,7 +6818,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }, _callee12, this);
           }));
 
-          function createMap(_x9) {
+          function createMap(_x10) {
             return _createMap.apply(this, arguments);
           }
 
@@ -7019,7 +7031,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }, _callee13, this, [[1, 13, 16, 19]]);
           }));
 
-          function changeVisitStatus(_x10, _x11) {
+          function changeVisitStatus(_x11, _x12) {
             return _changeVisitStatus.apply(this, arguments);
           }
 
@@ -11606,7 +11618,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         }, _callee31);
                       }));
 
-                      return function (_x12) {
+                      return function (_x13) {
                         return _ref6.apply(this, arguments);
                       };
                     }());

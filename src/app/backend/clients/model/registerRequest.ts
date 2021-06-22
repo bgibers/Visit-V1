@@ -21,4 +21,5 @@ export interface RegisterRequest {
   facebookId?: number;
   birthLocation?: string;
   residenceLocation?: string;
+  sso?: boolean;
 }

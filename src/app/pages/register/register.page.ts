@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { PasswordValidator } from 'src/app/objects/validators/password.validator';
 import { AccountsService } from 'src/app/backend/clients';
 import { take } from 'rxjs/operators';
+import { SsoUser } from 'src/app/backend/clients/model/ssoUser';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'register',
@@ -16,6 +18,7 @@ export class RegisterPage implements OnInit {
   hasError = false;
   error = '';
   registerForm: FormGroup;
+  showAppleSignIn = false;
 
   validationMessages = {
     email: [
@@ -44,12 +47,15 @@ export class RegisterPage implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
+    private platform: Platform,
     private zone: NgZone,
     private accountService: AccountsService
   ) { }
 
 
   ngOnInit() {
+    this.showAppleSignIn = this.platform.is('ios');
+
     const email = new FormControl('', Validators.compose([
       Validators.required,
       Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')
@@ -76,6 +82,33 @@ export class RegisterPage implements OnInit {
 
   togglePasswordMode() {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+  }
+
+  async openAppleSignIn() {
+    await this.accountService.loginApple().then(async (res: SsoUser) => {
+        if (res.firstLogin === true) {
+          const navigationExtras: NavigationExtras = {
+            replaceUrl: false,
+            state: {
+              firstName: res.firstName,
+              lastName: res.lastName,
+              email: res.email,
+              password: '',
+              sso: true
+            }
+          };
+          this.zone.run(() => {
+            this.router.navigateByUrl('/post-register-about', navigationExtras);
+          });
+        } else {
+          const navigationExtras: NavigationExtras = {
+            replaceUrl: false
+          };
+          this.zone.run(() => {
+            this.router.navigateByUrl('/tab1', navigationExtras);
+          });
+        }
+    });
   }
 
   onSubmit() {

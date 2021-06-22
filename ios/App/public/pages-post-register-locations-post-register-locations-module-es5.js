@@ -368,10 +368,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.mapLocationsToRequest();
           this.accountService.accountUpdateLocationsPost(this.locationRequest).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function (res) {
             var navigationExtras = {
-              replaceUrl: false,
-              state: {
-                userName: 'tester'
-              }
+              replaceUrl: false
             };
 
             _this2.zone.run(function () {

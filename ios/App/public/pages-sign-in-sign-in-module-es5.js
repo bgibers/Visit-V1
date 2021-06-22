@@ -394,73 +394,139 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }()
       }, {
         key: "openAppleSignIn",
-        value: function openAppleSignIn() {
-          this.accountService.loginApple();
-        }
+        value: function () {
+          var _openAppleSignIn = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            var _this = this;
+
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              while (1) {
+                switch (_context3.prev = _context3.next) {
+                  case 0:
+                    _context3.next = 2;
+                    return this.accountService.loginApple().then( /*#__PURE__*/function () {
+                      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(res) {
+                        var navigationExtras, _navigationExtras;
+
+                        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                          while (1) {
+                            switch (_context2.prev = _context2.next) {
+                              case 0:
+                                if (res.firstLogin === true) {
+                                  navigationExtras = {
+                                    replaceUrl: false,
+                                    state: {
+                                      firstName: res.firstName,
+                                      lastName: res.lastName,
+                                      email: res.email,
+                                      password: '',
+                                      sso: true
+                                    }
+                                  };
+
+                                  _this.zone.run(function () {
+                                    _this.router.navigateByUrl('/post-register-about', navigationExtras);
+                                  });
+                                } else {
+                                  _navigationExtras = {
+                                    replaceUrl: false
+                                  };
+
+                                  _this.zone.run(function () {
+                                    _this.router.navigateByUrl('/tab1', _navigationExtras);
+                                  });
+                                }
+
+                              case 1:
+                              case "end":
+                                return _context2.stop();
+                            }
+                          }
+                        }, _callee2);
+                      }));
+
+                      return function (_x) {
+                        return _ref.apply(this, arguments);
+                      };
+                    }());
+
+                  case 2:
+                  case "end":
+                    return _context3.stop();
+                }
+              }
+            }, _callee3, this);
+          }));
+
+          function openAppleSignIn() {
+            return _openAppleSignIn.apply(this, arguments);
+          }
+
+          return openAppleSignIn;
+        }()
       }, {
         key: "onSubmit",
         value: function () {
-          var _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(values) {
-            var _this = this;
+          var _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(values) {
+            var _this2 = this;
 
             var loginModel, loading;
-            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context2.prev = _context2.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
                     loginModel = {
                       userName: this.loginForm.controls.email.value,
                       password: this.loginForm.controls.password.value
                     };
-                    _context2.next = 3;
+                    _context4.next = 3;
                     return this.loadingController.create({
                       duration: 2000
                     });
 
                   case 3:
-                    loading = _context2.sent;
-                    _context2.next = 6;
+                    loading = _context4.sent;
+                    _context4.next = 6;
                     return loading.present();
 
                   case 6:
                     this.accountService.login(loginModel.userName, loginModel.password).then(function (res) {
                       console.log(res);
-                      _this.invalidLogin = false;
+                      _this2.invalidLogin = false;
 
-                      _this.zone.run(function () {
+                      _this2.zone.run(function () {
                         var navigationExtras = {
                           replaceUrl: false
                         };
 
-                        _this.router.navigateByUrl('/tab1', navigationExtras);
+                        _this2.router.navigateByUrl('/tab1', navigationExtras);
                       });
 
                       loading.dismiss();
                     }, function (err) {
                       if (err.code === 'auth/user-not-found') {
-                        _this.invalidLoginText = 'User not found';
+                        _this2.invalidLoginText = 'User not found';
                       } else if (err.code === 'auth/wrong-password') {
-                        _this.invalidLoginText = 'Invalid password';
+                        _this2.invalidLoginText = 'Invalid password';
                       } else {
-                        _this.invalidLoginText = 'Unexpected error';
+                        _this2.invalidLoginText = 'Unexpected error';
                       }
 
-                      _this.invalidLogin = true;
+                      _this2.invalidLogin = true;
 
-                      _this.refresh();
+                      _this2.refresh();
 
                       loading.dismiss();
                     });
 
                   case 7:
                   case "end":
-                    return _context2.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee2, this);
+            }, _callee4, this);
           }));
 
-          function onSubmit(_x) {
+          function onSubmit(_x2) {
             return _onSubmit.apply(this, arguments);
           }
 
@@ -469,7 +535,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openRegister",
         value: function openRegister() {
-          var _this2 = this;
+          var _this3 = this;
 
           var navigationExtras = {
             replaceUrl: false,
@@ -477,19 +543,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           };
           this.zone.run(function () {
-            _this2.router.navigateByUrl('/register', navigationExtras);
+            _this3.router.navigateByUrl('/register', navigationExtras);
           });
         }
       }, {
         key: "presentForgotPassword",
         value: function () {
-          var _presentForgotPassword = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+          var _presentForgotPassword = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
             var modal;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            return regeneratorRuntime.wrap(function _callee6$(_context6) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context6.prev = _context6.next) {
                   case 0:
-                    _context4.next = 2;
+                    _context6.next = 2;
                     return this.modalController.create({
                       component: _modals_forgot_password_forgot_password_page__WEBPACK_IMPORTED_MODULE_5__["ForgotPasswordPage"],
                       showBackdrop: true,
@@ -497,12 +563,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    modal = _context4.sent;
+                    modal = _context6.sent;
                     modal.onDidDismiss().then( /*#__PURE__*/function () {
-                      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dataReturned) {
-                        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(dataReturned) {
+                        return regeneratorRuntime.wrap(function _callee5$(_context5) {
                           while (1) {
-                            switch (_context3.prev = _context3.next) {
+                            switch (_context5.prev = _context5.next) {
                               case 0:
                                 if (dataReturned !== null) {// this.filter = dataReturned.data;
                                   // this.refreshPosts();
@@ -511,28 +577,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                               case 1:
                               case "end":
-                                return _context3.stop();
+                                return _context5.stop();
                             }
                           }
-                        }, _callee3);
+                        }, _callee5);
                       }));
 
-                      return function (_x2) {
-                        return _ref.apply(this, arguments);
+                      return function (_x3) {
+                        return _ref2.apply(this, arguments);
                       };
                     }());
-                    _context4.next = 6;
+                    _context6.next = 6;
                     return modal.present();
 
                   case 6:
-                    return _context4.abrupt("return", _context4.sent);
+                    return _context6.abrupt("return", _context6.sent);
 
                   case 7:
                   case "end":
-                    return _context4.stop();
+                    return _context6.stop();
                 }
               }
-            }, _callee4, this);
+            }, _callee6, this);
           }));
 
           function presentForgotPassword() {

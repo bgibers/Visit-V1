@@ -1,3 +1,7 @@
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -644,33 +648,104 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
         }
       }, {
+        key: "openAppleSignIn",
+        value: function () {
+          var _openAppleSignIn = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            var _this = this;
+
+            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+              while (1) {
+                switch (_context2.prev = _context2.next) {
+                  case 0:
+                    _context2.next = 2;
+                    return this.accountService.loginApple().then( /*#__PURE__*/function () {
+                      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(res) {
+                        var navigationExtras, _navigationExtras;
+
+                        return regeneratorRuntime.wrap(function _callee$(_context) {
+                          while (1) {
+                            switch (_context.prev = _context.next) {
+                              case 0:
+                                if (res.firstLogin === true) {
+                                  navigationExtras = {
+                                    replaceUrl: false,
+                                    state: {
+                                      firstName: res.firstName,
+                                      lastName: res.lastName,
+                                      email: res.email,
+                                      password: '',
+                                      sso: true
+                                    }
+                                  };
+
+                                  _this.zone.run(function () {
+                                    _this.router.navigateByUrl('/post-register-about', navigationExtras);
+                                  });
+                                } else {
+                                  _navigationExtras = {
+                                    replaceUrl: false
+                                  };
+
+                                  _this.zone.run(function () {
+                                    _this.router.navigateByUrl('/tab1', _navigationExtras);
+                                  });
+                                }
+
+                              case 1:
+                              case "end":
+                                return _context.stop();
+                            }
+                          }
+                        }, _callee);
+                      }));
+
+                      return function (_x) {
+                        return _ref.apply(this, arguments);
+                      };
+                    }());
+
+                  case 2:
+                  case "end":
+                    return _context2.stop();
+                }
+              }
+            }, _callee2, this);
+          }));
+
+          function openAppleSignIn() {
+            return _openAppleSignIn.apply(this, arguments);
+          }
+
+          return openAppleSignIn;
+        }()
+      }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this = this;
+          var _this2 = this;
 
           this.accountService.accountEmailTakenGet(this.registerForm.controls.email.value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function (res) {
             if (res === false) {
               var navigationExtras = {
                 replaceUrl: false,
                 state: {
-                  firstName: _this.registerForm.controls.firstName.value,
-                  lastName: _this.registerForm.controls.lastName.value,
-                  email: _this.registerForm.controls.email.value,
-                  password: _this.matchingPasswordsGroup.controls.password.value
+                  firstName: _this2.registerForm.controls.firstName.value,
+                  lastName: _this2.registerForm.controls.lastName.value,
+                  email: _this2.registerForm.controls.email.value,
+                  password: _this2.matchingPasswordsGroup.controls.password.value
                 }
               };
 
-              _this.zone.run(function () {
-                _this.router.navigateByUrl('/post-register-about', navigationExtras);
+              _this2.zone.run(function () {
+                _this2.router.navigateByUrl('/post-register-about', navigationExtras);
               });
             } else {
-              _this.hasError = true;
-              _this.error = 'An account with this email is already registered.';
+              _this2.hasError = true;
+              _this2.error = 'An account with this email is already registered.';
             }
           }, function (error) {
             console.log(error);
-            _this.hasError = true;
-            _this.error = 'An unexpected error has occurred.';
+            _this2.hasError = true;
+            _this2.error = 'An unexpected error has occurred.';
           });
         }
       }]);

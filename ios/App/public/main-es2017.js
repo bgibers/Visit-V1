@@ -1112,26 +1112,29 @@ class AccountsService {
     loginFacebook() {
     }
     async loginApple() {
-        this.signInWithApple.signin({
+        return this.signInWithApple.signin({
             requestedScopes: [
                 _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["ASAuthorizationAppleIDRequest"].ASAuthorizationScopeFullName,
                 _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["ASAuthorizationAppleIDRequest"].ASAuthorizationScopeEmail
             ]
         }).then(async (res) => {
             const credential = new firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth.OAuthProvider('apple.com').credential(res.identityToken);
-            const response = await firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().signInWithCredential(credential).then(async () => {
+            let firstLogin = false;
+            const response = await firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().signInWithCredential(credential).then(async (cred) => {
                 await firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().onAuthStateChanged(user => {
                     if (user) {
-                        console.log(JSON.stringify(user));
+                        return res;
                     }
                 });
+                firstLogin = cred.additionalUserInfo.isNewUser;
             });
-            console.log('Login successful', response);
-            console.log(JSON.stringify(res));
+            return {
+                firstLogin,
+                firstName: res.fullName.givenName,
+                lastName: res.fullName.familyName,
+                email: res.email,
+            };
         });
-        // var provider = new firebase.auth.OAuthProvider('apple.com')
-        // const result = await firebase.auth().signInWithPopup(provider);
-        // console.log(result)
     }
     // GoogleAuth() {
     //   return this.AuthLogin(new auth.GoogleAuthProvider());

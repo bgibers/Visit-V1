@@ -194,10 +194,7 @@ class PostRegisterLocationsPage {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1))
             .subscribe((res) => {
             const navigationExtras = {
-                replaceUrl: false,
-                state: {
-                    userName: 'tester',
-                },
+                replaceUrl: false
             };
             this.zone.run(() => {
                 this.router.navigateByUrl('/tab1', navigationExtras);
