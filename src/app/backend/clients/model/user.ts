@@ -54,4 +54,6 @@ export interface User {
   lockoutEnd?: Date;
   lockoutEnabled?: boolean;
   accessFailedCount?: number;
+  visitedCount?: number;
+  toVisitCount?: number;
 }

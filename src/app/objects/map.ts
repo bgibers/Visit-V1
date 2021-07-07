@@ -17,14 +17,18 @@ import { MapSelectionMode } from './enums/map-selection-mode';
 
 @Injectable()
 export class Map {
-  private static instance: Map;
-
-  private chart: am4maps.MapChart;
-  private polygonArr: Array<am4maps.MapPolygon>;
   public selectedArr: Array<{
     locationId: string;
     status: string;
   }>;
+
+  public changedAreas: Array<{
+    locationId: string;
+    status: string;
+  }>;
+
+  private chart: am4maps.MapChart;
+  private polygonArr: Array<am4maps.MapPolygon>;
   private seriesArr: Array<am4maps.MapPolygonSeries>;
   private selectedArea: am4maps.MapPolygon;
   private selectionMode: MapSelectionMode;
@@ -33,9 +37,11 @@ export class Map {
   private id: any;
 
   constructor(private zone: NgZone) {
+    this.destroyMap();
     this.selectedArea = new am4maps.MapPolygon();
     this.polygonArr = new Array<am4maps.MapPolygon>();
     this.selectedArr = new Array();
+    this.changedAreas = new Array();
     this.seriesArr = new Array<am4maps.MapPolygonSeries>();
     this.createMap(MapSelectionMode.NONE);
     this.selectionMode = MapSelectionMode.NONE;
@@ -157,6 +163,10 @@ export class Map {
       const toVisit = polygonTemplate.states.create('toVisit');
       toVisit.properties.fill = am4core.color('#F05E23');
 
+      const filter = polygonTemplate.states.create('filter');
+      filter.properties.fill = am4core.color('yellow');
+
+
       const defaultState = polygonTemplate.states.create('default');
       defaultState.properties.fill = am4core.color('#d9d9d9');
 
@@ -184,7 +194,7 @@ export class Map {
         polygonTemplate.events.on('doublehit', (ev) => {
           const data = ev.target.dataItem.dataContext as am4maps.MapPolygon;
           this.resetAllLocations();
-          this.changeVisitStatus(data.id, 'visited');
+          this.changeVisitStatus(data.id, 'filter');
         });
       });
     } else if (this.selectionMode !== MapSelectionMode.NONE) {
@@ -218,7 +228,7 @@ export class Map {
   }
 
   resetAllLocations() {
-    this.selectedArr.forEach((location) => {
+    this.changedAreas.forEach((location) => {
       for (const series of this.seriesArr) {
         const result = series.getPolygonById(location.locationId);
         if (result !== undefined) {
@@ -228,7 +238,7 @@ export class Map {
     });
   }
 
-  async changeVisitStatus(locationId: string, status: string) {
+  async changeVisitStatus(locationId: string, status: string, init: boolean = false) {
     for (const series of this.seriesArr) {
       const result = series.getPolygonById(locationId);
 
@@ -238,23 +248,37 @@ export class Map {
       }
     }
 
-    const locationInArray = this.selectedArr.find(
+    const locationInArray = this.changedAreas.find(
       (d) => d.locationId === locationId
     );
     if (locationInArray !== undefined) {
-      const index = this.selectedArr.indexOf(locationInArray, 0);
+      const index = this.changedAreas.indexOf(locationInArray, 0);
       if (index > -1) {
-        this.selectedArr.splice(index, 1);
-        this.selectedArea.setState('default');
+        this.changedAreas.splice(index, 1);
+        if (status === 'filter') {
+          this.selectedArea.setState('filter');
+        } else {
+          this.selectedArea.setState('default');
+        }
       }
     } else {
       if (status === 'visited') {
         this.selectedArea.setState('visited');
       } else if (status === 'toVisit') {
         this.selectedArea.setState('toVisit');
+      } else if (status === 'filter') {
+        this.selectedArea.setState('filter');
       }
       this.selectedArr.push({ locationId, status });
+
+      // if the map already had locations, do not add them to this array
+      // this array is only the locations that have changed post initialization
+      if (!init) {
+        this.changedAreas.push({ locationId, status });
+      }
     }
+
+    // this.chart.reinit();
   }
 
   destroyMap() {

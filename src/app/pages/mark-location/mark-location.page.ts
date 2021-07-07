@@ -2,7 +2,7 @@ import { Component, Input, NgZone } from '@angular/core';
 import { AccountsService, MarkLocationsRequest } from 'src/app/backend/clients';
 import { MapSelectionMode } from 'src/app/objects/enums/map-selection-mode';
 import { Map } from 'src/app/objects/map';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -26,16 +26,33 @@ export class MarkLocationPage {
 
   constructor(
     private modalCtrl: ModalController,
+    private loadingController: LoadingController,
     private zone: NgZone,
     private accountService: AccountsService
   ) {}
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.map = new Map(this.zone);
     this.map.addMapToDiv(this.selectionMode, 'mark-map');
+
     if (this.selectionMode === MapSelectionMode.TO_VISIT) {
       this.displayVisitedText = false;
     }
+
+    const userLocations = this.accountService.storedUserLocations;
+
+    const loading = await this.loadingController.create({
+      duration: 2000,
+    });
+
+    await loading.present();
+
+    this.zone.run(() => {
+      userLocations.forEach(location => {
+        this.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
+      });
+      loading.dismiss();
+    });
   }
 
   ionViewDidLeave() {
@@ -43,7 +60,7 @@ export class MarkLocationPage {
   }
 
   mapLocationsToRequest() {
-    this.map.selectedArr.forEach((location) => {
+    this.map.changedAreas.forEach((location) => {
       this.locationRequest.locations[location.locationId] = location.status;
     });
   }

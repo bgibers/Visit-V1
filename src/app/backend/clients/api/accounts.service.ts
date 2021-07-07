@@ -24,7 +24,7 @@ import {
 } from '@angular/common/http';
 
 import { Observable, BehaviorSubject, from } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { BASE_PATH } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -40,6 +40,10 @@ import { AlertController } from '@ionic/angular';
 
 import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
 import { SsoUser } from '../model/ssoUser';
+import { UserService } from './user.service';
+import { User } from '../model/user';
+import { UserResponse } from '../model/userResponse';
+import { UserLocation } from '../model/userLocation';
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
@@ -61,6 +65,7 @@ export class AccountsService {
     private router: Router,
     private zone: NgZone,
     private storage: Storage,
+    private userService: UserService,
     private alertController: AlertController,
     private signInWithApple: SignInWithApple,
     private ngFireAuth: AngularFireAuth,
@@ -73,31 +78,63 @@ export class AccountsService {
       this.basePath = basePath || configuration.basePath || this.basePath;
     }
 
-    this.ngFireAuth.authState.subscribe((user) => {
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-        JSON.parse(localStorage.getItem('user'));
-        this.getFcmToken().subscribe((token) => {
-          console.log(`FCM:${token}`);
-          this.accountUpdateFcmDeviceIdPost(token)
-            .pipe(take(1))
-            .subscribe(
-              (res) => {
-                console.log(res);
-              },
-              (err) => console.log(err),
-            );
+    this.ngFireAuth.authState.subscribe(async (firebaseUser) => {
+      if (firebaseUser) {
+        localStorage.setItem('firebaseUser', JSON.stringify(firebaseUser));
+        JSON.parse(localStorage.getItem('firebaseUser'));
+        await this.storeLoggedInUser().then(() => { // todo relook at this logic
+          this.getFcmToken().subscribe((token) => {
+            console.log(`FCM:${token}`);
+            this.accountUpdateFcmDeviceIdPost(token)
+              .pipe(take(1))
+              .subscribe(
+                (res) => {
+                  console.log(res);
+                },
+                (err) => console.log(err),
+              );
+          });
         });
       } else {
-        localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
+        localStorage.setItem('firebaseUser', null);
+        localStorage.removeItem('user');
+        localStorage.removeItem('userLocations');
+        JSON.parse(localStorage.getItem('firebaseUser'));
       }
     });
   }
 
+  public storeLoggedInUser() {
+    return new Promise<any>((resolve, reject) => {
+    let user: UserResponse;
+
+    this.userService.userIdGet(this.getUserId()).pipe(take(1)).subscribe(res => {
+        console.log(res)
+        user = res;
+        if (res.avi === undefined) {
+          user.avi = '../../../../assets/defaultuser.png';
+        }
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('userLocations', JSON.stringify(res.userLocations));
+      });
+    });
+  }
+
+  get storedUser(): UserResponse {
+    const user = JSON.parse(localStorage.getItem('firebaseUser'));
+    return user;
+  }
+
+  get storedUserLocations(): Array<UserLocation> {
+    return JSON.parse(localStorage.getItem('userLocations'));
+  }
+
   public async logout() {
     return this.ngFireAuth.signOut().then(() => {
+      localStorage.removeItem('firebaseUser');
       localStorage.removeItem('user');
+      localStorage.removeItem('userLocations');
+
       this.zone.run(() => {
         this.router.navigate(['sign-in']);
       });
@@ -105,7 +142,7 @@ export class AccountsService {
   }
 
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('firebaseUser'));
     return (user !== null);
   }
 
@@ -122,7 +159,7 @@ export class AccountsService {
   }
 
   get isEmailVerified(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('firebaseUser'));
     return user.emailVerified !== false;
   }
 

@@ -59,7 +59,7 @@ export class UserProfilePage {
     }
 
     this.zone.run(() => {
-      this.getUser(loading).subscribe(() => {
+      this.getUser(loading).pipe(take(1)).subscribe(() => {
         loading.dismiss();
       });
     });
@@ -78,6 +78,7 @@ export class UserProfilePage {
       }
 
       const usVisitedCount = 0;
+
       user.userLocations.forEach(location => {
         this.map.changeVisitStatus(location.fkLocation.locationCode, location.status);
 
@@ -96,7 +97,7 @@ export class UserProfilePage {
     }));
   }
 
-  ionViewDidLeave() {
+  ionViewWillLeave() {
     this.canEditProfile = false;
     this.map.destroyMap();
     this.toVisitCount = 0;
@@ -118,7 +119,6 @@ export class UserProfilePage {
           duration: 2000
         });
         await loading.present();
-        console.log(returned.data);
         this.userId = returned.data;
         this.getUser(loading);
       }
@@ -133,9 +133,15 @@ export class UserProfilePage {
       showBackdrop: true,
       cssClass: 'user-profile',
       componentProps: {
-        userId: this.userId
+        userId: this.userId,
+        userLocations: JSON.stringify(this.user.value.userLocations)
       }
     });
+
+    modal.onDidDismiss().then(async (returned) => {
+      this.ionViewWillEnter();
+    });
+
     return await modal.present();
   }
 

@@ -127,6 +127,7 @@ export class UserTimelinePage {
       cssClass: 'filter-modal',
       componentProps: {
         filter: this.filter,
+        userLocations: this.navParams.data.userLocations
       },
     });
 
@@ -134,7 +135,6 @@ export class UserTimelinePage {
       if (dataReturned !== null) {
         this.filter = dataReturned.data;
         this.refreshPosts();
-        await this.loadingController.dismiss();
       }
     });
 
