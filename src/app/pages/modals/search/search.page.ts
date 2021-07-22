@@ -12,17 +12,27 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
+  data: any;
   constructor(
     public viewCtrl: ModalController,
     public userService: UserService,
     private zone: NgZone,
     private router: Router
-  ) {}
+  ) {
+    this.ngOnInit();
+  }
 
   people: BehaviorSubject<SlimUserResponse[]> = new BehaviorSubject([]);
   searchQuery = '';
 
-  ngOnInit() {}
+  ngOnInit() {
+    // fetch('./app/objects/location-json/json/countries.json').then(res => res.json())
+    // .then(json => {
+    //   this.data = json;
+    //   console.log(json);
+    // });
+  
+  }
 
   search() {
     this.userService
@@ -34,6 +44,7 @@ export class SearchPage implements OnInit {
   }
 
   goToProfile(user: SlimUserResponse) {
+    console.log(user);
     const navigationExtras: NavigationExtras = {
       replaceUrl: true,
       skipLocationChange: true,

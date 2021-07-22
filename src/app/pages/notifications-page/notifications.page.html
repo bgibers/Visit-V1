@@ -1,8 +1,22 @@
+<ion-header style="background-color:#128C7E" class="ion-no-border">
+  <ion-toolbar color="#128C7E" class="ion-no-border">
+    <ion-grid class="header-grid">
+      <ion-row class="ion-align-items-baseline">
+        <ion-col class="ion-justify-content-start">
+          <ion-buttons>
+            <ion-back-button defaultHref="/tab1" style="color: white;"></ion-back-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
 <ion-content [fullscreen]="true">
   <ion-list class="notifications-list">
     <ion-card *ngFor="let item of notifications">
       <ion-grid class="comments-grid">
-        <ion-row>
+        <ion-row style="padding-left: 8px;
+        padding-top: 8px;">
           <ion-col>
             <ion-row>
               <ion-col>

@@ -4,6 +4,8 @@ import { MapSelectionMode } from '../../../objects/enums/map-selection-mode';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AccountsService } from 'src/app/backend/clients';
+import  * as data from  '../../../objects/location-json/json/countries.json';
+import {ModalService} from '../../../services/modal.service';
 
 @Component({
   selector: 'map-filter',
@@ -16,14 +18,37 @@ export class MapFilterPage {
   public filter = '';
   public selectedLocation: string;
 
+  
+  data: any;
+  country: any;
+  searchTerm: any;
+  filterTerm: string;
+   countries = (data as any).default;
+  mapvalue: any;
+  hide: boolean;
+
   constructor(
     private modalController: ModalController,
     private loadingController: LoadingController,
     private accountService: AccountsService,
     private zone: NgZone,
+    public myservice: ModalService,
     private navParams: NavParams
-  ) {}
+  ) {
+    this.hide = false;
+  }
 
+  dataas(data) {
+    this.hide = false;
+    this.map.zoomToLocation(data.id);
+  }
+
+  searchvalue() {
+    this.hide = true;
+    this.mapvalue = this.filterTerm;
+    this.map.zoomToLocation(this.mapvalue);
+  }
+  
   async ionViewWillEnter() {
     this.map = new Map(this.zone);
     this.map.addMapToDiv(this.selectionMode, 'filter-map');
@@ -50,6 +75,12 @@ export class MapFilterPage {
       loading.dismiss();
     });
 
+  }
+
+  show(e) {
+    console.log(e);
+    this.myservice.dis = e;
+    console.log(this.myservice.dis);
   }
 
   async ionViewWillLeave() {

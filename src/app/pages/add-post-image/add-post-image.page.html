@@ -1,17 +1,37 @@
+
+   
+    
 <ion-content no-bounce>
+ 
   <div class="splash">
+    <ion-row class="ion-align-items-baseline">
+      <ion-col class="ion-justify-content-start">
+        <ion-buttons>
+          <ion-back-button defaultHref="/tab1"   (click)="dismiss()" style="color: beige;"></ion-back-button>
+        </ion-buttons>
+      </ion-col>  
+    </ion-row> 
     <h1>Upload Image</h1>
     <h3>Everyone loves a nice travel related photo!</h3>
     <ion-grid>
       <ion-row>
         <ion-col>
           <div>
-            <img
+            <ion-button
+            style="margin: 0px;
+            padding: 0px;"
+            class="submit-button"
+            expand="block"
+            type="submit"
+            (click)="getUserImage()"
+            >Click here to Upload Image</ion-button
+          >
+            <!-- <img
               (click)="getUserImage()"
               height="300"
               [src]="userImage"
               class="rcorners"
-            />
+            /> -->
           </div>
         </ion-col>
       </ion-row>
@@ -52,6 +72,8 @@
       </div>
     </div>
     <div class="button-div">
+      <ion-row>
+        <ion-col>
       <ion-button
         class="submit-button"
         expand="block"
@@ -60,6 +82,8 @@
         [disabled]="!postText && selectedLocation !== undefined"
         >Add post</ion-button
       >
+        </ion-col>
+        <ion-col>
       <ion-button
         class="submit-button"
         expand="block"
@@ -67,6 +91,8 @@
         (click)="dismiss()"
         >Cancel</ion-button
       >
+      </ion-col>
+      </ion-row>
     </div>
   </div>
 </ion-content>

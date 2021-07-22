@@ -4,11 +4,11 @@
       <ion-row class="ion-align-items-baseline">
         <ion-col class="ion-justify-content-start">
           <ion-buttons>
-            <ion-back-button defaultHref="/tab1"></ion-back-button>
+            <ion-back-button defaultHref="/tab1" style="color: white;"></ion-back-button>
           </ion-buttons>
         </ion-col>
         <ion-col class="ion-justify-self-center"> 
-          <h1 style="text-align: center;">{{user.value.firstname}} {{user.value.lastname}}</h1>
+          <h1 style="text-align: center;font-size: 15px; color: #FFF;margin: 0; text-transform: capitalize;font-weight: bold;">{{user.value.firstname}} {{user.value.lastname}}</h1>
         </ion-col>
         <ion-col class="ion-justify-content-end">
           <ion-buttons class="ion-justify-content-end"> 
@@ -39,11 +39,11 @@
               <h3>{{user.value.education}}</h3>
             </ion-row>
             <ion-row class="header-text">
-              <ion-col size=".5"><img src="../../../assets/UI/cake_icon.svg"></ion-col>
+              <ion-col size=".5"><img src="../../../assets/UI/cake_icon.svg" class="places"></ion-col>
               <ion-col><ion-text color="medium"> {{user.value.birthLocation}}</ion-text></ion-col>
             </ion-row>
             <ion-row class="header-text">
-              <ion-col size=".5"><img src="../../../assets/UI/location_pin_icon.svg"></ion-col>
+              <ion-col size=".5"><img src="../../../assets/UI/location_pin_icon.svg" class="places" ></ion-col>
               <ion-col><ion-text color="medium"> {{user.value.residenceLocation}}</ion-text></ion-col>
             </ion-row>
           </ion-col>
@@ -87,7 +87,7 @@
             </ion-row>
           </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row style="margin-bottom: 0;">
           <ion-col class="ion-align-self-center" size=".5"><img src="../../../assets/UI/globe_icon.svg"></ion-col>
           <ion-col class="ion-align-self-center ion-justify-content-start" size="1.7"><b>World Visited</b></ion-col>
           <ion-col>
@@ -97,8 +97,16 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
+ 
   <div class="map-search-container">
-    <ion-searchbar (focusout)="show(true)" (focusin)="show(false)" spellcheck="true"></ion-searchbar>
+    <ion-searchbar (focusout)="show(true)"  (search)="searchvalue()" (focusin)="show(false)"  spellcheck="true"  [(ngModel)]="filterTerm"></ion-searchbar>
+    <ion-list  *ngIf="hide == true">
+      <ion-item *ngFor="let data of countries.Countries | filter:filterTerm" (click)="dataas(data)">
+       
+        <ion-label>{{data.name}}</ion-label>
+      
+      </ion-item>
+    </ion-list>
   </div>
   <div id="user-map" class="chartdiv" onload="onLoad()"></div>
 </ion-content>

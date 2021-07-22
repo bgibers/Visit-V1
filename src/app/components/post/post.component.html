@@ -47,12 +47,13 @@
           </ion-row>
           <ion-row *ngIf="post.postContentLink">
             <ion-col>
-              <div>
-                <img
+              <div class="swiper-zoom-container" >
+                <img ionImgViewer 
                   [src]="post.postContentLink"
                   height="300"
                   [alt]="post.name"
                   class="rcorners"
+                  (click)="openViewer(post.postContentLink)"
                 />
               </div>
             </ion-col>

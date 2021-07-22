@@ -71,7 +71,7 @@ export class Map {
     this.name = name;
   }
 
-  async createMap(selectionMode: MapSelectionMode) {
+ async createMap(selectionMode: MapSelectionMode) {
     am4core.disposeAllCharts();
     this.zone.runOutsideAngular(() => {
       let worldSeries: am4maps.MapPolygonSeries;
@@ -80,10 +80,9 @@ export class Map {
       // let russiaSeries: am4maps.MapPolygonSeries;
       let chart: am4maps.MapChart;
 
-      am4core.ready(() => {
+        am4core.ready(() => {
         am4core.useTheme(am4themes_animated);
         am4core.options.autoDispose = true;
-
         // Create map instance
         chart = am4core.create(undefined, am4maps.MapChart);
         chart.geodata = worldLow;
@@ -281,7 +280,7 @@ export class Map {
     // this.chart.reinit();
   }
 
-  destroyMap() {
+destroyMap() {
     this.zone.runOutsideAngular(() => {
       if (this.chart) {
         this.chart.dispose();

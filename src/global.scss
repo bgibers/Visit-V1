@@ -41,6 +41,8 @@
   background-size: cover;
   width: 100%;
   height: 100%;
+  position: fixed;
+    overflow: scroll;
 }
 
 .refresher-ios .refresher-pulling-icon,
@@ -123,6 +125,7 @@ ion-refresher-content {
   --background-focused: #3b5998;
   --color-focused: #3b5998;
   color: #fff;
+  margin-bottom: 5%;
 
   --vertical-align: middle;
   padding-left: 5%;

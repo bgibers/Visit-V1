@@ -3,18 +3,31 @@ ion-content {
   --background: none;
 
   h1 {
+    // padding-left: 5%;
+    // padding-top: 3%;
+    // font-size: 40px;
+    // font-weight: bold;
+    // color: white;
+    // margin: 0;
     padding-left: 5%;
+    padding-right: 4%;
     padding-top: 10%;
-    font-size: 40px;
-    font-weight: bold;
+    font-size: 30px;
     color: white;
+    margin: 0;
   }
 
   h3 {
+    // padding-left: 5%;
+    // font-size: 20px;
+    // color: white;
     padding-left: 5%;
-    font-size: 20px;
+    padding-right: 5%;
+    margin-bottom: 5%;
+    font-size: 17px;
     color: white;
   }
+
 }
 
 .btn {
@@ -33,10 +46,16 @@ ion-content {
   color: #128C7E;
 
   --vertical-align: middle;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+ion-row{
+  padding-left: 3%;
+  padding-right: 3%;
+  
+  margin-top: 10px;
 }
 
-.button-div {
-  padding-top: 10%;
-}
+// .button-div {
+//   // padding-top: 5%;
+// }

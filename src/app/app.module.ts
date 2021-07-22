@@ -25,13 +25,18 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
+import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    NgxIonicImageViewerModule,
     IonicStorageModule.forRoot(),
+    Ng2SearchPipeModule,
     AppRoutingModule,
     SearchPageModule,
     AddPageModule,

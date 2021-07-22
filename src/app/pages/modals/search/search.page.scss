@@ -1,5 +1,6 @@
 ion-content {
     --background: transparent;
+    
 }
 
 ion-toolbar {
@@ -9,7 +10,13 @@ ion-toolbar {
 ion-searchbar {
     --background: #128C7E;
     --color: white;
+    padding: 30px;
     --icon-color: white;
+}
+ion-virtual-scroll{
+    height: 65px;
+    width: 314px;
+    margin-left: 30px;
 }
 
 .close-icon {

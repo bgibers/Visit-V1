@@ -3,8 +3,8 @@ ion-content {
 
   h1 {
     padding-left: 5%;
-    padding-top: 10%;
-    font-size: 40px;
+    padding-top: 0%;
+    font-size: 30px;
     font-weight: bold;
     color: white;
   }
@@ -15,14 +15,19 @@ ion-content {
     color: white;
   }
 }
+img {
+  max-width: 80%;
+  border: 0;
+  height: 64px;
+}
 
 .roundedInput {
   --border-radius: 10px;
   --border-width: 1px;
   --highlight-height: 0;
   --background: #f8f9fa;
-  padding-top: 10px;
-  padding-block: 10%;
+  padding-top: 30px;
+
 }
 
 .nameRow {
@@ -59,6 +64,10 @@ ion-avatar {
   height: 110% !important;
   max-width: 80px !important; //any size
   max-height: 80px !important; //any size 
+}
+ion-grid{
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .logout {

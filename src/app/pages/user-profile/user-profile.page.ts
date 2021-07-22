@@ -12,6 +12,12 @@ import { take, map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {ModalService} from '../../services/modal.service';
 import { UserSettingsPage } from '../user-settings/user-settings.page';
+// import { IonicS}
+import { Storage } from '@ionic/storage';
+
+import  * as data from  '../../objects/location-json/json/countries.json';
+
+// import { Ng2SearchPipe } from 'ng2-search-filter';
 
 @Component({
   selector: 'user-profile',
@@ -29,7 +35,19 @@ export class UserProfilePage {
   public visitedPercent = 0;
   private map: Map;
 
+
+
+  data: any;
+  country: any;
+  searchTerm: any;
+  filterTerm: string;
+  countries = (data as any).default;
+  mapvalue: any;
+  hide: boolean;
+    // console.log(countries);
+    // country = countries.Countries;
   constructor(
+      // public ng2:Ng2SearchPipe,
       public modalController: ModalController,
       public loadingController: LoadingController,
       private userService: UserService,
@@ -37,8 +55,11 @@ export class UserProfilePage {
       private zone: NgZone,
       private route: ActivatedRoute,
       public myservice: ModalService,
-      private router: Router) {
-    this.route.queryParams.subscribe(() => {
+      private router: Router, private storage: Storage) {
+        this.hide = false;
+        console.log(this.countries.Countries);
+        this.ionViewDidEnter();
+        this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.userId = this.router.getCurrentNavigation().extras.state.userId;
       }
@@ -46,9 +67,9 @@ export class UserProfilePage {
   }
 
   // 405 locations. 355 non US
-  async ionViewWillEnter() {
+  async ionViewDidEnter() {
     const loading = await this.loadingController.create({
-      duration: 2000
+      // duration: 9000
     });
     await loading.present();
     this.map = new Map(this.zone);
@@ -60,7 +81,7 @@ export class UserProfilePage {
 
     this.zone.run(() => {
       this.getUser(loading).pipe(take(1)).subscribe(() => {
-        loading.dismiss();
+        // loading.dismiss();
       });
     });
 
@@ -68,19 +89,28 @@ export class UserProfilePage {
 
   getUser(loading: HTMLIonLoadingElement): Observable<any> {
     return this.userService.userIdGet(this.userId).pipe(map(user => {
+      this.storage.set('alluser', user);
+      console.log(user);
       if (this.accountService.getUserId() === this.userId) {
         this.canEditProfile = true;
+        this.storage.set('alluser', user);
       }
 
       this.user.next(user);
       if (this.user.value.avi === undefined) {
         this.user.value.avi = '../../../assets/defaultuser.png';
+        this.storage.set('alluser', user);
+        console.log(user);
       }
 
       const usVisitedCount = 0;
+      this.visitedCount = 0;
+      this.visitedPercent = 0;
+      this.toVisitCount = 0;
 
       user.userLocations.forEach(location => {
         this.map.changeVisitStatus(location.fkLocation.locationCode, location.status);
+        console.log(location.fkLocation.locationCode, location.status);
 
         if (location.status === 'toVisit') {
           this.toVisitCount++;
@@ -94,12 +124,35 @@ export class UserProfilePage {
       const countryCount = this.visitedCount - usVisitedCount;
 
       this.visitedPercent = ((countryCount / 405) + (usVisitedCount / 355)) * 100;
+
+      loading.dismiss();
     }));
+  }
+
+  searchvalue() {
+    this.hide = true;
+    this.mapvalue = this.filterTerm;
+    this.map.zoomToLocation(this.mapvalue);
+  }
+
+  dataas(data) {
+    this.hide = false;
+    this.map.zoomToLocation(data.id);
+  }
+  setFilteredItems() {
+    // for(var i= 0;this.country.legth;i++){
+    //   if(this.country[i]){
+    //     console.log(this.country[i].name);
+        return this.country.filter(item => {
+          return item.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+          console.log( item);
+        });
   }
 
   ionViewWillLeave() {
     this.canEditProfile = false;
     this.map.destroyMap();
+    console.log(this.map);
     this.toVisitCount = 0;
     this.visitedCount = 0;
     this.visitedPercent = 0;
@@ -107,24 +160,25 @@ export class UserProfilePage {
 
 
   async presentSearchModal() {
-    const modal = await this.modalController.create({
-      component: SearchPage,
-      showBackdrop: true,
-      cssClass: 'search-modal'
-    });
+    this.router.navigateByUrl('/search');
+    // const modal = await this.modalController.create({
+    //   component: SearchPage,
+    //   showBackdrop: true,
+    //   cssClass: 'search-modal'
+    // });
 
-    modal.onDidDismiss().then(async (returned) => {
-      if (returned !== null) {
-        const loading = await this.loadingController.create({
-          duration: 2000
-        });
-        await loading.present();
-        this.userId = returned.data;
-        this.getUser(loading);
-      }
-    });
+    // modal.onDidDismiss().then(async (returned) => {
+    //   if (returned !== null) {
+    //     const loading = await this.loadingController.create({
+    //       duration: 2000
+    //     });
+    //     await loading.present();
+    //     this.userId = returned.data;
+    //     this.getUser(loading);
+    //   }
+    // });
 
-    return await modal.present();
+    // return await modal.present();
   }
 
   async presentUserTimeline() {
@@ -139,7 +193,7 @@ export class UserProfilePage {
     });
 
     modal.onDidDismiss().then(async (returned) => {
-      this.ionViewWillEnter();
+      this.ionViewDidEnter();
     });
 
     return await modal.present();
@@ -148,18 +202,21 @@ export class UserProfilePage {
   show(e) {
     console.log(e);
     this.myservice.dis = e;
+    console.log(this.myservice.dis);
   }
 
   async presentUserSettings() {
-    const modal = await this.modalController.create({
-      component: UserSettingsPage,
-      showBackdrop: true,
-      cssClass: 'user-setttings',
-      componentProps: {
-        user: this.user.value
-      }
-    });
-    return await modal.present();
+    console.log(this.user.value);
+    this.router.navigate(['user-settings', this.user.value]);
+    // const modal = await this.modalController.create({
+    //   component: UserSettingsPage,
+    //   showBackdrop: true,
+    //   cssClass: 'user-setttings',
+    //   componentProps: {
+    //     user: this.user.value
+    //   }
+    // });
+    // return await modal.present();
   }
 
   // stop() {

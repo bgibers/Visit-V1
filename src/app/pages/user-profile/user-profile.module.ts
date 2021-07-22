@@ -9,11 +9,14 @@ import { UserProfilePageRoutingModule } from './user-profile-routing.module';
 import { UserProfilePage } from './user-profile.page';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    Ng2SearchPipeModule,
     SharedModule,
     UserProfilePageRoutingModule,
             // Specify ng-circle-progress as an import

@@ -1,5 +1,14 @@
 <ion-content [scrollY]="false">
-  <ion-searchbar spellcheck="true" showCancelButton="true"></ion-searchbar>
+  <div class="map-search-container">
+    <ion-searchbar (focusout)="show(true)"  (search)="searchvalue()" (focusin)="show(false)"  spellcheck="true"  [(ngModel)]="filterTerm"></ion-searchbar>
+    <ion-list  *ngIf="hide == true">
+      <ion-item *ngFor="let data of countries.Countries | filter:filterTerm" (click)="dataas(data)">
+       
+        <ion-label>{{data.name}}</ion-label>
+      
+      </ion-item>
+    </ion-list>
+  </div>
   <div id="filter-map" class="chartdiv" onload="onLoad()"></div>
   <ion-grid>
     <ion-row>

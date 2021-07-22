@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
+// import { ExploreContainerComponentModule } from '/explore-container/explore-container.module';
 
 import { NewsFeedPage } from './news-feed.page';
 
@@ -11,7 +11,7 @@ describe('NewsFeedPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NewsFeedPage],
-      imports: [IonicModule.forRoot(), ExploreContainerComponentModule],
+      imports: [IonicModule.forRoot(), ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NewsFeedPage);

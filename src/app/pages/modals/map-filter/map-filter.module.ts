@@ -8,12 +8,14 @@ import { MapFilterPageRoutingModule } from './map-filter-routing.module';
 
 import { MapFilterPage } from './map-filter.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    Ng2SearchPipeModule,
     MapFilterPageRoutingModule,
     SharedModule,
   ],

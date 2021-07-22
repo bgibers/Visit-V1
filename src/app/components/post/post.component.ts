@@ -3,6 +3,8 @@ import { Router, NavigationExtras } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { Post, PostService } from 'src/app/backend/clients';
 import { PostApi } from 'src/app/backend/clients/model/postApi';
+import { ModalController } from '@ionic/angular';
+import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
 
 @Component({
   selector: 'post',
@@ -10,10 +12,12 @@ import { PostApi } from 'src/app/backend/clients/model/postApi';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
+  postfaa: any;
   constructor(
     private router: Router,
     private zone: NgZone,
-    private postSvc: PostService
+    private postSvc: PostService,
+    public modalController: ModalController
   ) {
     // this.route.queryParams.subscribe(params => {
     //   if (this.router.getCurrentNavigation().extras.state) {
@@ -32,6 +36,21 @@ export class PostComponent implements OnInit {
   likedIcon = '../../assets/UI/liked-icon.svg';
   ngOnInit() {}
 
+  async openViewer(post) {
+    console.log(post);
+    this.postfaa = post;
+    const modal = await this.modalController.create({
+      component: ViewerModalComponent,
+      componentProps: {
+        src: this.postfaa
+      },
+      cssClass: 'ion-img-viewer',
+      keyboardClose: true,
+      showBackdrop: true
+    });
+ 
+    return await modal.present();
+  }
   likePost(post: PostApi) {
     if (!post.likedByCurrentUser) {
       this.postSvc
@@ -40,6 +59,7 @@ export class PostComponent implements OnInit {
         .subscribe();
       post.likeCount++;
       post.likedByCurrentUser = true;
+      console.log(post);
     }
   }
 

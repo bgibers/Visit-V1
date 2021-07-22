@@ -18,6 +18,7 @@ import { AccountsService } from '../../backend/clients/api/accounts.service';
 import { PostService } from 'src/app/backend/clients';
 import { PostApi } from 'src/app/backend/clients/model/postApi';
 import { take } from 'rxjs/operators';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'news-feed',
@@ -32,8 +33,11 @@ export class NewsFeedPage {
   morePages = false;
   filter = '';
   selectedUserId = '';
+  image: any;
+  
 
   constructor(
+    private storage: Storage,
     public modalController: ModalController,
     private zone: NgZone,
     private cd: ChangeDetectorRef,
@@ -41,7 +45,15 @@ export class NewsFeedPage {
     private accountService: AccountsService,
     private postService: PostService,
     private router: Router
-  ) {}
+  ) {
+    this.storage.get('image').then((val) => {
+      if (val.avi) {
+        this.image = val.avi;
+      } else {
+        this.image = '../../../assets/defaultuser.png';
+      }
+    });
+  }
 
   async ionViewWillEnter() {
     const loading = await this.loadingController.create();

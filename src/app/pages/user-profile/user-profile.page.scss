@@ -10,19 +10,22 @@ ion-content{
 
 .header-text {
   ion-text {
-    font-size: 10px;
+    font-size: 13px;
+    text-transform: capitalize;
   }
 }
 
 .profile-info {
   ion-text{
-    font-size: 10px;
+    font-size: 11px;
+    text-transform: capitalize;
   }
 }
 
 .profile-info-row {
   ion-row {
     justify-content: space-evenly;
+    margin-bottom: 0;
   }
 }
 
@@ -32,7 +35,11 @@ ion-content{
   --ion-grid-column-padding:.5px;
   ion-row{
     margin-bottom:3%;
+    font-size: 13px;
     }
+}
+h3{
+  font-size: 12px;
 }
 
 h6 {
@@ -76,11 +83,23 @@ ion-avatar  {
 
 .map-search-container {
   padding-left: 10%;
-  padding-right:10%
+  padding-right:10%;
+  margin-top: 5px;
 }
+// .places{
+//   margin-top: 4px;
+// }
 .chartdiv {
   width: 100%;
-  height: 40%;
+  // height: 40%;
+}
+ion-card{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+ion-card-content{
+  padding-top: 10px;
+  padding-bottom: 0;
 }
 
 .map-filter{

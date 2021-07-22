@@ -1,5 +1,12 @@
 <ion-content no-bounce [scrollY]="false">
   <div class = "splash">
+    <ion-row class="ion-align-items-baseline">
+      <ion-col class="ion-justify-content-start">
+        <ion-buttons>
+          <ion-back-button defaultHref="/sign-in"  style="color: beige;"></ion-back-button>
+        </ion-buttons>
+      </ion-col>  
+    </ion-row> 
   <h1>Create Account</h1>
   <p class="back-to-login">
     Already have an account? <a [routerLink]="['/sign-in']" routerLinkActive="router-link-active" >Login instead</a>
@@ -60,7 +67,7 @@
                 </div>
               </ng-container>
             </div>
-            <ion-item class="roundedInput">
+            <ion-item class="roundedInput" style="margin-top: 10px;">
               <ion-input autocapitalize="true" [type]="passwordType"  placeholder="Confirm Password*" formControlName="confirmPassword" required></ion-input>
             </ion-item>
             <div class="validation-errors">

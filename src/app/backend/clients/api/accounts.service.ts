@@ -44,6 +44,7 @@ import { UserService } from './user.service';
 import { User } from '../model/user';
 import { UserResponse } from '../model/userResponse';
 import { UserLocation } from '../model/userLocation';
+
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
@@ -110,6 +111,7 @@ export class AccountsService {
 
     this.userService.userIdGet(this.getUserId()).pipe(take(1)).subscribe(res => {
         console.log(res)
+        this.storage.set('image',res);
         user = res;
         if (res.avi === undefined) {
           user.avi = '../../../../assets/defaultuser.png';

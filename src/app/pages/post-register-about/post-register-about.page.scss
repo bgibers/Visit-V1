@@ -3,9 +3,12 @@ ion-content {
 
   h1 {
     padding-left: 5%;
-    padding-top: 10%;
-    font-size: 40px;
+    padding-top: 0%;
+    padding-right: 4%;
+    font-size: 29px;
+    padding-bottom: 5px;
     font-weight: bold;
+    margin: 0;
     color: white;
   }
 
@@ -22,7 +25,7 @@ ion-content {
   --highlight-height: 0;
   --background: #f8f9fa;
   padding-top: 10px;
-  padding-block: 10%;
+  // padding-block: 10%;
 }
 
 .nameRow {

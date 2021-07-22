@@ -7,6 +7,7 @@ import { CommentForPost } from 'src/app/backend/clients/model/commentForPost';
 import { CommentApi } from 'src/app/backend/clients/model/commentApi';
 import { SearchPage } from '../modals/search/search.page';
 import { Observable } from 'rxjs';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'comments',
@@ -20,8 +21,10 @@ export class CommentsPage implements OnInit {
   postId = '';
   userId: any;
   public commentText = '';
+  image: any;
 
   constructor(
+    private storage: Storage,
     public modalController: ModalController,
     private router: Router,
     private zone: NgZone,
@@ -29,6 +32,10 @@ export class CommentsPage implements OnInit {
     private postSvc: PostService,
     private accountService: AccountsService
   ) {
+    this.storage.get('image').then((val) => {
+      this.image = val.avi;
+     console.log(val);
+   });
     this.route.queryParams.subscribe((params) => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.postId = this.router.getCurrentNavigation().extras.state.postId;

@@ -12,7 +12,7 @@ import { AccountsService } from '../../backend/clients/api/accounts.service';
 import { PostService } from 'src/app/backend/clients';
 import { PostApi } from 'src/app/backend/clients/model/postApi';
 import { take } from 'rxjs/operators';
-
+import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
 @Component({
   selector: 'user-timeline',
   templateUrl: './user-timeline.page.html',
@@ -34,7 +34,8 @@ export class UserTimelinePage {
     private postService: PostService,
     private navParams: NavParams,
     private zone: NgZone,
-    private router: Router
+    private router: Router,
+    private imgview:NgxIonicImageViewerModule
   ) {}
 
   ionViewWillEnter() {
@@ -48,6 +49,11 @@ export class UserTimelinePage {
         this.posts = res.items;
       });
   }
+  sliderOpt = {
+    zoom: {
+      maxRatio: 1,
+    },
+  };
 
   getPosts(event?: any) {
     if (this.morePages) {
@@ -98,13 +104,14 @@ export class UserTimelinePage {
   }
 
   async presentSearchModal() {
-    const modal = await this.modalController.create({
-      component: SearchPage,
-      componentProps: {},
-      showBackdrop: true,
-      cssClass: 'search-modal',
-    });
-    return await modal.present();
+    this.router.navigateByUrl('/search');
+    // const modal = await this.modalController.create({
+    //   component: SearchPage,
+    //   componentProps: {},
+    //   showBackdrop: true,
+    //   cssClass: 'search-modal',
+    // });
+    // return await modal.present();
   }
 
   openProfile() {

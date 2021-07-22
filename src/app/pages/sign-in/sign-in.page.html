@@ -43,16 +43,30 @@
         </div>
       </div>
       <div class="button-div">
+        <ion-row>
+          <ion-col size="6" style="padding-left: 22px;">
         <ion-button
           class="submit-button"
           expand="block"
           type="submit"
           [disabled]="!loginForm.valid"
-          >Login</ion-button
+          style="padding-right: 0px; padding-left: 0;">Login</ion-button
         >
+        </ion-col>
+        <ion-col size="6" style="padding-right: 22px;">
+          <ion-button
+          class="submit-button"
+          expand="block"
+          type="submit"
+          (click)="openRegister()"
+          style="padding-right: 0px; padding-left: 0;"
+          >Register</ion-button
+        >
+          </ion-col>
+      </ion-row>
       </div>
     </form>
-    <div>
+    <!-- <div>
       <ion-button
         class="submit-button"
         expand="block"
@@ -60,9 +74,9 @@
         (click)="openRegister()"
         >Register</ion-button
       >
-    </div>
+    </div> -->
     <div class="button-div">
-      <ion-button class="facebook-button" expand="block">
+      <ion-button class="facebook-button"  expand="block">
         <ion-icon slot="start" name="logo-facebook"></ion-icon>
         Login with Facebook
       </ion-button>

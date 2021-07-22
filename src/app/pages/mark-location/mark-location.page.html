@@ -1,5 +1,17 @@
+
+     
+    
 <ion-content no-bounce>
+ 
+ 
   <div class="splash">
+    <ion-row class="ion-align-items-baseline">
+    <ion-col class="ion-justify-content-start">
+      <ion-buttons>
+        <ion-back-button defaultHref="/tab1"   (click)="dismiss()" style="color: beige;"></ion-back-button>
+      </ion-buttons>
+    </ion-col>  
+  </ion-row> 
     <h1>{{displayVisitedText ? titleTextVisited : titleTextToVisit}}</h1>
     <h3>
       Click a location on the map to zoom to it. Double click the location to
@@ -7,6 +19,8 @@
     </h3>
     <div id="mark-map" class="chartdiv"></div>
     <div class="button-div">
+      <ion-row>
+        <ion-col>
       <ion-button
         class="submit-button"
         expand="block"
@@ -14,6 +28,8 @@
         (click)="onSubmit()"
         >Update my map</ion-button
       >
+      </ion-col>
+      <ion-col>
       <ion-button
         class="submit-button"
         expand="block"
@@ -21,6 +37,8 @@
         (click)="dismiss()"
         >Cancel</ion-button
       >
+      </ion-col>
+      </ion-row>
     </div>
   </div>
 </ion-content>

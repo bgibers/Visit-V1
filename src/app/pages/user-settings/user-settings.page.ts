@@ -5,8 +5,10 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Photo, Camera, CameraResultType } from '@capacitor/camera';
-import { LoadingController, ModalController, NavParams } from '@ionic/angular';
+import { LoadingController, ModalController, NavParams ,NavController} from '@ionic/angular';
 import { take } from 'rxjs/operators';
+import { Router,  } from '@angular/router';
+
 import {
   AccountsService,
   UserResponse,
@@ -29,14 +31,20 @@ export class UserSettingsPage implements OnInit {
   user: UserResponse;
 
   constructor(
+    private router: Router,
     public loadingController: LoadingController,
     private route: ActivatedRoute,
-    private navParams: NavParams,
+    public navCtrl: NavController,
     private modalController: ModalController,
     private accountService: AccountsService,
   ) {
-    this.user = this.navParams.data.user;
-    this.userImage = this.user.avi;
+    // this.route.params.subscribe(params => {
+      this.route.params.subscribe(params => {
+        this.user = params;
+        console.log(params);
+      });
+    // this.user = this.navParams.data.user;
+    // this.userImage = this.user.avi;
   }
 
   ngOnInit() {
@@ -51,7 +59,9 @@ export class UserSettingsPage implements OnInit {
       title,
     });
   }
-
+  back(){
+    this.router.navigateByUrl('/user-profile');
+  }
   async onSubmit() {
     const loading = await this.loadingController.create({
       duration: 2000,
@@ -90,7 +100,10 @@ export class UserSettingsPage implements OnInit {
             .subscribe(() => {});
         }
         await loading.dismiss();
-        this.dismiss();
+        // this.dismiss();
+       // alert('hii');
+        this.router.navigateByUrl('/user-profile');
+        // this.navCtrl.setRoot(this.navCtrl.getActive().component);
       });
   }
 
@@ -122,7 +135,7 @@ export class UserSettingsPage implements OnInit {
   }
 
   dismiss() {
-    this.modalController.dismiss();
+    // this.modalController.dismiss();
   }
 
   async logout() {
