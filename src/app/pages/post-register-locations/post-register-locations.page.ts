@@ -22,6 +22,7 @@ export class PostRegisterLocationsPage {
   public token: JwtToken;
   public locationRequest = {
     locations: {},
+    registration: true
   } as MarkLocationsRequest;
   private map: Map;
   hasError = false;

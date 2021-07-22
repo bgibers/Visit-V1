@@ -12,4 +12,5 @@
 
 export interface MarkLocationsRequest {
   locations?: { [key: string]: string };
+  registration?: boolean;
 }
