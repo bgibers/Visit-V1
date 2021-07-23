@@ -234,7 +234,7 @@ class SignInPage {
             password: this.loginForm.controls.password.value,
         };
         const loading = await this.loadingController.create({
-            duration: 2000,
+        // duration: 2000,
         });
         await loading.present();
         this.accountService.login(loginModel.userName, loginModel.password).then((res) => {

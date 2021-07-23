@@ -198,7 +198,6 @@ class CommentsPage {
         this.commentText = '';
         this.storage.get('image').then((val) => {
             this.image = val.avi;
-            console.log(val);
         });
         this.route.queryParams.subscribe((params) => {
             if (this.router.getCurrentNavigation().extras.state) {
@@ -237,7 +236,6 @@ class CommentsPage {
             }
             const resLen = res.length;
             for (let i = 0; i < resLen; i++) {
-                console.log(i);
                 this.comments.push(res[i]);
             }
             // this.comments = res;

@@ -313,6 +313,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return ionViewWillEnter;
         }()
       }, {
+        key: "ionViewWillLeave",
+        value: function ionViewWillLeave() {
+          this.pageNumber = 1;
+          this.morePages = false;
+        }
+      }, {
         key: "getPosts",
         value: function () {
           var _getPosts = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(incr, event) {

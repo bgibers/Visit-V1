@@ -49,6 +49,7 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       if (Capacitor.isPluginAvailable('StatusBar')) {
         StatusBar.setStyle({ style: Style.Default });
+        StatusBar.setOverlaysWebView({ overlay: false});
       }
 
       if (Capacitor.isPluginAvailable('SplashScreen')) {

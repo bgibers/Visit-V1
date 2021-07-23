@@ -385,7 +385,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.commentText = '';
         this.storage.get('image').then(function (val) {
           _this.image = val.avi;
-          console.log(val);
         });
         this.route.queryParams.subscribe(function (params) {
           if (_this.router.getCurrentNavigation().extras.state) {
@@ -437,8 +436,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             var resLen = res.length;
 
             for (var i = 0; i < resLen; i++) {
-              console.log(i);
-
               _this2.comments.push(res[i]);
             } // this.comments = res;
 

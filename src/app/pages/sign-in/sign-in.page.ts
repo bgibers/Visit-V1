@@ -105,7 +105,7 @@ export class SignInPage implements OnInit {
     } as LoginApiRequest;
 
     const loading = await this.loadingController.create({
-      duration: 2000,
+      // duration: 2000,
     });
     await loading.present();
 

@@ -137,6 +137,10 @@ class NewsFeedPage {
             }
         });
     }
+    ionViewWillLeave() {
+        this.pageNumber = 1;
+        this.morePages = false;
+    }
     async getPosts(incr, event) {
         return new Promise((resolve) => {
             if (this.morePages) {

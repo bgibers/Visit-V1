@@ -74,7 +74,6 @@ export class CommentsPage implements OnInit {
         }
         const resLen = res.length;
         for (let i = 0; i < resLen; i++) {
-          console.log(i);
           this.comments.push(res[i]);
         }
         // this.comments = res;

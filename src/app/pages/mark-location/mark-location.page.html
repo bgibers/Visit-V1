@@ -1,17 +1,20 @@
-
+<div class="splash">
+<ion-header class="ion-no-border">
+  <ion-toolbar color="#128C7E" class="ion-no-border">
+    <ion-grid class="header-grid">
+      <ion-row class="ion-align-items-baseline">
+        <ion-col class="ion-justify-content-start">
+          <ion-buttons>
+            <ion-back-button defaultHref="/tab1" (click)="dismiss()" style="color: beige;"></ion-back-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>  
      
     
 <ion-content no-bounce>
- 
- 
-  <div class="splash">
-    <ion-row class="ion-align-items-baseline">
-    <ion-col class="ion-justify-content-start">
-      <ion-buttons>
-        <ion-back-button defaultHref="/tab1"   (click)="dismiss()" style="color: beige;"></ion-back-button>
-      </ion-buttons>
-    </ion-col>  
-  </ion-row> 
     <h1>{{displayVisitedText ? titleTextVisited : titleTextToVisit}}</h1>
     <h3>
       Click a location on the map to zoom to it. Double click the location to
@@ -40,5 +43,5 @@
       </ion-col>
       </ion-row>
     </div>
-  </div>
 </ion-content>
+</div>

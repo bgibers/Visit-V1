@@ -42,7 +42,7 @@ export class MarkLocationPage {
     const userLocations = this.accountService.storedUserLocations;
 
     const loading = await this.loadingController.create({
-      duration: 2000,
+      // duration: 2000,
     });
 
     await loading.present();

@@ -44,10 +44,8 @@ export class UserProfilePage {
   countries = (data as any).default;
   mapvalue: any;
   hide: boolean;
-    // console.log(countries);
-    // country = countries.Countries;
+
   constructor(
-      // public ng2:Ng2SearchPipe,
       public modalController: ModalController,
       public loadingController: LoadingController,
       private userService: UserService,
@@ -57,8 +55,7 @@ export class UserProfilePage {
       public myservice: ModalService,
       private router: Router, private storage: Storage) {
         this.hide = false;
-        console.log(this.countries.Countries);
-        this.ionViewDidEnter();
+        // this.ionViewDidEnter();
         this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.userId = this.router.getCurrentNavigation().extras.state.userId;
@@ -90,7 +87,6 @@ export class UserProfilePage {
   getUser(loading: HTMLIonLoadingElement): Observable<any> {
     return this.userService.userIdGet(this.userId).pipe(map(user => {
       this.storage.set('alluser', user);
-      console.log(user);
       if (this.accountService.getUserId() === this.userId) {
         this.canEditProfile = true;
         this.storage.set('alluser', user);
@@ -100,7 +96,6 @@ export class UserProfilePage {
       if (this.user.value.avi === undefined) {
         this.user.value.avi = '../../../assets/defaultuser.png';
         this.storage.set('alluser', user);
-        console.log(user);
       }
 
       const usVisitedCount = 0;
@@ -110,7 +105,6 @@ export class UserProfilePage {
 
       user.userLocations.forEach(location => {
         this.map.changeVisitStatus(location.fkLocation.locationCode, location.status);
-        console.log(location.fkLocation.locationCode, location.status);
 
         if (location.status === 'toVisit') {
           this.toVisitCount++;
@@ -140,19 +134,14 @@ export class UserProfilePage {
     this.map.zoomToLocation(data.id);
   }
   setFilteredItems() {
-    // for(var i= 0;this.country.legth;i++){
-    //   if(this.country[i]){
-    //     console.log(this.country[i].name);
-        return this.country.filter(item => {
-          return item.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
-          console.log( item);
-        });
+      return this.country.filter(item => {
+        return item.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      });
   }
 
   ionViewWillLeave() {
     this.canEditProfile = false;
     this.map.destroyMap();
-    console.log(this.map);
     this.toVisitCount = 0;
     this.visitedCount = 0;
     this.visitedPercent = 0;
@@ -200,9 +189,7 @@ export class UserProfilePage {
   }
 
   show(e) {
-    console.log(e);
     this.myservice.dis = e;
-    console.log(this.myservice.dis);
   }
 
   async presentUserSettings() {

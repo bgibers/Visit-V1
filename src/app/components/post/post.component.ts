@@ -37,7 +37,6 @@ export class PostComponent implements OnInit {
   ngOnInit() {}
 
   async openViewer(post) {
-    console.log(post);
     this.postfaa = post;
     const modal = await this.modalController.create({
       component: ViewerModalComponent,
@@ -59,7 +58,6 @@ export class PostComponent implements OnInit {
         .subscribe();
       post.likeCount++;
       post.likedByCurrentUser = true;
-      console.log(post);
     }
   }
 

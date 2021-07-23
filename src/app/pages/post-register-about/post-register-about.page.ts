@@ -81,7 +81,7 @@ export class PostRegisterAboutPage implements OnInit {
 
   async onSubmit() {
     const loading = await this.loadingController.create({
-      duration: 2000,
+      // duration: 2000,
     });
 
     await loading.present();

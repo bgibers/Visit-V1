@@ -1,16 +1,18 @@
-
-   
-    
+<div class="splash">
+<ion-header class="ion-no-border">
+  <ion-toolbar color="#128C7E" class="ion-no-border">
+    <ion-grid class="header-grid">
+      <ion-row class="ion-align-items-baseline">
+        <ion-col class="ion-justify-content-start">
+          <ion-buttons>
+            <ion-back-button defaultHref="/tab1" (click)="dismiss()" style="color: white;"></ion-back-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>    
 <ion-content no-bounce>
- 
-  <div class="splash">
-    <ion-row class="ion-align-items-baseline">
-      <ion-col class="ion-justify-content-start">
-        <ion-buttons>
-          <ion-back-button defaultHref="/tab1"   (click)="dismiss()" style="color: beige;"></ion-back-button>
-        </ion-buttons>
-      </ion-col>  
-    </ion-row> 
     <h1>Upload Image</h1>
     <h3>Everyone loves a nice travel related photo!</h3>
     <ion-grid>
@@ -26,12 +28,6 @@
             (click)="getUserImage()"
             >Click here to Upload Image</ion-button
           >
-            <!-- <img
-              (click)="getUserImage()"
-              height="300"
-              [src]="userImage"
-              class="rcorners"
-            /> -->
           </div>
         </ion-col>
       </ion-row>
@@ -94,5 +90,5 @@
       </ion-col>
       </ion-row>
     </div>
-  </div>
 </ion-content>
+</div>

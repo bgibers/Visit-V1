@@ -479,8 +479,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       password: this.loginForm.controls.password.value
                     };
                     _context4.next = 3;
-                    return this.loadingController.create({
-                      duration: 2000
+                    return this.loadingController.create({// duration: 2000,
                     });
 
                   case 3:

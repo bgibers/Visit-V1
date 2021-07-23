@@ -63,7 +63,7 @@ export class MapFilterPage {
     }
 
     const loading = await this.loadingController.create({
-      duration: 2000,
+      // duration: 2000,
     });
 
     await loading.present();
@@ -78,9 +78,7 @@ export class MapFilterPage {
   }
 
   show(e) {
-    console.log(e);
     this.myservice.dis = e;
-    console.log(this.myservice.dis);
   }
 
   async ionViewWillLeave() {
@@ -101,7 +99,7 @@ export class MapFilterPage {
 
   async closeModal() {
     const loading = await this.loadingController.create({
-      duration: 2000,
+      // duration: 2000,
     });
     await loading.present();
     const onClosedData = this.filter;
