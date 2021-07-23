@@ -80,6 +80,11 @@ export class NewsFeedPage {
       );
   }
 
+  ionViewWillLeave() {
+    this.pageNumber = 1;
+    this.morePages = false;
+  }
+
   async getPosts(incr: number, event?: any) {
     return new Promise((resolve) => {
       if (this.morePages) {

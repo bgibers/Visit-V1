@@ -30,7 +30,35 @@
         <ion-row class="bottomRow">
           <ion-col>
             <ion-item class="roundedInput">
-              <ion-label position="floating">Birthplace</ion-label>
+              <ion-label position="stacked">First Name</ion-label>
+              <ion-input
+                autocapitalize="true"
+                [placeholder]="user.firstname"
+                type="text"
+                formControlName="firstName"
+                required
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="bottomRow">
+          <ion-col>
+            <ion-item class="roundedInput">
+              <ion-label position="stacked">Last Name</ion-label>
+              <ion-input
+                autocapitalize="true"
+                [placeholder]="user.lastname"
+                type="text"
+                formControlName="lastName"
+                required
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="bottomRow">
+          <ion-col>
+            <ion-item class="roundedInput">
+              <ion-label position="stacked">Birthplace</ion-label>
               <ion-input
                 autocapitalize="true"
                 [placeholder]="user.birthLocation"
@@ -44,7 +72,7 @@
         <ion-row class="bottomRow">
           <ion-col>
             <ion-item class="roundedInput">
-              <ion-label position="floating">Current Residence</ion-label>
+              <ion-label position="stacked">Current Residence</ion-label>
               <ion-input
                 autocapitalize="true"
                 [placeholder]="user.residenceLocation"
@@ -58,7 +86,7 @@
         <ion-row class="bottomRow">
           <ion-col>
             <ion-item class="roundedInput">
-              <ion-label position="floating">Education</ion-label>
+              <ion-label position="stacked">Education</ion-label>
               <ion-input
                 autocapitalize="true"
                 [placeholder]="user.education"
@@ -72,7 +100,7 @@
         <ion-row class="bottomRow">
           <ion-col>
             <ion-item class="roundedInput">
-              <ion-label position="floating">Title or Employment</ion-label>
+              <ion-label position="stacked">Title or Employment</ion-label>
               <ion-input
                 autocapitalize="true"
                 [placeholder]="user.title"

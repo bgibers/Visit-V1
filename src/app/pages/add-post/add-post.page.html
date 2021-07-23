@@ -60,7 +60,7 @@
         expand="block"
         type="submit"
         (click)="post()"
-        [disabled]="!postText && !selectedLocation"
+        [disabled]="!postText || !selectedLocation"
         >Add post</ion-button
       ></ion-col>
     <ion-col>

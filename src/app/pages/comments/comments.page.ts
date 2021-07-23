@@ -34,8 +34,8 @@ export class CommentsPage implements OnInit {
   ) {
     this.storage.get('image').then((val) => {
       this.image = val.avi;
-     console.log(val);
    });
+   
     this.route.queryParams.subscribe((params) => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.postId = this.router.getCurrentNavigation().extras.state.postId;

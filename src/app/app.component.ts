@@ -163,6 +163,19 @@ export class AppComponent implements OnInit {
       cssClass: 'add-modal',
       backdropDismiss: true,
     });
+
+    let currentUrl = this.router.url;
+
+    modal.onDidDismiss().then(async (dataReturned) => {
+      this.zone.run(() => {
+            console.log(currentUrl);
+            this.router.navigateByUrl('/', {skipLocationChange: true})
+            .then(() =>
+              this.router.navigate([currentUrl])
+            );
+            });
+    });
+
     return await modal.present();
   }
 }

@@ -48,11 +48,15 @@ export class UserSettingsPage implements OnInit {
   }
 
   ngOnInit() {
+    const firstName = new FormControl('');
+    const lastName = new FormControl('');
     const birthPlace = new FormControl('');
     const residence = new FormControl('');
     const education = new FormControl('');
     const title = new FormControl('');
     this.aboutForm = new FormGroup({
+      firstName,
+      lastName,
       birthPlace,
       residence,
       education,
@@ -68,6 +72,12 @@ export class UserSettingsPage implements OnInit {
     });
     await loading.present();
 
+    const firstName = this.aboutForm.controls.firstName.value === ''
+      ? this.user.firstname
+      : this.aboutForm.controls.firstName.value;
+    const lastName = this.aboutForm.controls.lastName.value === ''
+      ? this.user.lastname
+      : this.aboutForm.controls.lastName.value;
     const title = this.aboutForm.controls.title.value === ''
       ? this.user.title
       : this.aboutForm.controls.title.value;
@@ -84,8 +94,8 @@ export class UserSettingsPage implements OnInit {
     // todo create a forkjoin or something here to make these run together
     this.accountService
       .accountUpdatePost(
-        this.user.firstname,
-        this.user.lastname,
+        firstName,
+        lastName,
         title,
         education,
         birthPlace,
