@@ -1029,14 +1029,6 @@ class AccountsService {
                 localStorage.setItem('firebaseUser', JSON.stringify(firebaseUser));
                 JSON.parse(localStorage.getItem('firebaseUser'));
                 await this.storeLoggedInUser().then(() => {
-                    this.getFcmToken().subscribe((token) => {
-                        console.log(`FCM:${token}`);
-                        this.accountUpdateFcmDeviceIdPost(token)
-                            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1))
-                            .subscribe((res) => {
-                            console.log(res);
-                        }, (err) => console.log(err));
-                    });
                 });
             }
             else {
@@ -1051,14 +1043,22 @@ class AccountsService {
         return new Promise((resolve, reject) => {
             let user;
             this.userService.userIdGet(this.getUserId()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(res => {
-                console.log(res);
-                this.storage.set('image', res);
+                // console.log(res)
+                this.storage.set('image', res.avi);
                 user = res;
                 if (res.avi === undefined) {
                     user.avi = '../../../../assets/defaultuser.png';
                 }
                 localStorage.setItem('user', JSON.stringify(user));
                 localStorage.setItem('userLocations', JSON.stringify(res.userLocations));
+                this.getFcmToken().subscribe((token) => {
+                    console.log(`FCM:${token}`);
+                    this.accountUpdateFcmDeviceIdPost(token)
+                        .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1))
+                        .subscribe((res) => {
+                        console.log(res);
+                    }, (err) => console.log(err));
+                });
             });
         });
     }

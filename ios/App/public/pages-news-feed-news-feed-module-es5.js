@@ -213,8 +213,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.filter = '';
         this.selectedUserId = '';
         this.storage.get('image').then(function (val) {
-          if (val.avi) {
-            _this.image = val.avi;
+          if (val) {
+            _this.image = val;
           } else {
             _this.image = '../../../assets/defaultuser.png';
           }

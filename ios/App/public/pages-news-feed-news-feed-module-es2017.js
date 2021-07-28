@@ -109,8 +109,8 @@ class NewsFeedPage {
         this.filter = '';
         this.selectedUserId = '';
         this.storage.get('image').then((val) => {
-            if (val.avi) {
-                this.image = val.avi;
+            if (val) {
+                this.image = val;
             }
             else {
                 this.image = '../../../assets/defaultuser.png';

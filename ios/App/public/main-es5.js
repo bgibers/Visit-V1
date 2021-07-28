@@ -1535,17 +1535,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     localStorage.setItem('firebaseUser', JSON.stringify(firebaseUser));
                     JSON.parse(localStorage.getItem('firebaseUser'));
                     _context5.next = 5;
-                    return _this5.storeLoggedInUser().then(function () {
-                      _this5.getFcmToken().subscribe(function (token) {
-                        console.log("FCM:".concat(token));
-
-                        _this5.accountUpdateFcmDeviceIdPost(token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (res) {
-                          console.log(res);
-                        }, function (err) {
-                          return console.log(err);
-                        });
-                      });
-                    });
+                    return _this5.storeLoggedInUser().then(function () {});
 
                   case 5:
                     _context5.next = 11;
@@ -1580,9 +1570,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             var user;
 
             _this6.userService.userIdGet(_this6.getUserId()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (res) {
-              console.log(res);
-
-              _this6.storage.set('image', res);
+              // console.log(res)
+              _this6.storage.set('image', res.avi);
 
               user = res;
 
@@ -1592,6 +1581,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
               localStorage.setItem('user', JSON.stringify(user));
               localStorage.setItem('userLocations', JSON.stringify(res.userLocations));
+
+              _this6.getFcmToken().subscribe(function (token) {
+                console.log("FCM:".concat(token));
+
+                _this6.accountUpdateFcmDeviceIdPost(token).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (res) {
+                  console.log(res);
+                }, function (err) {
+                  return console.log(err);
+                });
+              });
             });
           });
         }

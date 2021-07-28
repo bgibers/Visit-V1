@@ -44,6 +44,7 @@ import { UserService } from './user.service';
 import { User } from '../model/user';
 import { UserResponse } from '../model/userResponse';
 import { UserLocation } from '../model/userLocation';
+import { promise } from 'protractor';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -83,18 +84,7 @@ export class AccountsService {
       if (firebaseUser) {
         localStorage.setItem('firebaseUser', JSON.stringify(firebaseUser));
         JSON.parse(localStorage.getItem('firebaseUser'));
-        await this.storeLoggedInUser().then(() => { // todo relook at this logic
-          this.getFcmToken().subscribe((token) => {
-            console.log(`FCM:${token}`);
-            this.accountUpdateFcmDeviceIdPost(token)
-              .pipe(take(1))
-              .subscribe(
-                (res) => {
-                  console.log(res);
-                },
-                (err) => console.log(err),
-              );
-          });
+        await this.storeLoggedInUser().then(() => {
         });
       } else {
         localStorage.setItem('firebaseUser', null);
@@ -110,14 +100,26 @@ export class AccountsService {
     let user: UserResponse;
 
     this.userService.userIdGet(this.getUserId()).pipe(take(1)).subscribe(res => {
-        console.log(res)
-        this.storage.set('image',res);
+        // console.log(res)
+        this.storage.set('image', res.avi);
         user = res;
         if (res.avi === undefined) {
           user.avi = '../../../../assets/defaultuser.png';
         }
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('userLocations', JSON.stringify(res.userLocations));
+
+        this.getFcmToken().subscribe((token) => {
+          console.log(`FCM:${token}`);
+          this.accountUpdateFcmDeviceIdPost(token)
+            .pipe(take(1))
+            .subscribe(
+              (res) => {
+                console.log(res);
+              },
+              (err) => console.log(err),
+            );
+        });
       });
     });
   }
