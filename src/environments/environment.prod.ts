@@ -11,4 +11,4 @@ export const environment = {
   },
 };
 
-export const BASE_PATH = 'https://visit-service.azurewebsites.net';
+export const BASE_PATH = 'https://visit-service-production.azurewebsites.net';
