@@ -7,7 +7,7 @@ import {
 } from '@ionic/angular';
 import { SearchPage } from '../modals/search/search.page';
 import { MapFilterPage } from '../modals/map-filter/map-filter.page';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { AccountsService } from '../../backend/clients/api/accounts.service';
 import { PostService } from 'src/app/backend/clients';
 import { PostApi } from 'src/app/backend/clients/model/postApi';
@@ -18,7 +18,18 @@ import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
   templateUrl: './user-timeline.page.html',
   styleUrls: ['./user-timeline.page.scss'],
 })
-export class UserTimelinePage {
+export class UserTimelinePage implements OnInit {
+
+  constructor(
+    public modalController: ModalController,
+    private loadingController: LoadingController,
+    private accountService: AccountsService,
+    private postService: PostService,
+    private zone: NgZone,
+    private router: Router,
+    private route: ActivatedRoute,
+    private imgview: NgxIonicImageViewerModule
+  ) {}
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   posts: PostApi[] = [];
@@ -26,20 +37,25 @@ export class UserTimelinePage {
   morePages = false;
   filter = '';
   selectedUserId = '';
+  userLocations = '';
+  sliderOpt = {
+    zoom: {
+      maxRatio: 1,
+    },
+  };
 
-  constructor(
-    public modalController: ModalController,
-    private loadingController: LoadingController,
-    private accountService: AccountsService,
-    private postService: PostService,
-    private navParams: NavParams,
-    private zone: NgZone,
-    private router: Router,
-    private imgview:NgxIonicImageViewerModule
-  ) {}
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.selectedUserId = params.state.userId;
+      this.userLocations = params.state.userLocations;
+      console.log(params.state.userId);
+
+    });
+  }
 
   ionViewWillEnter() {
-    this.selectedUserId = this.navParams.data.userId;
+    // this.selectedUserId = this.navParams.data.userId;
+
     this.postService
       .postsPageGet(this.pageNumber, this.filter, this.selectedUserId)
       .pipe(take(1))
@@ -49,11 +65,6 @@ export class UserTimelinePage {
         this.posts = res.items;
       });
   }
-  sliderOpt = {
-    zoom: {
-      maxRatio: 1,
-    },
-  };
 
   getPosts(event?: any) {
     if (this.morePages) {
@@ -134,7 +145,7 @@ export class UserTimelinePage {
       cssClass: 'filter-modal',
       componentProps: {
         filter: this.filter,
-        userLocations: this.navParams.data.userLocations
+        userLocations: this.userLocations
       },
     });
 
@@ -149,6 +160,6 @@ export class UserTimelinePage {
   }
 
   dismiss() {
-    this.modalController.dismiss();
+    this.router.navigateByUrl('/user-profile');
   }
 }

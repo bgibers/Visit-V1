@@ -48,7 +48,7 @@ export class MapFilterPage {
     this.mapvalue = this.filterTerm;
     this.map.zoomToLocation(this.mapvalue);
   }
-  
+
   async ionViewWillEnter() {
     this.map = new Map(this.zone);
     this.map.addMapToDiv(this.selectionMode, 'filter-map');

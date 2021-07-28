@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Map } from '../../objects/map';
 import { MapSelectionMode } from '../../objects/enums/map-selection-mode';
 import { ModalController, LoadingController } from '@ionic/angular';
@@ -171,21 +171,31 @@ export class UserProfilePage {
   }
 
   async presentUserTimeline() {
-    const modal = await this.modalController.create({
-      component: UserTimelinePage,
-      showBackdrop: true,
-      cssClass: 'user-profile',
-      componentProps: {
+    // const modal = await this.modalController.create({
+    //   component: UserTimelinePage,
+    //   showBackdrop: true,
+    //   cssClass: 'user-profile',
+    //   componentProps: {
+    //     userId: this.userId,
+    //     userLocations: JSON.stringify(this.user.value.userLocations)
+    //   }
+    // });
+
+    // modal.onDidDismiss().then(async (returned) => {
+    //   this.ionViewDidEnter();
+    // });
+
+    // return await modal.present();
+    const navigationExtras: NavigationExtras = {
+      replaceUrl: true,
+      skipLocationChange: true,
+      state: {
         userId: this.userId,
         userLocations: JSON.stringify(this.user.value.userLocations)
-      }
-    });
-
-    modal.onDidDismiss().then(async (returned) => {
-      this.ionViewDidEnter();
-    });
-
-    return await modal.present();
+      },
+    };
+    console.log(this.userId)
+    this.router.navigateByUrl('user-timeline', navigationExtras);
   }
 
   show(e) {
@@ -195,39 +205,5 @@ export class UserProfilePage {
   async presentUserSettings() {
     console.log(this.user.value);
     this.router.navigate(['user-settings', this.user.value]);
-    // const modal = await this.modalController.create({
-    //   component: UserSettingsPage,
-    //   showBackdrop: true,
-    //   cssClass: 'user-setttings',
-    //   componentProps: {
-    //     user: this.user.value
-    //   }
-    // });
-    // return await modal.present();
   }
-
-  // stop() {
-  //   if (this.timerHandler) {
-  //     window.clearInterval(this.timerHandler);
-  //     this.timerHandler = 0;
-  //   }
-  // }
-
-  // start() {
-  //   this.stop();
-  //   this.progress = 0;
-  //   this.progressText = "Started";
-  //   this.timerHandler = window.setInterval(() => {
-  //     this.progress += Math.random() * 5;
-  //     if (this.progress >= 50) {
-  //       this.progressText = "Please stay tuned.";
-  //     }
-  //     if (this.progress >= 100) {
-  //       this.progress = 100;
-  //       this.progressText = "Complete"
-  //       this.stop();
-  //     }
-  //   }, 100);
-  // }
-
 }
