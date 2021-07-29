@@ -52,6 +52,16 @@
     </ion-grid>
   </ion-toolbar>
 </ion-header>
+<ion-item>
+  <ion-input
+    type="text"
+    placeholder="Comment"
+    [(ngModel)]="commentText"
+  ></ion-input>
+  <button [disabled]="!canSend" clear item-right (click)="commentOnPost()">
+    Send
+  </button>
+</ion-item>
 <ion-content [scrollY]="false">
   <h1
     *ngIf="comments.length === 0"
@@ -108,15 +118,3 @@
     </ion-row>
   </ion-grid>
 </ion-content>
-<ion-footer>
-  <ion-item>
-    <ion-input
-      type="text"
-      placeholder="Comment"
-      [(ngModel)]="commentText"
-    ></ion-input>
-    <button [disabled]="!canSend" clear item-right (click)="commentOnPost()">
-      Send
-    </button>
-  </ion-item>
-</ion-footer>
