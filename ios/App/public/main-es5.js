@@ -3049,6 +3049,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             reportProgress: reportProgress
           });
         }
+      }, {
+        key: "postsSingleIdGet",
+        value: function postsSingleIdGet(id) {
+          var observe = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'body';
+          var reportProgress = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+          if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling postsSingleIdGet.');
+          }
+
+          var headers = this.defaultHeaders; // authentication (Bearer) required
+
+          if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
+            headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
+          } // to determine the Accept header
+
+
+          var httpHeaderAccepts = ['text/plain', 'application/json', 'text/json'];
+          var httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+
+          if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+          } // to determine the Content-Type header
+
+
+          var consumes = [];
+          return this.httpClient.request('get', "".concat(this.basePath, "/posts/single/").concat(encodeURIComponent(String(id))), {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+          });
+        }
       }]);
 
       return PostService;
@@ -12113,22 +12146,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./src/app/components/post/post.component.ts");
 
     var UserTimelinePage = /*#__PURE__*/function () {
-      function UserTimelinePage(modalController, loadingController, accountService, postService, navParams, zone, router, imgview) {
+      function UserTimelinePage(modalController, loadingController, accountService, postService, zone, router, route, imgview) {
         _classCallCheck(this, UserTimelinePage);
 
         this.modalController = modalController;
         this.loadingController = loadingController;
         this.accountService = accountService;
         this.postService = postService;
-        this.navParams = navParams;
         this.zone = zone;
         this.router = router;
+        this.route = route;
         this.imgview = imgview;
         this.posts = [];
         this.pageNumber = 1;
         this.morePages = false;
         this.filter = '';
         this.selectedUserId = '';
+        this.userLocations = '';
         this.sliderOpt = {
           zoom: {
             maxRatio: 1
@@ -12137,43 +12171,54 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       _createClass(UserTimelinePage, [{
-        key: "ionViewWillEnter",
-        value: function ionViewWillEnter() {
+        key: "ngOnInit",
+        value: function ngOnInit() {
           var _this33 = this;
 
-          this.selectedUserId = this.navParams.data.userId;
+          this.route.params.subscribe(function (params) {
+            _this33.selectedUserId = params.state.userId;
+            _this33.userLocations = params.state.userLocations;
+            console.log(params.state.userId);
+          });
+        }
+      }, {
+        key: "ionViewWillEnter",
+        value: function ionViewWillEnter() {
+          var _this34 = this;
+
+          // this.selectedUserId = this.navParams.data.userId;
           this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe(function (res) {
-            _this33.morePages = res.hasNextPage;
-            _this33.pageNumber = res.pageIndex;
-            _this33.posts = res.items;
+            _this34.morePages = res.hasNextPage;
+            _this34.pageNumber = res.pageIndex;
+            _this34.posts = res.items;
           });
         }
       }, {
         key: "getPosts",
         value: function getPosts(event) {
-          var _this34 = this;
+          var _this35 = this;
 
           if (this.morePages) {
             this.postService.postsPageGet(this.pageNumber + 1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe(function (res) {
-              _this34.morePages = res.hasNextPage;
-              _this34.pageNumber = res.pageIndex; // TODO The posts shouldn't be overwritten here but rather appended... not working though
+              _this35.morePages = res.hasNextPage;
+              _this35.pageNumber = res.pageIndex; // TODO The posts shouldn't be overwritten here but rather appended... not working though
 
-              if (_this34.posts.length === 0) {
-                _this34.posts = [];
+              if (_this35.posts.length === 0) {
+                _this35.posts = [];
               } else {
-                var oldposts = _this34.posts;
-                _this34.posts = [];
+                var oldposts = _this35.posts;
+                _this35.posts = [];
                 var oldResLen = oldposts.length;
 
                 for (var i = 0; i < oldResLen; i++) {
-                  _this34.posts.push(oldposts[i]);
+                  _this35.posts.push(oldposts[i]);
                 }
               }
 
               var resLen = res.items.length;
 
               for (var _i = 0; _i < resLen; _i++) {
-                _this34.posts.push(res.items[_i]);
+                _this35.posts.push(res.items[_i]);
               } // this.posts = res.items;
 
 
@@ -12188,12 +12233,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "refreshPosts",
         value: function refreshPosts(event) {
-          var _this35 = this;
+          var _this36 = this;
 
           this.postService.postsPageGet(1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe(function (res) {
-            _this35.morePages = res.hasNextPage;
-            _this35.pageNumber = res.pageIndex;
-            _this35.posts = res.items;
+            _this36.morePages = res.hasNextPage;
+            _this36.pageNumber = res.pageIndex;
+            _this36.posts = res.items;
 
             if (event) {
               event.target.complete();
@@ -12233,7 +12278,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openProfile",
         value: function openProfile() {
-          var _this36 = this;
+          var _this37 = this;
 
           var navigationExtras = {
             replaceUrl: true,
@@ -12243,14 +12288,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           };
           this.zone.run(function () {
-            _this36.router.navigateByUrl('/user-profile', navigationExtras);
+            _this37.router.navigateByUrl('/user-profile', navigationExtras);
           });
         }
       }, {
         key: "presentMapFilter",
         value: function () {
           var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
-            var _this37 = this;
+            var _this38 = this;
 
             var modal;
             return regeneratorRuntime.wrap(function _callee38$(_context38) {
@@ -12264,7 +12309,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       cssClass: 'filter-modal',
                       componentProps: {
                         filter: this.filter,
-                        userLocations: this.navParams.data.userLocations
+                        userLocations: this.userLocations
                       }
                     });
 
@@ -12277,9 +12322,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             switch (_context37.prev = _context37.next) {
                               case 0:
                                 if (dataReturned !== null) {
-                                  _this37.filter = dataReturned.data;
+                                  _this38.filter = dataReturned.data;
 
-                                  _this37.refreshPosts();
+                                  _this38.refreshPosts();
                                 }
 
                               case 1:
@@ -12317,7 +12362,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "dismiss",
         value: function dismiss() {
-          this.modalController.dismiss();
+          this.router.navigateByUrl('/user-profile');
         }
       }]);
 
@@ -12325,7 +12370,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     UserTimelinePage.ɵfac = function UserTimelinePage_Factory(t) {
-      return new (t || UserTimelinePage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavParams"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_ionic_image_viewer__WEBPACK_IMPORTED_MODULE_7__["NgxIonicImageViewerModule"]));
+      return new (t || UserTimelinePage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_ionic_image_viewer__WEBPACK_IMPORTED_MODULE_7__["NgxIonicImageViewerModule"]));
     };
 
     UserTimelinePage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -12443,11 +12488,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
           type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["PostService"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavParams"]
-        }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]
         }, {
           type: ngx_ionic_image_viewer__WEBPACK_IMPORTED_MODULE_7__["NgxIonicImageViewerModule"]
         }];

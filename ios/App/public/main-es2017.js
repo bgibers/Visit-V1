@@ -2008,6 +2008,34 @@ class PostService {
             reportProgress,
         });
     }
+    postsSingleIdGet(id, observe = 'body', reportProgress = false) {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling postsSingleIdGet.');
+        }
+        let headers = this.defaultHeaders;
+        // authentication (Bearer) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
+            headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        const consumes = [];
+        return this.httpClient.request('get', `${this.basePath}/posts/single/${encodeURIComponent(String(id))}`, {
+            withCredentials: this.configuration.withCredentials,
+            headers,
+            observe,
+            reportProgress
+        });
+    }
 }
 PostService.ɵfac = function PostService_Factory(t) { return new (t || PostService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["BASE_PATH"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_configuration__WEBPACK_IMPORTED_MODULE_3__["Configuration"], 8)); };
 PostService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: PostService, factory: PostService.ɵfac });
@@ -6836,28 +6864,36 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class UserTimelinePage {
-    constructor(modalController, loadingController, accountService, postService, navParams, zone, router, imgview) {
+    constructor(modalController, loadingController, accountService, postService, zone, router, route, imgview) {
         this.modalController = modalController;
         this.loadingController = loadingController;
         this.accountService = accountService;
         this.postService = postService;
-        this.navParams = navParams;
         this.zone = zone;
         this.router = router;
+        this.route = route;
         this.imgview = imgview;
         this.posts = [];
         this.pageNumber = 1;
         this.morePages = false;
         this.filter = '';
         this.selectedUserId = '';
+        this.userLocations = '';
         this.sliderOpt = {
             zoom: {
                 maxRatio: 1,
             },
         };
     }
+    ngOnInit() {
+        this.route.params.subscribe(params => {
+            this.selectedUserId = params.state.userId;
+            this.userLocations = params.state.userLocations;
+            console.log(params.state.userId);
+        });
+    }
     ionViewWillEnter() {
-        this.selectedUserId = this.navParams.data.userId;
+        // this.selectedUserId = this.navParams.data.userId;
         this.postService
             .postsPageGet(this.pageNumber, this.filter, this.selectedUserId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1))
@@ -6943,7 +6979,7 @@ class UserTimelinePage {
             cssClass: 'filter-modal',
             componentProps: {
                 filter: this.filter,
-                userLocations: this.navParams.data.userLocations
+                userLocations: this.userLocations
             },
         });
         modal.onDidDismiss().then(async (dataReturned) => {
@@ -6955,10 +6991,10 @@ class UserTimelinePage {
         return await modal.present();
     }
     dismiss() {
-        this.modalController.dismiss();
+        this.router.navigateByUrl('/user-profile');
     }
 }
-UserTimelinePage.ɵfac = function UserTimelinePage_Factory(t) { return new (t || UserTimelinePage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavParams"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_ionic_image_viewer__WEBPACK_IMPORTED_MODULE_7__["NgxIonicImageViewerModule"])); };
+UserTimelinePage.ɵfac = function UserTimelinePage_Factory(t) { return new (t || UserTimelinePage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_ionic_image_viewer__WEBPACK_IMPORTED_MODULE_7__["NgxIonicImageViewerModule"])); };
 UserTimelinePage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: UserTimelinePage, selectors: [["user-timeline"]], viewQuery: function UserTimelinePage_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonInfiniteScroll"], true);
     } if (rf & 2) {
@@ -7005,7 +7041,7 @@ UserTimelinePage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineC
                 templateUrl: './user-timeline.page.html',
                 styleUrls: ['./user-timeline.page.scss'],
             }]
-    }], function () { return [{ type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"] }, { type: _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_4__["AccountsService"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["PostService"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavParams"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }, { type: ngx_ionic_image_viewer__WEBPACK_IMPORTED_MODULE_7__["NgxIonicImageViewerModule"] }]; }, { infiniteScroll: [{
+    }], function () { return [{ type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"] }, { type: _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_4__["AccountsService"] }, { type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_5__["PostService"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }, { type: ngx_ionic_image_viewer__WEBPACK_IMPORTED_MODULE_7__["NgxIonicImageViewerModule"] }]; }, { infiniteScroll: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: [_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonInfiniteScroll"]]
         }] }); })();

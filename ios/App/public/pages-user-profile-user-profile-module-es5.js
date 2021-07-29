@@ -1820,77 +1820,71 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _user_timeline_user_timeline_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! ../user-timeline/user-timeline.page */
-    "./src/app/pages/user-timeline/user-timeline.page.ts");
-    /* harmony import */
-
-
-    var _backend_clients_api_user_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _backend_clients_api_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ../../backend/clients/api/user.service */
     "./src/app/backend/clients/api/user.service.ts");
     /* harmony import */
 
 
-    var _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    var _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ../../backend/clients/api/accounts.service */
     "./src/app/backend/clients/api/accounts.service.ts");
     /* harmony import */
 
 
-    var rxjs_operators__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! rxjs/operators */
     "./node_modules/rxjs/_esm2015/operators/index.js");
     /* harmony import */
 
 
-    var rxjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var rxjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! rxjs */
     "./node_modules/rxjs/_esm2015/index.js");
     /* harmony import */
 
 
-    var _services_modal_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    var _services_modal_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
     /*! ../../services/modal.service */
     "./src/app/services/modal.service.ts");
     /* harmony import */
 
 
-    var _ionic_storage__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    var _ionic_storage__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
     /*! @ionic/storage */
     "./node_modules/@ionic/storage/__ivy_ngcc__/fesm2015/ionic-storage.js");
     /* harmony import */
 
 
-    var _objects_location_json_json_countries_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    var _objects_location_json_json_countries_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
     /*! ../../objects/location-json/json/countries.json */
     "./src/app/objects/location-json/json/countries.json");
 
-    var _objects_location_json_json_countries_json__WEBPACK_IMPORTED_MODULE_12___namespace = /*#__PURE__*/__webpack_require__.t(
+    var _objects_location_json_json_countries_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__PURE__*/__webpack_require__.t(
     /*! ../../objects/location-json/json/countries.json */
     "./src/app/objects/location-json/json/countries.json", 1);
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+    var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
     /*! @angular/common */
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
     /* harmony import */
 
 
-    var ng_circle_progress__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+    var ng_circle_progress__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
     /*! ng-circle-progress */
     "./node_modules/ng-circle-progress/__ivy_ngcc__/fesm2015/ng-circle-progress.js");
     /* harmony import */
 
 
-    var _angular_forms__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
     /*! @angular/forms */
     "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
     /* harmony import */
 
 
-    var ng2_search_filter__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+    var ng2_search_filter__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
     /*! ng2-search-filter */
     "./node_modules/ng2-search-filter/__ivy_ngcc__/ng2-search-filter.js"); // import { IonicS}
 
@@ -1987,12 +1981,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.storage = storage;
         this.userId = undefined;
         this.selectionMode = _objects_enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_3__["MapSelectionMode"].NONE;
-        this.user = new rxjs__WEBPACK_IMPORTED_MODULE_9__["BehaviorSubject"]({});
+        this.user = new rxjs__WEBPACK_IMPORTED_MODULE_8__["BehaviorSubject"]({});
         this.canEditProfile = false;
         this.toVisitCount = 0;
         this.visitedCount = 0;
         this.visitedPercent = 0;
-        this.countries = _objects_location_json_json_countries_json__WEBPACK_IMPORTED_MODULE_12__;
+        this.countries = _objects_location_json_json_countries_json__WEBPACK_IMPORTED_MODULE_11__;
         this.hide = false; // this.ionViewDidEnter();
 
         this.route.queryParams.subscribe(function () {
@@ -2032,7 +2026,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
 
                     this.zone.run(function () {
-                      _this3.getUser(loading).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["take"])(1)).subscribe(function () {// loading.dismiss();
+                      _this3.getUser(loading).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(function () {// loading.dismiss();
                       });
                     });
 
@@ -2055,7 +2049,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getUser(loading) {
           var _this4 = this;
 
-          return this.userService.userIdGet(this.userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["map"])(function (user) {
+          return this.userService.userIdGet(this.userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (user) {
             _this4.storage.set('alluser', user);
 
             if (_this4.accountService.getUserId() === _this4.userId) {
@@ -2165,59 +2159,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "presentUserTimeline",
         value: function () {
-          var _presentUserTimeline = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-            var _this6 = this;
-
-            var modal;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          var _presentUserTimeline = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            var navigationExtras;
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context3.prev = _context3.next) {
                   case 0:
-                    _context4.next = 2;
-                    return this.modalController.create({
-                      component: _user_timeline_user_timeline_page__WEBPACK_IMPORTED_MODULE_5__["UserTimelinePage"],
-                      showBackdrop: true,
-                      cssClass: 'user-profile',
-                      componentProps: {
+                    // const modal = await this.modalController.create({
+                    //   component: UserTimelinePage,
+                    //   showBackdrop: true,
+                    //   cssClass: 'user-profile',
+                    //   componentProps: {
+                    //     userId: this.userId,
+                    //     userLocations: JSON.stringify(this.user.value.userLocations)
+                    //   }
+                    // });
+                    // modal.onDidDismiss().then(async (returned) => {
+                    //   this.ionViewDidEnter();
+                    // });
+                    // return await modal.present();
+                    navigationExtras = {
+                      replaceUrl: true,
+                      skipLocationChange: true,
+                      state: {
                         userId: this.userId,
                         userLocations: JSON.stringify(this.user.value.userLocations)
                       }
-                    });
+                    };
+                    console.log(this.userId);
+                    this.router.navigateByUrl('user-timeline', navigationExtras);
 
-                  case 2:
-                    modal = _context4.sent;
-                    modal.onDidDismiss().then( /*#__PURE__*/function () {
-                      var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(returned) {
-                        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-                          while (1) {
-                            switch (_context3.prev = _context3.next) {
-                              case 0:
-                                _this6.ionViewDidEnter();
-
-                              case 1:
-                              case "end":
-                                return _context3.stop();
-                            }
-                          }
-                        }, _callee3);
-                      }));
-
-                      return function (_x) {
-                        return _ref6.apply(this, arguments);
-                      };
-                    }());
-                    _context4.next = 6;
-                    return modal.present();
-
-                  case 6:
-                    return _context4.abrupt("return", _context4.sent);
-
-                  case 7:
+                  case 3:
                   case "end":
-                    return _context4.stop();
+                    return _context3.stop();
                 }
               }
-            }, _callee4, this);
+            }, _callee3, this);
           }));
 
           function presentUserTimeline() {
@@ -2234,28 +2211,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "presentUserSettings",
         value: function () {
-          var _presentUserSettings = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          var _presentUserSettings = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context5.prev = _context5.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
                     console.log(this.user.value);
-                    this.router.navigate(['user-settings', this.user.value]); // const modal = await this.modalController.create({
-                    //   component: UserSettingsPage,
-                    //   showBackdrop: true,
-                    //   cssClass: 'user-setttings',
-                    //   componentProps: {
-                    //     user: this.user.value
-                    //   }
-                    // });
-                    // return await modal.present();
+                    this.router.navigate(['user-settings', this.user.value]);
 
                   case 2:
                   case "end":
-                    return _context5.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee5, this);
+            }, _callee4, this);
           }));
 
           function presentUserSettings() {
@@ -2270,7 +2239,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     UserProfilePage.ɵfac = function UserProfilePage_Factory(t) {
-      return new (t || UserProfilePage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_7__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_modal_service__WEBPACK_IMPORTED_MODULE_10__["ModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_11__["Storage"]));
+      return new (t || UserProfilePage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_6__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_modal_service__WEBPACK_IMPORTED_MODULE_9__["ModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_10__["Storage"]));
     };
 
     UserProfilePage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -2660,8 +2629,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.hide == true);
         }
       },
-      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonHeader"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonToolbar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonGrid"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonRow"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonCol"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonButtons"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonBackButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonBackButtonDelegate"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonCard"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonCardContent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonAvatar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonText"], _angular_common__WEBPACK_IMPORTED_MODULE_13__["NgIf"], ng_circle_progress__WEBPACK_IMPORTED_MODULE_14__["CircleProgressComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonSearchbar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["TextValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_15__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_15__["NgModel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonList"], _angular_common__WEBPACK_IMPORTED_MODULE_13__["NgForOf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonItem"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonLabel"]],
-      pipes: [ng2_search_filter__WEBPACK_IMPORTED_MODULE_16__["Ng2SearchPipe"]],
+      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonHeader"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonToolbar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonGrid"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonRow"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonCol"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonButtons"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonBackButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonBackButtonDelegate"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonCard"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonCardContent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonAvatar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonText"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgIf"], ng_circle_progress__WEBPACK_IMPORTED_MODULE_13__["CircleProgressComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonSearchbar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["TextValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["NgModel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonList"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgForOf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonItem"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonLabel"]],
+      pipes: [ng2_search_filter__WEBPACK_IMPORTED_MODULE_15__["Ng2SearchPipe"]],
       styles: ["ion-content[_ngcontent-%COMP%] {\n  --background: linear-gradient(to bottom, #128C7E 30%, #ffffff 30%) ;\n}\n\n.header-grid[_ngcontent-%COMP%] {\n  --ion-grid-columns: 3;\n  --ion-grid-column-padding:.5px;\n  --ion-grid-padding:1px;\n}\n\n.header-text[_ngcontent-%COMP%]   ion-text[_ngcontent-%COMP%] {\n  font-size: 13px;\n  text-transform: capitalize;\n}\n\n.profile-info[_ngcontent-%COMP%]   ion-text[_ngcontent-%COMP%] {\n  font-size: 11px;\n  text-transform: capitalize;\n}\n\n.profile-info-row[_ngcontent-%COMP%]   ion-row[_ngcontent-%COMP%] {\n  justify-content: space-evenly;\n  margin-bottom: 0;\n}\n\n.three-col-grid[_ngcontent-%COMP%] {\n  --ion-grid-padding:5px;\n  --ion-grid-columns: 3;\n  --ion-grid-column-padding:.5px;\n}\n\n.three-col-grid[_ngcontent-%COMP%]   ion-row[_ngcontent-%COMP%] {\n  margin-bottom: 3%;\n  font-size: 13px;\n}\n\nh3[_ngcontent-%COMP%] {\n  font-size: 12px;\n}\n\nh6[_ngcontent-%COMP%] {\n  font-size: 3vw;\n  color: black;\n}\n\n.to-visit-col[_ngcontent-%COMP%]   ion-row[_ngcontent-%COMP%]   h6[_ngcontent-%COMP%] {\n  color: #F05E23;\n}\n\n.to-visit-col[_ngcontent-%COMP%]   ion-row[_ngcontent-%COMP%]   ion-text[_ngcontent-%COMP%] {\n  color: #F05E23;\n}\n\n.visited-col[_ngcontent-%COMP%]   ion-row[_ngcontent-%COMP%]   h6[_ngcontent-%COMP%] {\n  color: #128C7E;\n}\n\n.visited-col[_ngcontent-%COMP%]   ion-row[_ngcontent-%COMP%]   ion-text[_ngcontent-%COMP%] {\n  color: #128C7E;\n}\n\n.edit-button[_ngcontent-%COMP%] {\n  --background: transparent;\n  --color: black;\n}\n\nion-avatar[_ngcontent-%COMP%] {\n  width: 110% !important;\n  height: 110% !important;\n  max-width: 80px !important;\n  max-height: 80px !important;\n}\n\n.map-search-container[_ngcontent-%COMP%] {\n  padding-left: 10%;\n  padding-right: 10%;\n  margin-top: 5px;\n}\n\n.chartdiv[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 40%;\n}\n\nion-card[_ngcontent-%COMP%] {\n  margin-top: 15px;\n  margin-bottom: 0;\n}\n\nion-card-content[_ngcontent-%COMP%] {\n  padding-top: 10px;\n  padding-bottom: 0;\n}\n\n.map-filter[_ngcontent-%COMP%] {\n  justify-content: center;\n  align-self: center;\n}\n\n.map-filter-fab[_ngcontent-%COMP%] {\n  justify-content: center;\n  align-self: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9CcmVuZGFuR2liZXJzb24vRG9jdW1lbnRzL0Rldi9WaXNpdC9WaXNpdC4vc3JjL2FwcC9wYWdlcy91c2VyLXByb2ZpbGUvdXNlci1wcm9maWxlLnBhZ2Uuc2NzcyIsInNyYy9hcHAvcGFnZXMvdXNlci1wcm9maWxlL3VzZXItcHJvZmlsZS5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxtRUFBQTtBQ0NGOztBREVBO0VBQ0UscUJBQUE7RUFDQSw4QkFBQTtFQUNBLHNCQUFBO0FDQ0Y7O0FER0U7RUFDRSxlQUFBO0VBQ0EsMEJBQUE7QUNBSjs7QURLRTtFQUNFLGVBQUE7RUFDQSwwQkFBQTtBQ0ZKOztBRE9FO0VBQ0UsNkJBQUE7RUFDQSxnQkFBQTtBQ0pKOztBRFFBO0VBQ0Usc0JBQUE7RUFDQSxxQkFBQTtFQUNBLDhCQUFBO0FDTEY7O0FETUU7RUFDRSxpQkFBQTtFQUNBLGVBQUE7QUNKSjs7QURPQTtFQUNFLGVBQUE7QUNKRjs7QURPQTtFQUNFLGNBQUE7RUFDQSxZQUFBO0FDSkY7O0FEU0k7RUFDRSxjQUFBO0FDTk47O0FEUUk7RUFDRSxjQUFBO0FDTk47O0FEYUk7RUFDRSxjQUFBO0FDVk47O0FEWUk7RUFDRSxjQUFBO0FDVk47O0FEZUE7RUFDRSx5QkFBQTtFQUNBLGNBQUE7QUNaRjs7QURlQTtFQUNFLHNCQUFBO0VBQ0EsdUJBQUE7RUFDQSwwQkFBQTtFQUNBLDJCQUFBO0FDWkY7O0FEZUE7RUFDRSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtBQ1pGOztBRGlCQTtFQUNFLFdBQUE7RUFDQSxXQUFBO0FDZEY7O0FEZ0JBO0VBQ0UsZ0JBQUE7RUFDQSxnQkFBQTtBQ2JGOztBRGVBO0VBQ0UsaUJBQUE7RUFDQSxpQkFBQTtBQ1pGOztBRGVBO0VBQ0UsdUJBQUE7RUFDQSxrQkFBQTtBQ1pGOztBRGVBO0VBQ0UsdUJBQUE7RUFDQSxrQkFBQTtBQ1pGIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvdXNlci1wcm9maWxlL3VzZXItcHJvZmlsZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tY29udGVudHtcclxuICAtLWJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCh0byBib3R0b20sICMxMjhDN0UgMzAlLCAjZmZmZmZmIDMwJSlcclxufVxyXG5cclxuLmhlYWRlci1ncmlkIHtcclxuICAtLWlvbi1ncmlkLWNvbHVtbnM6IDM7XHJcbiAgLS1pb24tZ3JpZC1jb2x1bW4tcGFkZGluZzouNXB4O1xyXG4gIC0taW9uLWdyaWQtcGFkZGluZzoxcHg7XHJcbn1cclxuXHJcbi5oZWFkZXItdGV4dCB7XHJcbiAgaW9uLXRleHQge1xyXG4gICAgZm9udC1zaXplOiAxM3B4O1xyXG4gICAgdGV4dC10cmFuc2Zvcm06IGNhcGl0YWxpemU7XHJcbiAgfVxyXG59XHJcblxyXG4ucHJvZmlsZS1pbmZvIHtcclxuICBpb24tdGV4dHtcclxuICAgIGZvbnQtc2l6ZTogMTFweDtcclxuICAgIHRleHQtdHJhbnNmb3JtOiBjYXBpdGFsaXplO1xyXG4gIH1cclxufVxyXG5cclxuLnByb2ZpbGUtaW5mby1yb3cge1xyXG4gIGlvbi1yb3cge1xyXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAwO1xyXG4gIH1cclxufVxyXG5cclxuLnRocmVlLWNvbC1ncmlkIHtcclxuICAtLWlvbi1ncmlkLXBhZGRpbmc6NXB4O1xyXG4gIC0taW9uLWdyaWQtY29sdW1uczogMztcclxuICAtLWlvbi1ncmlkLWNvbHVtbi1wYWRkaW5nOi41cHg7XHJcbiAgaW9uLXJvd3tcclxuICAgIG1hcmdpbi1ib3R0b206MyU7XHJcbiAgICBmb250LXNpemU6IDEzcHg7XHJcbiAgICB9XHJcbn1cclxuaDN7XHJcbiAgZm9udC1zaXplOiAxMnB4O1xyXG59XHJcblxyXG5oNiB7XHJcbiAgZm9udC1zaXplOiAzdnc7XHJcbiAgY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4udG8tdmlzaXQtY29se1xyXG4gIGlvbi1yb3cge1xyXG4gICAgaDYge1xyXG4gICAgICBjb2xvcjogI0YwNUUyMztcclxuICAgIH1cclxuICAgIGlvbi10ZXh0e1xyXG4gICAgICBjb2xvcjogI0YwNUUyMztcclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbi52aXNpdGVkLWNvbCB7XHJcbiAgaW9uLXJvdyB7XHJcbiAgICBoNiB7XHJcbiAgICAgIGNvbG9yOiAjMTI4QzdFO1xyXG4gICAgfVxyXG4gICAgaW9uLXRleHR7XHJcbiAgICAgIGNvbG9yOiAjMTI4QzdFO1xyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuLmVkaXQtYnV0dG9ue1xyXG4gIC0tYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XHJcbiAgLS1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbmlvbi1hdmF0YXIgIHsgICAgIFxyXG4gIHdpZHRoOjExMCUgIWltcG9ydGFudDsgIFxyXG4gIGhlaWdodCA6IDExMCUgIWltcG9ydGFudDsgIFxyXG4gIG1heC13aWR0aDogODBweCAhaW1wb3J0YW50OyAgLy9hbnkgc2l6ZVxyXG4gIG1heC1oZWlnaHQ6IDgwcHggIWltcG9ydGFudDsgLy9hbnkgc2l6ZSBcclxufVxyXG5cclxuLm1hcC1zZWFyY2gtY29udGFpbmVyIHtcclxuICBwYWRkaW5nLWxlZnQ6IDEwJTtcclxuICBwYWRkaW5nLXJpZ2h0OjEwJTtcclxuICBtYXJnaW4tdG9wOiA1cHg7XHJcbn1cclxuLy8gLnBsYWNlc3tcclxuLy8gICBtYXJnaW4tdG9wOiA0cHg7XHJcbi8vIH1cclxuLmNoYXJ0ZGl2IHtcclxuICB3aWR0aDogMTAwJTtcclxuICBoZWlnaHQ6IDQwJTtcclxufVxyXG5pb24tY2FyZHtcclxuICBtYXJnaW4tdG9wOiAxNXB4O1xyXG4gIG1hcmdpbi1ib3R0b206IDA7XHJcbn1cclxuaW9uLWNhcmQtY29udGVudHtcclxuICBwYWRkaW5nLXRvcDogMTBweDtcclxuICBwYWRkaW5nLWJvdHRvbTogMDtcclxufVxyXG5cclxuLm1hcC1maWx0ZXJ7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xyXG59XHJcblxyXG4ubWFwLWZpbHRlci1mYWJ7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xyXG59IiwiaW9uLWNvbnRlbnQge1xuICAtLWJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCh0byBib3R0b20sICMxMjhDN0UgMzAlLCAjZmZmZmZmIDMwJSkgO1xufVxuXG4uaGVhZGVyLWdyaWQge1xuICAtLWlvbi1ncmlkLWNvbHVtbnM6IDM7XG4gIC0taW9uLWdyaWQtY29sdW1uLXBhZGRpbmc6LjVweDtcbiAgLS1pb24tZ3JpZC1wYWRkaW5nOjFweDtcbn1cblxuLmhlYWRlci10ZXh0IGlvbi10ZXh0IHtcbiAgZm9udC1zaXplOiAxM3B4O1xuICB0ZXh0LXRyYW5zZm9ybTogY2FwaXRhbGl6ZTtcbn1cblxuLnByb2ZpbGUtaW5mbyBpb24tdGV4dCB7XG4gIGZvbnQtc2l6ZTogMTFweDtcbiAgdGV4dC10cmFuc2Zvcm06IGNhcGl0YWxpemU7XG59XG5cbi5wcm9maWxlLWluZm8tcm93IGlvbi1yb3cge1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbiAgbWFyZ2luLWJvdHRvbTogMDtcbn1cblxuLnRocmVlLWNvbC1ncmlkIHtcbiAgLS1pb24tZ3JpZC1wYWRkaW5nOjVweDtcbiAgLS1pb24tZ3JpZC1jb2x1bW5zOiAzO1xuICAtLWlvbi1ncmlkLWNvbHVtbi1wYWRkaW5nOi41cHg7XG59XG4udGhyZWUtY29sLWdyaWQgaW9uLXJvdyB7XG4gIG1hcmdpbi1ib3R0b206IDMlO1xuICBmb250LXNpemU6IDEzcHg7XG59XG5cbmgzIHtcbiAgZm9udC1zaXplOiAxMnB4O1xufVxuXG5oNiB7XG4gIGZvbnQtc2l6ZTogM3Z3O1xuICBjb2xvcjogYmxhY2s7XG59XG5cbi50by12aXNpdC1jb2wgaW9uLXJvdyBoNiB7XG4gIGNvbG9yOiAjRjA1RTIzO1xufVxuLnRvLXZpc2l0LWNvbCBpb24tcm93IGlvbi10ZXh0IHtcbiAgY29sb3I6ICNGMDVFMjM7XG59XG5cbi52aXNpdGVkLWNvbCBpb24tcm93IGg2IHtcbiAgY29sb3I6ICMxMjhDN0U7XG59XG4udmlzaXRlZC1jb2wgaW9uLXJvdyBpb24tdGV4dCB7XG4gIGNvbG9yOiAjMTI4QzdFO1xufVxuXG4uZWRpdC1idXR0b24ge1xuICAtLWJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xuICAtLWNvbG9yOiBibGFjaztcbn1cblxuaW9uLWF2YXRhciB7XG4gIHdpZHRoOiAxMTAlICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogMTEwJSAhaW1wb3J0YW50O1xuICBtYXgtd2lkdGg6IDgwcHggIWltcG9ydGFudDtcbiAgbWF4LWhlaWdodDogODBweCAhaW1wb3J0YW50O1xufVxuXG4ubWFwLXNlYXJjaC1jb250YWluZXIge1xuICBwYWRkaW5nLWxlZnQ6IDEwJTtcbiAgcGFkZGluZy1yaWdodDogMTAlO1xuICBtYXJnaW4tdG9wOiA1cHg7XG59XG5cbi5jaGFydGRpdiB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDQwJTtcbn1cblxuaW9uLWNhcmQge1xuICBtYXJnaW4tdG9wOiAxNXB4O1xuICBtYXJnaW4tYm90dG9tOiAwO1xufVxuXG5pb24tY2FyZC1jb250ZW50IHtcbiAgcGFkZGluZy10b3A6IDEwcHg7XG4gIHBhZGRpbmctYm90dG9tOiAwO1xufVxuXG4ubWFwLWZpbHRlciB7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBhbGlnbi1zZWxmOiBjZW50ZXI7XG59XG5cbi5tYXAtZmlsdGVyLWZhYiB7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBhbGlnbi1zZWxmOiBjZW50ZXI7XG59Il19 */"]
     });
     /*@__PURE__*/
@@ -2680,19 +2649,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
         }, {
-          type: _backend_clients_api_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"]
+          type: _backend_clients_api_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]
         }, {
-          type: _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_7__["AccountsService"]
+          type: _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_6__["AccountsService"]
         }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]
         }, {
-          type: _services_modal_service__WEBPACK_IMPORTED_MODULE_10__["ModalService"]
+          type: _services_modal_service__WEBPACK_IMPORTED_MODULE_9__["ModalService"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
         }, {
-          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_11__["Storage"]
+          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_10__["Storage"]
         }];
       }, null);
     })();

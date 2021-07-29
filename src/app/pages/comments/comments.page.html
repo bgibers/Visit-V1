@@ -52,17 +52,99 @@
     </ion-grid>
   </ion-toolbar>
 </ion-header>
-<ion-item>
-  <ion-input
-    type="text"
-    placeholder="Comment"
-    [(ngModel)]="commentText"
-  ></ion-input>
-  <button [disabled]="!canSend" clear item-right (click)="commentOnPost()">
-    Send
-  </button>
-</ion-item>
-<ion-content [scrollY]="false">
+<ion-content [scrollY]="true">
+<ion-card
+[ngClass]="{
+  'post-image-container': post.postContentLink,
+  'post-container': post.postContentLink === undefined
+}"
+>
+<div class="card-flip-front">
+  <ion-grid class="three-col-grid">
+    <ion-row>
+      <ion-col size=".6">
+        <ion-avatar>
+          <img [src]="post.fkUser.avi" (click)="openProfile(post.fkUserId)" />
+        </ion-avatar>
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          <ion-card-title class="card-title"
+            >{{ post.fkUser.firstname }}
+            {{ post.fkUser.lastname }}</ion-card-title
+          >
+        </ion-row>
+        <ion-row>
+          <ion-card-subtitle color="medium">{{
+            post.location.locationName
+          }}</ion-card-subtitle>
+        </ion-row>
+      </ion-col>
+      <ion-col size=".4">
+        <ion-buttons>
+          <ion-button class="ion-justify-content-center">
+            <img src="../../assets/UI/optionsDots.svg" />
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row class="ion-align-items-baseline">
+        <ion-col>
+          {{ post.postCaption }}
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="post.postContentLink">
+        <ion-col>
+          <div class="swiper-zoom-container" >
+            <img ionImgViewer 
+              [src]="post.postContentLink"
+              height="300"
+              [alt]="post.postId"
+              class="rcorners"
+              (click)="openViewer(post.postContentLink)"
+            />
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-buttons>
+            <ion-button
+              class="ion-justify-content-center"
+              (click)="likePost(post)"
+            >
+              <img
+                [src]="
+                  post.likedByCurrentUser == true ? likedIcon : likeIcon
+                "
+              />
+            </ion-button>
+            {{ post.likeCount || 0 }}
+          </ion-buttons>
+        </ion-col>
+        <ion-col size="4">
+        </ion-col>
+        <ion-col class="align-self-center text-center">
+          <ion-note>{{ post.postTime | dateAgo }}</ion-note>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-item>
+      <ion-input
+        type="text"
+        placeholder="Comment"
+        [(ngModel)]="commentText"
+      ></ion-input>
+      <button [disabled]="!canSend" clear item-right (click)="commentOnPost()">
+        Send
+      </button>
+    </ion-item>
+  </ion-card-content>
+</div>
+</ion-card>
   <h1
     *ngIf="comments.length === 0"
     class="ion-text-center ion-justify-center"
@@ -86,6 +168,7 @@
                       <img
                         [src]="comment.user.avi"
                         class="user-pic img-center"
+                        (click)="openProfile(comment.user.id)"
                       />
                     </ion-col>
                   </ion-row>
