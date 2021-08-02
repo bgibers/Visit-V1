@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 import { Platform, ModalController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@capacitor/splash-screen';
@@ -104,15 +104,24 @@ export class AppComponent implements OnInit {
     PushNotifications.addListener(
       'pushNotificationReceived',
       async (notification: PushNotificationSchema) => {
-        console.log(notification.title);
-        this.alert(notification.title, notification.body);
+        console.log(notification.data);
+        // this.alert(notification.title, notification.body);
       }
     );
 
     PushNotifications.addListener(
       'pushNotificationActionPerformed',
       (notification: ActionPerformed) => {
-        // alert('Push action performed: ' + JSON.stringify(notification));
+        const navigationExtras: NavigationExtras = {
+          replaceUrl: true,
+          state: {
+            postId: notification.notification.data.postId,
+          },
+        };
+        this.zone.run(() => {
+          this.router.navigateByUrl('/comments', navigationExtras);
+        });
+        console.log(notification.notification.data);
       }
     );
   }

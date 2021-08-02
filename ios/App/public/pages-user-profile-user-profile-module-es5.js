@@ -2182,14 +2182,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       replaceUrl: true,
                       skipLocationChange: true,
                       state: {
-                        userId: this.userId,
+                        userId: this.user.value.userId,
                         userLocations: JSON.stringify(this.user.value.userLocations)
                       }
                     };
-                    console.log(this.userId);
                     this.router.navigateByUrl('user-timeline', navigationExtras);
 
-                  case 3:
+                  case 2:
                   case "end":
                     return _context3.stop();
                 }

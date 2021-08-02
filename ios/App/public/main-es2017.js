@@ -587,11 +587,20 @@ class AppComponent {
             // alert('Error on registration: ' + JSON.stringify(error));
         });
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].addListener('pushNotificationReceived', async (notification) => {
-            console.log(notification.title);
-            this.alert(notification.title, notification.body);
+            console.log(notification.data);
+            // this.alert(notification.title, notification.body);
         });
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].addListener('pushNotificationActionPerformed', (notification) => {
-            // alert('Push action performed: ' + JSON.stringify(notification));
+            const navigationExtras = {
+                replaceUrl: true,
+                state: {
+                    postId: notification.notification.data.postId,
+                },
+            };
+            this.zone.run(() => {
+                this.router.navigateByUrl('/comments', navigationExtras);
+            });
+            console.log(notification.notification.data);
         });
     }
     async alert(title, body) {
@@ -4189,7 +4198,7 @@ class PostComponent {
     }
     viewComments(post) {
         const navigationExtras = {
-            replaceUrl: false,
+            replaceUrl: true,
             state: {
                 postId: post.postId,
             },
@@ -4200,7 +4209,7 @@ class PostComponent {
     }
     openProfile(post) {
         const navigationExtras = {
-            replaceUrl: false,
+            replaceUrl: true,
             state: {
                 userId: post.fkUserId,
             },
@@ -6884,23 +6893,13 @@ class UserTimelinePage {
                 maxRatio: 1,
             },
         };
-    }
-    ngOnInit() {
-        this.route.params.subscribe(params => {
-            this.selectedUserId = params.state.userId;
-            this.userLocations = params.state.userLocations;
-            console.log(params.state.userId);
-        });
-    }
-    ionViewWillEnter() {
-        // this.selectedUserId = this.navParams.data.userId;
-        this.postService
-            .postsPageGet(this.pageNumber, this.filter, this.selectedUserId)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1))
-            .subscribe((res) => {
-            this.morePages = res.hasNextPage;
-            this.pageNumber = res.pageIndex;
-            this.posts = res.items;
+        this.route.queryParams.subscribe(params => {
+            if (this.router.getCurrentNavigation().extras.state) {
+                this.selectedUserId = this.router.getCurrentNavigation().extras.state.userId;
+                this.userLocations = this.router.getCurrentNavigation().extras.state.userLocations;
+                this.refreshPosts();
+            }
+            console.log(this.selectedUserId);
         });
     }
     getPosts(event) {

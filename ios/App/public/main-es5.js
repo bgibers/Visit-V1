@@ -716,11 +716,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
-                      console.log(notification.title);
+                      console.log(notification.data); // this.alert(notification.title, notification.body);
 
-                      _this3.alert(notification.title, notification.body);
-
-                    case 2:
+                    case 1:
                     case "end":
                       return _context.stop();
                   }
@@ -733,7 +731,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             };
           }());
 
-          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].addListener('pushNotificationActionPerformed', function (notification) {// alert('Push action performed: ' + JSON.stringify(notification));
+          _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].addListener('pushNotificationActionPerformed', function (notification) {
+            var navigationExtras = {
+              replaceUrl: true,
+              state: {
+                postId: notification.notification.data.postId
+              }
+            };
+
+            _this3.zone.run(function () {
+              _this3.router.navigateByUrl('/comments', navigationExtras);
+            });
+
+            console.log(notification.notification.data);
           });
         }
       }, {
@@ -6590,7 +6600,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this15 = this;
 
           var navigationExtras = {
-            replaceUrl: false,
+            replaceUrl: true,
             state: {
               postId: post.postId
             }
@@ -6605,7 +6615,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this16 = this;
 
           var navigationExtras = {
-            replaceUrl: false,
+            replaceUrl: true,
             state: {
               userId: post.fkUserId
             }
@@ -12147,6 +12157,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var UserTimelinePage = /*#__PURE__*/function () {
       function UserTimelinePage(modalController, loadingController, accountService, postService, zone, router, route, imgview) {
+        var _this33 = this;
+
         _classCallCheck(this, UserTimelinePage);
 
         this.modalController = modalController;
@@ -12168,57 +12180,44 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             maxRatio: 1
           }
         };
+        this.route.queryParams.subscribe(function (params) {
+          if (_this33.router.getCurrentNavigation().extras.state) {
+            _this33.selectedUserId = _this33.router.getCurrentNavigation().extras.state.userId;
+            _this33.userLocations = _this33.router.getCurrentNavigation().extras.state.userLocations;
+
+            _this33.refreshPosts();
+          }
+
+          console.log(_this33.selectedUserId);
+        });
       }
 
       _createClass(UserTimelinePage, [{
-        key: "ngOnInit",
-        value: function ngOnInit() {
-          var _this33 = this;
-
-          this.route.params.subscribe(function (params) {
-            _this33.selectedUserId = params.state.userId;
-            _this33.userLocations = params.state.userLocations;
-            console.log(params.state.userId);
-          });
-        }
-      }, {
-        key: "ionViewWillEnter",
-        value: function ionViewWillEnter() {
-          var _this34 = this;
-
-          // this.selectedUserId = this.navParams.data.userId;
-          this.postService.postsPageGet(this.pageNumber, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe(function (res) {
-            _this34.morePages = res.hasNextPage;
-            _this34.pageNumber = res.pageIndex;
-            _this34.posts = res.items;
-          });
-        }
-      }, {
         key: "getPosts",
         value: function getPosts(event) {
-          var _this35 = this;
+          var _this34 = this;
 
           if (this.morePages) {
             this.postService.postsPageGet(this.pageNumber + 1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe(function (res) {
-              _this35.morePages = res.hasNextPage;
-              _this35.pageNumber = res.pageIndex; // TODO The posts shouldn't be overwritten here but rather appended... not working though
+              _this34.morePages = res.hasNextPage;
+              _this34.pageNumber = res.pageIndex; // TODO The posts shouldn't be overwritten here but rather appended... not working though
 
-              if (_this35.posts.length === 0) {
-                _this35.posts = [];
+              if (_this34.posts.length === 0) {
+                _this34.posts = [];
               } else {
-                var oldposts = _this35.posts;
-                _this35.posts = [];
+                var oldposts = _this34.posts;
+                _this34.posts = [];
                 var oldResLen = oldposts.length;
 
                 for (var i = 0; i < oldResLen; i++) {
-                  _this35.posts.push(oldposts[i]);
+                  _this34.posts.push(oldposts[i]);
                 }
               }
 
               var resLen = res.items.length;
 
               for (var _i = 0; _i < resLen; _i++) {
-                _this35.posts.push(res.items[_i]);
+                _this34.posts.push(res.items[_i]);
               } // this.posts = res.items;
 
 
@@ -12233,12 +12232,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "refreshPosts",
         value: function refreshPosts(event) {
-          var _this36 = this;
+          var _this35 = this;
 
           this.postService.postsPageGet(1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe(function (res) {
-            _this36.morePages = res.hasNextPage;
-            _this36.pageNumber = res.pageIndex;
-            _this36.posts = res.items;
+            _this35.morePages = res.hasNextPage;
+            _this35.pageNumber = res.pageIndex;
+            _this35.posts = res.items;
 
             if (event) {
               event.target.complete();
@@ -12278,7 +12277,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openProfile",
         value: function openProfile() {
-          var _this37 = this;
+          var _this36 = this;
 
           var navigationExtras = {
             replaceUrl: true,
@@ -12288,14 +12287,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           };
           this.zone.run(function () {
-            _this37.router.navigateByUrl('/user-profile', navigationExtras);
+            _this36.router.navigateByUrl('/user-profile', navigationExtras);
           });
         }
       }, {
         key: "presentMapFilter",
         value: function () {
           var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
-            var _this38 = this;
+            var _this37 = this;
 
             var modal;
             return regeneratorRuntime.wrap(function _callee38$(_context38) {
@@ -12322,9 +12321,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             switch (_context37.prev = _context37.next) {
                               case 0:
                                 if (dataReturned !== null) {
-                                  _this38.filter = dataReturned.data;
+                                  _this37.filter = dataReturned.data;
 
-                                  _this38.refreshPosts();
+                                  _this37.refreshPosts();
                                 }
 
                               case 1:
