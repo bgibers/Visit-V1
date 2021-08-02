@@ -63,7 +63,7 @@ export class PostComponent implements OnInit {
 
   viewComments(post: PostApi) {
     const navigationExtras: NavigationExtras = {
-      replaceUrl: false,
+      replaceUrl: true,
       state: {
         postId: post.postId,
       },
@@ -75,7 +75,7 @@ export class PostComponent implements OnInit {
 
   openProfile(post: PostApi) {
     const navigationExtras: NavigationExtras = {
-      replaceUrl: false,
+      replaceUrl: true,
       state: {
         userId: post.fkUserId,
       },

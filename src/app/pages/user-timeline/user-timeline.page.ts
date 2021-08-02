@@ -18,7 +18,7 @@ import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
   templateUrl: './user-timeline.page.html',
   styleUrls: ['./user-timeline.page.scss'],
 })
-export class UserTimelinePage implements OnInit {
+export class UserTimelinePage  {
 
   constructor(
     public modalController: ModalController,
@@ -29,7 +29,16 @@ export class UserTimelinePage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private imgview: NgxIonicImageViewerModule
-  ) {}
+  ) {
+     this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.selectedUserId = this.router.getCurrentNavigation().extras.state.userId;
+        this.userLocations = this.router.getCurrentNavigation().extras.state.userLocations;
+        this.refreshPosts();
+      }
+      console.log(this.selectedUserId);
+    });
+  }
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   posts: PostApi[] = [];
@@ -43,28 +52,6 @@ export class UserTimelinePage implements OnInit {
       maxRatio: 1,
     },
   };
-
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.selectedUserId = params.state.userId;
-      this.userLocations = params.state.userLocations;
-      console.log(params.state.userId);
-
-    });
-  }
-
-  ionViewWillEnter() {
-    // this.selectedUserId = this.navParams.data.userId;
-
-    this.postService
-      .postsPageGet(this.pageNumber, this.filter, this.selectedUserId)
-      .pipe(take(1))
-      .subscribe((res) => {
-        this.morePages = res.hasNextPage;
-        this.pageNumber = res.pageIndex;
-        this.posts = res.items;
-      });
-  }
 
   getPosts(event?: any) {
     if (this.morePages) {

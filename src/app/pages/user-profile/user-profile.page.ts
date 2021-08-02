@@ -190,11 +190,10 @@ export class UserProfilePage {
       replaceUrl: true,
       skipLocationChange: true,
       state: {
-        userId: this.userId,
+        userId: this.user.value.userId,
         userLocations: JSON.stringify(this.user.value.userLocations)
       },
     };
-    console.log(this.userId)
     this.router.navigateByUrl('user-timeline', navigationExtras);
   }
 

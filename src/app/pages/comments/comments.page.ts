@@ -3,10 +3,8 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 import { AccountsService, PostService } from 'src/app/backend/clients';
-import { CommentForPost } from 'src/app/backend/clients/model/commentForPost';
 import { CommentApi } from 'src/app/backend/clients/model/commentApi';
 import { SearchPage } from '../modals/search/search.page';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { PostApi } from 'src/app/backend/clients/model/postApi';
 import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
@@ -18,10 +16,9 @@ import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
 })
 export class CommentsPage {
   comments = [];
-  thisIstheDataForThisComponent: Observable<any>;
   newComments = [];
   postId = '';
-  post: PostApi = {};
+  post: PostApi = undefined;
   userId: any;
   public commentText = '';
   image: any;
@@ -48,15 +45,16 @@ export class CommentsPage {
       if (this.router.getCurrentNavigation().extras.state) {
         this.postId = this.router.getCurrentNavigation().extras.state.postId;
       }
+      this.getPostInfo();
     });
-    this.ionViewWillEnter();
+    
   }
 
   myFunc() {
     return { count: 1, data: { id: 1 } };
   }
 
-  async ionViewWillEnter() {
+  async getPostInfo() {
     const loading = await this.loadingController.create({
       // duration: 2000,
     });

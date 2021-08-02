@@ -45,7 +45,7 @@
       <ion-row class="ion-align-items-baseline">
         <ion-col class="ion-justify-content-start">
           <ion-buttons>
-            <ion-back-button defaultHref="/tab1" style="color: white;"></ion-back-button>
+            <ion-back-button defaultHref="/tab1" (click)="backToFeed()" style="color: beige;"></ion-back-button>
           </ion-buttons>
         </ion-col>
       </ion-row>
@@ -55,8 +55,8 @@
 <ion-content [scrollY]="true">
 <ion-card
 [ngClass]="{
-  'post-image-container': post.postContentLink,
-  'post-container': post.postContentLink === undefined
+  'post-image-container': post?.postContentLink,
+  'post-container': post?.postContentLink === undefined
 }"
 >
 <div class="card-flip-front">
@@ -64,19 +64,19 @@
     <ion-row>
       <ion-col size=".6">
         <ion-avatar>
-          <img [src]="post.fkUser.avi" (click)="openProfile(post.fkUserId)" />
+          <img [src]="post?.fkUser?.avi" (click)="openProfile(post?.fkUserId)" />
         </ion-avatar>
       </ion-col>
       <ion-col>
         <ion-row>
           <ion-card-title class="card-title"
-            >{{ post.fkUser.firstname }}
-            {{ post.fkUser.lastname }}</ion-card-title
+            >{{ post?.fkUser?.firstname }}
+            {{ post?.fkUser?.lastname }}</ion-card-title
           >
         </ion-row>
         <ion-row>
           <ion-card-subtitle color="medium">{{
-            post.location.locationName
+            post?.location.locationName
           }}</ion-card-subtitle>
         </ion-row>
       </ion-col>
@@ -93,18 +93,18 @@
     <ion-grid>
       <ion-row class="ion-align-items-baseline">
         <ion-col>
-          {{ post.postCaption }}
+          {{ post?.postCaption }}
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="post.postContentLink">
+      <ion-row *ngIf="post?.postContentLink">
         <ion-col>
           <div class="swiper-zoom-container" >
             <img ionImgViewer 
-              [src]="post.postContentLink"
+              [src]="post?.postContentLink"
               height="300"
-              [alt]="post.postId"
+              [alt]="post?.postId"
               class="rcorners"
-              (click)="openViewer(post.postContentLink)"
+              (click)="openViewer(post?.postContentLink)"
             />
           </div>
         </ion-col>
@@ -118,17 +118,17 @@
             >
               <img
                 [src]="
-                  post.likedByCurrentUser == true ? likedIcon : likeIcon
+                  post?.likedByCurrentUser == true ? likedIcon : likeIcon
                 "
               />
             </ion-button>
-            {{ post.likeCount || 0 }}
+            {{ post?.likeCount || 0 }}
           </ion-buttons>
         </ion-col>
         <ion-col size="4">
         </ion-col>
         <ion-col class="align-self-center text-center">
-          <ion-note>{{ post.postTime | dateAgo }}</ion-note>
+          <ion-note>{{ post?.postTime | dateAgo }}</ion-note>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -155,7 +155,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-virtual-scroll [items]="comments">
+        <ion-virtual-scroll [items]="comments" [scrollTop]="true">
           <ion-item
             *virtualItem="let comment; let itemBounds = bounds;"
             class="comment"
