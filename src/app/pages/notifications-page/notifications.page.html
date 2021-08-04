@@ -21,7 +21,7 @@
             <ion-row>
               <ion-col>
                 <img
-                  src="../../../assets/stockPhoto.png"
+                  [src]="item.userAvi"
                   class="user-pic img-center"
                 />
               </ion-col>
@@ -43,7 +43,8 @@
             </ion-row>
             <ion-row class="ion-align-items-end">
               <ion-col class="ion-align-self-end">
-                <ion-text color="medium">{{item.time}}</ion-text>
+                <ion-note>{{ item.time | dateAgo }}</ion-note>
+                <!-- <ion-text color="medium">{{item.time}}</ion-text> -->
               </ion-col>
             </ion-row>
           </ion-col>

@@ -3857,6 +3857,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             reportProgress: reportProgress
           });
         }
+      }, {
+        key: "userNotificationsGet",
+        value: function userNotificationsGet() {
+          var observe = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'body';
+          var reportProgress = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+          var headers = this.defaultHeaders; // authentication (Bearer) required
+
+          if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
+            headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
+          } // to determine the Accept header
+
+
+          var httpHeaderAccepts = ['text/plain', 'application/json', 'text/json'];
+          var httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+
+          if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+          } // to determine the Content-Type header
+
+
+          var consumes = [];
+          return this.httpClient.request('get', "".concat(this.basePath, "/User/notifications"), {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+          });
+        }
       }]);
 
       return UserService;

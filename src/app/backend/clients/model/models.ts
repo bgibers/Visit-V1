@@ -100,6 +100,7 @@ export * from './stringStringKeyValuePair';
 export * from './stringStringValuesKeyValuePair';
 export * from './structLayoutAttribute';
 export * from './tag';
+export * from './notificationsForUser';
 export * from './tagController';
 export * from './type';
 export * from './typeAttributes';
