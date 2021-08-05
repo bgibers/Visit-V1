@@ -5903,6 +5903,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function intercept(request, next) {
           return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["from"])(this.accountService.getToken()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(function (token) {
             if (token !== '') {
+              // console.log(token)
               request = request.clone({
                 headers: request.headers.set('Authorization', 'Bearer ' + token)
               });

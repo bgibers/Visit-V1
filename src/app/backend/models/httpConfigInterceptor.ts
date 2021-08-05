@@ -31,6 +31,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     return from(this.accountService.getToken()).pipe(
       switchMap((token) => {
         if (token !== '') {
+          // console.log(token)
           request = request.clone({
             headers: request.headers.set('Authorization', 'Bearer ' + token),
           });

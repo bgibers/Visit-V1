@@ -3889,6 +3889,7 @@ class HttpConfigInterceptor {
     intercept(request, next) {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["from"])(this.accountService.getToken()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])((token) => {
             if (token !== '') {
+                // console.log(token)
                 request = request.clone({
                     headers: request.headers.set('Authorization', 'Bearer ' + token),
                 });

@@ -181,13 +181,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ../../pipes/date-ago.pipe */
     "./src/app/pipes/date-ago.pipe.ts");
 
-    function NotificationsPage_ion_card_9_Template(rf, ctx) {
+    function NotificationsPage_ion_card_12_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-card");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "ion-grid", 9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "ion-grid", 12);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "ion-row", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "ion-row", 13);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "ion-col");
 
@@ -195,7 +195,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "ion-col");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](6, "img", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](6, "img", 14);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -205,7 +205,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "ion-col");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](9, "img", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](9, "img", 15);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -213,7 +213,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "ion-col", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "ion-col", 16);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "ion-row");
 
@@ -235,9 +235,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "ion-row", 14);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "ion-row", 17);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "ion-col", 15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "ion-col", 18);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "ion-note");
 
@@ -261,32 +261,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       if (rf & 2) {
-        var item_r1 = ctx.$implicit;
+        var item_r2 = ctx.$implicit;
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("src", item_r1.userAvi, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("src", item_r2.userAvi, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("src", item_r1.icon, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("src", item_r2.icon, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](item_r1.name);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](item_r2.name);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"](" ", item_r1.verbage, " ", item_r1.isComment == true ? "\"" + item_r1.comment + "\"" : "", " ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"](" ", item_r2.verbage, " ", item_r2.isComment == true ? "\"" + item_r2.comment + "\"" : "", " ");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](21, 6, item_r1.time));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](21, 6, item_r2.time));
       }
     }
 
     var NotificationsPage = /*#__PURE__*/function () {
-      function NotificationsPage(storage, router, zone, userService, accountService, loadingController) {
+      function NotificationsPage(storage, router, zone, userService, accountService, loadingController, cd) {
         _classCallCheck(this, NotificationsPage);
 
         this.storage = storage;
@@ -295,78 +295,50 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.userService = userService;
         this.accountService = accountService;
         this.loadingController = loadingController;
+        this.cd = cd;
         this.notifications = [];
         this.commentIcon = '../../../assets/UI/comment-icon.svg';
         this.likeIcon = '../../../assets/UI/liked-icon.svg';
         this.commentVerbage = 'commented on your post';
         this.likeVerbage = 'liked your post';
         this.userId = '';
-        this.userId = this.accountService.getUserId();
-        this.ionViewDidEnter();
+        this.userId = this.accountService.getUserId(); // this.ionViewDidEnter();
       }
 
       _createClass(NotificationsPage, [{
         key: "ionViewDidEnter",
         value: function () {
-          var _ionViewDidEnter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+          var _ionViewDidEnter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
             var _this = this;
 
             var loading;
-            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
-                switch (_context2.prev = _context2.next) {
+                switch (_context.prev = _context.next) {
                   case 0:
-                    _context2.next = 2;
+                    _context.next = 2;
                     return this.loadingController.create();
 
                   case 2:
-                    loading = _context2.sent;
-                    _context2.next = 5;
+                    loading = _context.sent;
+                    _context.next = 5;
                     return loading.present();
 
                   case 5:
-                    this.userService.userNotificationsGet().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe( /*#__PURE__*/function () {
-                      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(res) {
-                        return regeneratorRuntime.wrap(function _callee$(_context) {
-                          while (1) {
-                            switch (_context.prev = _context.next) {
-                              case 0:
-                                res.forEach(function (not) {
-                                  var isComment = not.comment !== '';
-                                  console.log(res);
+                    _context.next = 7;
+                    return this.refreshNotifications(loading).then(function () {
+                      _this.cd.detectChanges();
+                    });
 
-                                  _this.notifications.push({
-                                    name: "".concat(not.userWhoPerformedAction.firstName, " ").concat(not.userWhoPerformedAction.lastName),
-                                    icon: isComment ? _this.commentIcon : _this.likeIcon,
-                                    verbage: isComment ? _this.commentVerbage : _this.likeVerbage,
-                                    isComment: isComment,
-                                    comment: not.comment,
-                                    time: not.date,
-                                    postId: not.fkPostId,
-                                    userAvi: not.userWhoPerformedAction.avi
-                                  });
-                                });
-                                loading.dismiss();
+                  case 7:
+                    loading.dismiss();
 
-                              case 2:
-                              case "end":
-                                return _context.stop();
-                            }
-                          }
-                        }, _callee);
-                      }));
-
-                      return function (_x) {
-                        return _ref.apply(this, arguments);
-                      };
-                    }());
-
-                  case 6:
+                  case 8:
                   case "end":
-                    return _context2.stop();
+                    return _context.stop();
                 }
               }
-            }, _callee2, this);
+            }, _callee, this);
           }));
 
           function ionViewDidEnter() {
@@ -375,21 +347,69 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           return ionViewDidEnter;
         }()
+      }, {
+        key: "refreshNotifications",
+        value: function refreshNotifications(event) {
+          var _this2 = this;
+
+          this.notifications = [];
+          return new Promise(function (resolve) {
+            _this2.userService.userNotificationsGet().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe( /*#__PURE__*/function () {
+              var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(res) {
+                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                  while (1) {
+                    switch (_context2.prev = _context2.next) {
+                      case 0:
+                        res.forEach(function (not) {
+                          var isComment = not.comment !== '';
+
+                          _this2.notifications.push({
+                            name: "".concat(not.userWhoPerformedAction.firstName, " ").concat(not.userWhoPerformedAction.lastName),
+                            icon: isComment ? _this2.commentIcon : _this2.likeIcon,
+                            verbage: isComment ? _this2.commentVerbage : _this2.likeVerbage,
+                            isComment: isComment,
+                            comment: not.comment,
+                            time: not.date,
+                            postId: not.fkPostId,
+                            userAvi: not.userWhoPerformedAction.avi
+                          });
+                        });
+
+                        if (event.target !== undefined) {
+                          event.target.complete();
+                        }
+
+                        resolve('done');
+
+                      case 3:
+                      case "end":
+                        return _context2.stop();
+                    }
+                  }
+                }, _callee2);
+              }));
+
+              return function (_x) {
+                return _ref.apply(this, arguments);
+              };
+            }());
+          });
+        }
       }]);
 
       return NotificationsPage;
     }();
 
     NotificationsPage.ɵfac = function NotificationsPage_Factory(t) {
-      return new (t || NotificationsPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]));
+      return new (t || NotificationsPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"]));
     };
 
     NotificationsPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
       type: NotificationsPage,
       selectors: [["notifications"]],
-      decls: 10,
+      decls: 13,
       vars: 2,
-      consts: [[1, "ion-no-border", 2, "background-color", "#128C7E"], ["color", "#128C7E", 1, "ion-no-border"], [1, "header-grid"], [1, "ion-align-items-baseline"], [1, "ion-justify-content-start"], ["defaultHref", "/tab1", 2, "color", "white"], [3, "fullscreen"], [1, "notifications-list"], [4, "ngFor", "ngForOf"], [1, "comments-grid"], [2, "padding-left", "8px", "padding-top", "8px"], [1, "user-pic", "img-center", 3, "src"], [3, "src"], ["size", "2.5"], [1, "ion-align-items-end"], [1, "ion-align-self-end"]],
+      consts: [[1, "ion-no-border", 2, "background-color", "#128C7E"], ["color", "#128C7E", 1, "ion-no-border"], [1, "header-grid"], [1, "ion-align-items-baseline"], [1, "ion-justify-content-start"], ["defaultHref", "/tab1", 2, "color", "white"], [3, "fullscreen"], ["slot", "fixed", 3, "ionRefresh"], ["refresherRef", ""], ["pullingText", "Pull to refresh", "refreshingSpinner", "circles", "refreshingText", "Refreshing..."], [1, "notifications-list"], [4, "ngFor", "ngForOf"], [1, "comments-grid"], [2, "padding-left", "8px", "padding-top", "8px"], [1, "user-pic", "img-center", 3, "src"], [3, "src"], ["size", "2.5"], [1, "ion-align-items-end"], [1, "ion-align-self-end"]],
       template: function NotificationsPage_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-header", 0);
@@ -420,9 +440,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "ion-content", 6);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "ion-list", 7);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "ion-refresher", 7, 8);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](9, NotificationsPage_ion_card_9_Template, 22, 8, "ion-card", 8);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ionRefresh", function NotificationsPage_Template_ion_refresher_ionRefresh_8_listener($event) {
+            return ctx.refreshNotifications($event);
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](10, "ion-refresher-content", 9);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "ion-list", 10);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, NotificationsPage_ion_card_12_Template, 22, 8, "ion-card", 11);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -434,12 +464,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("fullscreen", true);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.notifications);
         }
       },
-      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonHeader"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonToolbar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonGrid"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRow"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonCol"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonButtons"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonBackButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonBackButtonDelegate"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonList"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonCard"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonNote"]],
+      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonHeader"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonToolbar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonGrid"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRow"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonCol"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonButtons"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonBackButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonBackButtonDelegate"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRefresher"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRefresherContent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonList"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonCard"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonNote"]],
       pipes: [_pipes_date_ago_pipe__WEBPACK_IMPORTED_MODULE_7__["DateAgoPipe"]],
       styles: [".user-pic[_ngcontent-%COMP%] {\n  width: 40px;\n  height: 40px;\n  border-radius: 50%;\n}\n\np[_ngcontent-%COMP%] {\n  margin: 0px;\n  padding-top: 6px;\n  padding-right: 2px;\n  padding-bottom: 12px;\n}\n\nion-content[_ngcontent-%COMP%] {\n  --padding-top: 10%;\n}\n\n.comments-grid[_ngcontent-%COMP%] {\n  --ion-grid-columns: 3;\n  --ion-grid-column-padding: 1px;\n  --ion-grid-padding: 1px;\n}\n\nion-card[_ngcontent-%COMP%] {\n  margin-bottom: 10px !important;\n  margin-top: 4px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9CcmVuZGFuR2liZXJzb24vRG9jdW1lbnRzL0Rldi9WaXNpdC9WaXNpdC4vc3JjL2FwcC9wYWdlcy9ub3RpZmljYXRpb25zLXBhZ2Uvbm90aWZpY2F0aW9ucy5wYWdlLnNjc3MiLCJzcmMvYXBwL3BhZ2VzL25vdGlmaWNhdGlvbnMtcGFnZS9ub3RpZmljYXRpb25zLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFJQTtFQUNFLFdBQUE7RUFDQSxZQUFBO0VBRUEsa0JBQUE7QUNIRjs7QURLQTtFQUNFLFdBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBO0VBQ0Esb0JBQUE7QUNGRjs7QURPQTtFQUNFLGtCQUFBO0FDSkY7O0FET0E7RUFDRSxxQkFBQTtFQUNBLDhCQUFBO0VBQ0EsdUJBQUE7QUNKRjs7QURPQTtFQUNFLDhCQUFBO0VBQ0EsMEJBQUE7QUNKRiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL25vdGlmaWNhdGlvbnMtcGFnZS9ub3RpZmljYXRpb25zLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIGlvbi1jb250ZW50IGlvbi10b29sYmFyIHtcclxuLy8gICAtLWJhY2tncm91bmQ6IHRyYW5zbHVjZW50O1xyXG4vLyB9XHJcblxyXG4udXNlci1waWMge1xyXG4gIHdpZHRoOiA0MHB4O1xyXG4gIGhlaWdodDogNDBweDtcclxuICAtd2Via2l0LWJvcmRlci1yYWRpdXM6IDUwJTtcclxuICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbn1cclxucHtcclxuICBtYXJnaW46IDBweDtcclxuICBwYWRkaW5nLXRvcDogNnB4O1xyXG4gIHBhZGRpbmctcmlnaHQ6IDJweDtcclxuICBwYWRkaW5nLWJvdHRvbTogMTJweDtcclxufVxyXG4vLyAubm90aWZpY2F0aW9ucy1saXN0IHtcclxuLy8gICBiYWNrZ3JvdW5kOiByZ2JhKDE4LCAxNDAsIDEyNikgIWltcG9ydGFudDsgXHJcbi8vIH1cclxuaW9uLWNvbnRlbnQge1xyXG4gIC0tcGFkZGluZy10b3A6IDEwJTtcclxufVxyXG5cclxuLmNvbW1lbnRzLWdyaWQge1xyXG4gIC0taW9uLWdyaWQtY29sdW1uczogMztcclxuICAtLWlvbi1ncmlkLWNvbHVtbi1wYWRkaW5nOiAxcHg7XHJcbiAgLS1pb24tZ3JpZC1wYWRkaW5nOiAxcHg7XHJcbn1cclxuXHJcbmlvbi1jYXJkIHtcclxuICBtYXJnaW4tYm90dG9tOiAxMHB4ICFpbXBvcnRhbnQ7XHJcbiAgbWFyZ2luLXRvcDogNHB4ICFpbXBvcnRhbnQ7XHJcbn0iLCIudXNlci1waWMge1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xuICAtd2Via2l0LWJvcmRlci1yYWRpdXM6IDUwJTtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xufVxuXG5wIHtcbiAgbWFyZ2luOiAwcHg7XG4gIHBhZGRpbmctdG9wOiA2cHg7XG4gIHBhZGRpbmctcmlnaHQ6IDJweDtcbiAgcGFkZGluZy1ib3R0b206IDEycHg7XG59XG5cbmlvbi1jb250ZW50IHtcbiAgLS1wYWRkaW5nLXRvcDogMTAlO1xufVxuXG4uY29tbWVudHMtZ3JpZCB7XG4gIC0taW9uLWdyaWQtY29sdW1uczogMztcbiAgLS1pb24tZ3JpZC1jb2x1bW4tcGFkZGluZzogMXB4O1xuICAtLWlvbi1ncmlkLXBhZGRpbmc6IDFweDtcbn1cblxuaW9uLWNhcmQge1xuICBtYXJnaW4tYm90dG9tOiAxMHB4ICFpbXBvcnRhbnQ7XG4gIG1hcmdpbi10b3A6IDRweCAhaW1wb3J0YW50O1xufSJdfQ== */"]
     });
@@ -466,6 +496,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"]
         }];
       }, null);
     })();

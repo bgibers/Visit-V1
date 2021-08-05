@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
@@ -24,18 +24,27 @@ export class NotificationsPage {
     private zone: NgZone,
     private userService: UserService,
     private accountService: AccountsService,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private cd: ChangeDetectorRef
   ) {
     this.userId = this.accountService.getUserId();
-    this.ionViewDidEnter();
+    // this.ionViewDidEnter();
   }
 
   async ionViewDidEnter() {
     const loading = await this.loadingController.create();
     await loading.present();
-    this.userService.userNotificationsGet().pipe(take(1)).subscribe(async (res) => {
-      console.log(res)
+    await this.refreshNotifications(loading).then(() => {
+      this.cd.detectChanges();
+    });
+    loading.dismiss();
+  }
 
+  refreshNotifications(event?: any) {
+    this.notifications = [];
+
+    return new Promise((resolve) => {
+    this.userService.userNotificationsGet().pipe(take(1)).subscribe(async (res) => {
       res.forEach(not => {
         const isComment = not.comment !== '';
         this.notifications.push({
@@ -49,8 +58,13 @@ export class NotificationsPage {
           userAvi: not.userWhoPerformedAction.avi
         });
       });
-      loading.dismiss();
+
+      if (event.target !== undefined) {
+        event.target.complete();
+      }
+      resolve('done');
     });
+  });
   }
 
   // ngOnInit(): void {
