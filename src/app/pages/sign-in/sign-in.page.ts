@@ -98,6 +98,33 @@ export class SignInPage implements OnInit {
     });
   }
 
+  async openFacebookSignIn() {
+    await this.accountService.loginFacebook().then(async (res: SsoUser) => {
+      if (res.firstLogin === true) {
+        const navigationExtras: NavigationExtras = {
+          replaceUrl: false,
+          state: {
+            firstName: res.firstName,
+            lastName: res.lastName,
+            email: res.email,
+            password: '',
+            sso: true
+          }
+        };
+        this.zone.run(() => {
+          this.router.navigateByUrl('/post-register-about', navigationExtras);
+        });
+      } else {
+        const navigationExtras: NavigationExtras = {
+          replaceUrl: false
+        };
+        this.zone.run(() => {
+          this.router.navigateByUrl('/tab1', navigationExtras);
+        });
+      }
+  });
+  }
+
   async onSubmit(values) {
     const loginModel = {
       userName: this.loginForm.controls.email.value,

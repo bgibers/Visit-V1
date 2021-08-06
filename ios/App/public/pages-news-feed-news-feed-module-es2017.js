@@ -111,6 +111,7 @@ class NewsFeedPage {
         this.storage.get('image').then((val) => {
             if (val) {
                 this.image = val;
+                this.cd.detectChanges();
             }
             else {
                 this.image = '../../../assets/defaultuser.png';

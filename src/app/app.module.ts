@@ -27,7 +27,7 @@ import { environment } from '../environments/environment';
 import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
 import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
+import { Facebook } from '@ionic-native/facebook/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -59,6 +59,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     PostService,
     LocationSelector,
     SignInWithApple,
+    Facebook,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CameraResultType, Photo, Camera } from '@capacitor/camera';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
@@ -24,7 +24,8 @@ export class AddPostImagePage implements OnInit {
     public loadingController: LoadingController,
     private modalCtrl: ModalController,
     private selector: LocationSelector,
-    private postService: PostService
+    private postService: PostService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -103,7 +104,7 @@ export class AddPostImagePage implements OnInit {
     this.image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
-      resultType: CameraResultType.DataUrl,
+      resultType: CameraResultType.DataUrl
     });
     // image.webPath will contain a path that can be set as an image src.
     // You can access the original file using image.path, which can be
@@ -113,5 +114,6 @@ export class AddPostImagePage implements OnInit {
     // Can be set to the src of an image now
     this.userImage = imageUrl;
     this.b64toBlob(this.image.dataUrl);
+    this.cd.detectChanges();
   }
 }

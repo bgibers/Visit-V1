@@ -244,9 +244,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     function SignInPage_ng_container_8_div_1_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 17);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "ion-icon", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "ion-icon", 18);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
@@ -284,9 +284,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     function SignInPage_div_13_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 17);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "ion-icon", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "ion-icon", 18);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
@@ -302,13 +302,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
     }
 
-    function SignInPage_ion_button_26_Template(rf, ctx) {
+    function SignInPage_ion_button_23_Template(rf, ctx) {
       if (rf & 1) {
         var _r7 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-button", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-button", 19);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function SignInPage_ion_button_26_Template_ion_button_click_0_listener() {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function SignInPage_ion_button_23_Template_ion_button_click_0_listener() {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r7);
 
           var ctx_r6 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -316,7 +316,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return ctx_r6.openAppleSignIn();
         });
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "ion-icon", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "ion-icon", 20);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Sign in with Apple ");
 
@@ -464,68 +464,139 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return openAppleSignIn;
         }()
       }, {
-        key: "onSubmit",
+        key: "openFacebookSignIn",
         value: function () {
-          var _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(values) {
+          var _openFacebookSignIn = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
             var _this2 = this;
 
-            var loginModel, loading;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context5.prev = _context5.next) {
+                  case 0:
+                    _context5.next = 2;
+                    return this.accountService.loginFacebook().then( /*#__PURE__*/function () {
+                      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(res) {
+                        var navigationExtras, _navigationExtras2;
+
+                        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                          while (1) {
+                            switch (_context4.prev = _context4.next) {
+                              case 0:
+                                if (res.firstLogin === true) {
+                                  navigationExtras = {
+                                    replaceUrl: false,
+                                    state: {
+                                      firstName: res.firstName,
+                                      lastName: res.lastName,
+                                      email: res.email,
+                                      password: '',
+                                      sso: true
+                                    }
+                                  };
+
+                                  _this2.zone.run(function () {
+                                    _this2.router.navigateByUrl('/post-register-about', navigationExtras);
+                                  });
+                                } else {
+                                  _navigationExtras2 = {
+                                    replaceUrl: false
+                                  };
+
+                                  _this2.zone.run(function () {
+                                    _this2.router.navigateByUrl('/tab1', _navigationExtras2);
+                                  });
+                                }
+
+                              case 1:
+                              case "end":
+                                return _context4.stop();
+                            }
+                          }
+                        }, _callee4);
+                      }));
+
+                      return function (_x2) {
+                        return _ref2.apply(this, arguments);
+                      };
+                    }());
+
+                  case 2:
+                  case "end":
+                    return _context5.stop();
+                }
+              }
+            }, _callee5, this);
+          }));
+
+          function openFacebookSignIn() {
+            return _openFacebookSignIn.apply(this, arguments);
+          }
+
+          return openFacebookSignIn;
+        }()
+      }, {
+        key: "onSubmit",
+        value: function () {
+          var _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(values) {
+            var _this3 = this;
+
+            var loginModel, loading;
+            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+              while (1) {
+                switch (_context6.prev = _context6.next) {
                   case 0:
                     loginModel = {
                       userName: this.loginForm.controls.email.value,
                       password: this.loginForm.controls.password.value
                     };
-                    _context4.next = 3;
+                    _context6.next = 3;
                     return this.loadingController.create({// duration: 2000,
                     });
 
                   case 3:
-                    loading = _context4.sent;
-                    _context4.next = 6;
+                    loading = _context6.sent;
+                    _context6.next = 6;
                     return loading.present();
 
                   case 6:
                     this.accountService.login(loginModel.userName, loginModel.password).then(function (res) {
                       console.log(res);
-                      _this2.invalidLogin = false;
+                      _this3.invalidLogin = false;
 
-                      _this2.zone.run(function () {
+                      _this3.zone.run(function () {
                         var navigationExtras = {
                           replaceUrl: false
                         };
 
-                        _this2.router.navigateByUrl('/tab1', navigationExtras);
+                        _this3.router.navigateByUrl('/tab1', navigationExtras);
                       });
 
                       loading.dismiss();
                     }, function (err) {
                       if (err.code === 'auth/user-not-found') {
-                        _this2.invalidLoginText = 'User not found';
+                        _this3.invalidLoginText = 'User not found';
                       } else if (err.code === 'auth/wrong-password') {
-                        _this2.invalidLoginText = 'Invalid password';
+                        _this3.invalidLoginText = 'Invalid password';
                       } else {
-                        _this2.invalidLoginText = 'Unexpected error';
+                        _this3.invalidLoginText = 'Unexpected error';
                       }
 
-                      _this2.invalidLogin = true;
+                      _this3.invalidLogin = true;
 
-                      _this2.refresh();
+                      _this3.refresh();
 
                       loading.dismiss();
                     });
 
                   case 7:
                   case "end":
-                    return _context4.stop();
+                    return _context6.stop();
                 }
               }
-            }, _callee4, this);
+            }, _callee6, this);
           }));
 
-          function onSubmit(_x2) {
+          function onSubmit(_x3) {
             return _onSubmit.apply(this, arguments);
           }
 
@@ -534,7 +605,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openRegister",
         value: function openRegister() {
-          var _this3 = this;
+          var _this4 = this;
 
           var navigationExtras = {
             replaceUrl: false,
@@ -542,19 +613,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           };
           this.zone.run(function () {
-            _this3.router.navigateByUrl('/register', navigationExtras);
+            _this4.router.navigateByUrl('/register', navigationExtras);
           });
         }
       }, {
         key: "presentForgotPassword",
         value: function () {
-          var _presentForgotPassword = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+          var _presentForgotPassword = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
             var modal;
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            return regeneratorRuntime.wrap(function _callee8$(_context8) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context8.prev = _context8.next) {
                   case 0:
-                    _context6.next = 2;
+                    _context8.next = 2;
                     return this.modalController.create({
                       component: _modals_forgot_password_forgot_password_page__WEBPACK_IMPORTED_MODULE_5__["ForgotPasswordPage"],
                       showBackdrop: true,
@@ -562,12 +633,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    modal = _context6.sent;
+                    modal = _context8.sent;
                     modal.onDidDismiss().then( /*#__PURE__*/function () {
-                      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(dataReturned) {
-                        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(dataReturned) {
+                        return regeneratorRuntime.wrap(function _callee7$(_context7) {
                           while (1) {
-                            switch (_context5.prev = _context5.next) {
+                            switch (_context7.prev = _context7.next) {
                               case 0:
                                 if (dataReturned !== null) {// this.filter = dataReturned.data;
                                   // this.refreshPosts();
@@ -576,28 +647,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                               case 1:
                               case "end":
-                                return _context5.stop();
+                                return _context7.stop();
                             }
                           }
-                        }, _callee5);
+                        }, _callee7);
                       }));
 
-                      return function (_x3) {
-                        return _ref2.apply(this, arguments);
+                      return function (_x4) {
+                        return _ref3.apply(this, arguments);
                       };
                     }());
-                    _context6.next = 6;
+                    _context8.next = 6;
                     return modal.present();
 
                   case 6:
-                    return _context6.abrupt("return", _context6.sent);
+                    return _context8.abrupt("return", _context8.sent);
 
                   case 7:
                   case "end":
-                    return _context6.stop();
+                    return _context8.stop();
                 }
               }
-            }, _callee6, this);
+            }, _callee8, this);
           }));
 
           function presentForgotPassword() {
@@ -628,9 +699,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     SignInPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
       type: SignInPage,
       selectors: [["sign-in"]],
-      decls: 29,
+      decls: 26,
       vars: 7,
-      consts: [["no-bounce", "", 1, "form-content", 3, "scrollY"], [1, "splash"], [3, "formGroup", "ngSubmit"], [1, "roundedInput"], ["autocapitalize", "true", "placeholder", "Email", "type", "email", "formControlName", "email", "required", ""], [1, "validation-errors"], [4, "ngFor", "ngForOf"], ["autocapitalize", "true", "placeholder", "Password", "formControlName", "password", "required", "", 3, "type"], ["name", "eye", "item-right", "", 3, "click"], ["class", "error-message", 4, "ngIf"], [1, "button-div"], ["size", "6", 2, "padding-left", "22px"], ["expand", "block", "type", "submit", 1, "submit-button", 2, "padding-right", "0px", "padding-left", "0", 3, "disabled"], ["size", "6", 2, "padding-right", "22px"], ["expand", "block", "type", "submit", 1, "submit-button", 2, "padding-right", "0px", "padding-left", "0", 3, "click"], ["expand", "block", 1, "facebook-button"], ["slot", "start", "name", "logo-facebook"], ["class", "apple-button", "expand", "block", 3, "click", 4, "ngIf"], [1, "forgot-password-link", "center-any-object", 3, "click"], [1, "error-message"], ["name", "information-circle-outline"], ["expand", "block", 1, "apple-button", 3, "click"], ["slot", "start", "name", "logo-apple"]],
+      consts: [["no-bounce", "", 1, "form-content", 3, "scrollY"], [1, "splash"], [3, "formGroup", "ngSubmit"], [1, "roundedInput"], ["autocapitalize", "true", "placeholder", "Email", "type", "email", "formControlName", "email", "required", ""], [1, "validation-errors"], [4, "ngFor", "ngForOf"], ["autocapitalize", "true", "placeholder", "Password", "formControlName", "password", "required", "", 3, "type"], ["name", "eye", "item-right", "", 3, "click"], ["class", "error-message", 4, "ngIf"], [1, "button-div"], ["size", "6", 2, "padding-left", "22px"], ["expand", "block", "type", "submit", 1, "submit-button", 2, "padding-right", "0px", "padding-left", "0", 3, "disabled"], ["size", "6", 2, "padding-right", "22px"], ["expand", "block", "type", "submit", 1, "submit-button", 2, "padding-right", "0px", "padding-left", "0", 3, "click"], ["class", "apple-button", "expand", "block", 3, "click", 4, "ngIf"], [1, "forgot-password-link", "center-any-object", 3, "click"], [1, "error-message"], ["name", "information-circle-outline"], ["expand", "block", 1, "apple-button", 3, "click"], ["slot", "start", "name", "logo-apple"]],
       template: function SignInPage_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-content", 0);
@@ -717,23 +788,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](22, "div", 10);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](23, "ion-button", 15);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](23, SignInPage_ion_button_23_Template, 3, 0, "ion-button", 15);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](24, "ion-icon", 16);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "h3", 16);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25, " Login with Facebook ");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](26, SignInPage_ion_button_26_Template, 3, 0, "ion-button", 17);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "h3", 18);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function SignInPage_Template_h3_click_27_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function SignInPage_Template_h3_click_24_listener() {
             return ctx.presentForgotPassword();
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](28, "Forgot Password?");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25, "Forgot Password?");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -767,7 +830,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", !ctx.loginForm.valid);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.showAppleSignIn);
         }

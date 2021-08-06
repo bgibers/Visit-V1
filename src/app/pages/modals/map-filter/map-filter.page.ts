@@ -72,9 +72,8 @@ export class MapFilterPage {
       userLocations.forEach(location => {
         this.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
       });
-      loading.dismiss();
     });
-
+    loading.dismiss();
   }
 
   show(e) {

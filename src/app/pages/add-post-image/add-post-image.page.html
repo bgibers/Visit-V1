@@ -12,10 +12,18 @@
     </ion-grid>
   </ion-toolbar>
 </ion-header>    
-<ion-content no-bounce>
+<ion-content no-bounce scrollY>
     <h1>Upload Image</h1>
     <h3>Everyone loves a nice travel related photo!</h3>
     <ion-grid>
+      <ion-row>
+        <img *ngIf="userImage != '../../../assets/UI/clickToUpload.jpg'"
+        [src]="userImage"
+        [alt]="userImage"
+        class="rcorners"
+        (click)="getUserImage()"
+      />
+      </ion-row>
       <ion-row>
         <ion-col>
           <div>
@@ -36,10 +44,13 @@
           <ion-item class="roundedInput">
             <ion-textarea
               [(ngModel)]="postText"
-              rows="10"
+              rows="5"
               placeholder="Caption*"
               maxlength="250"
               autocapitalize="true"
+              autocomplete=“true” 
+              spellcheck=“true”
+              class="rcorners"
               required
             ></ion-textarea>
           </ion-item>
@@ -60,35 +71,35 @@
           </ion-item>
         </ion-col>
       </ion-row>
+      <div class="button-div">
+        <ion-row>
+        <ion-col>
+        <ion-button
+          class="submit-button"
+          expand="block"
+          type="submit"
+          (click)="post()"
+          [disabled]="!postText || !selectedLocation || userImage == '../../../assets/UI/clickToUpload.jpg'"
+          >Add post</ion-button
+        >
+        </ion-col>
+        <ion-col>
+        <ion-button
+          class="submit-button"
+          expand="block"
+          type="submit"
+          (click)="dismiss()"
+          >Cancel</ion-button
+        >
+        </ion-col>
+        </ion-row>
+      </div>
     </ion-grid>
     <div class="validation-errors">
       <div class="error-message" *ngIf="error">
         <ion-icon name="information-circle-outline"></ion-icon> Unexpected error
         when creating post
       </div>
-    </div>
-    <div class="button-div">
-      <ion-row>
-        <ion-col>
-      <ion-button
-        class="submit-button"
-        expand="block"
-        type="submit"
-        (click)="post()"
-        [disabled]="!postText && selectedLocation !== undefined"
-        >Add post</ion-button
-      >
-        </ion-col>
-        <ion-col>
-      <ion-button
-        class="submit-button"
-        expand="block"
-        type="submit"
-        (click)="dismiss()"
-        >Cancel</ion-button
-      >
-      </ion-col>
-      </ion-row>
     </div>
 </ion-content>
 </div>

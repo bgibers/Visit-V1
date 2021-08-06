@@ -36,9 +36,10 @@ import { MarkLocationsRequest } from '../model/markLocationsRequest';
 import { Configuration } from '../configuration';
 import { RegisterRequest } from '../model/registerRequest';
 import { CustomHttpUrlEncodingCodec } from '../encoder';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 
 import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { SsoUser } from '../model/ssoUser';
 import { UserService } from './user.service';
 import { User } from '../model/user';
@@ -71,6 +72,8 @@ export class AccountsService {
     private alertController: AlertController,
     private signInWithApple: SignInWithApple,
     private ngFireAuth: AngularFireAuth,
+    private fb : Facebook, 
+    private platform: Platform
   ) {
     if (basePath) {
       this.basePath = basePath;
@@ -241,8 +244,53 @@ export class AccountsService {
     });
   }
 
-  loginFacebook() {
+  async loginFacebook(): Promise<SsoUser>  { // mobile
+    this.fb.login(['email', 'public_profile'])
+      .then(async (fbRes: FacebookLoginResponse) => {
+        const credential = firebase.auth.FacebookAuthProvider
+        .credential(
+            fbRes.authResponse.accessToken
+        );
+        await this.getUserDetail(fbRes.authResponse.userID).then(async facebookUser => {
+          let firstLogin = false;
+          const response = await firebase.auth().signInWithCredential(credential).then(async (cred) => {
+            await firebase.auth().onAuthStateChanged(user => {
+              if (user) {
+                return fbRes;
+              }
+            });
+            firstLogin = cred.additionalUserInfo.isNewUser;
+          });
 
+          return {
+            firstLogin,
+            firstName: facebookUser,
+            lastName: '',
+            email: '',
+          } as SsoUser;
+        });
+
+      }).catch((error) => {
+        alert('error:' + JSON.stringify(error));
+      });
+    return {
+    firstLogin: true,
+    firstName: '',
+    lastName: '',
+    email: '',
+  } as SsoUser;
+  }
+
+  getUserDetail(userid: any) {
+    return new Promise<any>((resolve, reject) => { this.fb.api('/' + userid + '/?fields=id,email,name,picture', ['public_profile'])
+      .then((res: any) => {
+        console.log(res);
+        return { email: res.email, username: res.name, photoURL: res.picture.data.url };
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    });
   }
 
   async loginApple(): Promise<SsoUser> {

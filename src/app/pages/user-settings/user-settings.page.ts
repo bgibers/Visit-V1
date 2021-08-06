@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -37,6 +37,7 @@ export class UserSettingsPage implements OnInit {
     public navCtrl: NavController,
     private modalController: ModalController,
     private accountService: AccountsService,
+    private cd: ChangeDetectorRef
   ) {
     // this.route.params.subscribe(params => {
       this.route.params.subscribe(params => {
@@ -142,6 +143,7 @@ export class UserSettingsPage implements OnInit {
     // Can be set to the src of an image now
     this.userImage = imageUrl;
     this.b64toBlob(this.image.dataUrl);
+    this.cd.detectChanges();
   }
 
   dismiss() {

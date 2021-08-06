@@ -37,6 +37,7 @@
     "@capacitor/status-bar": "^1.0.0",
     "@ionic-native/camera": "^5.27.0",
     "@ionic-native/core": "^5.27.0",
+    "@ionic-native/facebook": "^5.35.0",
     "@ionic-native/fcm": "^5.32.1",
     "@ionic-native/file": "^5.27.0",
     "@ionic-native/firebase-analytics": "^5.34.0",
@@ -48,6 +49,7 @@
     "@ionic/storage": "^2.2.0",
     "cordova-android": "9.1.0",
     "cordova-browser": "6.0.0",
+    "cordova-plugin-facebook4": "^6.4.0",
     "cordova-plugin-firebase-analytics": "^6.0.1",
     "cordova-plugin-sign-in-with-apple": "^0.1.2",
     "core-js": "^2.5.4",
@@ -102,7 +104,11 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-sign-in-with-apple": {},
-      "cordova-plugin-firebase-analytics": {}
+      "cordova-plugin-firebase-analytics": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "906854063219806",
+        "APP_NAME": "Visit"
+      }
     },
     "platforms": [
       "browser",

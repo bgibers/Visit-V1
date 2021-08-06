@@ -215,6 +215,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.storage.get('image').then(function (val) {
           if (val) {
             _this.image = val;
+
+            _this.cd.detectChanges();
           } else {
             _this.image = '../../../assets/defaultuser.png';
           }

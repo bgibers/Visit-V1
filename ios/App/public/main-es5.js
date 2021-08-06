@@ -1151,6 +1151,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var ng2_search_filter__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
     /*! ng2-search-filter */
     "./node_modules/ng2-search-filter/__ivy_ngcc__/ng2-search-filter.js");
+    /* harmony import */
+
+
+    var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
+    /*! @ionic-native/facebook/ngx */
+    "./node_modules/@ionic-native/facebook/ngx/index.js");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -1164,7 +1170,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       factory: function AppModule_Factory(t) {
         return new (t || AppModule)();
       },
-      providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"], {
+      providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_28__["Facebook"], {
         provide: _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouteReuseStrategy"],
         useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicRouteStrategy"]
       }, {
@@ -1191,7 +1197,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           declarations: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]],
           entryComponents: [],
           imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicModule"].forRoot(), ngx_ionic_image_viewer__WEBPACK_IMPORTED_MODULE_26__["NgxIonicImageViewerModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_11__["IonicStorageModule"].forRoot(), ng2_search_filter__WEBPACK_IMPORTED_MODULE_27__["Ng2SearchPipeModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"], _pages_modals_search_search_module__WEBPACK_IMPORTED_MODULE_4__["SearchPageModule"], _pages_modals_add_add_module__WEBPACK_IMPORTED_MODULE_7__["AddPageModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"], _pages_user_timeline_user_timeline_module__WEBPACK_IMPORTED_MODULE_10__["UserTimelinePageModule"], _pages_modals_map_filter_map_filter_module__WEBPACK_IMPORTED_MODULE_8__["MapFilterPageModule"], _pages_mark_location_mark_location_module__WEBPACK_IMPORTED_MODULE_16__["MarkLocationPageModule"], _pages_add_post_add_post_module__WEBPACK_IMPORTED_MODULE_19__["AddPostPageModule"], _pages_user_settings_user_settings_module__WEBPACK_IMPORTED_MODULE_21__["UserSettingsPageModule"], _pages_add_post_image_add_post_image_module__WEBPACK_IMPORTED_MODULE_20__["AddPostImagePageModule"], _pages_modals_forgot_password_forgot_password_module__WEBPACK_IMPORTED_MODULE_9__["ForgotPasswordPageModule"], ionic_selectable__WEBPACK_IMPORTED_MODULE_17__["IonicSelectableModule"], _angular_fire__WEBPACK_IMPORTED_MODULE_22__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_24__["environment"].firebaseConfig), _angular_fire_auth__WEBPACK_IMPORTED_MODULE_23__["AngularFireAuthModule"]],
-          providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"], {
+          providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_28__["Facebook"], {
             provide: _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouteReuseStrategy"],
             useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicRouteStrategy"]
           }, {
@@ -1481,7 +1487,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _user_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+    var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+    /*! @ionic-native/facebook/ngx */
+    "./node_modules/@ionic-native/facebook/ngx/index.js");
+    /* harmony import */
+
+
+    var _user_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
     /*! ./user.service */
     "./src/app/backend/clients/api/user.service.ts");
     /**
@@ -1504,7 +1516,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var InterceptorSkipHeader = 'X-Skip-Interceptor';
 
     var AccountsService = /*#__PURE__*/function () {
-      function AccountsService(httpClient, basePath, configuration, router, zone, storage, userService, alertController, signInWithApple, ngFireAuth) {
+      function AccountsService(httpClient, basePath, configuration, router, zone, storage, userService, alertController, signInWithApple, ngFireAuth, fb, platform) {
         var _this5 = this;
 
         _classCallCheck(this, AccountsService);
@@ -1517,6 +1529,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.alertController = alertController;
         this.signInWithApple = signInWithApple;
         this.ngFireAuth = ngFireAuth;
+        this.fb = fb;
+        this.platform = platform;
         this.basePath = src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["BASE_PATH"];
         this.defaultHeaders = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]().set(InterceptorSkipHeader, '');
         this.configuration = new _configuration__WEBPACK_IMPORTED_MODULE_10__["Configuration"]();
@@ -1780,34 +1794,163 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }, {
         key: "loginFacebook",
-        value: function loginFacebook() {}
+        value: function () {
+          var _loginFacebook = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+            var _this11 = this;
+
+            return regeneratorRuntime.wrap(function _callee13$(_context13) {
+              while (1) {
+                switch (_context13.prev = _context13.next) {
+                  case 0:
+                    this.fb.login(['email', 'public_profile']).then( /*#__PURE__*/function () {
+                      var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(fbRes) {
+                        var credential;
+                        return regeneratorRuntime.wrap(function _callee12$(_context12) {
+                          while (1) {
+                            switch (_context12.prev = _context12.next) {
+                              case 0:
+                                credential = firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth.FacebookAuthProvider.credential(fbRes.authResponse.accessToken);
+                                _context12.next = 3;
+                                return _this11.getUserDetail(fbRes.authResponse.userID).then( /*#__PURE__*/function () {
+                                  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(facebookUser) {
+                                    var firstLogin, response;
+                                    return regeneratorRuntime.wrap(function _callee11$(_context11) {
+                                      while (1) {
+                                        switch (_context11.prev = _context11.next) {
+                                          case 0:
+                                            firstLogin = false;
+                                            _context11.next = 3;
+                                            return firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().signInWithCredential(credential).then( /*#__PURE__*/function () {
+                                              var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(cred) {
+                                                return regeneratorRuntime.wrap(function _callee10$(_context10) {
+                                                  while (1) {
+                                                    switch (_context10.prev = _context10.next) {
+                                                      case 0:
+                                                        _context10.next = 2;
+                                                        return firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().onAuthStateChanged(function (user) {
+                                                          if (user) {
+                                                            return fbRes;
+                                                          }
+                                                        });
+
+                                                      case 2:
+                                                        firstLogin = cred.additionalUserInfo.isNewUser;
+
+                                                      case 3:
+                                                      case "end":
+                                                        return _context10.stop();
+                                                    }
+                                                  }
+                                                }, _callee10);
+                                              }));
+
+                                              return function (_x10) {
+                                                return _ref7.apply(this, arguments);
+                                              };
+                                            }());
+
+                                          case 3:
+                                            response = _context11.sent;
+                                            return _context11.abrupt("return", {
+                                              firstLogin: firstLogin,
+                                              firstName: facebookUser,
+                                              lastName: '',
+                                              email: ''
+                                            });
+
+                                          case 5:
+                                          case "end":
+                                            return _context11.stop();
+                                        }
+                                      }
+                                    }, _callee11);
+                                  }));
+
+                                  return function (_x9) {
+                                    return _ref6.apply(this, arguments);
+                                  };
+                                }());
+
+                              case 3:
+                              case "end":
+                                return _context12.stop();
+                            }
+                          }
+                        }, _callee12);
+                      }));
+
+                      return function (_x8) {
+                        return _ref5.apply(this, arguments);
+                      };
+                    }())["catch"](function (error) {
+                      alert('error:' + JSON.stringify(error));
+                    });
+                    return _context13.abrupt("return", {
+                      firstLogin: true,
+                      firstName: '',
+                      lastName: '',
+                      email: ''
+                    });
+
+                  case 2:
+                  case "end":
+                    return _context13.stop();
+                }
+              }
+            }, _callee13, this);
+          }));
+
+          function loginFacebook() {
+            return _loginFacebook.apply(this, arguments);
+          }
+
+          return loginFacebook;
+        }()
+      }, {
+        key: "getUserDetail",
+        value: function getUserDetail(userid) {
+          var _this12 = this;
+
+          return new Promise(function (resolve, reject) {
+            _this12.fb.api('/' + userid + '/?fields=id,email,name,picture', ['public_profile']).then(function (res) {
+              console.log(res);
+              return {
+                email: res.email,
+                username: res.name,
+                photoURL: res.picture.data.url
+              };
+            })["catch"](function (e) {
+              console.log(e);
+            });
+          });
+        }
       }, {
         key: "loginApple",
         value: function () {
-          var _loginApple = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
-            return regeneratorRuntime.wrap(function _callee12$(_context12) {
+          var _loginApple = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+            return regeneratorRuntime.wrap(function _callee16$(_context16) {
               while (1) {
-                switch (_context12.prev = _context12.next) {
+                switch (_context16.prev = _context16.next) {
                   case 0:
-                    return _context12.abrupt("return", this.signInWithApple.signin({
+                    return _context16.abrupt("return", this.signInWithApple.signin({
                       requestedScopes: [_ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["ASAuthorizationAppleIDRequest"].ASAuthorizationScopeFullName, _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["ASAuthorizationAppleIDRequest"].ASAuthorizationScopeEmail]
                     }).then( /*#__PURE__*/function () {
-                      var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(res) {
+                      var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(res) {
                         var credential, firstLogin, response;
-                        return regeneratorRuntime.wrap(function _callee11$(_context11) {
+                        return regeneratorRuntime.wrap(function _callee15$(_context15) {
                           while (1) {
-                            switch (_context11.prev = _context11.next) {
+                            switch (_context15.prev = _context15.next) {
                               case 0:
                                 credential = new firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth.OAuthProvider('apple.com').credential(res.identityToken);
                                 firstLogin = false;
-                                _context11.next = 4;
+                                _context15.next = 4;
                                 return firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().signInWithCredential(credential).then( /*#__PURE__*/function () {
-                                  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(cred) {
-                                    return regeneratorRuntime.wrap(function _callee10$(_context10) {
+                                  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(cred) {
+                                    return regeneratorRuntime.wrap(function _callee14$(_context14) {
                                       while (1) {
-                                        switch (_context10.prev = _context10.next) {
+                                        switch (_context14.prev = _context14.next) {
                                           case 0:
-                                            _context10.next = 2;
+                                            _context14.next = 2;
                                             return firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().onAuthStateChanged(function (user) {
                                               if (user) {
                                                 return res;
@@ -1819,20 +1962,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                                           case 3:
                                           case "end":
-                                            return _context10.stop();
+                                            return _context14.stop();
                                         }
                                       }
-                                    }, _callee10);
+                                    }, _callee14);
                                   }));
 
-                                  return function (_x9) {
-                                    return _ref6.apply(this, arguments);
+                                  return function (_x12) {
+                                    return _ref9.apply(this, arguments);
                                   };
                                 }());
 
                               case 4:
-                                response = _context11.sent;
-                                return _context11.abrupt("return", {
+                                response = _context15.sent;
+                                return _context15.abrupt("return", {
                                   firstLogin: firstLogin,
                                   firstName: res.fullName.givenName,
                                   lastName: res.fullName.familyName,
@@ -1841,23 +1984,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                               case 6:
                               case "end":
-                                return _context11.stop();
+                                return _context15.stop();
                             }
                           }
-                        }, _callee11);
+                        }, _callee15);
                       }));
 
-                      return function (_x8) {
-                        return _ref5.apply(this, arguments);
+                      return function (_x11) {
+                        return _ref8.apply(this, arguments);
                       };
                     }()));
 
                   case 1:
                   case "end":
-                    return _context12.stop();
+                    return _context16.stop();
                 }
               }
-            }, _callee12, this);
+            }, _callee16, this);
           }));
 
           function loginApple() {
@@ -1872,11 +2015,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "loginWithToken",
         value: function loginWithToken(token) {
-          var _this11 = this;
+          var _this13 = this;
 
           return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["from"])(firebase_app__WEBPACK_IMPORTED_MODULE_6__["default"].auth().signInWithCustomToken(token).then(function () {
-            return _this11.getFcmToken().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (token) {
-              return _this11.accountUpdateFcmDeviceIdPost(token);
+            return _this13.getFcmToken().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (token) {
+              return _this13.accountUpdateFcmDeviceIdPost(token);
             });
           }));
         }
@@ -2117,7 +2260,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     AccountsService.ɵfac = function AccountsService_Factory(t) {
-      return new (t || AccountsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["BASE_PATH"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_configuration__WEBPACK_IMPORTED_MODULE_10__["Configuration"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_user_service__WEBPACK_IMPORTED_MODULE_14__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_12__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["SignInWithApple"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"]));
+      return new (t || AccountsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["BASE_PATH"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_configuration__WEBPACK_IMPORTED_MODULE_10__["Configuration"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_user_service__WEBPACK_IMPORTED_MODULE_15__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_12__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["SignInWithApple"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_14__["Facebook"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_12__["Platform"]));
     };
 
     AccountsService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
@@ -2152,13 +2295,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
           type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]
         }, {
-          type: _user_service__WEBPACK_IMPORTED_MODULE_14__["UserService"]
+          type: _user_service__WEBPACK_IMPORTED_MODULE_15__["UserService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_12__["AlertController"]
         }, {
           type: _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_13__["SignInWithApple"]
         }, {
           type: _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"]
+        }, {
+          type: _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_14__["Facebook"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_12__["Platform"]
         }];
       }, null);
     })();
@@ -4569,14 +4716,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(Configuration, [{
         key: "selectHeaderContentType",
         value: function selectHeaderContentType(contentTypes) {
-          var _this12 = this;
+          var _this14 = this;
 
           if (contentTypes.length == 0) {
             return undefined;
           }
 
           var type = contentTypes.find(function (x) {
-            return _this12.isJsonMime(x);
+            return _this14.isJsonMime(x);
           });
 
           if (type === undefined) {
@@ -4596,14 +4743,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "selectHeaderAccept",
         value: function selectHeaderAccept(accepts) {
-          var _this13 = this;
+          var _this15 = this;
 
           if (accepts.length == 0) {
             return undefined;
           }
 
           var type = accepts.find(function (x) {
-            return _this13.isJsonMime(x);
+            return _this15.isJsonMime(x);
           });
 
           if (type === undefined) {
@@ -5928,13 +6075,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "presentAlert",
         value: function () {
-          var _presentAlert = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(status, reason) {
+          var _presentAlert = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17(status, reason) {
             var alert;
-            return regeneratorRuntime.wrap(function _callee13$(_context13) {
+            return regeneratorRuntime.wrap(function _callee17$(_context17) {
               while (1) {
-                switch (_context13.prev = _context13.next) {
+                switch (_context17.prev = _context17.next) {
                   case 0:
-                    _context13.next = 2;
+                    _context17.next = 2;
                     return this.alertController.create({
                       header: status + ' Error',
                       subHeader: 'Subtitle',
@@ -5943,19 +6090,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    alert = _context13.sent;
-                    _context13.next = 5;
+                    alert = _context17.sent;
+                    _context17.next = 5;
                     return alert.present();
 
                   case 5:
                   case "end":
-                    return _context13.stop();
+                    return _context17.stop();
                 }
               }
-            }, _callee13, this);
+            }, _callee17, this);
           }));
 
-          function presentAlert(_x10, _x11) {
+          function presentAlert(_x13, _x14) {
             return _presentAlert.apply(this, arguments);
           }
 
@@ -6040,7 +6187,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(AuthGuard, [{
         key: "canActivate",
         value: function canActivate(route) {
-          var _this14 = this;
+          var _this16 = this;
 
           return new Promise(function (resolve, reject) {
             firebase_app__WEBPACK_IMPORTED_MODULE_2__["default"].auth().onAuthStateChanged(function (user) {
@@ -6051,8 +6198,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 // No user is signed in.
                 resolve(false);
 
-                _this14.zone.run(function () {
-                  _this14.router.navigate(['sign-in']);
+                _this16.zone.run(function () {
+                  _this16.router.navigate(['sign-in']);
                 });
               }
             });
@@ -6574,14 +6721,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openViewer",
         value: function () {
-          var _openViewer = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(post) {
+          var _openViewer = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee18(post) {
             var modal;
-            return regeneratorRuntime.wrap(function _callee14$(_context14) {
+            return regeneratorRuntime.wrap(function _callee18$(_context18) {
               while (1) {
-                switch (_context14.prev = _context14.next) {
+                switch (_context18.prev = _context18.next) {
                   case 0:
                     this.postfaa = post;
-                    _context14.next = 3;
+                    _context18.next = 3;
                     return this.modalController.create({
                       component: ngx_ionic_image_viewer__WEBPACK_IMPORTED_MODULE_5__["ViewerModalComponent"],
                       componentProps: {
@@ -6593,22 +6740,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 3:
-                    modal = _context14.sent;
-                    _context14.next = 6;
+                    modal = _context18.sent;
+                    _context18.next = 6;
                     return modal.present();
 
                   case 6:
-                    return _context14.abrupt("return", _context14.sent);
+                    return _context18.abrupt("return", _context18.sent);
 
                   case 7:
                   case "end":
-                    return _context14.stop();
+                    return _context18.stop();
                 }
               }
-            }, _callee14, this);
+            }, _callee18, this);
           }));
 
-          function openViewer(_x12) {
+          function openViewer(_x15) {
             return _openViewer.apply(this, arguments);
           }
 
@@ -6626,7 +6773,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "viewComments",
         value: function viewComments(post) {
-          var _this15 = this;
+          var _this17 = this;
 
           var navigationExtras = {
             replaceUrl: true,
@@ -6635,13 +6782,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           };
           this.zone.run(function () {
-            _this15.router.navigateByUrl('/comments', navigationExtras);
+            _this17.router.navigateByUrl('/comments', navigationExtras);
           });
         }
       }, {
         key: "openProfile",
         value: function openProfile(post) {
-          var _this16 = this;
+          var _this18 = this;
 
           var navigationExtras = {
             replaceUrl: true,
@@ -6650,7 +6797,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           };
           this.zone.run(function () {
-            _this16.router.navigateByUrl('/user-profile', navigationExtras);
+            _this18.router.navigateByUrl('/user-profile', navigationExtras);
           });
         }
       }]);
@@ -6993,12 +7140,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(Map, [{
         key: "createMap",
         value: function () {
-          var _createMap = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(selectionMode) {
-            var _this17 = this;
+          var _createMap = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19(selectionMode) {
+            var _this19 = this;
 
-            return regeneratorRuntime.wrap(function _callee15$(_context15) {
+            return regeneratorRuntime.wrap(function _callee19$(_context19) {
               while (1) {
-                switch (_context15.prev = _context15.next) {
+                switch (_context19.prev = _context19.next) {
                   case 0:
                     _amcharts_amcharts4_core__WEBPACK_IMPORTED_MODULE_1__["disposeAllCharts"]();
 
@@ -7041,17 +7188,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         worldSeries.exclude = ['AQ'];
                         worldSeries.useGeodata = true;
 
-                        _this17.seriesArr.push(worldSeries);
+                        _this19.seriesArr.push(worldSeries);
 
-                        _this17.polygonArr.push(worldSeries.mapPolygons.template); // Series for United States map
+                        _this19.polygonArr.push(worldSeries.mapPolygons.template); // Series for United States map
 
 
                         usaSeries = chart.series.push(new _amcharts_amcharts4_maps__WEBPACK_IMPORTED_MODULE_2__["MapPolygonSeries"]());
                         usaSeries.geodata = _amcharts_amcharts4_geodata_usaLow__WEBPACK_IMPORTED_MODULE_5__["default"];
 
-                        _this17.seriesArr.push(usaSeries);
+                        _this19.seriesArr.push(usaSeries);
 
-                        _this17.polygonArr.push(usaSeries.mapPolygons.template); // // Series for Canada map
+                        _this19.polygonArr.push(usaSeries.mapPolygons.template); // // Series for Canada map
                         // canadaSeries = chart.series.push(new am4maps.MapPolygonSeries());
                         // canadaSeries.geodata = am4geodata_canadaLow;
                         // this.seriesArr.push(canadaSeries);
@@ -7064,22 +7211,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                       });
 
-                      _this17.setupTemplates();
+                      _this19.setupTemplates();
 
-                      _this17.setSelectionMode(selectionMode);
+                      _this19.setSelectionMode(selectionMode);
 
-                      _this17.chart = chart;
+                      _this19.chart = chart;
                     });
 
                   case 2:
                   case "end":
-                    return _context15.stop();
+                    return _context19.stop();
                 }
               }
-            }, _callee15, this);
+            }, _callee19, this);
           }));
 
-          function createMap(_x13) {
+          function createMap(_x16) {
             return _createMap.apply(this, arguments);
           }
 
@@ -7095,7 +7242,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setupTemplates",
         value: function setupTemplates() {
-          var _this18 = this;
+          var _this20 = this;
 
           this.polygonArr.forEach(function (polygonTemplate) {
             polygonTemplate.tooltipText = '{name}';
@@ -7113,13 +7260,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             defaultState.properties.fill = _amcharts_amcharts4_core__WEBPACK_IMPORTED_MODULE_1__["color"]('#d9d9d9');
             polygonTemplate.events.on('hit', function (ev) {
               var data = ev.target.dataItem.dataContext;
-              _this18.selectedArea = data; // this.selectedName = data.name;
+              _this20.selectedArea = data; // this.selectedName = data.name;
 
-              _this18.selectedId = data.id;
+              _this20.selectedId = data.id;
 
-              if (_this18.lastSelected !== ev.target) {
+              if (_this20.lastSelected !== ev.target) {
                 ev.target.series.chart.zoomToMapObject(ev.target);
-                _this18.lastSelected = ev.target;
+                _this20.lastSelected = ev.target;
               }
             });
           });
@@ -7127,7 +7274,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setSelectionMode",
         value: function setSelectionMode(selectionMode) {
-          var _this19 = this;
+          var _this21 = this;
 
           this.selectionMode = selectionMode; // Allow only one location to be hightlighted at a time
 
@@ -7136,9 +7283,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               polygonTemplate.events.on('doublehit', function (ev) {
                 var data = ev.target.dataItem.dataContext;
 
-                _this19.resetAllLocations();
+                _this21.resetAllLocations();
 
-                _this19.changeVisitStatus(data.id, 'filter');
+                _this21.changeVisitStatus(data.id, 'filter');
               });
             });
           } else if (this.selectionMode !== _enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_6__["MapSelectionMode"].NONE) {
@@ -7147,10 +7294,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               polygonTemplate.events.on('doublehit', function (ev) {
                 var data = ev.target.dataItem.dataContext;
 
-                if (_this19.selectionMode === _enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_6__["MapSelectionMode"].TO_VISIT) {
-                  _this19.changeVisitStatus(data.id, 'toVisit');
+                if (_this21.selectionMode === _enums_map_selection_mode__WEBPACK_IMPORTED_MODULE_6__["MapSelectionMode"].TO_VISIT) {
+                  _this21.changeVisitStatus(data.id, 'toVisit');
                 } else {
-                  _this19.changeVisitStatus(data.id, 'visited');
+                  _this21.changeVisitStatus(data.id, 'visited');
                 }
               });
             });
@@ -7186,10 +7333,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "resetAllLocations",
         value: function resetAllLocations() {
-          var _this20 = this;
+          var _this22 = this;
 
           this.changedAreas.forEach(function (location) {
-            var _iterator9 = _createForOfIteratorHelper(_this20.seriesArr),
+            var _iterator9 = _createForOfIteratorHelper(_this22.seriesArr),
                 _step9;
 
             try {
@@ -7211,7 +7358,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "changeVisitStatus",
         value: function () {
-          var _changeVisitStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16(locationId, status) {
+          var _changeVisitStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20(locationId, status) {
             var init,
                 _iterator10,
                 _step10,
@@ -7219,21 +7366,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 result,
                 locationInArray,
                 index,
-                _args16 = arguments;
+                _args20 = arguments;
 
-            return regeneratorRuntime.wrap(function _callee16$(_context16) {
+            return regeneratorRuntime.wrap(function _callee20$(_context20) {
               while (1) {
-                switch (_context16.prev = _context16.next) {
+                switch (_context20.prev = _context20.next) {
                   case 0:
-                    init = _args16.length > 2 && _args16[2] !== undefined ? _args16[2] : false;
+                    init = _args20.length > 2 && _args20[2] !== undefined ? _args20[2] : false;
                     _iterator10 = _createForOfIteratorHelper(this.seriesArr);
-                    _context16.prev = 2;
+                    _context20.prev = 2;
 
                     _iterator10.s();
 
                   case 4:
                     if ((_step10 = _iterator10.n()).done) {
-                      _context16.next = 12;
+                      _context20.next = 12;
                       break;
                     }
 
@@ -7241,33 +7388,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     result = series.getPolygonById(locationId);
 
                     if (!(result !== undefined)) {
-                      _context16.next = 10;
+                      _context20.next = 10;
                       break;
                     }
 
                     this.selectedArea = result;
-                    return _context16.abrupt("break", 12);
+                    return _context20.abrupt("break", 12);
 
                   case 10:
-                    _context16.next = 4;
+                    _context20.next = 4;
                     break;
 
                   case 12:
-                    _context16.next = 17;
+                    _context20.next = 17;
                     break;
 
                   case 14:
-                    _context16.prev = 14;
-                    _context16.t0 = _context16["catch"](2);
+                    _context20.prev = 14;
+                    _context20.t0 = _context20["catch"](2);
 
-                    _iterator10.e(_context16.t0);
+                    _iterator10.e(_context20.t0);
 
                   case 17:
-                    _context16.prev = 17;
+                    _context20.prev = 17;
 
                     _iterator10.f();
 
-                    return _context16.finish(17);
+                    return _context20.finish(17);
 
                   case 20:
                     locationInArray = this.changedAreas.find(function (d) {
@@ -7312,13 +7459,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 22:
                   case "end":
-                    return _context16.stop();
+                    return _context20.stop();
                 }
               }
-            }, _callee16, this, [[2, 14, 17, 20]]);
+            }, _callee20, this, [[2, 14, 17, 20]]);
           }));
 
-          function changeVisitStatus(_x14, _x15) {
+          function changeVisitStatus(_x17, _x18) {
             return _changeVisitStatus.apply(this, arguments);
           }
 
@@ -7327,11 +7474,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "destroyMap",
         value: function destroyMap() {
-          var _this21 = this;
+          var _this23 = this;
 
           this.zone.runOutsideAngular(function () {
-            if (_this21.chart) {
-              _this21.chart.dispose();
+            if (_this23.chart) {
+              _this23.chart.dispose();
             }
           });
         }
@@ -7614,27 +7761,51 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! @angular/common */
+    "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! @angular/forms */
     "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
     /* harmony import */
 
 
-    var ionic_selectable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    var ionic_selectable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! ionic-selectable */
     "./node_modules/ionic-selectable/__ivy_ngcc__/esm2015/ionic-selectable.min.js");
-    /* harmony import */
 
-
-    var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
-    /*! @angular/common */
-    "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-
-    function AddPostImagePage_div_30_Template(rf, ctx) {
+    function AddPostImagePage_img_15_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 17);
+        var _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "ion-icon", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "img", 18);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AddPostImagePage_img_15_Template_img_click_0_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r3);
+
+          var ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+
+          return ctx_r2.getUserImage();
+        });
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      }
+
+      if (rf & 2) {
+        var ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("src", ctx_r0.userImage, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"])("alt", ctx_r0.userImage);
+      }
+    }
+
+    function AddPostImagePage_div_40_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 19);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "ion-icon", 20);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Unexpected error when creating post ");
 
@@ -7643,13 +7814,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }
 
     var AddPostImagePage = /*#__PURE__*/function () {
-      function AddPostImagePage(loadingController, modalCtrl, selector, postService) {
+      function AddPostImagePage(loadingController, modalCtrl, selector, postService, cd) {
         _classCallCheck(this, AddPostImagePage);
 
         this.loadingController = loadingController;
         this.modalCtrl = modalCtrl;
         this.selector = selector;
         this.postService = postService;
+        this.cd = cd;
         this.selectedLocation = undefined;
         this.postText = undefined;
         this.locationOptions = [];
@@ -7686,39 +7858,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "post",
         value: function () {
-          var _post = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
-            var _this22 = this;
+          var _post = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
+            var _this24 = this;
 
             var loading;
-            return regeneratorRuntime.wrap(function _callee17$(_context17) {
+            return regeneratorRuntime.wrap(function _callee21$(_context21) {
               while (1) {
-                switch (_context17.prev = _context17.next) {
+                switch (_context21.prev = _context21.next) {
                   case 0:
-                    _context17.next = 2;
+                    _context21.next = 2;
                     return this.loadingController.create({// duration: 2000,
                     });
 
                   case 2:
-                    loading = _context17.sent;
-                    _context17.next = 5;
+                    loading = _context21.sent;
+                    _context21.next = 5;
                     return loading.present();
 
                   case 5:
                     this.postService.postsNewPostForm(this.postText, 'image', this.selectedLocation.id, this.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (res) {
                       loading.dismiss();
 
-                      _this22.dismiss();
+                      _this24.dismiss();
                     }, function (err) {
-                      _this22.error = true;
+                      _this24.error = true;
                       loading.dismiss();
                     });
 
                   case 6:
                   case "end":
-                    return _context17.stop();
+                    return _context21.stop();
                 }
               }
-            }, _callee17, this);
+            }, _callee21, this);
           }));
 
           function post() {
@@ -7754,13 +7926,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getUserImage",
         value: function () {
-          var _getUserImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
+          var _getUserImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
             var imageUrl;
-            return regeneratorRuntime.wrap(function _callee18$(_context18) {
+            return regeneratorRuntime.wrap(function _callee22$(_context22) {
               while (1) {
-                switch (_context18.prev = _context18.next) {
+                switch (_context22.prev = _context22.next) {
                   case 0:
-                    _context18.next = 2;
+                    _context22.next = 2;
                     return _capacitor_camera__WEBPACK_IMPORTED_MODULE_1__["Camera"].getPhoto({
                       quality: 90,
                       allowEditing: true,
@@ -7768,7 +7940,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    this.image = _context18.sent;
+                    this.image = _context22.sent;
                     // image.webPath will contain a path that can be set as an image src.
                     // You can access the original file using image.path, which can be
                     // passed to the Filesystem API to read the raw data of the image,
@@ -7777,13 +7949,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                     this.userImage = imageUrl;
                     this.b64toBlob(this.image.dataUrl);
+                    this.cd.detectChanges();
 
-                  case 6:
+                  case 7:
                   case "end":
-                    return _context18.stop();
+                    return _context22.stop();
                 }
               }
-            }, _callee18, this);
+            }, _callee22, this);
           }));
 
           function getUserImage() {
@@ -7798,15 +7971,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     AddPostImagePage.ɵfac = function AddPostImagePage_Factory(t) {
-      return new (t || AddPostImagePage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_5__["LocationSelector"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["PostService"]));
+      return new (t || AddPostImagePage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_5__["LocationSelector"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"]));
     };
 
     AddPostImagePage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
       type: AddPostImagePage,
       selectors: [["app-add-post-image"]],
-      decls: 39,
-      vars: 6,
-      consts: [[1, "splash"], [1, "ion-no-border"], ["color", "#128C7E", 1, "ion-no-border"], [1, "header-grid"], [1, "ion-align-items-baseline"], [1, "ion-justify-content-start"], ["defaultHref", "/tab1", 2, "color", "white", 3, "click"], ["no-bounce", ""], ["expand", "block", "type", "submit", 1, "submit-button", 2, "margin", "0px", "padding", "0px", 3, "click"], [1, "roundedInput"], ["rows", "10", "placeholder", "Caption*", "maxlength", "250", "autocapitalize", "true", "required", "", 3, "ngModel", "ngModelChange"], ["itemValueField", "id", "itemTextField", "name", 3, "ngModel", "items", "canSearch", "ngModelChange"], [1, "validation-errors"], ["class", "error-message", 4, "ngIf"], [1, "button-div"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "disabled", "click"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "click"], [1, "error-message"], ["name", "information-circle-outline"]],
+      decls: 41,
+      vars: 7,
+      consts: [[1, "splash"], [1, "ion-no-border"], ["color", "#128C7E", 1, "ion-no-border"], [1, "header-grid"], [1, "ion-align-items-baseline"], [1, "ion-justify-content-start"], ["defaultHref", "/tab1", 2, "color", "white", 3, "click"], ["no-bounce", "", "scrollY", ""], ["class", "rcorners", 3, "src", "alt", "click", 4, "ngIf"], ["expand", "block", "type", "submit", 1, "submit-button", 2, "margin", "0px", "padding", "0px", 3, "click"], [1, "roundedInput"], ["rows", "5", "placeholder", "Caption*", "maxlength", "250", "autocapitalize", "true", "autocomplete", "\u201Ctrue\u201D", "spellcheck", "\u201Ctrue\u201D", "required", "", 1, "rcorners", 3, "ngModel", "ngModelChange"], ["itemValueField", "id", "itemTextField", "name", 3, "ngModel", "items", "canSearch", "ngModelChange"], [1, "button-div"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "disabled", "click"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "click"], [1, "validation-errors"], ["class", "error-message", 4, "ngIf"], [1, "rcorners", 3, "src", "alt", "click"], [1, "error-message"], ["name", "information-circle-outline"]],
       template: function AddPostImagePage_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -7861,17 +8034,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "ion-row");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "ion-col");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, AddPostImagePage_img_15_Template, 1, 2, "img", 8);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "div");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "ion-button", 8);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "ion-row");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AddPostImagePage_Template_ion_button_click_17_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "ion-col");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "div");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "ion-button", 9);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AddPostImagePage_Template_ion_button_click_19_listener() {
             return ctx.getUserImage();
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](18, "Click here to Upload Image");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](20, "Click here to Upload Image");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -7881,15 +8060,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "ion-row");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "ion-row");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "ion-col");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](22, "ion-col");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "ion-item", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](23, "ion-item", 10);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](22, "ion-textarea", 10);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "ion-textarea", 11);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function AddPostImagePage_Template_ion_textarea_ngModelChange_22_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function AddPostImagePage_Template_ion_textarea_ngModelChange_24_listener($event) {
             return ctx.postText = $event;
           });
 
@@ -7901,21 +8080,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](23, "ion-row");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "ion-row");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "ion-col");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "ion-col");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "ion-item", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "ion-item", 10);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "ion-label");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "ion-label");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](27, "Location*");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](29, "Location*");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "ionic-selectable", 11);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](30, "ionic-selectable", 12);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function AddPostImagePage_Template_ionic_selectable_ngModelChange_28_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function AddPostImagePage_Template_ionic_selectable_ngModelChange_30_listener($event) {
             return ctx.selectedLocation = $event;
           });
 
@@ -7927,21 +8106,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "div", 12);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](30, AddPostImagePage_div_30_Template, 3, 0, "div", 13);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](31, "div", 14);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](31, "div", 13);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](32, "ion-row");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](33, "ion-col");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "ion-button", 15);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "ion-button", 14);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AddPostImagePage_Template_ion_button_click_34_listener() {
             return ctx.post();
@@ -7955,7 +8126,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](36, "ion-col");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](37, "ion-button", 16);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](37, "ion-button", 15);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AddPostImagePage_Template_ion_button_click_37_listener() {
             return ctx.dismiss();
@@ -7973,11 +8144,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](39, "div", 16);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](40, AddPostImagePage_div_40_Template, 3, 0, "div", 17);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
 
         if (rf & 2) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](22);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](15);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.userImage != "../../../assets/UI/clickToUpload.jpg");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.postText);
 
@@ -7985,17 +8168,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.selectedLocation)("items", ctx.locationOptions)("canSearch", true);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.error);
-
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", !ctx.postText && ctx.selectedLocation !== undefined);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", !ctx.postText || !ctx.selectedLocation || ctx.userImage == "../../../assets/UI/clickToUpload.jpg");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.error);
         }
       },
-      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonHeader"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonToolbar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonGrid"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRow"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonCol"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonButtons"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonBackButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonBackButtonDelegate"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonItem"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTextarea"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["TextValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_6__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_6__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_6__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_6__["NgModel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"], ionic_selectable__WEBPACK_IMPORTED_MODULE_7__["IonicSelectableComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonIcon"]],
-      styles: ["ion-content[_ngcontent-%COMP%] {\n  padding-left: 5%;\n  --background: none;\n}\nion-content[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  padding-left: 5%;\n  padding-right: 4%;\n  padding-top: 10%;\n  font-size: 30px;\n  color: white;\n  margin: 0;\n}\nion-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  padding-left: 5%;\n  padding-right: 5%;\n  margin-bottom: 5%;\n  font-size: 17px;\n  color: white;\n}\n.btn[_ngcontent-%COMP%] {\n  border: none;\n  background-color: inherit;\n  font-size: 16px;\n  display: inline-block;\n}\n.submit-button[_ngcontent-%COMP%] {\n  --background: #fff;\n  --background-activated: #fff;\n  --ripple-color: #fff;\n  --background-focused: #fff;\n  --color-focused: #fff;\n  color: #128C7E;\n  --vertical-align: middle;\n  padding-left: 1%;\n  padding-right: 1%;\n}\nion-row[_ngcontent-%COMP%] {\n  padding-left: 3%;\n  padding-right: 3%;\n}\n.button-div[_ngcontent-%COMP%] {\n  padding-top: 0%;\n}\n.rcorners[_ngcontent-%COMP%] {\n  border-radius: 25px;\n  background-position: left top;\n  background-repeat: repeat;\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9CcmVuZGFuR2liZXJzb24vRG9jdW1lbnRzL0Rldi9WaXNpdC9WaXNpdC4vc3JjL2FwcC9wYWdlcy9hZGQtcG9zdC1pbWFnZS9hZGQtcG9zdC1pbWFnZS5wYWdlLnNjc3MiLCJzcmMvYXBwL3BhZ2VzL2FkZC1wb3N0LWltYWdlL2FkZC1wb3N0LWltYWdlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGdCQUFBO0VBQ0Esa0JBQUE7QUNDRjtBRENFO0VBT0UsZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7RUFDQSxTQUFBO0FDTEo7QURRRTtFQUlFLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtFQUNBLGVBQUE7RUFDQSxZQUFBO0FDVEo7QURlQTtFQUNFLFlBQUE7RUFDQSx5QkFBQTtFQUNBLGVBQUE7RUFDQSxxQkFBQTtBQ1pGO0FEZUE7RUFDRSxrQkFBQTtFQUNBLDRCQUFBO0VBQ0Esb0JBQUE7RUFDQSwwQkFBQTtFQUNBLHFCQUFBO0VBQ0EsY0FBQTtFQUVBLHdCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQkFBQTtBQ2JGO0FEZUE7RUFDRSxnQkFBQTtFQUNBLGlCQUFBO0FDWkY7QURlQTtFQUNFLGVBQUE7QUNaRjtBRGVBO0VBQ0UsbUJBQUE7RUFDQSw2QkFBQTtFQUNBLHlCQUFBO0VBQ0EsV0FBQTtBQ1pGIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvYWRkLXBvc3QtaW1hZ2UvYWRkLXBvc3QtaW1hZ2UucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWNvbnRlbnQge1xyXG4gIHBhZGRpbmctbGVmdDogNSU7XHJcbiAgLS1iYWNrZ3JvdW5kOiBub25lO1xyXG5cclxuICBoMSB7XHJcbiAgICAvLyBwYWRkaW5nLWxlZnQ6IDUlO1xyXG4gICAgLy8gcGFkZGluZy10b3A6IDMlO1xyXG4gICAgLy8gZm9udC1zaXplOiA0MHB4O1xyXG4gICAgLy8gZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICAvLyBjb2xvcjogd2hpdGU7XHJcbiAgICAvLyBtYXJnaW46IDA7XHJcbiAgICBwYWRkaW5nLWxlZnQ6IDUlO1xyXG4gICAgcGFkZGluZy1yaWdodDogNCU7XHJcbiAgICBwYWRkaW5nLXRvcDogMTAlO1xyXG4gICAgZm9udC1zaXplOiAzMHB4O1xyXG4gICAgY29sb3I6IHdoaXRlO1xyXG4gICAgbWFyZ2luOiAwO1xyXG4gIH1cclxuXHJcbiAgaDMge1xyXG4gICAgLy8gcGFkZGluZy1sZWZ0OiA1JTtcclxuICAgIC8vIGZvbnQtc2l6ZTogMjBweDtcclxuICAgIC8vIGNvbG9yOiB3aGl0ZTtcclxuICAgIHBhZGRpbmctbGVmdDogNSU7XHJcbiAgICBwYWRkaW5nLXJpZ2h0OiA1JTtcclxuICAgIG1hcmdpbi1ib3R0b206IDUlO1xyXG4gICAgZm9udC1zaXplOiAxN3B4O1xyXG4gICAgY29sb3I6IHdoaXRlO1xyXG4gIH1cclxuXHJcblxyXG59XHJcblxyXG4uYnRuIHtcclxuICBib3JkZXI6IG5vbmU7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogaW5oZXJpdDtcclxuICBmb250LXNpemU6IDE2cHg7XHJcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG59XHJcblxyXG4uc3VibWl0LWJ1dHRvbiB7XHJcbiAgLS1iYWNrZ3JvdW5kOiAjZmZmO1xyXG4gIC0tYmFja2dyb3VuZC1hY3RpdmF0ZWQ6ICNmZmY7XHJcbiAgLS1yaXBwbGUtY29sb3I6ICNmZmY7XHJcbiAgLS1iYWNrZ3JvdW5kLWZvY3VzZWQ6ICNmZmY7XHJcbiAgLS1jb2xvci1mb2N1c2VkOiAjZmZmO1xyXG4gIGNvbG9yOiAjMTI4QzdFO1xyXG5cclxuICAtLXZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XHJcbiAgcGFkZGluZy1sZWZ0OiAxJTtcclxuICBwYWRkaW5nLXJpZ2h0OiAxJTtcclxufVxyXG5pb24tcm93e1xyXG4gIHBhZGRpbmctbGVmdDogMyU7XHJcbiAgcGFkZGluZy1yaWdodDogMyU7XHJcbn1cclxuXHJcbi5idXR0b24tZGl2IHtcclxuICBwYWRkaW5nLXRvcDogMCU7XHJcbn1cclxuXHJcbi5yY29ybmVycyB7XHJcbiAgYm9yZGVyLXJhZGl1czogMjVweDtcclxuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBsZWZ0IHRvcDtcclxuICBiYWNrZ3JvdW5kLXJlcGVhdDogcmVwZWF0O1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59IiwiaW9uLWNvbnRlbnQge1xuICBwYWRkaW5nLWxlZnQ6IDUlO1xuICAtLWJhY2tncm91bmQ6IG5vbmU7XG59XG5pb24tY29udGVudCBoMSB7XG4gIHBhZGRpbmctbGVmdDogNSU7XG4gIHBhZGRpbmctcmlnaHQ6IDQlO1xuICBwYWRkaW5nLXRvcDogMTAlO1xuICBmb250LXNpemU6IDMwcHg7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgbWFyZ2luOiAwO1xufVxuaW9uLWNvbnRlbnQgaDMge1xuICBwYWRkaW5nLWxlZnQ6IDUlO1xuICBwYWRkaW5nLXJpZ2h0OiA1JTtcbiAgbWFyZ2luLWJvdHRvbTogNSU7XG4gIGZvbnQtc2l6ZTogMTdweDtcbiAgY29sb3I6IHdoaXRlO1xufVxuXG4uYnRuIHtcbiAgYm9yZGVyOiBub25lO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBpbmhlcml0O1xuICBmb250LXNpemU6IDE2cHg7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbn1cblxuLnN1Ym1pdC1idXR0b24ge1xuICAtLWJhY2tncm91bmQ6ICNmZmY7XG4gIC0tYmFja2dyb3VuZC1hY3RpdmF0ZWQ6ICNmZmY7XG4gIC0tcmlwcGxlLWNvbG9yOiAjZmZmO1xuICAtLWJhY2tncm91bmQtZm9jdXNlZDogI2ZmZjtcbiAgLS1jb2xvci1mb2N1c2VkOiAjZmZmO1xuICBjb2xvcjogIzEyOEM3RTtcbiAgLS12ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICBwYWRkaW5nLWxlZnQ6IDElO1xuICBwYWRkaW5nLXJpZ2h0OiAxJTtcbn1cblxuaW9uLXJvdyB7XG4gIHBhZGRpbmctbGVmdDogMyU7XG4gIHBhZGRpbmctcmlnaHQ6IDMlO1xufVxuXG4uYnV0dG9uLWRpdiB7XG4gIHBhZGRpbmctdG9wOiAwJTtcbn1cblxuLnJjb3JuZXJzIHtcbiAgYm9yZGVyLXJhZGl1czogMjVweDtcbiAgYmFja2dyb3VuZC1wb3NpdGlvbjogbGVmdCB0b3A7XG4gIGJhY2tncm91bmQtcmVwZWF0OiByZXBlYXQ7XG4gIHdpZHRoOiAxMDAlO1xufSJdfQ== */"]
+      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonHeader"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonToolbar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonGrid"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRow"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonCol"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonButtons"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonBackButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonBackButtonDelegate"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonItem"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTextarea"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["TextValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgModel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"], ionic_selectable__WEBPACK_IMPORTED_MODULE_8__["IonicSelectableComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonIcon"]],
+      styles: ["ion-content[_ngcontent-%COMP%] {\n  padding-left: 5%;\n  --background: none;\n}\nion-content[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  padding-left: 5%;\n  padding-right: 4%;\n  padding-top: 5%;\n  font-size: 30px;\n  color: white;\n  margin: 0;\n}\nion-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  padding-left: 5%;\n  padding-right: 5%;\n  margin-bottom: 5%;\n  font-size: 17px;\n  color: white;\n}\n.btn[_ngcontent-%COMP%] {\n  border: none;\n  background-color: inherit;\n  font-size: 16px;\n  display: inline-block;\n}\n.submit-button[_ngcontent-%COMP%] {\n  --background: #fff;\n  --background-activated: #fff;\n  --ripple-color: #fff;\n  --background-focused: #fff;\n  --color-focused: #fff;\n  color: #128C7E;\n  --vertical-align: middle;\n  padding-left: 1%;\n  padding-right: 1%;\n}\nion-row[_ngcontent-%COMP%] {\n  padding-left: 3%;\n  padding-right: 3%;\n}\n.button-div[_ngcontent-%COMP%] {\n  padding-top: 0%;\n}\n.rcorners[_ngcontent-%COMP%] {\n  border-radius: 25px;\n  background-position: left top;\n  background-repeat: repeat;\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9CcmVuZGFuR2liZXJzb24vRG9jdW1lbnRzL0Rldi9WaXNpdC9WaXNpdC4vc3JjL2FwcC9wYWdlcy9hZGQtcG9zdC1pbWFnZS9hZGQtcG9zdC1pbWFnZS5wYWdlLnNjc3MiLCJzcmMvYXBwL3BhZ2VzL2FkZC1wb3N0LWltYWdlL2FkZC1wb3N0LWltYWdlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGdCQUFBO0VBQ0Esa0JBQUE7QUNDRjtBRENFO0VBT0UsZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLGVBQUE7RUFDQSxlQUFBO0VBQ0EsWUFBQTtFQUNBLFNBQUE7QUNMSjtBRFFFO0VBSUUsZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7QUNUSjtBRGFBO0VBQ0UsWUFBQTtFQUNBLHlCQUFBO0VBQ0EsZUFBQTtFQUNBLHFCQUFBO0FDVkY7QURhQTtFQUNFLGtCQUFBO0VBQ0EsNEJBQUE7RUFDQSxvQkFBQTtFQUNBLDBCQUFBO0VBQ0EscUJBQUE7RUFDQSxjQUFBO0VBRUEsd0JBQUE7RUFDQSxnQkFBQTtFQUNBLGlCQUFBO0FDWEY7QURhQTtFQUNFLGdCQUFBO0VBQ0EsaUJBQUE7QUNWRjtBRGFBO0VBQ0UsZUFBQTtBQ1ZGO0FEYUE7RUFDRSxtQkFBQTtFQUNBLDZCQUFBO0VBQ0EseUJBQUE7RUFDQSxXQUFBO0FDVkYiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9hZGQtcG9zdC1pbWFnZS9hZGQtcG9zdC1pbWFnZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tY29udGVudCB7XHJcbiAgcGFkZGluZy1sZWZ0OiA1JTtcclxuICAtLWJhY2tncm91bmQ6IG5vbmU7XHJcblxyXG4gIGgxIHtcclxuICAgIC8vIHBhZGRpbmctbGVmdDogNSU7XHJcbiAgICAvLyBwYWRkaW5nLXRvcDogMyU7XHJcbiAgICAvLyBmb250LXNpemU6IDQwcHg7XHJcbiAgICAvLyBmb250LXdlaWdodDogYm9sZDtcclxuICAgIC8vIGNvbG9yOiB3aGl0ZTtcclxuICAgIC8vIG1hcmdpbjogMDtcclxuICAgIHBhZGRpbmctbGVmdDogNSU7XHJcbiAgICBwYWRkaW5nLXJpZ2h0OiA0JTtcclxuICAgIHBhZGRpbmctdG9wOiA1JTtcclxuICAgIGZvbnQtc2l6ZTogMzBweDtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgIG1hcmdpbjogMDtcclxuICB9XHJcblxyXG4gIGgzIHtcclxuICAgIC8vIHBhZGRpbmctbGVmdDogNSU7XHJcbiAgICAvLyBmb250LXNpemU6IDIwcHg7XHJcbiAgICAvLyBjb2xvcjogd2hpdGU7XHJcbiAgICBwYWRkaW5nLWxlZnQ6IDUlO1xyXG4gICAgcGFkZGluZy1yaWdodDogNSU7XHJcbiAgICBtYXJnaW4tYm90dG9tOiA1JTtcclxuICAgIGZvbnQtc2l6ZTogMTdweDtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxuICB9XHJcbn1cclxuXHJcbi5idG4ge1xyXG4gIGJvcmRlcjogbm9uZTtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBpbmhlcml0O1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbn1cclxuXHJcbi5zdWJtaXQtYnV0dG9uIHtcclxuICAtLWJhY2tncm91bmQ6ICNmZmY7XHJcbiAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZDogI2ZmZjtcclxuICAtLXJpcHBsZS1jb2xvcjogI2ZmZjtcclxuICAtLWJhY2tncm91bmQtZm9jdXNlZDogI2ZmZjtcclxuICAtLWNvbG9yLWZvY3VzZWQ6ICNmZmY7XHJcbiAgY29sb3I6ICMxMjhDN0U7XHJcblxyXG4gIC0tdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxuICBwYWRkaW5nLWxlZnQ6IDElO1xyXG4gIHBhZGRpbmctcmlnaHQ6IDElO1xyXG59XHJcbmlvbi1yb3d7XHJcbiAgcGFkZGluZy1sZWZ0OiAzJTtcclxuICBwYWRkaW5nLXJpZ2h0OiAzJTtcclxufVxyXG5cclxuLmJ1dHRvbi1kaXYge1xyXG4gIHBhZGRpbmctdG9wOiAwJTtcclxufVxyXG5cclxuLnJjb3JuZXJzIHtcclxuICBib3JkZXItcmFkaXVzOiAyNXB4O1xyXG4gIGJhY2tncm91bmQtcG9zaXRpb246IGxlZnQgdG9wO1xyXG4gIGJhY2tncm91bmQtcmVwZWF0OiByZXBlYXQ7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn0iLCJpb24tY29udGVudCB7XG4gIHBhZGRpbmctbGVmdDogNSU7XG4gIC0tYmFja2dyb3VuZDogbm9uZTtcbn1cbmlvbi1jb250ZW50IGgxIHtcbiAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgcGFkZGluZy1yaWdodDogNCU7XG4gIHBhZGRpbmctdG9wOiA1JTtcbiAgZm9udC1zaXplOiAzMHB4O1xuICBjb2xvcjogd2hpdGU7XG4gIG1hcmdpbjogMDtcbn1cbmlvbi1jb250ZW50IGgzIHtcbiAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgcGFkZGluZy1yaWdodDogNSU7XG4gIG1hcmdpbi1ib3R0b206IDUlO1xuICBmb250LXNpemU6IDE3cHg7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLmJ0biB7XG4gIGJvcmRlcjogbm9uZTtcbiAgYmFja2dyb3VuZC1jb2xvcjogaW5oZXJpdDtcbiAgZm9udC1zaXplOiAxNnB4O1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG59XG5cbi5zdWJtaXQtYnV0dG9uIHtcbiAgLS1iYWNrZ3JvdW5kOiAjZmZmO1xuICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjZmZmO1xuICAtLXJpcHBsZS1jb2xvcjogI2ZmZjtcbiAgLS1iYWNrZ3JvdW5kLWZvY3VzZWQ6ICNmZmY7XG4gIC0tY29sb3ItZm9jdXNlZDogI2ZmZjtcbiAgY29sb3I6ICMxMjhDN0U7XG4gIC0tdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbiAgcGFkZGluZy1sZWZ0OiAxJTtcbiAgcGFkZGluZy1yaWdodDogMSU7XG59XG5cbmlvbi1yb3cge1xuICBwYWRkaW5nLWxlZnQ6IDMlO1xuICBwYWRkaW5nLXJpZ2h0OiAzJTtcbn1cblxuLmJ1dHRvbi1kaXYge1xuICBwYWRkaW5nLXRvcDogMCU7XG59XG5cbi5yY29ybmVycyB7XG4gIGJvcmRlci1yYWRpdXM6IDI1cHg7XG4gIGJhY2tncm91bmQtcG9zaXRpb246IGxlZnQgdG9wO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogcmVwZWF0O1xuICB3aWR0aDogMTAwJTtcbn0iXX0= */"]
     });
     /*@__PURE__*/
 
@@ -8016,6 +8199,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           type: src_app_objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_5__["LocationSelector"]
         }, {
           type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["PostService"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"]
         }];
       }, null);
     })();
@@ -8323,39 +8508,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "post",
         value: function () {
-          var _post2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
-            var _this23 = this;
+          var _post2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
+            var _this25 = this;
 
             var loading;
-            return regeneratorRuntime.wrap(function _callee19$(_context19) {
+            return regeneratorRuntime.wrap(function _callee23$(_context23) {
               while (1) {
-                switch (_context19.prev = _context19.next) {
+                switch (_context23.prev = _context23.next) {
                   case 0:
-                    _context19.next = 2;
+                    _context23.next = 2;
                     return this.loadingController.create({// duration: 2000,
                     });
 
                   case 2:
-                    loading = _context19.sent;
-                    _context19.next = 5;
+                    loading = _context23.sent;
+                    _context23.next = 5;
                     return loading.present();
 
                   case 5:
                     this.postService.postsNewPostForm(this.postText, 'text', this.selectedLocation.id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1)).subscribe(function (res) {
                       loading.dismiss();
 
-                      _this23.dismiss();
+                      _this25.dismiss();
                     }, function (err) {
-                      _this23.error = true;
+                      _this25.error = true;
                       loading.dismiss();
                     });
 
                   case 6:
                   case "end":
-                    return _context19.stop();
+                    return _context23.stop();
                 }
               }
-            }, _callee19, this);
+            }, _callee23, this);
           }));
 
           function post() {
@@ -8830,13 +9015,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(MarkLocationPage, [{
         key: "ionViewWillEnter",
         value: function () {
-          var _ionViewWillEnter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
-            var _this24 = this;
+          var _ionViewWillEnter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+            var _this26 = this;
 
             var userLocations, loading;
-            return regeneratorRuntime.wrap(function _callee20$(_context20) {
+            return regeneratorRuntime.wrap(function _callee24$(_context24) {
               while (1) {
-                switch (_context20.prev = _context20.next) {
+                switch (_context24.prev = _context24.next) {
                   case 0:
                     this.map = new src_app_objects_map__WEBPACK_IMPORTED_MODULE_3__["Map"](this.zone);
                     this.map.addMapToDiv(this.selectionMode, 'mark-map');
@@ -8846,29 +9031,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
 
                     userLocations = this.accountService.storedUserLocations;
-                    _context20.next = 6;
+                    _context24.next = 6;
                     return this.loadingController.create({// duration: 2000,
                     });
 
                   case 6:
-                    loading = _context20.sent;
-                    _context20.next = 9;
+                    loading = _context24.sent;
+                    _context24.next = 9;
                     return loading.present();
 
                   case 9:
                     this.zone.run(function () {
                       userLocations.forEach(function (location) {
-                        _this24.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
+                        _this26.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
                       });
                       loading.dismiss();
                     });
 
                   case 10:
                   case "end":
-                    return _context20.stop();
+                    return _context24.stop();
                 }
               }
-            }, _callee20, this);
+            }, _callee24, this);
           }));
 
           function ionViewWillEnter() {
@@ -8885,10 +9070,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "mapLocationsToRequest",
         value: function mapLocationsToRequest() {
-          var _this25 = this;
+          var _this27 = this;
 
           this.map.changedAreas.forEach(function (location) {
-            _this25.locationRequest.locations[location.locationId] = location.status;
+            _this27.locationRequest.locations[location.locationId] = location.status;
           });
         }
       }, {
@@ -8903,11 +9088,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this26 = this;
+          var _this28 = this;
 
           this.mapLocationsToRequest();
           this.accountService.accountUpdateLocationsPost(this.locationRequest).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function (res) {
-            _this26.dismiss();
+            _this28.dismiss();
           } // (error) => {
           //   this.hasError = true;
           //   this.error = 'An unexpected error has occurred.';
@@ -9308,13 +9493,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(AddPage, [{
         key: "markLocationsToVisit",
         value: function () {
-          var _markLocationsToVisit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
+          var _markLocationsToVisit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
             var modal;
-            return regeneratorRuntime.wrap(function _callee21$(_context21) {
+            return regeneratorRuntime.wrap(function _callee25$(_context25) {
               while (1) {
-                switch (_context21.prev = _context21.next) {
+                switch (_context25.prev = _context25.next) {
                   case 0:
-                    _context21.next = 2;
+                    _context25.next = 2;
                     return this.modalCtrl.create({
                       component: _mark_location_mark_location_page__WEBPACK_IMPORTED_MODULE_4__["MarkLocationPage"],
                       componentProps: {
@@ -9323,19 +9508,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    modal = _context21.sent;
-                    _context21.next = 5;
+                    modal = _context25.sent;
+                    _context25.next = 5;
                     return modal.present();
 
                   case 5:
-                    return _context21.abrupt("return", _context21.sent);
+                    return _context25.abrupt("return", _context25.sent);
 
                   case 6:
                   case "end":
-                    return _context21.stop();
+                    return _context25.stop();
                 }
               }
-            }, _callee21, this);
+            }, _callee25, this);
           }));
 
           function markLocationsToVisit() {
@@ -9347,13 +9532,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "markVisitedLocations",
         value: function () {
-          var _markVisitedLocations = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
+          var _markVisitedLocations = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
             var modal;
-            return regeneratorRuntime.wrap(function _callee22$(_context22) {
+            return regeneratorRuntime.wrap(function _callee26$(_context26) {
               while (1) {
-                switch (_context22.prev = _context22.next) {
+                switch (_context26.prev = _context26.next) {
                   case 0:
-                    _context22.next = 2;
+                    _context26.next = 2;
                     return this.modalCtrl.create({
                       component: _mark_location_mark_location_page__WEBPACK_IMPORTED_MODULE_4__["MarkLocationPage"],
                       componentProps: {
@@ -9362,19 +9547,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    modal = _context22.sent;
-                    _context22.next = 5;
+                    modal = _context26.sent;
+                    _context26.next = 5;
                     return modal.present();
 
                   case 5:
-                    return _context22.abrupt("return", _context22.sent);
+                    return _context26.abrupt("return", _context26.sent);
 
                   case 6:
                   case "end":
-                    return _context22.stop();
+                    return _context26.stop();
                 }
               }
-            }, _callee22, this);
+            }, _callee26, this);
           }));
 
           function markVisitedLocations() {
@@ -9386,32 +9571,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addNewPost",
         value: function () {
-          var _addNewPost = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
+          var _addNewPost = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
             var modal;
-            return regeneratorRuntime.wrap(function _callee23$(_context23) {
+            return regeneratorRuntime.wrap(function _callee27$(_context27) {
               while (1) {
-                switch (_context23.prev = _context23.next) {
+                switch (_context27.prev = _context27.next) {
                   case 0:
-                    _context23.next = 2;
+                    _context27.next = 2;
                     return this.modalCtrl.create({
                       component: _add_post_add_post_page__WEBPACK_IMPORTED_MODULE_5__["AddPostPage"],
                       componentProps: {}
                     });
 
                   case 2:
-                    modal = _context23.sent;
-                    _context23.next = 5;
+                    modal = _context27.sent;
+                    _context27.next = 5;
                     return modal.present();
 
                   case 5:
-                    return _context23.abrupt("return", _context23.sent);
+                    return _context27.abrupt("return", _context27.sent);
 
                   case 6:
                   case "end":
-                    return _context23.stop();
+                    return _context27.stop();
                 }
               }
-            }, _callee23, this);
+            }, _callee27, this);
           }));
 
           function addNewPost() {
@@ -9423,32 +9608,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addNewImage",
         value: function () {
-          var _addNewImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+          var _addNewImage = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
             var modal;
-            return regeneratorRuntime.wrap(function _callee24$(_context24) {
+            return regeneratorRuntime.wrap(function _callee28$(_context28) {
               while (1) {
-                switch (_context24.prev = _context24.next) {
+                switch (_context28.prev = _context28.next) {
                   case 0:
-                    _context24.next = 2;
+                    _context28.next = 2;
                     return this.modalCtrl.create({
                       component: _add_post_image_add_post_image_page__WEBPACK_IMPORTED_MODULE_6__["AddPostImagePage"],
                       componentProps: {}
                     });
 
                   case 2:
-                    modal = _context24.sent;
-                    _context24.next = 5;
+                    modal = _context28.sent;
+                    _context28.next = 5;
                     return modal.present();
 
                   case 5:
-                    return _context24.abrupt("return", _context24.sent);
+                    return _context28.abrupt("return", _context28.sent);
 
                   case 6:
                   case "end":
-                    return _context24.stop();
+                    return _context28.stop();
                 }
               }
-            }, _callee24, this);
+            }, _callee28, this);
           }));
 
           function addNewImage() {
@@ -9887,20 +10072,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "closeModal",
         value: function () {
-          var _closeModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
-            return regeneratorRuntime.wrap(function _callee25$(_context25) {
+          var _closeModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
+            return regeneratorRuntime.wrap(function _callee29$(_context29) {
               while (1) {
-                switch (_context25.prev = _context25.next) {
+                switch (_context29.prev = _context29.next) {
                   case 0:
-                    _context25.next = 2;
+                    _context29.next = 2;
                     return this.modalController.dismiss();
 
                   case 2:
                   case "end":
-                    return _context25.stop();
+                    return _context29.stop();
                 }
               }
-            }, _callee25, this);
+            }, _callee29, this);
           }));
 
           function closeModal() {
@@ -9912,23 +10097,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function () {
-          var _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
-            var _this27 = this;
+          var _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
+            var _this29 = this;
 
-            return regeneratorRuntime.wrap(function _callee26$(_context26) {
+            return regeneratorRuntime.wrap(function _callee30$(_context30) {
               while (1) {
-                switch (_context26.prev = _context26.next) {
+                switch (_context30.prev = _context30.next) {
                   case 0:
                     this.accountService.PasswordRecover(this.userEmail).then(function () {
-                      return _this27.closeModal();
+                      return _this29.closeModal();
                     });
 
                   case 1:
                   case "end":
-                    return _context26.stop();
+                    return _context30.stop();
                 }
               }
-            }, _callee26, this);
+            }, _callee30, this);
           }));
 
           function onSubmit() {
@@ -10413,13 +10598,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ionViewWillEnter",
         value: function () {
-          var _ionViewWillEnter2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
-            var _this28 = this;
+          var _ionViewWillEnter2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
+            var _this30 = this;
 
             var userLocations, loading;
-            return regeneratorRuntime.wrap(function _callee27$(_context27) {
+            return regeneratorRuntime.wrap(function _callee31$(_context31) {
               while (1) {
-                switch (_context27.prev = _context27.next) {
+                switch (_context31.prev = _context31.next) {
                   case 0:
                     this.map = new _objects_map__WEBPACK_IMPORTED_MODULE_1__["Map"](this.zone);
                     this.map.addMapToDiv(this.selectionMode, 'filter-map');
@@ -10431,29 +10616,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       userLocations = this.accountService.storedUserLocations;
                     }
 
-                    _context27.next = 6;
+                    _context31.next = 6;
                     return this.loadingController.create({// duration: 2000,
                     });
 
                   case 6:
-                    loading = _context27.sent;
-                    _context27.next = 9;
+                    loading = _context31.sent;
+                    _context31.next = 9;
                     return loading.present();
 
                   case 9:
                     this.zone.run(function () {
                       userLocations.forEach(function (location) {
-                        _this28.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
+                        _this30.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
                       });
-                      loading.dismiss();
                     });
+                    loading.dismiss();
 
-                  case 10:
+                  case 11:
                   case "end":
-                    return _context27.stop();
+                    return _context31.stop();
                 }
               }
-            }, _callee27, this);
+            }, _callee31, this);
           }));
 
           function ionViewWillEnter() {
@@ -10470,20 +10655,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ionViewWillLeave",
         value: function () {
-          var _ionViewWillLeave = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
-            return regeneratorRuntime.wrap(function _callee28$(_context28) {
+          var _ionViewWillLeave = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
+            return regeneratorRuntime.wrap(function _callee32$(_context32) {
               while (1) {
-                switch (_context28.prev = _context28.next) {
+                switch (_context32.prev = _context32.next) {
                   case 0:
-                    _context28.next = 2;
+                    _context32.next = 2;
                     return this.closeModal();
 
                   case 2:
                   case "end":
-                    return _context28.stop();
+                    return _context32.stop();
                 }
               }
-            }, _callee28, this);
+            }, _callee32, this);
           }));
 
           function ionViewWillLeave() {
@@ -10495,21 +10680,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "resetFilter",
         value: function () {
-          var _resetFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
-            return regeneratorRuntime.wrap(function _callee29$(_context29) {
+          var _resetFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
+            return regeneratorRuntime.wrap(function _callee33$(_context33) {
               while (1) {
-                switch (_context29.prev = _context29.next) {
+                switch (_context33.prev = _context33.next) {
                   case 0:
                     this.filter = '';
-                    _context29.next = 3;
+                    _context33.next = 3;
                     return this.closeModal();
 
                   case 3:
                   case "end":
-                    return _context29.stop();
+                    return _context33.stop();
                 }
               }
-            }, _callee29, this);
+            }, _callee33, this);
           }));
 
           function resetFilter() {
@@ -10521,24 +10706,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "filterSubmit",
         value: function () {
-          var _filterSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
-            return regeneratorRuntime.wrap(function _callee30$(_context30) {
+          var _filterSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
+            return regeneratorRuntime.wrap(function _callee34$(_context34) {
               while (1) {
-                switch (_context30.prev = _context30.next) {
+                switch (_context34.prev = _context34.next) {
                   case 0:
                     if (this.map.selectedArr.length > 0) {
                       this.filter = this.map.changedAreas[0].locationId;
                     }
 
-                    _context30.next = 3;
+                    _context34.next = 3;
                     return this.closeModal();
 
                   case 3:
                   case "end":
-                    return _context30.stop();
+                    return _context34.stop();
                 }
               }
-            }, _callee30, this);
+            }, _callee34, this);
           }));
 
           function filterSubmit() {
@@ -10550,34 +10735,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "closeModal",
         value: function () {
-          var _closeModal2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
+          var _closeModal2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
             var loading, onClosedData;
-            return regeneratorRuntime.wrap(function _callee31$(_context31) {
+            return regeneratorRuntime.wrap(function _callee35$(_context35) {
               while (1) {
-                switch (_context31.prev = _context31.next) {
+                switch (_context35.prev = _context35.next) {
                   case 0:
-                    _context31.next = 2;
+                    _context35.next = 2;
                     return this.loadingController.create({// duration: 2000,
                     });
 
                   case 2:
-                    loading = _context31.sent;
-                    _context31.next = 5;
+                    loading = _context35.sent;
+                    _context35.next = 5;
                     return loading.present();
 
                   case 5:
                     onClosedData = this.filter;
                     this.map.destroyMap();
                     loading.dismiss();
-                    _context31.next = 10;
+                    _context35.next = 10;
                     return this.modalController.dismiss(onClosedData);
 
                   case 10:
                   case "end":
-                    return _context31.stop();
+                    return _context35.stop();
                 }
               }
-            }, _callee31, this);
+            }, _callee35, this);
           }));
 
           function closeModal() {
@@ -11065,16 +11250,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "search",
         value: function search() {
-          var _this29 = this;
+          var _this31 = this;
 
           this.userService.userSearchQueryGet(this.searchQuery).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (users) {
-            _this29.people.next(users);
+            _this31.people.next(users);
           });
         }
       }, {
         key: "goToProfile",
         value: function goToProfile(user) {
-          var _this30 = this;
+          var _this32 = this;
 
           var navigationExtras = {
             replaceUrl: true,
@@ -11086,7 +11271,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var onClosedData = user.id;
           this.viewCtrl.dismiss(onClosedData);
           this.zone.run(function () {
-            _this30.router.navigateByUrl('/user-profile', navigationExtras);
+            _this32.router.navigateByUrl('/user-profile', navigationExtras);
           });
         }
       }, {
@@ -11426,8 +11611,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./src/app/backend/clients/index.ts");
 
     var UserSettingsPage = /*#__PURE__*/function () {
-      function UserSettingsPage(router, loadingController, route, navCtrl, modalController, accountService) {
-        var _this31 = this;
+      function UserSettingsPage(router, loadingController, route, navCtrl, modalController, accountService, cd) {
+        var _this33 = this;
 
         _classCallCheck(this, UserSettingsPage);
 
@@ -11437,11 +11622,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.navCtrl = navCtrl;
         this.modalController = modalController;
         this.accountService = accountService;
+        this.cd = cd;
         this.userImage = '../../../assets/UI/profilePicUpload.svg';
         this.blob = undefined; // this.route.params.subscribe(params => {
 
         this.route.params.subscribe(function (params) {
-          _this31.user = params;
+          _this33.user = params;
           console.log(params);
         }); // this.user = this.navParams.data.user;
         // this.userImage = this.user.avi;
@@ -11473,21 +11659,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function () {
-          var _onSubmit2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
-            var _this32 = this;
+          var _onSubmit2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
+            var _this34 = this;
 
             var loading, firstName, lastName, title, education, birthPlace, residence;
-            return regeneratorRuntime.wrap(function _callee33$(_context33) {
+            return regeneratorRuntime.wrap(function _callee37$(_context37) {
               while (1) {
-                switch (_context33.prev = _context33.next) {
+                switch (_context37.prev = _context37.next) {
                   case 0:
-                    _context33.next = 2;
+                    _context37.next = 2;
                     return this.loadingController.create({// duration: 2000,
                     });
 
                   case 2:
-                    loading = _context33.sent;
-                    _context33.next = 5;
+                    loading = _context37.sent;
+                    _context37.next = 5;
                     return loading.present();
 
                   case 5:
@@ -11498,38 +11684,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     birthPlace = this.aboutForm.controls.birthPlace.value === '' ? this.user.birthLocation : this.aboutForm.controls.birthPlace.value;
                     residence = this.aboutForm.controls.residence.value === '' ? this.user.residenceLocation : this.aboutForm.controls.residence.value; // todo create a forkjoin or something here to make these run together
 
-                    this.accountService.accountUpdatePost(firstName, lastName, title, education, birthPlace, residence).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
-                      return regeneratorRuntime.wrap(function _callee32$(_context32) {
+                    this.accountService.accountUpdatePost(firstName, lastName, title, education, birthPlace, residence).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
+                      return regeneratorRuntime.wrap(function _callee36$(_context36) {
                         while (1) {
-                          switch (_context32.prev = _context32.next) {
+                          switch (_context36.prev = _context36.next) {
                             case 0:
-                              if (_this32.blob !== undefined) {
-                                _this32.accountService.accountUpdateProfileImagePost(_this32.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function () {});
+                              if (_this34.blob !== undefined) {
+                                _this34.accountService.accountUpdateProfileImagePost(_this34.blob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function () {});
                               }
 
-                              _context32.next = 3;
+                              _context36.next = 3;
                               return loading.dismiss();
 
                             case 3:
                               // this.dismiss();
                               // alert('hii');
-                              _this32.router.navigateByUrl('/user-profile'); // this.navCtrl.setRoot(this.navCtrl.getActive().component);
+                              _this34.router.navigateByUrl('/user-profile'); // this.navCtrl.setRoot(this.navCtrl.getActive().component);
 
 
                             case 4:
                             case "end":
-                              return _context32.stop();
+                              return _context36.stop();
                           }
                         }
-                      }, _callee32);
+                      }, _callee36);
                     })));
 
                   case 12:
                   case "end":
-                    return _context33.stop();
+                    return _context37.stop();
                 }
               }
-            }, _callee33, this);
+            }, _callee37, this);
           }));
 
           function onSubmit() {
@@ -11556,13 +11742,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getUserImage",
         value: function () {
-          var _getUserImage2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
+          var _getUserImage2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
             var imageUrl;
-            return regeneratorRuntime.wrap(function _callee34$(_context34) {
+            return regeneratorRuntime.wrap(function _callee38$(_context38) {
               while (1) {
-                switch (_context34.prev = _context34.next) {
+                switch (_context38.prev = _context38.next) {
                   case 0:
-                    _context34.next = 2;
+                    _context38.next = 2;
                     return _capacitor_camera__WEBPACK_IMPORTED_MODULE_3__["Camera"].getPhoto({
                       quality: 90,
                       allowEditing: true,
@@ -11570,7 +11756,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    this.image = _context34.sent;
+                    this.image = _context38.sent;
                     // image.webPath will contain a path that can be set as an image src.
                     // You can access the original file using image.path, which can be
                     // passed to the Filesystem API to read the raw data of the image,
@@ -11579,13 +11765,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                     this.userImage = imageUrl;
                     this.b64toBlob(this.image.dataUrl);
+                    this.cd.detectChanges();
 
-                  case 6:
+                  case 7:
                   case "end":
-                    return _context34.stop();
+                    return _context38.stop();
                 }
               }
-            }, _callee34, this);
+            }, _callee38, this);
           }));
 
           function getUserImage() {
@@ -11601,12 +11788,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "logout",
         value: function () {
-          var _logout2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
-            return regeneratorRuntime.wrap(function _callee35$(_context35) {
+          var _logout2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
+            return regeneratorRuntime.wrap(function _callee39$(_context39) {
               while (1) {
-                switch (_context35.prev = _context35.next) {
+                switch (_context39.prev = _context39.next) {
                   case 0:
-                    _context35.next = 2;
+                    _context39.next = 2;
                     return this.accountService.logout();
 
                   case 2:
@@ -11614,10 +11801,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 3:
                   case "end":
-                    return _context35.stop();
+                    return _context39.stop();
                 }
               }
-            }, _callee35, this);
+            }, _callee39, this);
           }));
 
           function logout() {
@@ -11632,7 +11819,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     UserSettingsPage.ɵfac = function UserSettingsPage_Factory(t) {
-      return new (t || UserSettingsPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["AccountsService"]));
+      return new (t || UserSettingsPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"]));
     };
 
     UserSettingsPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -11926,6 +12113,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]
         }, {
           type: src_app_backend_clients__WEBPACK_IMPORTED_MODULE_6__["AccountsService"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"]
         }];
       }, null);
     })();
@@ -12186,7 +12375,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var UserTimelinePage = /*#__PURE__*/function () {
       function UserTimelinePage(modalController, loadingController, accountService, postService, zone, router, route, imgview) {
-        var _this33 = this;
+        var _this35 = this;
 
         _classCallCheck(this, UserTimelinePage);
 
@@ -12210,43 +12399,43 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
         };
         this.route.queryParams.subscribe(function (params) {
-          if (_this33.router.getCurrentNavigation().extras.state) {
-            _this33.selectedUserId = _this33.router.getCurrentNavigation().extras.state.userId;
-            _this33.userLocations = _this33.router.getCurrentNavigation().extras.state.userLocations;
+          if (_this35.router.getCurrentNavigation().extras.state) {
+            _this35.selectedUserId = _this35.router.getCurrentNavigation().extras.state.userId;
+            _this35.userLocations = _this35.router.getCurrentNavigation().extras.state.userLocations;
 
-            _this33.refreshPosts();
+            _this35.refreshPosts();
           }
 
-          console.log(_this33.selectedUserId);
+          console.log(_this35.selectedUserId);
         });
       }
 
       _createClass(UserTimelinePage, [{
         key: "getPosts",
         value: function getPosts(event) {
-          var _this34 = this;
+          var _this36 = this;
 
           if (this.morePages) {
             this.postService.postsPageGet(this.pageNumber + 1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe(function (res) {
-              _this34.morePages = res.hasNextPage;
-              _this34.pageNumber = res.pageIndex; // TODO The posts shouldn't be overwritten here but rather appended... not working though
+              _this36.morePages = res.hasNextPage;
+              _this36.pageNumber = res.pageIndex; // TODO The posts shouldn't be overwritten here but rather appended... not working though
 
-              if (_this34.posts.length === 0) {
-                _this34.posts = [];
+              if (_this36.posts.length === 0) {
+                _this36.posts = [];
               } else {
-                var oldposts = _this34.posts;
-                _this34.posts = [];
+                var oldposts = _this36.posts;
+                _this36.posts = [];
                 var oldResLen = oldposts.length;
 
                 for (var i = 0; i < oldResLen; i++) {
-                  _this34.posts.push(oldposts[i]);
+                  _this36.posts.push(oldposts[i]);
                 }
               }
 
               var resLen = res.items.length;
 
               for (var _i = 0; _i < resLen; _i++) {
-                _this34.posts.push(res.items[_i]);
+                _this36.posts.push(res.items[_i]);
               } // this.posts = res.items;
 
 
@@ -12261,12 +12450,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "refreshPosts",
         value: function refreshPosts(event) {
-          var _this35 = this;
+          var _this37 = this;
 
           this.postService.postsPageGet(1, this.filter, this.selectedUserId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe(function (res) {
-            _this35.morePages = res.hasNextPage;
-            _this35.pageNumber = res.pageIndex;
-            _this35.posts = res.items;
+            _this37.morePages = res.hasNextPage;
+            _this37.pageNumber = res.pageIndex;
+            _this37.posts = res.items;
 
             if (event) {
               event.target.complete();
@@ -12276,10 +12465,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "presentSearchModal",
         value: function () {
-          var _presentSearchModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
-            return regeneratorRuntime.wrap(function _callee36$(_context36) {
+          var _presentSearchModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
+            return regeneratorRuntime.wrap(function _callee40$(_context40) {
               while (1) {
-                switch (_context36.prev = _context36.next) {
+                switch (_context40.prev = _context40.next) {
                   case 0:
                     this.router.navigateByUrl('/search'); // const modal = await this.modalController.create({
                     //   component: SearchPage,
@@ -12291,10 +12480,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 1:
                   case "end":
-                    return _context36.stop();
+                    return _context40.stop();
                 }
               }
-            }, _callee36, this);
+            }, _callee40, this);
           }));
 
           function presentSearchModal() {
@@ -12306,7 +12495,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openProfile",
         value: function openProfile() {
-          var _this36 = this;
+          var _this38 = this;
 
           var navigationExtras = {
             replaceUrl: true,
@@ -12316,21 +12505,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           };
           this.zone.run(function () {
-            _this36.router.navigateByUrl('/user-profile', navigationExtras);
+            _this38.router.navigateByUrl('/user-profile', navigationExtras);
           });
         }
       }, {
         key: "presentMapFilter",
         value: function () {
-          var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
-            var _this37 = this;
+          var _presentMapFilter = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
+            var _this39 = this;
 
             var modal;
-            return regeneratorRuntime.wrap(function _callee38$(_context38) {
+            return regeneratorRuntime.wrap(function _callee42$(_context42) {
               while (1) {
-                switch (_context38.prev = _context38.next) {
+                switch (_context42.prev = _context42.next) {
                   case 0:
-                    _context38.next = 2;
+                    _context42.next = 2;
                     return this.modalController.create({
                       component: _modals_map_filter_map_filter_page__WEBPACK_IMPORTED_MODULE_2__["MapFilterPage"],
                       showBackdrop: true,
@@ -12342,43 +12531,43 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    modal = _context38.sent;
+                    modal = _context42.sent;
                     modal.onDidDismiss().then( /*#__PURE__*/function () {
-                      var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee37(dataReturned) {
-                        return regeneratorRuntime.wrap(function _callee37$(_context37) {
+                      var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee41(dataReturned) {
+                        return regeneratorRuntime.wrap(function _callee41$(_context41) {
                           while (1) {
-                            switch (_context37.prev = _context37.next) {
+                            switch (_context41.prev = _context41.next) {
                               case 0:
                                 if (dataReturned !== null) {
-                                  _this37.filter = dataReturned.data;
+                                  _this39.filter = dataReturned.data;
 
-                                  _this37.refreshPosts();
+                                  _this39.refreshPosts();
                                 }
 
                               case 1:
                               case "end":
-                                return _context37.stop();
+                                return _context41.stop();
                             }
                           }
-                        }, _callee37);
+                        }, _callee41);
                       }));
 
-                      return function (_x16) {
-                        return _ref8.apply(this, arguments);
+                      return function (_x19) {
+                        return _ref11.apply(this, arguments);
                       };
                     }());
-                    _context38.next = 6;
+                    _context42.next = 6;
                     return modal.present();
 
                   case 6:
-                    return _context38.abrupt("return", _context38.sent);
+                    return _context42.abrupt("return", _context42.sent);
 
                   case 7:
                   case "end":
-                    return _context38.stop();
+                    return _context42.stop();
                 }
               }
-            }, _callee38, this);
+            }, _callee42, this);
           }));
 
           function presentMapFilter() {
