@@ -479,7 +479,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_modal_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/modal.service */ "./src/app/services/modal.service.ts");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! firebase/app */ "./node_modules/firebase/app/dist/index.esm.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var _backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./backend/services/firebase-analytics.service */ "./src/app/backend/services/firebase-analytics.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+
+
 
 
 
@@ -527,7 +530,7 @@ function AppComponent_ion_fab_4_Template(rf, ctx) { if (rf & 1) {
 } }
 const fcm = new _capacitor_community_fcm__WEBPACK_IMPORTED_MODULE_6__["FCM"]();
 class AppComponent {
-    constructor(platform, userService, modalController, alertController, router, zone, modalSvc) {
+    constructor(platform, userService, modalController, alertController, router, zone, modalSvc, analyticsSvc) {
         this.platform = platform;
         this.userService = userService;
         this.modalController = modalController;
@@ -535,11 +538,13 @@ class AppComponent {
         this.router = router;
         this.zone = zone;
         this.modalSvc = modalSvc;
+        this.analyticsSvc = analyticsSvc;
         this.platform.ready().then(() => {
             this.initializeApp();
         });
     }
-    ngOnInit() { }
+    ngOnInit() {
+    }
     initializeApp() {
         this.platform.ready().then(() => {
             if (_capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Capacitor"].isPluginAvailable('StatusBar')) {
@@ -561,7 +566,8 @@ class AppComponent {
                 }
             });
         });
-        firebase_app__WEBPACK_IMPORTED_MODULE_13__["default"].initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].firebaseConfig);
+        firebase_app__WEBPACK_IMPORTED_MODULE_13__["default"].initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].firebaseConfig)
+            .analytics().setAnalyticsCollectionEnabled(true);
     }
     registerPush() {
         _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_5__["PushNotifications"].requestPermissions().then((result) => {
@@ -659,7 +665,7 @@ class AppComponent {
         return await modal.present();
     }
 }
-AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_10__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_modal_service__WEBPACK_IMPORTED_MODULE_11__["ModalService"])); };
+AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_10__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_modal_service__WEBPACK_IMPORTED_MODULE_11__["ModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_14__["FirebaseAnalyticsService"])); };
 AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 5, vars: 2, consts: [["slot", "bottom", 4, "ngIf"], ["horizontal", "center", "vertical", "bottom", 4, "ngIf"], ["slot", "bottom"], ["tab", "tab1"], ["name", "home-outline"], ["tab", "tab2"], ["name", "notifications-outline"], ["horizontal", "center", "vertical", "bottom"], [1, "add-button", 3, "click"], ["name", "add", 2, "height", "50", "width", "20"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-app");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "ion-router-outlet");
@@ -673,7 +679,7 @@ AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.showFooter);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.showFooter);
-    } }, directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonApp"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRouterOutlet"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabs"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabBar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFabButton"]], styles: ["ion-tab-button[_ngcontent-%COMP%] {\n  --color-selected: #128C7E;\n}\n\n.add-button[_ngcontent-%COMP%] {\n  --background: #128C7E;\n  --background-activated: #128C7E;\n  --ripple-color: #128C7E;\n  --background-focused: #128C7E;\n  --color-focused: #128C7E;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9CcmVuZGFuR2liZXJzb24vRG9jdW1lbnRzL0Rldi9WaXNpdC9WaXNpdC4vc3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUFBO0FDQ0o7O0FERUE7RUFDSSxxQkFBQTtFQUNBLCtCQUFBO0VBQ0EsdUJBQUE7RUFDQSw2QkFBQTtFQUNBLHdCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tdGFiLWJ1dHRvbiB7XHJcbiAgICAtLWNvbG9yLXNlbGVjdGVkOiAjMTI4QzdFO1xyXG59XHJcblxyXG4uYWRkLWJ1dHRvbiB7XHJcbiAgICAtLWJhY2tncm91bmQ6ICMxMjhDN0U7XHJcbiAgICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjMTI4QzdFO1xyXG4gICAgLS1yaXBwbGUtY29sb3I6ICMxMjhDN0U7XHJcbiAgICAtLWJhY2tncm91bmQtZm9jdXNlZDogIzEyOEM3RTtcclxuICAgIC0tY29sb3ItZm9jdXNlZDogIzEyOEM3RTtcclxufSIsImlvbi10YWItYnV0dG9uIHtcbiAgLS1jb2xvci1zZWxlY3RlZDogIzEyOEM3RTtcbn1cblxuLmFkZC1idXR0b24ge1xuICAtLWJhY2tncm91bmQ6ICMxMjhDN0U7XG4gIC0tYmFja2dyb3VuZC1hY3RpdmF0ZWQ6ICMxMjhDN0U7XG4gIC0tcmlwcGxlLWNvbG9yOiAjMTI4QzdFO1xuICAtLWJhY2tncm91bmQtZm9jdXNlZDogIzEyOEM3RTtcbiAgLS1jb2xvci1mb2N1c2VkOiAjMTI4QzdFO1xufSJdfQ== */"] });
+    } }, directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonApp"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRouterOutlet"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabs"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabBar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFabButton"]], styles: ["ion-tab-button[_ngcontent-%COMP%] {\n  --color-selected: #128C7E;\n}\n\n.add-button[_ngcontent-%COMP%] {\n  --background: #128C7E;\n  --background-activated: #128C7E;\n  --ripple-color: #128C7E;\n  --background-focused: #128C7E;\n  --color-focused: #128C7E;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9CcmVuZGFuR2liZXJzb24vRG9jdW1lbnRzL0Rldi9WaXNpdC9WaXNpdC4vc3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUFBO0FDQ0o7O0FERUE7RUFDSSxxQkFBQTtFQUNBLCtCQUFBO0VBQ0EsdUJBQUE7RUFDQSw2QkFBQTtFQUNBLHdCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tdGFiLWJ1dHRvbiB7XHJcbiAgICAtLWNvbG9yLXNlbGVjdGVkOiAjMTI4QzdFO1xyXG59XHJcblxyXG4uYWRkLWJ1dHRvbiB7XHJcbiAgICAtLWJhY2tncm91bmQ6ICMxMjhDN0U7XHJcbiAgICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjMTI4QzdFO1xyXG4gICAgLS1yaXBwbGUtY29sb3I6ICMxMjhDN0U7XHJcbiAgICAtLWJhY2tncm91bmQtZm9jdXNlZDogIzEyOEM3RTtcclxuICAgIC0tY29sb3ItZm9jdXNlZDogIzEyOEM3RTtcclxufSIsImlvbi10YWItYnV0dG9uIHtcbiAgLS1jb2xvci1zZWxlY3RlZDogIzEyOEM3RTtcbn1cblxuLmFkZC1idXR0b24ge1xuICAtLWJhY2tncm91bmQ6ICMxMjhDN0U7XG4gIC0tYmFja2dyb3VuZC1hY3RpdmF0ZWQ6ICMxMjhDN0U7XG4gIC0tcmlwcGxlLWNvbG9yOiAjMTI4QzdFO1xuICAtLWJhY2tncm91bmQtZm9jdXNlZDogIzEyOEM3RTtcbiAgLS1jb2xvci1mb2N1c2VkOiAjMTI4QzdFO1xufSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -681,7 +687,7 @@ AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
                 templateUrl: 'app.component.html',
                 styleUrls: ['app.component.scss'],
             }]
-    }], function () { return [{ type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] }, { type: _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_10__["AccountsService"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }, { type: _services_modal_service__WEBPACK_IMPORTED_MODULE_11__["ModalService"] }]; }, null); })();
+    }], function () { return [{ type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] }, { type: _backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_10__["AccountsService"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }, { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }, { type: _services_modal_service__WEBPACK_IMPORTED_MODULE_11__["ModalService"] }, { type: _backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_14__["FirebaseAnalyticsService"] }]; }, null); })();
 
 
 /***/ }),
@@ -725,6 +731,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_ionic_image_viewer__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ngx-ionic-image-viewer */ "./node_modules/ngx-ionic-image-viewer/__ivy_ngcc__/fesm2015/ngx-ionic-image-viewer.js");
 /* harmony import */ var ng2_search_filter__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ng2-search-filter */ "./node_modules/ng2-search-filter/__ivy_ngcc__/ng2-search-filter.js");
 /* harmony import */ var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ionic-native/facebook/ngx */ "./node_modules/@ionic-native/facebook/ngx/index.js");
+/* harmony import */ var _backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./backend/services/firebase-analytics.service */ "./src/app/backend/services/firebase-analytics.service.ts");
+
 
 
 
@@ -766,6 +774,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector
         _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"],
         _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"],
         _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"],
+        _backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_29__["FirebaseAnalyticsService"],
         _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"],
         _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"],
         _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_28__["Facebook"],
@@ -840,6 +849,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector
                     _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"],
                     _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"],
                     _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"],
+                    _backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_29__["FirebaseAnalyticsService"],
                     _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"],
                     _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"],
                     _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_28__["Facebook"],
@@ -4030,6 +4040,84 @@ AuthGuard.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjecta
 
 /***/ }),
 
+/***/ "./src/app/backend/services/firebase-analytics.service.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/backend/services/firebase-analytics.service.ts ***!
+  \****************************************************************/
+/*! exports provided: FirebaseAnalyticsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FirebaseAnalyticsService", function() { return FirebaseAnalyticsService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @capacitor-community/firebase-analytics */ "./node_modules/@capacitor-community/firebase-analytics/dist/esm/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../clients/api/accounts.service */ "./src/app/backend/clients/api/accounts.service.ts");
+
+// Init for the web
+
+
+
+
+
+class FirebaseAnalyticsService {
+    constructor(userService) {
+        this.userService = userService;
+        this.analyticsEnabled = true;
+        _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].initializeFirebase(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].firebaseConfig).then(() => {
+            _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].enable();
+            _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].setCollectionEnabled({ enabled: true });
+        });
+    }
+    setUser(userId) {
+        // Use Firebase Auth uid
+        _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].setUserId({
+            userId: this.userService.getUserId()
+        });
+    }
+    setProperty(name, value) {
+        _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].setUserProperty({
+            name,
+            value,
+        });
+    }
+    logEvent(name, params) {
+        _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].logEvent({
+            name,
+            params
+        });
+    }
+    setScreenName(screenName) {
+        _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].setScreenName({
+            screenName
+        });
+    }
+    enableAnalytics() {
+        _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].enable();
+        this.analyticsEnabled = true;
+        this.logEvent('login', {});
+    }
+    disableAnalytics() {
+        _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].disable();
+        this.analyticsEnabled = false;
+    }
+    toggleAnalytics() {
+        this.analyticsEnabled = !this.analyticsEnabled;
+        _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].setCollectionEnabled({
+            enabled: this.analyticsEnabled,
+        });
+    }
+}
+FirebaseAnalyticsService.ɵfac = function FirebaseAnalyticsService_Factory(t) { return new (t || FirebaseAnalyticsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_3__["AccountsService"])); };
+FirebaseAnalyticsService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: FirebaseAnalyticsService, factory: FirebaseAnalyticsService.ɵfac });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FirebaseAnalyticsService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], function () { return [{ type: _clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_3__["AccountsService"] }]; }, null); })();
+
+
+/***/ }),
+
 /***/ "./src/app/components/card-flip/card-flip.component.ts":
 /*!*************************************************************!*\
   !*** ./src/app/components/card-flip/card-flip.component.ts ***!
@@ -4892,8 +4980,10 @@ class AddPostImagePage {
     }
     async getUserImage() {
         this.image = await _capacitor_camera__WEBPACK_IMPORTED_MODULE_1__["Camera"].getPhoto({
-            quality: 90,
+            quality: 100,
             allowEditing: true,
+            // height: 300,
+            preserveAspectRatio: true,
             resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_1__["CameraResultType"].DataUrl
         });
         // image.webPath will contain a path that can be set as an image src.
@@ -4908,7 +4998,7 @@ class AddPostImagePage {
     }
 }
 AddPostImagePage.ɵfac = function AddPostImagePage_Factory(t) { return new (t || AddPostImagePage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_5__["LocationSelector"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_backend_clients__WEBPACK_IMPORTED_MODULE_4__["PostService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"])); };
-AddPostImagePage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AddPostImagePage, selectors: [["app-add-post-image"]], decls: 41, vars: 7, consts: [[1, "splash"], [1, "ion-no-border"], ["color", "#128C7E", 1, "ion-no-border"], [1, "header-grid"], [1, "ion-align-items-baseline"], [1, "ion-justify-content-start"], ["defaultHref", "/tab1", 2, "color", "white", 3, "click"], ["no-bounce", "", "scrollY", ""], ["class", "rcorners", 3, "src", "alt", "click", 4, "ngIf"], ["expand", "block", "type", "submit", 1, "submit-button", 2, "margin", "0px", "padding", "0px", 3, "click"], [1, "roundedInput"], ["rows", "5", "placeholder", "Caption*", "maxlength", "250", "autocapitalize", "true", "autocomplete", "\u201Ctrue\u201D", "spellcheck", "\u201Ctrue\u201D", "required", "", 1, "rcorners", 3, "ngModel", "ngModelChange"], ["itemValueField", "id", "itemTextField", "name", 3, "ngModel", "items", "canSearch", "ngModelChange"], [1, "button-div"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "disabled", "click"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "click"], [1, "validation-errors"], ["class", "error-message", 4, "ngIf"], [1, "rcorners", 3, "src", "alt", "click"], [1, "error-message"], ["name", "information-circle-outline"]], template: function AddPostImagePage_Template(rf, ctx) { if (rf & 1) {
+AddPostImagePage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AddPostImagePage, selectors: [["app-add-post-image"]], decls: 41, vars: 7, consts: [[1, "splash"], [1, "ion-no-border"], ["color", "#128C7E", 1, "ion-no-border"], [1, "header-grid"], [1, "ion-align-items-baseline"], [1, "ion-justify-content-start"], ["defaultHref", "/tab1", 2, "color", "white", 3, "click"], ["no-bounce", "", "scrollY", ""], ["height", "300", "class", "rcorners", 3, "src", "alt", "click", 4, "ngIf"], ["expand", "block", "type", "submit", 1, "submit-button", 2, "margin", "0px", "padding", "0px", 3, "click"], [1, "roundedInput"], ["rows", "5", "placeholder", "Caption*", "maxlength", "250", "autocapitalize", "true", "autocomplete", "\u201Ctrue\u201D", "spellcheck", "\u201Ctrue\u201D", "required", "", 1, "rcorners", 3, "ngModel", "ngModelChange"], ["itemValueField", "id", "itemTextField", "name", 3, "ngModel", "items", "canSearch", "ngModelChange"], [1, "button-div"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "disabled", "click"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "click"], [1, "validation-errors"], ["class", "error-message", 4, "ngIf"], ["height", "300", 1, "rcorners", 3, "src", "alt", "click"], [1, "error-message"], ["name", "information-circle-outline"]], template: function AddPostImagePage_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "ion-header", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "ion-toolbar", 2);
@@ -6158,6 +6248,7 @@ class MapFilterPage {
         this.myservice.dis = e;
     }
     async ionViewWillLeave() {
+        this.filter = '';
         await this.closeModal();
     }
     async resetFilter() {
@@ -6174,10 +6265,8 @@ class MapFilterPage {
         const loading = await this.loadingController.create({
         // duration: 2000,
         });
-        await loading.present();
         const onClosedData = this.filter;
         this.map.destroyMap();
-        loading.dismiss();
         await this.modalController.dismiss(onClosedData);
     }
 }

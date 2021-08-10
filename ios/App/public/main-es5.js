@@ -567,7 +567,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+    var _backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+    /*! ./backend/services/firebase-analytics.service */
+    "./src/app/backend/services/firebase-analytics.service.ts");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
     /*! @angular/common */
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
@@ -630,7 +636,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var fcm = new _capacitor_community_fcm__WEBPACK_IMPORTED_MODULE_6__["FCM"]();
 
     var AppComponent = /*#__PURE__*/function () {
-      function AppComponent(platform, userService, modalController, alertController, router, zone, modalSvc) {
+      function AppComponent(platform, userService, modalController, alertController, router, zone, modalSvc, analyticsSvc) {
         var _this = this;
 
         _classCallCheck(this, AppComponent);
@@ -642,6 +648,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.router = router;
         this.zone = zone;
         this.modalSvc = modalSvc;
+        this.analyticsSvc = analyticsSvc;
         this.platform.ready().then(function () {
           _this.initializeApp();
         });
@@ -682,7 +689,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               }
             });
           });
-          firebase_app__WEBPACK_IMPORTED_MODULE_13__["default"].initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].firebaseConfig);
+          firebase_app__WEBPACK_IMPORTED_MODULE_13__["default"].initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].firebaseConfig).analytics().setAnalyticsCollectionEnabled(true);
         }
       }, {
         key: "registerPush",
@@ -893,7 +900,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     AppComponent.ɵfac = function AppComponent_Factory(t) {
-      return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_10__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_modal_service__WEBPACK_IMPORTED_MODULE_11__["ModalService"]));
+      return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_10__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_modal_service__WEBPACK_IMPORTED_MODULE_11__["ModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_14__["FirebaseAnalyticsService"]));
     };
 
     AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -929,7 +936,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.showFooter);
         }
       },
-      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonApp"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRouterOutlet"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabs"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabBar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFabButton"]],
+      directives: [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonApp"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonRouterOutlet"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabs"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["NgIf"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabBar"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonTabButton"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonIcon"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFab"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonFabButton"]],
       styles: ["ion-tab-button[_ngcontent-%COMP%] {\n  --color-selected: #128C7E;\n}\n\n.add-button[_ngcontent-%COMP%] {\n  --background: #128C7E;\n  --background-activated: #128C7E;\n  --ripple-color: #128C7E;\n  --background-focused: #128C7E;\n  --color-focused: #128C7E;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9CcmVuZGFuR2liZXJzb24vRG9jdW1lbnRzL0Rldi9WaXNpdC9WaXNpdC4vc3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUFBO0FDQ0o7O0FERUE7RUFDSSxxQkFBQTtFQUNBLCtCQUFBO0VBQ0EsdUJBQUE7RUFDQSw2QkFBQTtFQUNBLHdCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tdGFiLWJ1dHRvbiB7XHJcbiAgICAtLWNvbG9yLXNlbGVjdGVkOiAjMTI4QzdFO1xyXG59XHJcblxyXG4uYWRkLWJ1dHRvbiB7XHJcbiAgICAtLWJhY2tncm91bmQ6ICMxMjhDN0U7XHJcbiAgICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjMTI4QzdFO1xyXG4gICAgLS1yaXBwbGUtY29sb3I6ICMxMjhDN0U7XHJcbiAgICAtLWJhY2tncm91bmQtZm9jdXNlZDogIzEyOEM3RTtcclxuICAgIC0tY29sb3ItZm9jdXNlZDogIzEyOEM3RTtcclxufSIsImlvbi10YWItYnV0dG9uIHtcbiAgLS1jb2xvci1zZWxlY3RlZDogIzEyOEM3RTtcbn1cblxuLmFkZC1idXR0b24ge1xuICAtLWJhY2tncm91bmQ6ICMxMjhDN0U7XG4gIC0tYmFja2dyb3VuZC1hY3RpdmF0ZWQ6ICMxMjhDN0U7XG4gIC0tcmlwcGxlLWNvbG9yOiAjMTI4QzdFO1xuICAtLWJhY2tncm91bmQtZm9jdXNlZDogIzEyOEM3RTtcbiAgLS1jb2xvci1mb2N1c2VkOiAjMTI4QzdFO1xufSJdfQ== */"]
     });
     /*@__PURE__*/
@@ -957,6 +964,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]
         }, {
           type: _services_modal_service__WEBPACK_IMPORTED_MODULE_11__["ModalService"]
+        }, {
+          type: _backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_14__["FirebaseAnalyticsService"]
         }];
       }, null);
     })();
@@ -1157,6 +1166,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
     /*! @ionic-native/facebook/ngx */
     "./node_modules/@ionic-native/facebook/ngx/index.js");
+    /* harmony import */
+
+
+    var _backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
+    /*! ./backend/services/firebase-analytics.service */
+    "./src/app/backend/services/firebase-analytics.service.ts");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -1170,7 +1185,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       factory: function AppModule_Factory(t) {
         return new (t || AppModule)();
       },
-      providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_28__["Facebook"], {
+      providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_29__["FirebaseAnalyticsService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_28__["Facebook"], {
         provide: _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouteReuseStrategy"],
         useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicRouteStrategy"]
       }, {
@@ -1197,7 +1212,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           declarations: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]],
           entryComponents: [],
           imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicModule"].forRoot(), ngx_ionic_image_viewer__WEBPACK_IMPORTED_MODULE_26__["NgxIonicImageViewerModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_11__["IonicStorageModule"].forRoot(), ng2_search_filter__WEBPACK_IMPORTED_MODULE_27__["Ng2SearchPipeModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"], _pages_modals_search_search_module__WEBPACK_IMPORTED_MODULE_4__["SearchPageModule"], _pages_modals_add_add_module__WEBPACK_IMPORTED_MODULE_7__["AddPageModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"], _pages_user_timeline_user_timeline_module__WEBPACK_IMPORTED_MODULE_10__["UserTimelinePageModule"], _pages_modals_map_filter_map_filter_module__WEBPACK_IMPORTED_MODULE_8__["MapFilterPageModule"], _pages_mark_location_mark_location_module__WEBPACK_IMPORTED_MODULE_16__["MarkLocationPageModule"], _pages_add_post_add_post_module__WEBPACK_IMPORTED_MODULE_19__["AddPostPageModule"], _pages_user_settings_user_settings_module__WEBPACK_IMPORTED_MODULE_21__["UserSettingsPageModule"], _pages_add_post_image_add_post_image_module__WEBPACK_IMPORTED_MODULE_20__["AddPostImagePageModule"], _pages_modals_forgot_password_forgot_password_module__WEBPACK_IMPORTED_MODULE_9__["ForgotPasswordPageModule"], ionic_selectable__WEBPACK_IMPORTED_MODULE_17__["IonicSelectableModule"], _angular_fire__WEBPACK_IMPORTED_MODULE_22__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_24__["environment"].firebaseConfig), _angular_fire_auth__WEBPACK_IMPORTED_MODULE_23__["AngularFireAuthModule"]],
-          providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_28__["Facebook"], {
+          providers: [_backend_services_AuthGuard_service__WEBPACK_IMPORTED_MODULE_14__["AuthGuard"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["AccountsService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["UserService"], _backend_clients__WEBPACK_IMPORTED_MODULE_15__["PostService"], _backend_services_firebase_analytics_service__WEBPACK_IMPORTED_MODULE_29__["FirebaseAnalyticsService"], _objects_location_json_location_selector__WEBPACK_IMPORTED_MODULE_18__["LocationSelector"], _ionic_native_sign_in_with_apple_ngx__WEBPACK_IMPORTED_MODULE_25__["SignInWithApple"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_28__["Facebook"], {
             provide: _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouteReuseStrategy"],
             useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicRouteStrategy"]
           }, {
@@ -6236,6 +6251,150 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
+  "./src/app/backend/services/firebase-analytics.service.ts":
+  /*!****************************************************************!*\
+    !*** ./src/app/backend/services/firebase-analytics.service.ts ***!
+    \****************************************************************/
+
+  /*! exports provided: FirebaseAnalyticsService */
+
+  /***/
+  function srcAppBackendServicesFirebaseAnalyticsServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "FirebaseAnalyticsService", function () {
+      return FirebaseAnalyticsService;
+    });
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @capacitor-community/firebase-analytics */
+    "./node_modules/@capacitor-community/firebase-analytics/dist/esm/index.js");
+    /* harmony import */
+
+
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./../../../environments/environment */
+    "./src/environments/environment.ts");
+    /* harmony import */
+
+
+    var _clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../clients/api/accounts.service */
+    "./src/app/backend/clients/api/accounts.service.ts"); // Init for the web
+
+
+    var FirebaseAnalyticsService = /*#__PURE__*/function () {
+      function FirebaseAnalyticsService(userService) {
+        _classCallCheck(this, FirebaseAnalyticsService);
+
+        this.userService = userService;
+        this.analyticsEnabled = true;
+
+        _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].initializeFirebase(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].firebaseConfig).then(function () {
+          _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].enable();
+
+          _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].setCollectionEnabled({
+            enabled: true
+          });
+        });
+      }
+
+      _createClass(FirebaseAnalyticsService, [{
+        key: "setUser",
+        value: function setUser(userId) {
+          // Use Firebase Auth uid
+          _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].setUserId({
+            userId: this.userService.getUserId()
+          });
+        }
+      }, {
+        key: "setProperty",
+        value: function setProperty(name, value) {
+          _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].setUserProperty({
+            name: name,
+            value: value
+          });
+        }
+      }, {
+        key: "logEvent",
+        value: function logEvent(name, params) {
+          _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].logEvent({
+            name: name,
+            params: params
+          });
+        }
+      }, {
+        key: "setScreenName",
+        value: function setScreenName(screenName) {
+          _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].setScreenName({
+            screenName: screenName
+          });
+        }
+      }, {
+        key: "enableAnalytics",
+        value: function enableAnalytics() {
+          _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].enable();
+
+          this.analyticsEnabled = true;
+          this.logEvent('login', {});
+        }
+      }, {
+        key: "disableAnalytics",
+        value: function disableAnalytics() {
+          _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].disable();
+
+          this.analyticsEnabled = false;
+        }
+      }, {
+        key: "toggleAnalytics",
+        value: function toggleAnalytics() {
+          this.analyticsEnabled = !this.analyticsEnabled;
+
+          _capacitor_community_firebase_analytics__WEBPACK_IMPORTED_MODULE_1__["FirebaseAnalytics"].setCollectionEnabled({
+            enabled: this.analyticsEnabled
+          });
+        }
+      }]);
+
+      return FirebaseAnalyticsService;
+    }();
+
+    FirebaseAnalyticsService.ɵfac = function FirebaseAnalyticsService_Factory(t) {
+      return new (t || FirebaseAnalyticsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_3__["AccountsService"]));
+    };
+
+    FirebaseAnalyticsService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
+      token: FirebaseAnalyticsService,
+      factory: FirebaseAnalyticsService.ɵfac
+    });
+    /*@__PURE__*/
+
+    (function () {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FirebaseAnalyticsService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+      }], function () {
+        return [{
+          type: _clients_api_accounts_service__WEBPACK_IMPORTED_MODULE_3__["AccountsService"]
+        }];
+      }, null);
+    })();
+    /***/
+
+  },
+
+  /***/
   "./src/app/components/card-flip/card-flip.component.ts":
   /*!*************************************************************!*\
     !*** ./src/app/components/card-flip/card-flip.component.ts ***!
@@ -7934,8 +8093,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 0:
                     _context22.next = 2;
                     return _capacitor_camera__WEBPACK_IMPORTED_MODULE_1__["Camera"].getPhoto({
-                      quality: 90,
+                      quality: 100,
                       allowEditing: true,
+                      // height: 300,
+                      preserveAspectRatio: true,
                       resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_1__["CameraResultType"].DataUrl
                     });
 
@@ -7979,7 +8140,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       selectors: [["app-add-post-image"]],
       decls: 41,
       vars: 7,
-      consts: [[1, "splash"], [1, "ion-no-border"], ["color", "#128C7E", 1, "ion-no-border"], [1, "header-grid"], [1, "ion-align-items-baseline"], [1, "ion-justify-content-start"], ["defaultHref", "/tab1", 2, "color", "white", 3, "click"], ["no-bounce", "", "scrollY", ""], ["class", "rcorners", 3, "src", "alt", "click", 4, "ngIf"], ["expand", "block", "type", "submit", 1, "submit-button", 2, "margin", "0px", "padding", "0px", 3, "click"], [1, "roundedInput"], ["rows", "5", "placeholder", "Caption*", "maxlength", "250", "autocapitalize", "true", "autocomplete", "\u201Ctrue\u201D", "spellcheck", "\u201Ctrue\u201D", "required", "", 1, "rcorners", 3, "ngModel", "ngModelChange"], ["itemValueField", "id", "itemTextField", "name", 3, "ngModel", "items", "canSearch", "ngModelChange"], [1, "button-div"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "disabled", "click"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "click"], [1, "validation-errors"], ["class", "error-message", 4, "ngIf"], [1, "rcorners", 3, "src", "alt", "click"], [1, "error-message"], ["name", "information-circle-outline"]],
+      consts: [[1, "splash"], [1, "ion-no-border"], ["color", "#128C7E", 1, "ion-no-border"], [1, "header-grid"], [1, "ion-align-items-baseline"], [1, "ion-justify-content-start"], ["defaultHref", "/tab1", 2, "color", "white", 3, "click"], ["no-bounce", "", "scrollY", ""], ["height", "300", "class", "rcorners", 3, "src", "alt", "click", 4, "ngIf"], ["expand", "block", "type", "submit", 1, "submit-button", 2, "margin", "0px", "padding", "0px", 3, "click"], [1, "roundedInput"], ["rows", "5", "placeholder", "Caption*", "maxlength", "250", "autocapitalize", "true", "autocomplete", "\u201Ctrue\u201D", "spellcheck", "\u201Ctrue\u201D", "required", "", 1, "rcorners", 3, "ngModel", "ngModelChange"], ["itemValueField", "id", "itemTextField", "name", 3, "ngModel", "items", "canSearch", "ngModelChange"], [1, "button-div"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "disabled", "click"], ["expand", "block", "type", "submit", 1, "submit-button", 3, "click"], [1, "validation-errors"], ["class", "error-message", 4, "ngIf"], ["height", "300", 1, "rcorners", 3, "src", "alt", "click"], [1, "error-message"], ["name", "information-circle-outline"]],
       template: function AddPostImagePage_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -10660,10 +10821,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               while (1) {
                 switch (_context32.prev = _context32.next) {
                   case 0:
-                    _context32.next = 2;
+                    this.filter = '';
+                    _context32.next = 3;
                     return this.closeModal();
 
-                  case 2:
+                  case 3:
                   case "end":
                     return _context32.stop();
                 }
@@ -10747,17 +10909,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 2:
                     loading = _context35.sent;
-                    _context35.next = 5;
-                    return loading.present();
-
-                  case 5:
                     onClosedData = this.filter;
                     this.map.destroyMap();
-                    loading.dismiss();
-                    _context35.next = 10;
+                    _context35.next = 7;
                     return this.modalController.dismiss(onClosedData);
 
-                  case 10:
+                  case 7:
                   case "end":
                     return _context35.stop();
                 }

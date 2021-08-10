@@ -28,6 +28,8 @@ import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
 import { NgxIonicImageViewerModule } from 'ngx-ionic-image-viewer';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Facebook } from '@ionic-native/facebook/ngx';
+import { FirebaseAnalyticsService } from './backend/services/firebase-analytics.service';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -57,6 +59,7 @@ import { Facebook } from '@ionic-native/facebook/ngx';
     AccountsService,
     UserService,
     PostService,
+    FirebaseAnalyticsService,
     LocationSelector,
     SignInWithApple,
     Facebook,

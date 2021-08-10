@@ -19,6 +19,7 @@ import { PostService } from 'src/app/backend/clients';
 import { PostApi } from 'src/app/backend/clients/model/postApi';
 import { take } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
+import { FirebaseAnalyticsService } from 'src/app/backend/services/firebase-analytics.service';
 
 @Component({
   selector: 'news-feed',
@@ -44,7 +45,8 @@ export class NewsFeedPage {
     private loadingController: LoadingController,
     private accountService: AccountsService,
     private postService: PostService,
-    private router: Router
+    private router: Router,
+    public analyticsSvc: FirebaseAnalyticsService
   ) {
     this.storage.get('image').then((val) => {
       if (val) {
@@ -54,6 +56,8 @@ export class NewsFeedPage {
         this.image = '../../../assets/defaultuser.png';
       }
     });
+    this.analyticsSvc.enableAnalytics();
+    this.analyticsSvc.setUser();
   }
 
   async ionViewWillEnter() {
@@ -192,10 +196,16 @@ export class NewsFeedPage {
     });
 
     modal.onDidDismiss().then(async (dataReturned) => {
+      const loading = await this.loadingController.create();
+      await loading.present();
+
       if (dataReturned !== null) {
         this.filter = dataReturned.data;
         this.refreshPosts();
-        await this.loadingController.dismiss();
+        this.refresh();
+        await loading.dismiss();
+      } else {
+        this.refreshPosts();
       }
     });
 

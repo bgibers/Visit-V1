@@ -21,6 +21,9 @@ import { ModalService } from './services/modal.service';
 
 import { environment } from 'src/environments/environment';
 import firebase from 'firebase/app';
+import { FirebaseAnalyticsService } from './backend/services/firebase-analytics.service';
+import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -36,14 +39,16 @@ export class AppComponent implements OnInit {
     public alertController: AlertController,
     public router: Router,
     public zone: NgZone,
-    public modalSvc: ModalService
+    public modalSvc: ModalService,
+    public analyticsSvc: FirebaseAnalyticsService
   ) {
     this.platform.ready().then(() => {
       this.initializeApp();
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -68,7 +73,6 @@ export class AppComponent implements OnInit {
         }
       });
     });
-
     firebase.initializeApp(environment.firebaseConfig);
   }
 

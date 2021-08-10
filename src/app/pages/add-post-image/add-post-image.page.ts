@@ -1,11 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CameraResultType, Photo, Camera } from '@capacitor/camera';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, Platform } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { take } from 'rxjs/operators';
 import { PostService } from 'src/app/backend/clients';
 import { LocationSelector } from 'src/app/objects/location-json/location.selector';
-
 @Component({
   selector: 'app-add-post-image',
   templateUrl: './add-post-image.page.html',
@@ -102,10 +101,13 @@ export class AddPostImagePage implements OnInit {
 
   async getUserImage() {
     this.image = await Camera.getPhoto({
-      quality: 90,
+      quality: 100,
       allowEditing: true,
+      // height: 300,
+      preserveAspectRatio: true,
       resultType: CameraResultType.DataUrl
     });
+
     // image.webPath will contain a path that can be set as an image src.
     // You can access the original file using image.path, which can be
     // passed to the Filesystem API to read the raw data of the image,

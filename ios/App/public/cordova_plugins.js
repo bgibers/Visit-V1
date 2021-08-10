@@ -16,21 +16,12 @@
         "clobbers": [
           "facebookConnectPlugin"
         ]
-        },
-      {
-          "id": "cordova-plugin-firebase-analytics.FirebaseAnalytics",
-          "file": "plugins/cordova-plugin-firebase-analytics/www/FirebaseAnalytics.js",
-          "pluginId": "cordova-plugin-firebase-analytics",
-        "merges": [
-          "cordova.plugins.firebase.analytics"
-        ]
         }
     ];
     module.exports.metadata =
     // TOP OF METADATA
     {
       "cordova-plugin-facebook4": "6.4.0",
-      "cordova-plugin-firebase-analytics": "6.0.1",
       "cordova-plugin-sign-in-with-apple": "0.1.2"
     };
     // BOTTOM OF METADATA

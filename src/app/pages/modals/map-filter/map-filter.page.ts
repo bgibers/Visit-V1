@@ -23,7 +23,7 @@ export class MapFilterPage {
   country: any;
   searchTerm: any;
   filterTerm: string;
-   countries = (data as any).default;
+  countries = (data as any).default;
   mapvalue: any;
   hide: boolean;
 
@@ -81,6 +81,7 @@ export class MapFilterPage {
   }
 
   async ionViewWillLeave() {
+    this.filter = '';
     await this.closeModal();
   }
 
@@ -100,10 +101,8 @@ export class MapFilterPage {
     const loading = await this.loadingController.create({
       // duration: 2000,
     });
-    await loading.present();
     const onClosedData = this.filter;
     this.map.destroyMap();
-    loading.dismiss();
     await this.modalController.dismiss(onClosedData);
   }
 }
