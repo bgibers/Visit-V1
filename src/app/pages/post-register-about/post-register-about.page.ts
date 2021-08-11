@@ -134,7 +134,8 @@ export class PostRegisterAboutPage implements OnInit {
     this.accountService
       .accountUpdateProfileImagePost(this.blob)
       .pipe(take(1))
-      .subscribe((res) => {
+      .subscribe(async (res) => {
+        await this.accountService.storeLoggedInUser();
         this.zone.run(() => {
           this.router.navigateByUrl(
             '/post-register-locations',

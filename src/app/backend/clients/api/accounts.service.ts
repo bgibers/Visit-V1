@@ -112,17 +112,21 @@ export class AccountsService {
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('userLocations', JSON.stringify(res.userLocations));
 
-        this.getFcmToken().subscribe((token) => {
-          console.log(`FCM:${token}`);
-          this.accountUpdateFcmDeviceIdPost(token)
-            .pipe(take(1))
-            .subscribe(
-              (res) => {
-                console.log(res);
-              },
-              (err) => console.log(err),
-            );
-        });
+        if (Capacitor.isNativePlatform()) {
+          this.getFcmToken().subscribe((token) => {
+            console.log(`FCM:${token}`);
+            this.accountUpdateFcmDeviceIdPost(token)
+              .pipe(take(1))
+              .subscribe(
+                (res) => {
+                  console.log(res);
+                  resolve('')
+                },
+                (err) => resolve('') 
+              );
+          });
+        }
+        resolve('')
       });
     });
   }
@@ -226,16 +230,21 @@ export class AccountsService {
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then(
-              (res) => {
+              async (res) => {
                 if (Capacitor.isNativePlatform()) {
                   this.getFcmToken()
                     .pipe(take(1))
-                    .subscribe((token) => {
+                    .subscribe(async (token) => {
                       this.accountUpdateFcmDeviceIdPost(token);
-                      resolve(res);
+                      await this.storeLoggedInUser().then(() => {
+                        resolve(res);
+                      });
                     });
                 } else {
-                  resolve(res);
+                  await this.storeLoggedInUser().then(() => {
+                    resolve(res);
+                  });
+                 
                 }
               },
               (err) => reject(err),
@@ -335,7 +344,10 @@ export class AccountsService {
         .signInWithCustomToken(token)
         .then(() => this.getFcmToken()
           .pipe(take(1))
-          .subscribe((token) => this.accountUpdateFcmDeviceIdPost(token))),
+          .subscribe(async (token) => {
+            this.accountUpdateFcmDeviceIdPost(token)
+            await this.storeLoggedInUser().then(() => {});
+          })),
     );
   }
 
