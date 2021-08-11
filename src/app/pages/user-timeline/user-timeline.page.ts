@@ -141,8 +141,8 @@ export class UserTimelinePage  {
         this.filter = dataReturned.data;
         this.refreshPosts();
       }
+      this.refreshPosts();
     });
-
     return await modal.present();
   }
 

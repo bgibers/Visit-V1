@@ -5,6 +5,7 @@ import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { JwtToken, AccountsService } from 'src/app/backend/clients';
 import { MarkLocationsRequest } from 'src/app/backend/clients/model/markLocationsRequest';
 import { take } from 'rxjs/operators';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'post-register-locations',
@@ -30,14 +31,20 @@ export class PostRegisterLocationsPage {
 
   constructor(
     public router: Router,
+    public loadingController: LoadingController,
     private accountService: AccountsService,
     private zone: NgZone,
     private route: ActivatedRoute
   ) {}
 
-  ionViewWillEnter() {
+  async ionViewDidEnter() {
+    const loading = await this.loadingController.create({
+      // duration: 9000
+    });
+    await loading.present();
     this.map = new Map(this.zone);
     this.map.addMapToDiv(this.selectionMode, 'register-map');
+    loading.dismiss();
   }
 
   ionViewDidLeave() {

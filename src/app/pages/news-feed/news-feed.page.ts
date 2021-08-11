@@ -60,9 +60,10 @@ export class NewsFeedPage {
     this.analyticsSvc.setUser();
   }
 
-  async ionViewWillEnter() {
+  async ionViewDidEnter() {
     const loading = await this.loadingController.create();
     await loading.present();
+    console.log(`${this.pageNumber}, ${this.filter}, ${this.selectedUserId}`)
     this.postService
       .postsPageGet(this.pageNumber, this.filter, this.selectedUserId)
       .pipe(take(1))
@@ -79,6 +80,7 @@ export class NewsFeedPage {
         },
         async (err) => {
           if (err.status === 401) {
+            loading.dismiss();
             await this.accountService.logout();
           }
         }
@@ -197,15 +199,15 @@ export class NewsFeedPage {
 
     modal.onDidDismiss().then(async (dataReturned) => {
       const loading = await this.loadingController.create();
-      await loading.present();
+      // await loading.present();
 
       if (dataReturned !== null) {
         this.filter = dataReturned.data;
         this.refreshPosts();
         this.refresh();
-        await loading.dismiss();
+        // await loading.dismiss();
       } else {
-        this.refreshPosts();
+        this.refresh();
       }
     });
 

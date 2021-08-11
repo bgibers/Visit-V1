@@ -68,10 +68,8 @@ export class MapFilterPage {
 
     await loading.present();
 
-    this.zone.run(() => {
-      userLocations.forEach(location => {
-        this.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
-      });
+    userLocations.forEach(location => {
+      this.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
     });
     loading.dismiss();
   }

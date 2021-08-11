@@ -47,12 +47,10 @@ export class MarkLocationPage {
 
     await loading.present();
 
-    this.zone.run(() => {
-      userLocations.forEach(location => {
-        this.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
-      });
-      loading.dismiss();
+    userLocations.forEach(location => {
+      this.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
     });
+    loading.dismiss();
   }
 
   ionViewDidLeave() {
