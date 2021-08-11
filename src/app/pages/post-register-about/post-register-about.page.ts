@@ -109,9 +109,9 @@ export class PostRegisterAboutPage implements OnInit {
             .subscribe(
               () => {
                 this.uploadImage();
-                if (environment.production !== false) {
-                  this.accountService.SendVerificationMail().pipe(take(1)).subscribe();
-                }
+                // if (environment.production !== false) {
+                //   this.accountService.SendVerificationMail().pipe(take(1)).subscribe();
+                // }
                 loading.dismiss();
               },
               () => {

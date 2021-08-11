@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>227659578598-9rkm364gbb6m3ao7o6biilqbph9c4kgk.apps.googleusercontent.com</string>
+	<string>12087434210-0osqb30ee4kcg7031s45d2mmg202lrgp.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.227659578598-9rkm364gbb6m3ao7o6biilqbph9c4kgk</string>
+	<string>com.googleusercontent.apps.12087434210-0osqb30ee4kcg7031s45d2mmg202lrgp</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAU-T9KH5LXVYPofvttGgnYnGEvgiMOcsU</string>
+	<string>AIzaSyBUQZ8z8N9tkqm4RkOimzwXCvwP_jGqwdw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>227659578598</string>
+	<string>12087434210</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.visittravelapp.visit</string>
 	<key>PROJECT_ID</key>
-	<string>visit-4efb7</string>
+	<string>visit-prod-3c619</string>
 	<key>STORAGE_BUCKET</key>
-	<string>visit-4efb7.appspot.com</string>
+	<string>visit-prod-3c619.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:227659578598:ios:fec16bcf05a32c059d8f27</string>
+	<string>1:12087434210:ios:8b2b87840bdc01442937bb</string>
 </dict>
 </plist>
