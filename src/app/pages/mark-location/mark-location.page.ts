@@ -1,10 +1,11 @@
 import { Component, Input, NgZone } from '@angular/core';
-import { AccountsService, MarkLocationsRequest } from 'src/app/backend/clients';
+import { AccountsService, MarkLocationsRequest, UserLocation } from 'src/app/backend/clients';
 import { MapSelectionMode } from 'src/app/objects/enums/map-selection-mode';
 import { Map } from 'src/app/objects/map';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'mark-location',
@@ -23,11 +24,12 @@ export class MarkLocationPage {
   public subtitleTextVisited = `Show your friends (and yourself) where you've been!`;
   public subtitleTextToVisit = `Mark down every and any place you find interesting and want to checkout someday, let's make it happen!`;
   public displayVisitedText = true;
-
+  public userLocations: UserLocation[];
   constructor(
     private modalCtrl: ModalController,
     private loadingController: LoadingController,
     private zone: NgZone,
+    private storage: Storage,
     private accountService: AccountsService
   ) {}
 
@@ -39,18 +41,19 @@ export class MarkLocationPage {
       this.displayVisitedText = false;
     }
 
-    const userLocations = this.accountService.storedUserLocations;
-
     const loading = await this.loadingController.create({
-      // duration: 2000,
+      duration: 2000,
     });
 
     await loading.present();
 
-    userLocations.forEach(location => {
-      this.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
+    this.storage.get('userLocations').then(res => {
+      this.userLocations = res;
+      this.userLocations.forEach(location => {
+        this.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
+      });
+      loading.dismiss();
     });
-    loading.dismiss();
   }
 
   ionViewDidLeave() {

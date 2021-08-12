@@ -15,7 +15,7 @@ import { SearchPage } from '../modals/search/search.page';
 import { MapFilterPage } from '../modals/map-filter/map-filter.page';
 import { Router, NavigationExtras } from '@angular/router';
 import { AccountsService } from '../../backend/clients/api/accounts.service';
-import { PostService } from 'src/app/backend/clients';
+import { PostService, UserLocation } from 'src/app/backend/clients';
 import { PostApi } from 'src/app/backend/clients/model/postApi';
 import { take } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
@@ -35,7 +35,7 @@ export class NewsFeedPage {
   filter = '';
   selectedUserId = '';
   image: any;
-  
+  userLocations: UserLocation[];
 
   constructor(
     private storage: Storage,
@@ -72,6 +72,10 @@ export class NewsFeedPage {
           this.morePages = res.hasNextPage;
           this.pageNumber = res.pageIndex;
           this.posts = res.items;
+
+          this.storage.get('userLocations').then(res => {
+            this.userLocations = res;
+          });
 
           this.refresh();
           // see if there are more than one page if so get them
@@ -194,6 +198,7 @@ export class NewsFeedPage {
       cssClass: 'filter-modal',
       componentProps: {
         filter: this.filter,
+        userLocations: this.userLocations
       },
     });
 

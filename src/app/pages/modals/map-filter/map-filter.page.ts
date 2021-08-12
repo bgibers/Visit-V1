@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { AccountsService } from 'src/app/backend/clients';
 import  * as data from  '../../../objects/location-json/json/countries.json';
 import {ModalService} from '../../../services/modal.service';
+import { resolve } from 'dns';
 
 @Component({
   selector: 'map-filter',
@@ -31,6 +32,7 @@ export class MapFilterPage {
     private modalController: ModalController,
     private loadingController: LoadingController,
     private accountService: AccountsService,
+    private storage: Storage,
     private zone: NgZone,
     public myservice: ModalService,
     private navParams: NavParams
@@ -50,28 +52,36 @@ export class MapFilterPage {
   }
 
   async ionViewWillEnter() {
-    this.map = new Map(this.zone);
-    this.map.addMapToDiv(this.selectionMode, 'filter-map');
+    await this.setUpMap().then(async () => {
+      const loading = await this.loadingController.create({
+        duration: 2000
+      });
 
-    this.filter = this.navParams.data.filter;
+      let userLocations;
+      if (this.navParams.data.userLocations) {
+        userLocations = JSON.parse(this.navParams.data.userLocations);
+      } else {
+        this.storage.get('userLocations').then(res => {
+          userLocations = res;
+        });
+      }
+      await loading.present();
 
-    let userLocations;
-    if (this.navParams.data.userLocations) {
-      userLocations = JSON.parse(this.navParams.data.userLocations);
-    } else {
-      userLocations = this.accountService.storedUserLocations;
-    }
-
-    const loading = await this.loadingController.create({
-      // duration: 2000,
+      userLocations.forEach(location => {
+        this.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
+      });
+      loading.dismiss();
     });
+  }
 
-    await loading.present();
+  setUpMap() {
+    return new Promise((resolve, reject) => {
+      this.map = new Map(this.zone);
+      this.map.addMapToDiv(this.selectionMode, 'filter-map');
 
-    userLocations.forEach(location => {
-      this.map.changeVisitStatus(location.fkLocation.locationCode, location.status, true);
+      this.filter = this.navParams.data.filter;
+      resolve('');
     });
-    loading.dismiss();
   }
 
   show(e) {

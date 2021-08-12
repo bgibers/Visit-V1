@@ -90,7 +90,7 @@ export class AccountsService {
         await this.storeLoggedInUser().then(() => {
         });
       } else {
-        localStorage.setItem('firebaseUser', null);
+        localStorage.removeItem('firebaseUser');
         localStorage.removeItem('user');
         localStorage.removeItem('userLocations');
         JSON.parse(localStorage.getItem('firebaseUser'));
@@ -105,12 +105,12 @@ export class AccountsService {
     this.userService.userIdGet(this.getUserId()).pipe(take(1)).subscribe(res => {
         // console.log(res)
         this.storage.set('image', res.avi);
+        this.storage.set('userLocations', JSON.stringify(res.userLocations));
         user = res;
         if (res.avi === undefined) {
           user.avi = '../../../../assets/defaultuser.png';
         }
         localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('userLocations', JSON.stringify(res.userLocations));
 
         if (Capacitor.isNativePlatform()) {
           this.getFcmToken().subscribe((token) => {
@@ -120,13 +120,13 @@ export class AccountsService {
               .subscribe(
                 (res) => {
                   console.log(res);
-                  resolve('')
+                  resolve('');
                 },
-                (err) => resolve('') 
+                (err) => resolve('')
               );
           });
         }
-        resolve('')
+        resolve('');
       });
     });
   }
@@ -136,16 +136,15 @@ export class AccountsService {
     return user;
   }
 
-  get storedUserLocations(): Array<UserLocation> {
-    return JSON.parse(localStorage.getItem('userLocations'));
-  }
+  // get storedUserLocations(): Array<UserLocation> {
+  //   return JSON.parse(localStorage.getItem('userLocations'));
+  // }
 
   public async logout() {
     return this.ngFireAuth.signOut().then(() => {
-      localStorage.removeItem('firebaseUser');
-      localStorage.removeItem('user');
-      localStorage.removeItem('userLocations');
-
+      localStorage.clear();
+      this.storage.remove('image');
+      this.storage.remove('user-locations');
       this.zone.run(() => {
         this.router.navigate(['sign-in']);
       });
