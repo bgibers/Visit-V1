@@ -1,307 +1,307 @@
 {
   "States": [
     {
-      "name": "Alaska",
+      "name": "(USA) Alaska",
       "id": "US-AK",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Alabama",
+      "name": "(USA) Alabama",
       "id": "US-AL",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Arkansas",
+      "name": "(USA) Arkansas",
       "id": "US-AR",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Arizona",
+      "name": "(USA) Arizona",
       "id": "US-AZ",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "California",
+      "name": "(USA) California",
       "id": "US-CA",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Colorado",
+      "name": "(USA) Colorado",
       "id": "US-CO",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Connecticut",
+      "name": "(USA) Connecticut",
       "id": "US-CT",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "District of Columbia",
+      "name": "(USA) District of Columbia",
       "id": "US-DC",
       "CNTRY": "United States of America",
       "TYPE": "Federal District"
     },
     {
-      "name": "Delaware",
+      "name": "(USA) Delaware",
       "id": "US-DE",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Florida",
+      "name": "(USA) Florida",
       "id": "US-FL",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Georgia",
+      "name": "(USA) Georgia",
       "id": "US-GA",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Hawaii",
+      "name": "(USA) Hawaii",
       "id": "US-HI",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Iowa",
+      "name": "(USA) Iowa",
       "id": "US-IA",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Idaho",
+      "name": "(USA) Idaho",
       "id": "US-ID",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Illinois",
+      "name": "(USA) Illinois",
       "id": "US-IL",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Indiana",
+      "name": "(USA) Indiana",
       "id": "US-IN",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Kansas",
+      "name": "(USA) Kansas",
       "id": "US-KS",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Kentucky",
+      "name": "(USA) Kentucky",
       "id": "US-KY",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Louisiana",
+      "name": "(USA) Louisiana",
       "id": "US-LA",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Massachusetts",
+      "name": "(USA) Massachusetts",
       "id": "US-MA",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Maryland",
+      "name": "(USA) Maryland",
       "id": "US-MD",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Maine",
+      "name": "(USA) Maine",
       "id": "US-ME",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Michigan",
+      "name": "(USA) Michigan",
       "id": "US-MI",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Minnesota",
+      "name": "(USA) Minnesota",
       "id": "US-MN",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Missouri",
+      "name": "(USA) Missouri",
       "id": "US-MO",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Mississippi",
+      "name": "(USA) Mississippi",
       "id": "US-MS",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Montana",
+      "name": "(USA) Montana",
       "id": "US-MT",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "North Carolina",
+      "name": "(USA) North Carolina",
       "id": "US-NC",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "North Dakota",
+      "name": "(USA) North Dakota",
       "id": "US-ND",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Nebraska",
+      "name": "(USA) Nebraska",
       "id": "US-NE",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "New Hampshire",
+      "name": "(USA) New Hampshire",
       "id": "US-NH",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "New Jersey",
+      "name": "(USA) New Jersey",
       "id": "US-NJ",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "New Mexico",
+      "name": "(USA) New Mexico",
       "id": "US-NM",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Nevada",
+      "name": "(USA) Nevada",
       "id": "US-NV",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "New York",
+      "name": "(USA) New York",
       "id": "US-NY",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Ohio",
+      "name": "(USA) Ohio",
       "id": "US-OH",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Oklahoma",
+      "name": "(USA) Oklahoma",
       "id": "US-OK",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Oregon",
+      "name": "(USA) Oregon",
       "id": "US-OR",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Pennsylvania",
+      "name": "(USA) Pennsylvania",
       "id": "US-PA",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Rhode Island",
+      "name": "(USA) Rhode Island",
       "id": "US-RI",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "South Carolina",
+      "name": "(USA) South Carolina",
       "id": "US-SC",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "South Dakota",
+      "name": "(USA) South Dakota",
       "id": "US-SD",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Tennessee",
+      "name": "(USA) Tennessee",
       "id": "US-TN",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Texas",
+      "name": "(USA) Texas",
       "id": "US-TX",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Utah",
+      "name": "(USA) Utah",
       "id": "US-UT",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Virginia",
+      "name": "(USA) Virginia",
       "id": "US-VA",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Vermont",
+      "name": "(USA) Vermont",
       "id": "US-VT",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Washington",
+      "name": "(USA) Washington",
       "id": "US-WA",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Wisconsin",
+      "name": "(USA) Wisconsin",
       "id": "US-WI",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "West Virginia",
+      "name": "(USA) West Virginia",
       "id": "US-WV",
       "CNTRY": "United States of America",
       "TYPE": "State"
     },
     {
-      "name": "Wyoming",
+      "name": "(USA) Wyoming",
       "id": "US-WY",
       "CNTRY": "United States of America",
       "TYPE": "State"
