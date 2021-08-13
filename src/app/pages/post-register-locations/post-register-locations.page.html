@@ -13,6 +13,21 @@
       Click a location on the map to zoom to it. Double click the location to
       select/deselect it.
     </h4>
+    <div class="map-search-container">
+      <ion-searchbar (focusout)="show(true)"  (search)="searchvalue()" (focusin)="show(false)"  spellcheck="true"  [(ngModel)]="filterTerm"></ion-searchbar>
+      <ion-list  *ngIf="hide == true">
+        <ion-item *ngFor="let data of countries.Countries | filter:filterTerm" (click)="dataas(data)">
+         
+          <ion-label>{{data.name}}</ion-label>
+        
+        </ion-item>
+        <ion-item *ngFor="let data of states.States | filter:filterTerm" (click)="dataas(data)">
+         
+          <ion-label>{{data.name}}</ion-label>
+        
+        </ion-item>
+      </ion-list>
+    </div>
     <div id="register-map" class="chartdiv"></div>
     <div class="button-div">
       <ion-button

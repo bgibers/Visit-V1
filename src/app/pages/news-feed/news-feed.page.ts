@@ -35,7 +35,7 @@ export class NewsFeedPage {
   filter = '';
   selectedUserId = '';
   image: any;
-  userLocations: UserLocation[];
+  userLocations: any;
 
   constructor(
     private storage: Storage,

@@ -10,7 +10,7 @@ const config: CapacitorConfig = {
   webDir: 'www',
   plugins: {
     SplashScreen: {
-      launchAutoHide: true,
+      launchAutoHide: false
     },
     LocalNotifications: {
       smallIcon: 'ic_stat_icon_config_sample',

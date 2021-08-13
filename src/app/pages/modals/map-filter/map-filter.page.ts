@@ -4,7 +4,8 @@ import { MapSelectionMode } from '../../../objects/enums/map-selection-mode';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AccountsService } from 'src/app/backend/clients';
-import  * as data from  '../../../objects/location-json/json/countries.json';
+import * as data from '../../../objects/location-json/json/countries.json';
+import * as statesData from '../../../objects/location-json/json/states.json';
 import {ModalService} from '../../../services/modal.service';
 import { resolve } from 'dns';
 
@@ -25,6 +26,7 @@ export class MapFilterPage {
   searchTerm: any;
   filterTerm: string;
   countries = (data as any).default;
+  states = (statesData as any).default;
   mapvalue: any;
   hide: boolean;
 
@@ -34,7 +36,7 @@ export class MapFilterPage {
     private accountService: AccountsService,
     private storage: Storage,
     private zone: NgZone,
-    public myservice: ModalService,
+    public searchLocations: ModalService,
     private navParams: NavParams
   ) {
     this.hide = false;
@@ -85,7 +87,7 @@ export class MapFilterPage {
   }
 
   show(e) {
-    this.myservice.dis = e;
+    this.searchLocations.dis = e;
   }
 
   async ionViewWillLeave() {

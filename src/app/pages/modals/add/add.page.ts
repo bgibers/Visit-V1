@@ -5,6 +5,8 @@ import { ModalController } from '@ionic/angular';
 import { MarkLocationPage } from '../../mark-location/mark-location.page';
 import { AddPostPage } from '../../add-post/add-post.page';
 import { AddPostImagePage } from '../../add-post-image/add-post-image.page';
+import { Storage } from '@ionic/storage';
+import { UserLocation } from 'src/app/backend/clients';
 
 @Component({
   selector: 'add-modal',
@@ -12,23 +14,32 @@ import { AddPostImagePage } from '../../add-post-image/add-post-image.page';
   styleUrls: ['./add.page.scss'],
 })
 export class AddPage {
-  constructor(public router: Router, private modalCtrl: ModalController) {}
+  userLocations: any;
+
+  constructor(public router: Router,
+              private modalCtrl: ModalController,
+              private storage: Storage,
+    ) {}
 
   async markLocationsToVisit() {
     const modal = await this.modalCtrl.create({
       component: MarkLocationPage,
       componentProps: {
-        selectionMode: MapSelectionMode.TO_VISIT,
+        selectionMode: MapSelectionMode.TO_VISIT
       },
     });
     return await modal.present();
   }
 
   async markVisitedLocations() {
+    this.storage.get('userLocations').then(res => {
+      this.userLocations = res;
+    });
+
     const modal = await this.modalCtrl.create({
       component: MarkLocationPage,
       componentProps: {
-        selectionMode: MapSelectionMode.VISITED,
+        selectionMode: MapSelectionMode.VISITED
       },
     });
     return await modal.present();

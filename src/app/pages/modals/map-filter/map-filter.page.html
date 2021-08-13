@@ -7,6 +7,11 @@
         <ion-label>{{data.name}}</ion-label>
       
       </ion-item>
+      <ion-item *ngFor="let data of states.States | filter:filterTerm" (click)="dataas(data)">
+       
+        <ion-label>{{data.name}}</ion-label>
+      
+      </ion-item>
     </ion-list>
   </div>
   <div id="filter-map" class="chartdiv" onload="onLoad()"></div>

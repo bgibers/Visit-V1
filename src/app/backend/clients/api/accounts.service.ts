@@ -144,7 +144,7 @@ export class AccountsService {
     return this.ngFireAuth.signOut().then(() => {
       localStorage.clear();
       this.storage.remove('image');
-      this.storage.remove('user-locations');
+      this.storage.remove('userLocations');
       this.zone.run(() => {
         this.router.navigate(['sign-in']);
       });

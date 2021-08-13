@@ -6,6 +6,9 @@ import { JwtToken, AccountsService } from 'src/app/backend/clients';
 import { MarkLocationsRequest } from 'src/app/backend/clients/model/markLocationsRequest';
 import { take } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
+import * as data from '../../objects/location-json/json/countries.json';
+import * as statesData from '../../objects/location-json/json/states.json';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'post-register-locations',
@@ -28,9 +31,17 @@ export class PostRegisterLocationsPage {
   private map: Map;
   hasError = false;
   error = '';
+  countries = (data as any).default;
+  states = (statesData as any).default;
+  hide: boolean;
+  mapvalue: any;
+  country: any;
+  searchTerm: any;
+  filterTerm: string;
 
   constructor(
     public router: Router,
+    public searchLocations: ModalService,
     public loadingController: LoadingController,
     private accountService: AccountsService,
     private zone: NgZone,
@@ -90,4 +101,25 @@ export class PostRegisterLocationsPage {
         }
       );
   }
+
+  searchvalue() {
+    this.hide = true;
+    this.mapvalue = this.filterTerm;
+    this.map.zoomToLocation(this.mapvalue);
+  }
+
+  dataas(data) {
+    this.hide = false;
+    this.map.zoomToLocation(data.id);
+  }
+  setFilteredItems() {
+      return this.country.filter(item => {
+        return item.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      });
+  }
+
+  show(e) {
+    this.searchLocations.dis = e;
+  }
+
 }

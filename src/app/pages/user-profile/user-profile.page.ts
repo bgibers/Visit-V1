@@ -15,7 +15,8 @@ import { UserSettingsPage } from '../user-settings/user-settings.page';
 // import { IonicS}
 import { Storage } from '@ionic/storage';
 
-import  * as data from  '../../objects/location-json/json/countries.json';
+import * as data from '../../objects/location-json/json/countries.json';
+import * as statesData from '../../objects/location-json/json/states.json';
 
 // import { Ng2SearchPipe } from 'ng2-search-filter';
 
@@ -42,6 +43,7 @@ export class UserProfilePage {
   searchTerm: any;
   filterTerm: string;
   countries = (data as any).default;
+  states = (statesData as any).default;
   mapvalue: any;
   hide: boolean;
 
@@ -52,7 +54,7 @@ export class UserProfilePage {
       private accountService: AccountsService,
       private zone: NgZone,
       private route: ActivatedRoute,
-      public myservice: ModalService,
+      public searchLocations: ModalService,
       private router: Router, private storage: Storage) {
         this.hide = false;
         // this.ionViewDidEnter();
@@ -198,7 +200,7 @@ export class UserProfilePage {
   }
 
   show(e) {
-    this.myservice.dis = e;
+    this.searchLocations.dis = e;
   }
 
   async presentUserSettings() {
