@@ -20,6 +20,13 @@
     >
     </ion-refresher-content>
   </ion-refresher>
+  <h1
+  *ngIf="notifications.length === 0"
+  class="ion-text-center ion-justify-center"
+  style="height: 100%; flex-direction: column"
+>
+  No notifications yet
+</h1>
   <ion-list class="notifications-list">
     <ion-card *ngFor="let item of notifications">
       <ion-grid class="comments-grid">
