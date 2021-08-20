@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 import { AccountsService, UserService } from 'src/app/backend/clients';
@@ -65,6 +65,18 @@ export class NotificationsPage {
       resolve('done');
     });
   });
+  }
+
+  openPost(postId) {
+    const navigationExtras: NavigationExtras = {
+      replaceUrl: true,
+      state: {
+        postId
+      },
+    };
+    this.zone.run(() => {
+      this.router.navigateByUrl('/comments', navigationExtras);
+    });
   }
 
   // ngOnInit(): void {

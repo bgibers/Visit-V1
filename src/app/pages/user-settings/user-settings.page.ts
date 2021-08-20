@@ -53,14 +53,14 @@ export class UserSettingsPage implements OnInit {
     const lastName = new FormControl('');
     const birthPlace = new FormControl('');
     const residence = new FormControl('');
-    const education = new FormControl('');
+    // const education = new FormControl('');
     const title = new FormControl('');
     this.aboutForm = new FormGroup({
       firstName,
       lastName,
       birthPlace,
       residence,
-      education,
+      // education,
       title,
     });
   }
@@ -82,9 +82,9 @@ export class UserSettingsPage implements OnInit {
     const title = this.aboutForm.controls.title.value === ''
       ? this.user.title
       : this.aboutForm.controls.title.value;
-    const education = this.aboutForm.controls.education.value === ''
-      ? this.user.education
-      : this.aboutForm.controls.education.value;
+    // const education = this.aboutForm.controls.education.value === ''
+    //   ? this.user.education
+    //   : this.aboutForm.controls.education.value;
     const birthPlace = this.aboutForm.controls.birthPlace.value === ''
       ? this.user.birthLocation
       : this.aboutForm.controls.birthPlace.value;
@@ -98,7 +98,7 @@ export class UserSettingsPage implements OnInit {
         firstName,
         lastName,
         title,
-        education,
+        '',
         birthPlace,
         residence,
       )

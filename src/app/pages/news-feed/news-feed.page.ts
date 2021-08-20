@@ -76,7 +76,7 @@ export class NewsFeedPage {
           this.storage.get('userLocations').then(res => {
             this.userLocations = res;
           });
-
+          await this.accountService.storeLoggedInUser();
           this.refresh();
           // see if there are more than one page if so get them
           await this.getPosts(1);

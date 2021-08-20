@@ -28,7 +28,7 @@
   No notifications yet
 </h1>
   <ion-list class="notifications-list">
-    <ion-card *ngFor="let item of notifications">
+    <ion-card *ngFor="let item of notifications" (click)="openPost(item.postId)">
       <ion-grid class="comments-grid">
         <ion-row style="padding-left: 8px;
         padding-top: 8px;">

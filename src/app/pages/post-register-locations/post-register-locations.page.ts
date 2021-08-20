@@ -81,7 +81,12 @@ export class PostRegisterLocationsPage {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
+    const loading = await this.loadingController.create({
+      // duration: 9000
+    });
+    await loading.present();
+
     this.mapLocationsToRequest();
     this.accountService
       .accountUpdateLocationsPost(this.locationRequest)
@@ -89,13 +94,15 @@ export class PostRegisterLocationsPage {
       .subscribe(
         (res) => {
           const navigationExtras: NavigationExtras = {
-            replaceUrl: false
+            replaceUrl: true
           };
+          loading.dismiss();
           this.zone.run(() => {
             this.router.navigateByUrl('/tab1', navigationExtras);
           });
         },
         (error) => {
+          loading.dismiss();
           this.hasError = true;
           this.error = 'An unexpected error has occurred.';
         }

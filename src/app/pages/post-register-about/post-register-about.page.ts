@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -42,7 +42,7 @@ export class PostRegisterAboutPage implements OnInit {
     ],
     birthPlace: [{ type: 'required', message: 'Birthplace is required.' }],
     residence: [{ type: 'required', message: 'Residence is required.' }],
-    education: [{ type: 'required', message: 'Please select a valid option' }],
+    // education: [{ type: 'required', message: 'Please select a valid option' }],
     title: [{ type: 'required', message: 'A useful title is required' }],
   };
   constructor(
@@ -51,7 +51,8 @@ export class PostRegisterAboutPage implements OnInit {
     public formBuilder: FormBuilder,
     private zone: NgZone,
     private route: ActivatedRoute,
-    private accountService: AccountsService
+    private accountService: AccountsService,
+    private cd: ChangeDetectorRef
   ) {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -68,13 +69,13 @@ export class PostRegisterAboutPage implements OnInit {
     const birthday = new FormControl(new Date(), Validators.required);
     const birthPlace = new FormControl('', Validators.required);
     const residence = new FormControl('', Validators.required);
-    const education = new FormControl('', Validators.required);
+    // const education = new FormControl('', Validators.required);
     const title = new FormControl('', Validators.required);
     this.aboutForm = new FormGroup({
       birthday,
       birthPlace,
       residence,
-      education,
+      // education,
       title,
     });
   }
@@ -94,7 +95,7 @@ export class PostRegisterAboutPage implements OnInit {
       birthLocation: this.aboutForm.controls.birthPlace.value,
       residenceLocation: this.aboutForm.controls.residence.value,
       title: this.aboutForm.controls.title.value,
-      education: this.aboutForm.controls.education.value,
+      education: '',
       sso: this.sso
     } as RegisterRequest;
 
@@ -107,14 +108,25 @@ export class PostRegisterAboutPage implements OnInit {
             .loginWithToken(res)
             .pipe(take(1))
             .subscribe(
-              () => {
-                this.uploadImage();
+              async () => {
+                await this.uploadImage().then(() => {
+                  loading.dismiss();
+                  const navigationExtras: NavigationExtras = {
+                    replaceUrl: true,
+                  };
+                  this.zone.run(() => {
+                    this.router.navigateByUrl(
+                      '/post-register-locations',
+                      navigationExtras
+                    );
+                  });
+                });
                 // if (environment.production !== false) {
                 //   this.accountService.SendVerificationMail().pipe(take(1)).subscribe();
                 // }
-                loading.dismiss();
               },
               () => {
+                alert('Error logging in after register');
                 loading.dismiss();
               }
             );
@@ -127,22 +139,18 @@ export class PostRegisterAboutPage implements OnInit {
   }
 
   uploadImage() {
-    console.log(this.accountService.getToken());
-    const navigationExtras: NavigationExtras = {
-      replaceUrl: false,
-    };
-    this.accountService
-      .accountUpdateProfileImagePost(this.blob)
-      .pipe(take(1))
-      .subscribe(async (res) => {
-        await this.accountService.storeLoggedInUser();
-        this.zone.run(() => {
-          this.router.navigateByUrl(
-            '/post-register-locations',
-            navigationExtras
-          );
+    return new Promise((resolve, reject) => {
+      this.accountService
+        .accountUpdateProfileImagePost(this.blob)
+        .pipe(take(1))
+        .subscribe(async (res) => {
+          await this.accountService.storeLoggedInUser();
+          resolve('');
+        }, () => {
+          alert('Error uploading image');
+          reject('');
         });
-      });
+    });
   }
 
   b64toBlob(dataURI) {
@@ -170,5 +178,6 @@ export class PostRegisterAboutPage implements OnInit {
     // Can be set to the src of an image now
     this.userImage = imageUrl;
     this.b64toBlob(this.image.dataUrl);
+    this.cd.detectChanges();
   }
 }
