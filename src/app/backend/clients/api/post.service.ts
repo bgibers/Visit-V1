@@ -137,6 +137,65 @@ export class PostService {
     );
   }
 
+      /**
+     *
+     *
+     * @param commentId
+     * @param body
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+       public postsCommentCommentIdEditPost(commentId: string, body?: CommentApi, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+       public postsCommentCommentIdEditPost(commentId: string, body?: CommentApi, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+       public postsCommentCommentIdEditPost(commentId: string, body?: CommentApi, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+       public postsCommentCommentIdEditPost(commentId: string, body?: CommentApi, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+           if (commentId === null || commentId === undefined) {
+               throw new Error('Required parameter commentId was null or undefined when calling postsCommentCommentIdEditPost.');
+           }
+
+
+           let headers = this.defaultHeaders;
+
+           // authentication (Bearer) required
+           if (this.configuration.apiKeys && this.configuration.apiKeys.Authorization) {
+                          headers = headers.set('Authorization', this.configuration.apiKeys.Authorization);
+           }
+
+           // to determine the Accept header
+           const httpHeaderAccepts: string[] = [
+               'text/plain',
+               'application/json',
+               'text/json'
+           ];
+           const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+           if (httpHeaderAcceptSelected != undefined) {
+               headers = headers.set('Accept', httpHeaderAcceptSelected);
+           }
+
+           // to determine the Content-Type header
+           const consumes: string[] = [
+               'application/json-patch+json',
+               'application/json',
+               'text/json',
+               'application/_*+json'
+           ];
+           const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+           if (httpContentTypeSelected != undefined) {
+               headers = headers.set('Content-Type', httpContentTypeSelected);
+           }
+
+           return this.httpClient.request<boolean>('post', `${this.basePath}/posts/comment/${encodeURIComponent(String(commentId))}/edit`,
+               {
+                   body,
+                   withCredentials: this.configuration.withCredentials,
+                   headers,
+                   observe,
+                   reportProgress
+               }
+           );
+       }
+
   /**
    * @param postId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -418,6 +477,73 @@ export class PostService {
       }
     );
   }
+
+    /**
+     *
+     *
+     * @param postId
+     * @param caption
+     * @param postType
+     * @param locationCode
+     * @param image
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+     public postsPostIdEditPostForm(postId: string, caption?: string, postType?: string, locationCode?: string, image?: Blob, observe?: 'body', reportProgress?: boolean): Observable<NewPostResponse>;
+     public postsPostIdEditPostForm(postId: string, caption?: string, postType?: string, locationCode?: string, image?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NewPostResponse>>;
+     public postsPostIdEditPostForm(postId: string, caption?: string, postType?: string, locationCode?: string, image?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NewPostResponse>>;
+     public postsPostIdEditPostForm(postId: string, caption?: string, postType?: string, locationCode?: string, image?: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+      let headers = this.defaultHeaders;
+
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = [
+        'text/plain',
+        'application/json',
+        'text/json',
+      ];
+      const httpHeaderAcceptSelected:
+        | string
+        | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      if (httpHeaderAcceptSelected !== undefined) {
+        headers = headers.set('Accept', httpHeaderAcceptSelected);
+      }
+
+      // to determine the Content-Type header
+      const consumes: string[] = ['multipart/form-data'];
+
+      let formParams: { append(param: string, value: any): void };
+      formParams = new FormData();
+
+      const convertFormParamsToString = false;
+
+      if (caption !== undefined) {
+        formParams =
+          (formParams.append('Caption', caption as any) as any) || formParams;
+      }
+      if (postType !== undefined) {
+        formParams =
+          (formParams.append('PostType', postType as any) as any) || formParams;
+      }
+      if (locationCode !== undefined) {
+        formParams =
+          (formParams.append('LocationCode', locationCode as any) as any) ||
+          formParams;
+      }
+      if (image !== undefined) {
+        formParams =
+          (formParams.append('Image', image as any) as any) || formParams;
+      }
+
+      return this.httpClient.request<NewPostResponse>('post', `${this.basePath}/posts/${encodeURIComponent(String(postId))}/edit`,
+             {
+                 body: convertFormParamsToString ? formParams.toString() : formParams,
+                 withCredentials: this.configuration.withCredentials,
+                 headers,
+                 observe,
+                 reportProgress
+             }
+         );
+     }
 
   /**
    * @param page

@@ -145,6 +145,12 @@ const routes: Routes = [
     path: 'forgot-password',
     loadChildren: () => import('./pages/modals/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
+  {
+    path: 'edit-post',
+    loadChildren: () => import('./pages/edit-post/edit-post.module').then( m => m.EditPostPageModule),
+    canActivate: [AuthGuard]
+  },
+
 ];
 @NgModule({
   imports: [

@@ -98,8 +98,8 @@
     </ion-card-content>
   </ion-card>
  
-  <!-- <div class="map-search-container">
-    <ion-searchbar (focusout)="show(true)"  (search)="searchvalue()" (focusin)="show(false)"  spellcheck="true"  [(ngModel)]="filterTerm"></ion-searchbar>
+  <div class="map-search-container">
+    <!-- <ion-searchbar (focusout)="show(true)"  (search)="searchvalue()" (focusin)="show(false)"  spellcheck="true"  [(ngModel)]="filterTerm"></ion-searchbar>
     <ion-list  *ngIf="hide == true">
       <ion-item *ngFor="let data of countries.Countries | filter:filterTerm" (click)="dataas(data)">
        
@@ -111,8 +111,8 @@
         <ion-label>{{data.name}}</ion-label>
       
       </ion-item>
-    </ion-list>
-  </div> -->
+    </ion-list> -->
+  </div>
   <div id="user-map" class="chartdiv" onload="onLoad()"></div>
 </ion-content>
 <ion-fab vertical="bottom" class="map-filter-fab">

@@ -1,0 +1,94 @@
+<div class="splash">
+  <ion-header class="ion-no-border">
+    <ion-toolbar color="#128C7E" class="ion-no-border">
+      <ion-grid class="header-grid">
+        <ion-row class="ion-align-items-baseline">
+          <ion-col class="ion-justify-content-start">
+            <ion-buttons>
+              <ion-back-button defaultHref="/tab1" (click)="dismiss()" style="color: white;"></ion-back-button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+  </ion-header>    
+  <ion-content no-bounce scrollY>
+    <h1>Edit Post</h1>
+    <h3>
+      Edit your posts text or location 
+    </h3>
+      <ion-grid>
+        <ion-row *ngIf="existingPost.postContentLink">
+          <img 
+          [src]="existingPost.postContentLink"
+          [alt]=""
+          height="300"
+          class="rcorners"
+        />
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item class="roundedInput">
+              <ion-textarea
+                [(ngModel)]="postText"
+                rows="5"
+                [placeholder]="existingPost.postCaption"
+                maxlength="250"
+                autocapitalize="true"
+                autocomplete=“true” 
+                spellcheck=“true”
+                class="rcorners"
+                required
+              ></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item class="roundedInput">
+              <ion-label>Location*</ion-label>
+              <ionic-selectable
+                disabled = true,
+                [(ngModel)]="selectedLocation"
+                [items]="locationOptions"
+                itemValueField="id"
+                itemTextField="name"
+                [canSearch]="true"
+                [placeholder]="existingPost.location.locationName"
+              >
+              </ionic-selectable>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <div class="button-div">
+          <ion-row>
+          <ion-col>
+          <ion-button
+            class="submit-button"
+            expand="block"
+            type="submit"
+            (click)="updatePost()"
+            >Update post</ion-button
+          >
+          </ion-col>
+          <ion-col>
+          <ion-button
+            class="submit-button"
+            expand="block"
+            type="submit"
+            (click)="dismiss()"
+            >Cancel</ion-button
+          >
+          </ion-col>
+          </ion-row>
+        </div>
+      </ion-grid>
+      <div class="validation-errors">
+        <div class="error-message" *ngIf="error">
+          <ion-icon name="information-circle-outline"></ion-icon> Unexpected error
+          when creating post
+        </div>
+      </div>
+  </ion-content>
+  </div>
+  

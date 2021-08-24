@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { ActionSheetController, LoadingController, ModalController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 import { AccountsService, PostService } from 'src/app/backend/clients';
 import { CommentApi } from 'src/app/backend/clients/model/commentApi';
@@ -8,6 +8,7 @@ import { SearchPage } from '../modals/search/search.page';
 import { Storage } from '@ionic/storage';
 import { PostApi } from 'src/app/backend/clients/model/postApi';
 import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
+import { EditPostPage } from '../edit-post/edit-post.page';
 
 @Component({
   selector: 'comments',
@@ -30,16 +31,20 @@ export class CommentsPage {
     private storage: Storage,
     public modalController: ModalController,
     public loadingController: LoadingController,
+    public actionSheetController: ActionSheetController,
     private router: Router,
     private zone: NgZone,
     private route: ActivatedRoute,
     private postSvc: PostService,
     private accountService: AccountsService,
+    
     private cd: ChangeDetectorRef
   ) {
     this.storage.get('image').then((val) => {
       this.image = val.avi;
    });
+
+    this.userId = this.accountService.getUserId();
 
     this.route.queryParams.subscribe((params) => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -52,6 +57,44 @@ export class CommentsPage {
 
   myFunc() {
     return { count: 1, data: { id: 1 } };
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      // header: 'Post',
+      cssClass: 'my-custom-class',
+      buttons: [{
+        text: 'Edit Post',
+        // role: 'destructive',
+        icon: 'create-outline',
+        handler: async () => {
+          const modal = await this.modalController.create({
+            component: EditPostPage,
+            showBackdrop: true,
+            componentProps: {
+              post: this.post
+            },
+          });
+
+          modal.onDidDismiss().then(async (dataReturned) => {
+          });
+
+          return await modal.present();
+        }
+      },
+      {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+
+    const { role } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 
   async getPostInfo() {

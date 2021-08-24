@@ -80,9 +80,9 @@
           }}</ion-card-subtitle>
         </ion-row>
       </ion-col>
-      <ion-col size=".4">
+      <ion-col size=".4" *ngIf="userId === post?.fkUserId">
         <ion-buttons>
-          <ion-button class="ion-justify-content-center">
+          <ion-button class="ion-justify-content-center" (click)="presentActionSheet()">
             <img src="../../assets/UI/optionsDots.svg" />
           </ion-button>
         </ion-buttons>
@@ -193,6 +193,13 @@
                       <ion-text color="medium"
                         >{{comment.date | dateAgo}}</ion-text
                       >
+                    </ion-col>
+                    <ion-col size=".4" *ngIf="userId === post.fkUserId">
+                      <ion-buttons>
+                        <ion-button class="ion-justify-content-center" (click)="presentActionSheet()">
+                          <img src="../../assets/UI/optionsDots.svg" />
+                        </ion-button>
+                      </ion-buttons>
                     </ion-col>
                   </ion-row>
                 </ion-col>

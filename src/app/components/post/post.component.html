@@ -29,9 +29,9 @@
               }}</ion-card-subtitle>
             </ion-row>
           </ion-col>
-          <ion-col size=".4">
+          <ion-col size=".4" *ngIf="userId === post.fkUserId">
             <ion-buttons>
-              <ion-button class="ion-justify-content-center">
+              <ion-button class="ion-justify-content-center" (click)="presentActionSheet(post)">
                 <img src="../../assets/UI/optionsDots.svg" />
               </ion-button>
             </ion-buttons>
