@@ -90,10 +90,10 @@ export class MapFilterPage {
     this.searchLocations.dis = e;
   }
 
-  async ionViewWillLeave() {
-    this.filter = '';
-    await this.closeModal();
-  }
+  // async ionViewWillLeave() {
+  //   this.filter = '';
+  //   await this.closeModal();
+  // }
 
   async resetFilter() {
     this.filter = '';

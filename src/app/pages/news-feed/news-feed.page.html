@@ -49,7 +49,7 @@
     </ion-refresher-content>
   </ion-refresher>
   <post [posts]="posts"></post>
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="getPosts(1, $event)">
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="getPosts(1, $event)" position="top">
     <ion-infinite-scroll-content
       loadingSpinner="circles"
       loadingText="Getting more posts..."

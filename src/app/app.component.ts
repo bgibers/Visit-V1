@@ -76,6 +76,11 @@ export class AppComponent implements OnInit {
     firebase.initializeApp(environment.firebaseConfig);
   }
 
+  refresh() {
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate(['tab1']);
+    });
+  }
   private registerPush() {
     PushNotifications.requestPermissions().then((result) => {
       if (result.receive === 'granted') {

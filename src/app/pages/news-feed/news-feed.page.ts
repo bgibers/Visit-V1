@@ -61,9 +61,9 @@ export class NewsFeedPage {
   }
 
   async ionViewDidEnter() {
+    console.log(this.filter)
     const loading = await this.loadingController.create();
     await loading.present();
-    console.log(`${this.pageNumber}, ${this.filter}, ${this.selectedUserId}`)
     this.postService
       .postsPageGet(this.pageNumber, this.filter, this.selectedUserId)
       .pipe(take(1))
@@ -77,7 +77,7 @@ export class NewsFeedPage {
             this.userLocations = res;
           });
           await this.accountService.storeLoggedInUser();
-          this.refresh();
+          // this.refresh();
           // see if there are more than one page if so get them
           await this.getPosts(1);
           loading.dismiss();
@@ -91,7 +91,7 @@ export class NewsFeedPage {
       );
   }
 
-  ionViewWillLeave() {
+  ionViewDidLeave() {
     this.pageNumber = 1;
     this.morePages = false;
   }
@@ -191,7 +191,7 @@ export class NewsFeedPage {
     });
   }
 
-  async presentMapFilter() {
+  async presentMapFilter(event?: any) {
     const modal = await this.modalController.create({
       component: MapFilterPage,
       showBackdrop: true,
@@ -206,12 +206,9 @@ export class NewsFeedPage {
       const loading = await this.loadingController.create();
       // await loading.present();
 
-      if (dataReturned !== null) {
+      if (dataReturned !== null && dataReturned.data !== undefined) {
         this.filter = dataReturned.data;
         this.refreshPosts();
-        this.refresh();
-        // await loading.dismiss();
-      } else {
         this.refresh();
       }
     });
