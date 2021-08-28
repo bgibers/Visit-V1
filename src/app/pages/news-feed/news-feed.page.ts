@@ -152,12 +152,14 @@ export class NewsFeedPage {
       .pipe(take(1))
       .subscribe(
         (res) => {
-          this.morePages = res.hasNextPage;
-          this.pageNumber = res.pageIndex;
-          this.posts = res.items;
-          if (event) {
-            event.target.complete();
-          }
+          this.zone.run(() => {
+            this.morePages = res.hasNextPage;
+            this.pageNumber = res.pageIndex;
+            this.posts = res.items;
+            if (event) {
+              event.target.complete();
+            }
+          });
         },
         async (err) => {
           console.log(err);
@@ -203,9 +205,6 @@ export class NewsFeedPage {
     });
 
     modal.onDidDismiss().then(async (dataReturned) => {
-      const loading = await this.loadingController.create();
-      // await loading.present();
-
       if (dataReturned !== null && dataReturned.data !== undefined) {
         this.filter = dataReturned.data;
         this.refreshPosts();
@@ -217,6 +216,6 @@ export class NewsFeedPage {
   }
 
   refresh() {
-    this.cd.detectChanges();
+    setTimeout(() => this.cd.detectChanges(), 0);
   }
 }
