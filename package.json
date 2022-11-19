@@ -16,7 +16,7 @@
   "dependencies": {
     "@amcharts/amcharts4": "^4.9.34",
     "@amcharts/amcharts4-geodata": "^4.1.17",
-    "@angular-builders/custom-webpack": "^10.0.0",
+    "@angular-builders/custom-webpack": "^14.1.0",
     "@angular/common": "~9.1.13",
     "@angular/core": "~9.1.13",
     "@angular/fire": "^6.1.4",
@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@angular-devkit/architect": "^0.803.26",
-    "@angular-devkit/build-angular": "~0.901.15",
+    "@angular-devkit/build-angular": "~15.0.0",
     "@angular/cli": "^9.1.15",
     "@angular/compiler": "~9.1.13",
     "@angular/compiler-cli": "~9.1.13",
